@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+    font-family: 'Roboto', sans-serif;
+}
+#content{
+    display: flex;
+    justify-content: center;
+    margin: 30%;
+    width: 30%;
+    padding: 50px;
+    margin-top: 40px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px 10px grey;
+}
+#img,
+#boton,
+h1{
+    text-align: center;
+}
+
+a{
+    font-size: 15px;
+    text-decoration: none;
+    color: #2ba8fb;
+}
+  
+input{
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+input[type="email"],
+input[type="password"]{
+  border-radius: 5px;
+  width: 300px;
+  height: 25px;
+}
+.inputGrupo input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+  }
+
+.inputGrupo :is(input:focus, input:valid) {
+    border-color: #2ba8fb;
+  }
+
+/*Animacion del boton*/
+input[type="submit"] {
+    padding: 12.5px 30px;
+    border: 0;
+    border-radius: 100px;
+    background-color: #0484d9;
+    color: #ffffff;
+    font-weight: Bold;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #6fc5ff;
+    box-shadow: 0 0 20px #6fc5ff50;
+    transform: scale(1.1);
+  }
+  
+  input[type="submit"]:active {
+    background-color: #3d94cf;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+  }
+   
+@media screen and (max-width:767px) {
+  #content{
+    display: flex;
+    justify-content: center;
+    width: 65%;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 30px 10px grey;
+}
+    input[type="email"],
+    input[type="password"]{
+        border-radius: 5px;
+        width: auto;
+        height: 25px;
+    }
+    .inputGrupo input {
+      font-size: 100%;
+      padding: 0.8em;
+      outline: none;
+      border: 2px solid rgb(200, 200, 200);
+      background-color: transparent;
+      border-radius: 20px;
+      width: 100%;
+    }
+}
+
