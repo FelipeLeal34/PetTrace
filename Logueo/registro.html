@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/loguin.css">
+    <script src="js/cargarBarrios.js"></script>
+    <title>Registrarse</title>
+</head>
+<body>
+    <div id="content">
+        <div>
+            <div id="img">
+                <img src="img/user.png" width="150px">
+            </div>
+            <h1>Registrarse</h1>
+        <div>
+            <div class="inputGrupo">
+                <label for="txtnombre">Ingrese su nombre*</label>
+                <input type="text" name="txtnombre" required>
+            </div>
+            <div class="inputGrupo">
+                <label for="txtdocumento">Numero de Documento*</label>
+                <input type="number" name="txtdocumento" required>
+            </div>
+            <div class="inputGrupo">
+                <label for="txtcorreo">Correo*</label>
+                <input type="email" name="txtcorreo" required>
+            </div>
+            <div class="inputGrupo">
+                <label for="txtcontrasena">Ingrese una contraseña*</label>
+                <input type="password" name="txtcontrasena" required>
+            </div>
+            <div class="inputGrupo">
+                <label for="txttelefono">Numero de telefono*</label>
+                <input type="number" name="txttelefono" required>
+            </div>
+            <div class="">
+                <label for="txtlocalidad">Elija su localidad*</label>
+                <select name="txtlocalidad" id="localidades" onchange="cargarBarrios()">
+                    <option value="" selected disabled>Seleccione una localidad</option>
+                    <option value="Usaquén">Usaquén</option>
+                    <option value="Chapinero">Chapinero</option>
+                    <option value="Santa Fe">Santa Fe</option>
+                    <option value="San Cristóbal">San Cristóbal</option>
+                    <option value="Usme">Usme</option>
+                    <option value="Tunjuelito">Tunjuelito</option>
+                    <option value="Bosa">Bosa</option>
+                    <option value="Kennedy">Kennedy</option>
+                    <option value="Fontibón">Fontibón</option>
+                    <option value="Engativá">Engativá</option>
+                    <option value="Suba">Suba</option>
+                    <option value="Barrios Unidos">Barrios Unidos</option>
+                    <option value="Teusaquillo">Teusaquillo</option>
+                    <option value="Los Mártires">Los Mártires</option>
+                    <option value="Antonio Nariño">Antonio Nariño</option>
+                    <option value="Puente Aranda">Puente Aranda</option>
+                    <option value="La Candelaria">La Candelaria</option>
+                    <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
+                    <option value="Ciudad Bolívar">Ciudad Bolívar</option>
+                    <option value="Sumapaz">Sumapaz</option>
+                    <option value="Laureles">Laureles</option>
+                    <option value="Los Pinos">Los Pinos</option>
+                    <option value="San Juan">San Juan</option>
+                    <option value="El Codito">El Codito</option>
+                    <option value="Chía">Chía</option>
+                    <option value="Soacha">Soacha</option>
+                    <option value="Moscú">Moscú</option>
+                </select>
+            </div>
+            <div class="">
+                <label for="txtbarrio">Elija su barrio*</label>
+                <select name="txtbarrios" id="barrios">
+                    <option>Seleccione un barrio</option>
+                </select>
+            </div>
+        </div>
+                <div>
+                    <a href="">¿Has olvidado tu contraseña?</a>
+                </div>
+            
+            <div>
+                <div id="boton">
+                    <input type="submit" value="Iniciar Sesión">
+                </div>
+                <a href="">No tengo una cuenta</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
