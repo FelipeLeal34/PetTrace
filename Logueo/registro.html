@@ -35,7 +35,20 @@
                 <label for="txttelefono">Numero de telefono*</label>
                 <input type="number" name="txttelefono" required>
             </div>
-            <div class="">
+            <div>
+                <span>Seleccione su ubicación:</span>
+                <button onclick="obtenerUbicacion()">Obtener Ubicación</button>
+                <div id="datosUbicacion" style="display: none;">
+                    <input type="hidden" name="latitud" id="latitud">
+                    <input type="hidden" name="longitud" id="longitud">
+                </div>
+                <div id="map" style="display: none;">
+                    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASAiz3TC77SjkINwBH9KUjE6OBJfup2N4&callback=initMap"></script>
+                </div>
+            </div>
+            <div id="ubicacionManual" style="display: none;">
+                <span>O si lo desea elijala usted mismo:</span>
+                <div>
                 <label for="txtlocalidad">Elija su localidad*</label>
                 <select name="txtlocalidad" id="localidades" onchange="cargarBarrios()">
                     <option value="" selected disabled>Seleccione una localidad</option>
@@ -56,16 +69,8 @@
                     <option value="Antonio Nariño">Antonio Nariño</option>
                     <option value="Puente Aranda">Puente Aranda</option>
                     <option value="La Candelaria">La Candelaria</option>
-                    <option value="Rafael Uribe Uribe">Rafael Uribe Uribe</option>
+                    <option value="Rafael Uribe">Rafael Uribe</option>
                     <option value="Ciudad Bolívar">Ciudad Bolívar</option>
-                    <option value="Sumapaz">Sumapaz</option>
-                    <option value="Laureles">Laureles</option>
-                    <option value="Los Pinos">Los Pinos</option>
-                    <option value="San Juan">San Juan</option>
-                    <option value="El Codito">El Codito</option>
-                    <option value="Chía">Chía</option>
-                    <option value="Soacha">Soacha</option>
-                    <option value="Moscú">Moscú</option>
                 </select>
             </div>
             <div class="">
@@ -74,6 +79,7 @@
                     <option>Seleccione un barrio</option>
                 </select>
             </div>
+        </div>
         </div>
                 <div>
                     <a href="">¿Has olvidado tu contraseña?</a>
