@@ -5,12 +5,15 @@ body {
 #content{
     display: flex;
     justify-content: center;
-    margin: 30%;
+    margin: 33%;
     width: 30%;
     padding: 50px;
-    margin-top: 40px;
+    margin-top: 10px;
     border-radius: 20px;
     box-shadow: 10px 10px 30px 10px grey;
+}
+#logoimg{
+  width: 600px;
 }
 #img,
 #boton,
@@ -84,6 +87,10 @@ input[type="submit"] {
     margin-top: 20px;
     border-radius: 20px;
     box-shadow: 10px 10px 30px 10px grey;
+}
+#logoimg{
+  width: 100%;
+  height: auto;
 }
     input[type="email"],
     input[type="password"]{
