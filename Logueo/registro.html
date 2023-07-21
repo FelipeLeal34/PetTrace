@@ -40,13 +40,20 @@
             </div>
             <div>
                 <span>Seleccione su ubicación:</span>
-                <button onclick="obtenerUbicacion()">Obtener Ubicación</button>
+                <button class="btn" onclick="obtenerUbicacion()">
+                    <p class="paragraph"> Obtener Ubicación </p>
+                    <span class="icon-wrapper">
+                      <svg class="icon" width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C9.243 2 7 4.243 7 7C7 10.131 11.542 15.153 11.862 15.5C11.964 15.648 12.036 15.648 12.138 15.5C12.458 15.153 17 10.131 17 7C17 4.243 14.757 2 12 2ZM12 9.5C10.619 9.5 9.5 8.381 9.5 7C9.5 5.619 10.619 4.5 12 4.5C13.381 4.5 14.5 5.619 14.5 7C14.5 8.381 13.381 9.5 12 9.5ZM12 5.5C11.172 5.5 10.5 6.172 10.5 7C10.5 7.828 11.172 8.5 12 8.5C12.828 8.5 13.5 7.828 13.5 7C13.5 6.172 12.828 5.5 12 5.5Z" fill="#ffff"></path>
+                      </svg>
+                    </span>
+                  </button>
                 <div id="datosUbicacion" style="display: none;">
                     <input type="hidden" name="latitud" id="latitud">
                     <input type="hidden" name="longitud" id="longitud">
                 </div>
                 <div id="map" style="display: none;">
-                    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyASAiz3TC77SjkINwBH9KUjE6OBJfup2N4&callback=initMap"></script>
+                    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy5RZFqhkfKiKIBvRwiuQTtfn20VayQHA&callback=initMap"></script>
                 </div>
             </div>
             <div id="ubicacionManual" style="display: none;">

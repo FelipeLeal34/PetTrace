@@ -2090,6 +2090,7 @@ function cargarBarrios() {
 
 var latitudInput;
 var longitudInput;
+var map;
 
 function obtenerUbicacion() {
   if (navigator.geolocation) {
@@ -2115,7 +2116,7 @@ function mostrarMapa(latitud, longitud) {
   latitudInput.value = latitud;
   longitudInput.value = longitud;
 
-  var map = new google.maps.Map(document.getElementById("map"), {
+  map = new google.maps.Map(document.getElementById("map"), {
     center: { lat: latitud, lng: longitud },
     zoom: 15,
   });
@@ -2140,4 +2141,3 @@ function initMap() {
   latitudInput = document.getElementById("latitud");
   longitudInput = document.getElementById("longitud");
 }
-
