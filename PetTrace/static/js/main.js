@@ -1,7 +1,7 @@
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.querySelectorAll(".publi-modelo");
 const btnCerrar = document.querySelector("#btn-cerrar");
-const btnCerrarModal = document.querySelector(".icon-cancel");
+const btnCerrarModal = document.querySelector("#icon-cancel");
 const agregarPubli = document.querySelector(".agregarPubli");
 const main = document.getElementsByTagName("main");
 

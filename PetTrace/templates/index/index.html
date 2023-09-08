@@ -1,112 +1,18 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Inicio</title>
-	<link rel="stylesheet" type="text/css" href="css/fontello.css">
-	<link rel="stylesheet" type="text/css" href="css/index.css">
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 
 </head>
 <body>
 
-
-	<header>
-
-		<div class="header">
-
-		<div id="logo">
-		
-		<img src="img/LogoPetTraceBorde.png">
-
-		</div>
-
-		
-
-
-		
-
-
-		<label class="icon-menu" for="checkbox">
-			
-		</label>
-
-		
-
-		</div>
-
-		<input type="checkbox" id="checkbox">
-
-		<nav>
-
-
-		
-
-
-
-			
-			<ul>
-				<li>
-				<div id="fotoperfil">
-					<a href="index.html">
-					<img src="img/fotoperfil.jpg">
-					</a>
-				</div>
-				</li>
-
-				<li class="li">
-					<span class="icon-user-o"></span>
-					<a href="">PERFIL</a>
-				</li>
-			
-
-				
-				<li class="li">
-					<span class="icon-search"></span>
-					<a href="pages/perdidas.html">PERDIDAS</a>
-				</li>
-			
-
-			
-				<li class="li">
-					<span class="icon-paw"></span>
-					<a href="">ENCONTRADAS</a>
-				</li>
-			
-
-			
-				<li class="li">
-					<span class="icon-firefox"></span>
-					<a href="">ADOPCIONES</a>
-				</li>
-
-				<li class="li">
-					<span class="icon-bell-alt"></span>
-					<a href="">NOTIFICACIONES</a>
-				</li>
-
-				<li class="li">
-					<span class="icon-comment"></span>
-					<a href="">MENSAJES</a>
-				</li>
-
-				<li class="li">
-					<span class="icon-cog"></span>
-					<a href="">AJUSTES</a>
-				</li>
-			</ul>
-
-			
-			
-		</nav>
-
-
-		
-
-
-
-	</header>
-
+{% include 'default/header.html' %}
 
 	<main>
 
@@ -119,10 +25,10 @@
 
 			<div class="slider-frame">
 				<ul>
-					<li><img src="img/banner1.jpg" class="slider-img"></li>
-					<li><img src="img/banner2.jpg" class="slider-img"></li>
-					<li><img src="img/banner3.jpeg" class="slider-img"></li>
-					<li><img src="img/banner4.jpg" class="slider-img"></li>
+					<li><img src="{% static 'img/banner1.jpg' %}" class="slider-img"></li>
+					<li><img src="{% static 'img/banner2.jpg' %}" class="slider-img"></li>
+					<li><img src="{% static 'img/banner3.jpeg' %}" class="slider-img"></li>
+					<li><img src="{% static 'img/banner4.jpg' %}" class="slider-img"></li>
 				</ul>
 			</div>
 
@@ -179,7 +85,7 @@
 			<div class="card">
 
 
-				<img src="img/card1.jpg">
+				<img src="{% static 'img/card1.jpg' %}">
 
 				
 				<div id="card-text">
@@ -201,7 +107,7 @@
 				<div class="card">
 
 
-				<img src="img/card2.jpg">
+				<img src="{% static 'img/card2.jpg' %}">
 
 				
 				<div id="card-text">
@@ -226,7 +132,7 @@
 				<div class="card">
 
 
-				<img src="img/card3.jpg">
+				<img src="{% static 'img/card3.jpg' %}">
 
 				
 				<div id="card-text">
@@ -254,13 +160,9 @@
 	</main>
 
 
-	<footer>
-		
-		<div class="icon-container"><span class="icon-facebook"></span></div>
-		<div class="icon-container"><span class="icon-instagram-filled"></span></div>
-		<div class="icon-container"><span class="icon-twitter-bird"></span></div>
+	{% include 'default/footer.html' %}
 
-	</footer>
+
 
 
 

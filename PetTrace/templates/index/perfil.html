@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,65 +8,21 @@
         <link rel="stylesheet" type="text/css" href="../css/fontello.css">
         <link rel="stylesheet" type="text/css" href="../css/index.css">
         <link rel="stylesheet" type="text/css" href="css/perdidas.css">
-        <link rel="stylesheet" type="text/css" href="css/perfil.css">
+       
         <title>Perfil usuario</title>
     </head>
 <body>
-    <header>
-        <div class="header">
-            <div id="logo">
-                <a href="../index.html">
-                    <img src="../img/LogoPetTraceBorde.png">
-                </a>
-            </div>
-            <label class="icon-menu" for="checkbox"></label>
-        </div>
-        <input type="checkbox" id="checkbox">
-        <nav>
-            <ul>
-                <li>
-                    <div id="fotoperfil">
-                        <img src="../img/fotoperfil.jpg">
-                    </div>
-                </li>
-                <li class="li">
-                    <span class="icon-user-o"></span>
-                    <a href="">PERFIL</a>
-                </li>
-                <li class="li">
-                    <span class="icon-search"></span>
-                    <a href="">PERDIDAS</a>
-                </li>
-                <li class="li">
-                    <span class="icon-paw"></span>
-                    <a href="">ENCONTRADAS</a>
-                </li>
-                <li class="li">
-                    <span class="icon-firefox"></span>
-                    <a href="">ADOPCIONES</a>
-                </li>
-                <li class="li">
-                    <span class="icon-bell-alt"></span>
-                    <a href="">NOTIFICACIONES</a>
-                </li>
-                <li class="li">
-                    <span class="icon-comment"></span>
-                    <a href="">MENSAJES</a>
-                </li>
-                <li class="li">
-                    <span class="icon-cog"></span>
-                    <a href="">AJUSTES</a>
-                </li>
-            </ul>
-        </nav>
-    </header>    
+   
+
+
+    {% include 'default/header.html' %}
 
     <main class="main">
         <div id="contenedor">
                
             <div id="contenido">
                 <div id="contImg">
-                    <img src="../img/fotoperfil.jpg">
+                    <img src="{% static 'img/fotoperfil.jpg' %}">
                 </div>
                 <div id="perfil">
                     <h1>Nombre de usuario</h1>
@@ -92,7 +49,7 @@
                 
                                 <div class="img-mascota-contenedor">
                 
-                                    <img src="../img/publi-1.jpg">
+                                    <img src="{% static 'img/publi-1.jpg' %}">
                 
                                 </div>
                             </div>
@@ -176,7 +133,7 @@
                 
                                 <div class="img-mascota-contenedor">
                 
-                                    <img src="../img/publi-2.jpg">
+                                    <img src="{% static 'img/publi-2.jpg' %}">
                 
                                 </div>
                             </div>
@@ -260,7 +217,7 @@
                 
                                 <div class="img-mascota-contenedor">
                 
-                                    <img src="../img/publi-3.jpg">
+                                    <img src="{% static 'img/publi-3.jpg' %}">
                 
                                 </div>
                             </div>
@@ -344,7 +301,7 @@
                 
                                 <div class="img-mascota-contenedor">
                 
-                                    <img src="../img/publi-4.jpg">
+                                    <img src="{% static 'img/publi-4.jpg' %}">
                 
                                 </div>
                             </div>
@@ -428,7 +385,7 @@
                 
                                 <div class="img-mascota-contenedor">
                 
-                                    <img src="../img/publi-5.jpg">
+                                    <img src="{% static 'img/publi-5.jpg' %}">
                 
                                 </div>
                             </div>
@@ -512,7 +469,7 @@
                 
                                 <div class="img-mascota-contenedor">
                 
-                                    <img src="../img/publi-3.jpg">
+                                    <img src="{% static 'img/publi-3.jpg' %}">
                 
                                 </div>
                             </div>
@@ -596,7 +553,7 @@
                 
                                 <div class="img-mascota-contenedor">
                 
-                                    <img src="../img/publi-4.jpg">
+                                    <img src="{% static 'img/publi-4.jpg' %}">
                 
                                 </div>
                             </div>
@@ -680,7 +637,7 @@
                 
                                 <div class="img-mascota-contenedor">
                 
-                                    <img src="../img/publi-5.jpg">
+                                    <img src="{% static 'img/publi-5.jpg' %}">
                 
                                 </div>
                             </div>
@@ -763,11 +720,8 @@
             </div>
         </div> 
     </main>    
-        <div class="menu">
-            <a href=""><span class="icon-th-thumb-empty"  id="filtrar"></span></a>
-            <a href=""><span class="icon-plus-circled" id="agregar"></span></a>
-            <a href=""><span class="icon-heart-empty" id="favoritos"></span></a>
-        </div>	
+    {% include 'default/footer.html' %}
+       
 
         </body>
         </html>
