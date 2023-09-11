@@ -1,0 +1,155 @@
+/*---------Header------------*/
+.header{
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: space-between;
+	
+	padding: 10px;
+}
+
+header{
+	display: block;
+	position: static;
+	margin-top: 0;
+	margin-left: 0;
+	width: 100%;
+	height: 5vh;
+	background: #a7bab9;
+}
+
+#logo{
+	width: 50%;
+	height: 100%;
+	left: 0;
+	cursor: pointer;
+}
+
+header img{
+	width: 100%;
+	height: 100%;
+}
+
+
+
+#checkbox{
+	display: none;
+}
+
+
+label{
+	cursor: pointer;
+	filter: invert(1);
+    padding: 15px;
+}
+
+
+nav {	
+    z-index: 101;
+    width: 100%;
+    display: flex;
+    transform: translateX(100%);
+    transition: transform 0.5s;
+    position: absolute;
+    top: 50px;
+}
+
+nav ul {
+	z-index: 101;
+	background: #657174;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	width: 30%;
+	height: calc(100vh - 5vh); 
+	border-radius: 10px;
+	transition: transform 0.5s;
+    
+}
+
+nav a{
+	text-decoration: none;
+	color: white;
+}
+
+#checkbox:checked ~ nav{
+	display: block ;
+	transform: translateX(70%);
+}
+
+nav li {
+    list-style: none;
+    padding: 20px;
+    width: 100%;
+    margin: 0;
+    font-size: 1em;
+    background-color: #657174 ;
+    opacity: 1;
+    transition: opacity 0.3 ease;
+    cursor: pointer;
+    z-index: 100;
+    flex-grow: 1;
+}
+
+#fotoperfil{
+    border: 3px #fff solid;
+    border-radius: 50%;
+    overflow: hidden;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    height: auto;
+   
+}
+    
+#fotoperfil img	{
+    width: 100%;
+    height: 100%;
+}
+    
+    
+nav .li:hover{
+    opacity: 0.8 ;
+    border-left: 3px #fff solid ;
+}
+
+h2, h3{
+	text-align: center;
+	color: #74868a;
+}
+
+/*---------Footer------------*/
+
+footer{
+	background: #a7bab9;
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: center;
+
+}
+
+
+footer span{
+	filter: invert(1);
+	font-size: 20px;
+}
+
+
+
+.icon-container{
+	margin: 5px;
+	padding: 10px;
+	cursor: pointer;
+	border-radius: 50%;
+	transition: all 1s;
+}
+
+.icon-container:hover > span{
+	filter: invert(0);
+}
+
+.icon-container:hover {
+	background: #fff;
+}

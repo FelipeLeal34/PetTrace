@@ -538,3 +538,9 @@ input[type="text"]:focus {
 .subfiltros-color-icon{
 	filter: invert(1);
 }
+
+@media screen and (min-width:1024px){
+	body{
+		margin-top: 70px;
+	}
+}
