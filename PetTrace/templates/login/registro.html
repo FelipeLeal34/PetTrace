@@ -19,25 +19,31 @@
             </div>
             <h1>Registrarse</h1>
         <div>
+        <form action="{{ app_path }}" method="post">
+            {% csrf_token %}
             <div class="inputGrupo">
-                <label for="txtnombre">Ingrese su nombre*</label>
-                <input type="text" name="txtnombre" required>
+                {{ form.Nombreusu.label_tag }}
+                {{ form.Nombreusu }}
             </div>
             <div class="inputGrupo">
-                <label for="txtdocumento">Numero de Documento*</label>
-                <input type="number" name="txtdocumento" required>
+                {{ form.Apellidousu.label_tag }}
+                {{ form.Apellidousu }}
             </div>
             <div class="inputGrupo">
-                <label for="txtcorreo">Correo*</label>
-                <input type="email" name="txtcorreo" required>
+                {{ form.Documentousu.label_tag }}
+                {{ form.Documentousu }}
             </div>
             <div class="inputGrupo">
-                <label for="txtcontrasena">Ingrese una contraseña*</label>
-                <input type="password" name="txtcontrasena" required>
+                {{ form.Correousu.label_tag }}
+                {{ form.Correousu }}
             </div>
             <div class="inputGrupo">
-                <label for="txttelefono">Numero de telefono*</label>
-                <input type="number" name="txttelefono" required>
+                {{ form.contrasena.label_tag }}
+                {{ form.contrasena }}
+            </div>
+            <div class="inputGrupo">
+                {{ form.Telefonousu.label_tag }}
+                {{ form.Telefonousu }}
             </div>
             <div>
                 <span>Seleccione su ubicación:</span>
@@ -98,10 +104,11 @@
             
             <div>
                 <div id="boton">
-                    <input type="submit" value="Iniciar Sesión">
+                    <input type="submit" value="Registrarse">
                 </div>
                 <a href="">No tengo una cuenta</a>
             </div>
+        </form>
         </div>
     </div>
 </body>
