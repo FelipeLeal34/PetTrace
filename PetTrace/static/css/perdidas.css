@@ -1,46 +1,5 @@
 
-/* -----------MENU DE NAVEGABILIDAD INFERIOR--------------- */
-
-.menu{
-
-	width: 100%;
-	height: auto;
-	background: #587073;
-	display: flex;
-	bottom: 0;
-	position: fixed;
-	justify-content: space-evenly;
-	border-radius: 5px;
-	z-index: 100000000;
-
-}
-
-.menu span{
-	text-decoration: none;
-	color: white;
-	margin: 10px;
-	background-color: none;
-	font-size: 25px;
-	cursor:pointer;
-	transition: all 0.8s;
-	border-radius: 50%;
-}
-
-.menu-span-focus{
-
-	transform: rotate(50deg);
-	filter: invert(1);
-
-}
-
-
-
-
-/** ----- PUBLICACIONES ------ **/
-
-
-
-/* ----------CONTENEDOR DE LAS PUBLICAICONES */
+/* ----------CONTENEDOR DE LAS PUBLICAICONES-----------*/
 
 .main{
 	display: flex;
@@ -540,7 +499,5 @@ input[type="text"]:focus {
 }
 
 @media screen and (min-width:1024px){
-	body{
-		margin-top: 70px;
-	}
+	
 }

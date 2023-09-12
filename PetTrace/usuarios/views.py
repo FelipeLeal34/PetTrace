@@ -12,3 +12,9 @@ def perfil(request):
  
 def perdidas(request):
      return render(request, 'index/perdidas.html')
+
+def login(request):
+     return render(request, 'login/inicioSesion.html')
+
+def registrar(request):
+     return render(request, 'login/registro.html')
