@@ -51,6 +51,20 @@
 }
 
 
+
+.mostrarSelect{
+	font-weight: bold; 
+	display: flex; 
+	align-items: center; 
+	
+	margin-right: 20px;
+}
+
+.mostrarSelect-flecha{
+	margin-left: 10px;
+}
+
+
 .publicaciones{
 	position: relative;
 	display: flex;
@@ -388,10 +402,14 @@ input[type="text"]:focus {
   border: 1px solid #a7bab9;
 }
 
-#vacunasmas{
 
+#vacunasmas{
 	display: none;
-	opacity: 0;
+}
+.select{
+
+	
+	
 	transition: opacity 0.3s ease-in-out;
 	border: none;
 	border-radius: 10px;
@@ -399,10 +417,14 @@ input[type="text"]:focus {
 
 }
 
-#vacunasmas option{
+.select option{
 	padding: 5px;
 	
 	
+}
+
+.dato, .dato-select{
+	margin-bottom: 10px;
 }
 
 

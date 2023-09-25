@@ -102,16 +102,12 @@ window.addEventListener("click",function(event) {
 
 
 
-/** PREVISUALIZAR IMAGEN **/
+/** ------------------PREVISUALIZAR IMAGEN EN EL FORMULARIO------------------------ **/
 
 
 
 const inputs = document.querySelectorAll(".input-file");
 const inputsText = document.querySelectorAll(".input-text");
-
-
-
-
 
 
 inputs.forEach(input => {
@@ -140,17 +136,17 @@ inputs.forEach(input => {
 
 
 
-//VACUNAS PERROS
+// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA
 
-function seleccionarVacunas(){
+function seleccionarVacunas(especie){
 
-var especie = document.getElementById('especiemas');
+
 var vacunasmas = document.getElementById('vacunasmas');
 
 
 vacunasmas.innerHTML="";
 
-if(especie.value == "perro"){
+if(especie == "perro"){
 
 	vacunasmas.innerHTML = 
 	
@@ -165,7 +161,7 @@ if(especie.value == "perro"){
 
 	
 
-} else if(especie.value == "gato"){
+} else if(especie == "gato"){
 
 	vacunasmas.innerHTML = 
 
@@ -185,18 +181,89 @@ if(especie.value == "perro"){
 }
 
 
+// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
 
-function mostrarSelect() {
-	const selectVacunas = document.getElementById("vacunasmas");
-	if (selectVacunas.style.display === "none") {
-		selectVacunas.style.display = "block";
+
+function seleccionarRaza(especie){
+
+	var razamas = document.getElementById('razamas');
+
+	razamas.innerHTML="";
+
+if(especie == "perro"){
+
+	razamas.innerHTML = 
+	
+
+	'<option value="pastoraleman">Pastor alemán</option>'+
+	' <option value="doberman">Doberman </option>'+
+	' <option value="boyerodeberna">Boyero de Berna </option>'+
+	'<option value="rottweiler">Rottweiler </option>'+
+	' <option value="akita">Akita </option>'+
+
+	' <option value="labradorretriever">Labrador retriever </option>'+
+	' <option value="goldenretriever">Golden retriever </option>'+
+	'<option value="bordercollie">Border collie</option>'+
+	'<option value="siberianhusky">Siberian Husky</option>'+
+	'<option value="bulldogingles">Bulldog inglés</option>'+
+	'<option value="criollo">Criollo</option>'+
+	'<option value="beagle">Beagle</option>'
+
+	
+
+} else if(especie == "gato"){
+
+	razamas.innerHTML = 
+
+	' <option value="mainecoon">Maine coon</option> ' + 
+	'<option value="bengali">Bengalí</option> ' +
+	' <option value="persa">Persa</option>' +
+	' <option value="himalayo">Himalayo</option>' +
+	' <option value="britanico">Britanico de pelo corto</option>' +
+	' <option value="egipcio">egipcio</option>' +
+	' <option value="siames">siamés</option>' +
+	' <option value="foldescoces">Fold escocés</option>' +
+	' <option value="ragdoll">Ragdoll</option>' +
+	' <option value="angora">Angora</option>' +
+	' <option value="criollo">criollo</option>' 
+
+
+} else{
+	razamas.innerHTML="";
+}
+
+	
+}
+
+
+
+function seleccionarEspecie(){
+	var especie = document.getElementById('especiemas').value;
+
+	seleccionarVacunas(especie);
+	seleccionarRaza(especie);
+
+}
+
+
+
+
+
+
+// ----------AL HACER CLICK EN EL LABEL SE DESPLIEGA EL SELECT-------
+
+
+function mostrarSelect(id) {
+	var select = document.getElementById(id);
+	if (select.style.display === "none") {
+		select.style.display = "block";
 		setTimeout(() => {
-			selectVacunas.style.opacity = "1";
+			select.style.opacity = "1";
 		}, 10); // Retrasamos la aparición para que la animación sea visible
 	} else {
-		selectVacunas.style.opacity = "0";
+		select.style.opacity = "0";
 		setTimeout(() => {
-			selectVacunas.style.display = "none";
+			select.style.display = "none";
 		}, 300); // Retrasamos la desaparición para que la animación sea visible
 	}
 }

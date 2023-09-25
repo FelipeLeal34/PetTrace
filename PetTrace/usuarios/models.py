@@ -6,91 +6,25 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from django.db import models
+from django.contrib.auth.models import User
 
-
-class CamposTipopubli(models.Model):
-    idcampo = models.AutoField(primary_key=True)
-    nombrecampo = models.CharField(db_column='nombreCampo', max_length=45)  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'campos_tipopubli'
-
-
-class CamposTipopubliHasTipoPublicaciones(models.Model):
-    idcampo = models.ForeignKey(CamposTipopubli, models.DO_NOTHING, db_column='idcampo', blank=True, null=True)
-    idtipo_publi = models.ForeignKey('TipoPublicaciones', models.DO_NOTHING, db_column='idtipo_publi', blank=True, null=True)
+class Usuario(models.Model):
+    id_usuario = models.OneToOneField(User,primary_key=True, on_delete=models.CASCADE)
+    documento = models.PositiveIntegerField(unique=True)
+    telefono = models.IntegerField()
+    localidad = models.CharField(max_length=60)
+    barrio = models.CharField(max_length=60)
+    
 
     class Meta:
-        managed = False
-        db_table = 'campos_tipopubli_has_tipo_publicaciones'
+       
+        db_table = 'usuarios'
 
 
-class Comentarios(models.Model):
-    id_comentario = models.AutoField(primary_key=True)
-    comentario = models.CharField(max_length=100)
-    fechacom = models.DateField()
-    id_usuario = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='id_usuario', blank=True, null=True)
-    id_publicacion = models.ForeignKey('Publicaciones', models.DO_NOTHING, db_column='id_publicacion', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'comentarios'
+    def __str__(self):
+        return f"{self.nombreusu}  {self.apellidousu}"
 
 
-class Mascotas(models.Model):
-    id_mascota = models.AutoField(primary_key=True)
-    nombremas = models.CharField(max_length=45)
-    raza = models.CharField(max_length=45)
-    sexo = models.CharField(max_length=45)
-    accesorios = models.CharField(max_length=45, blank=True, null=True)
-    tamano = models.CharField(max_length=45)
-    edad = models.IntegerField(blank=True, null=True)
-    caracteristicas = models.CharField(max_length=45)
-    idestado_salud = models.ForeignKey('SaludMascota', models.DO_NOTHING, db_column='idestado_salud', blank=True, null=True)
-    id_usuario = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='id_usuario', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'mascotas'
-
-
-class Publicaciones(models.Model):
-    id_publicacion = models.AutoField(primary_key=True)
-    estado = models.CharField(max_length=45)
-    fecha = models.DateField()
-    idestado_salud = models.ForeignKey('SaludMascota', models.DO_NOTHING, db_column='idestado_salud', blank=True, null=True)
-    id_usuario = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='id_usuario', blank=True, null=True)
-    id_mascota = models.ForeignKey(Mascotas, models.DO_NOTHING, db_column='id_mascota', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'publicaciones'
-
-
-class PublicacionesCamposTipopubliTipoPublicaciones(models.Model):
-    id_publicacion = models.ForeignKey(Publicaciones, models.DO_NOTHING, db_column='id_publicacion', blank=True, null=True)
-    idestado_salud = models.ForeignKey('SaludMascota', models.DO_NOTHING, db_column='idestado_salud', blank=True, null=True)
-    id_usuario = models.ForeignKey('Usuarios', models.DO_NOTHING, db_column='id_usuario', blank=True, null=True)
-    id_mascota = models.ForeignKey(Mascotas, models.DO_NOTHING, db_column='id_mascota', blank=True, null=True)
-    idcampo = models.ForeignKey(CamposTipopubli, models.DO_NOTHING, db_column='idcampo', blank=True, null=True)
-    idtipo_publi = models.ForeignKey('TipoPublicaciones', models.DO_NOTHING, db_column='idtipo_publi', blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'publicaciones_campos_tipopubli_tipo_publicaciones'
-
-
-class SaludMascota(models.Model):
-    idestado_salud = models.AutoField(primary_key=True)
-    enfermedades = models.CharField(max_length=60)
-    vacunas = models.CharField(max_length=60)
-    esterilizacion = models.CharField(max_length=20)
-    medicamentos = models.CharField(max_length=60)
-
-    class Meta:
-        managed = False
-        db_table = 'salud_mascota'
 
 
 class TipoPublicaciones(models.Model):
@@ -98,24 +32,130 @@ class TipoPublicaciones(models.Model):
     nombretipopubli = models.CharField(db_column='nombreTipoPubli', max_length=45)  # Field name made lowercase.
 
     class Meta:
-        managed = False
+        
         db_table = 'tipo_publicaciones'
 
 
-class Usuarios(models.Model):
-    id_usuario = models.AutoField(primary_key=True)
-    nombreusu = models.CharField(max_length=60)
-    apellidousu = models.CharField(max_length=60)
-    documento = models.IntegerField(unique=True)
-    correousu = models.CharField(unique=True, max_length=60)
-    telefono = models.IntegerField()
-    localidad = models.CharField(max_length=60)
-    barrio = models.CharField(max_length=60)
-    contrasena = models.CharField(max_length=60)
+    def __str__(self):
+        return f"{self.idtipo_publi}  {self.nombretipopubli}"
+
+
+
+
+
+class CamposTipopubli(models.Model):
+    idcampo = models.AutoField(primary_key=True)
+    nombrecampo = models.CharField(db_column='nombreCampo', max_length=45)  # Field name made lowercase.
 
     class Meta:
-        managed = False
-        db_table = 'usuarios'
+      
+        db_table = 'campos_tipopubli'
+
+    def __str__(self):
+        return f"{self.idcampo}  {self.nombrecampo}"
+
+
+'''
+
+class CamposTipopubliHasTipoPublicaciones(models.Model):
+    idcampo = models.ForeignKey(CamposTipopubli, db_column='idcampo', blank=False, null= False, on_delete=models.CASCADE)
+    idtipo_publi = models.ForeignKey(TipoPublicaciones, db_column='idtipo_publi', blank=False, null=False, on_delete=models.CASCADE)
+
+    class Meta:
+       
+        db_table = 'campos_tipopubli_has_tipo_publicaciones'
+        
+
+
+
+class Comentario(models.Model):
+    id_comentario = models.AutoField(primary_key=True)
+    comentario = models.CharField(max_length=100)
+    fechacom = models.DateTimeField()
+    id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE)
+
+    class Meta:
+        
+        db_table = 'comentarios'
+
+        
+
+
+
+'''
+
+class SaludMascota(models.Model):
+    idestado_salud = models.AutoField(primary_key=True)
+    enfermedades = models.CharField(max_length=60)
+    vacunas = models.CharField(max_length=60)
+    esterilizacion = models.BooleanField(default=False)
+    medicamentos = models.CharField(max_length=60)
+
+    class Meta:
+      
+        db_table = 'salud_mascota'
+
+
+
+
+
+
+
+class Mascota(models.Model):
+    id_mascota = models.AutoField(primary_key=True)
+    nombremas = models.CharField(max_length=45)
+    especie = models.CharField(max_length=45)
+    raza = models.CharField(max_length=45)
+    sexo = models.CharField(max_length=45)
+    color = models.CharField(max_length=45)
+    accesorios = models.CharField(max_length=45, blank=True, null=True)
+    tamano = models.CharField(max_length=45)
+    edad = models.PositiveIntegerField(blank=True, null=True)
+    caracteristicas = models.CharField(max_length=45)
+    idestado_salud = models.OneToOneField(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
+    id_usuario = models.OneToOneField(Usuario, db_column='id_usuario', blank=False, null=False, verbose_name='id_dueño',on_delete=models.CASCADE)
+    img1 = models.ImageField(upload_to="imgmascotas", null=False )
+    img2 = models.ImageField(upload_to="imgmascotas", null=False )
+    img3 = models.ImageField(upload_to="imgmascotas", null=False )
+    img4 = models.ImageField(upload_to="imgmascotas", null=False )
+    img5 = models.ImageField(upload_to="imgmascotas", null=False )
+
+    class Meta:
+        
+        db_table = 'mascotas'
+
+
+class Publicacion(models.Model):
+    id_publicacion = models.AutoField(primary_key=True)
+    estado = models.BooleanField(default=True)
+    fecha = models.DateTimeField(auto_now=True)
+    idestado_salud = models.OneToOneField(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
+    id_usuario = models.OneToOneField(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE)
+    id_mascota = models.OneToOneField(Mascota, db_column='id_mascota', blank=False, null=False,on_delete=models.CASCADE)
+
+    class Meta:
+       
+        db_table = 'publicaciones'
+
+'''
+class Publicacion_detalle(models.Model):
+    id_publicacion = models.ForeignKey(Publicacion, db_column='id_publicacion', blank=False, null=False, on_delete=models.CASCADE)
+    idestado_salud = models.ForeignKey('SaludMascota', db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False, on_delete=models.CASCADE)
+    id_mascota = models.ForeignKey(Mascota, db_column='id_mascota', blank=False, null=False, on_delete=models.CASCADE)
+    idcampo = models.ForeignKey(CamposTipopubli, db_column='idcampo', blank=False, null=False, on_delete=models.CASCADE)
+    idtipo_publi = models.ForeignKey(TipoPublicaciones, db_column='idtipo_publi', blank=False, null=False, on_delete=models.CASCADE)
+
+    class Meta:
+
+        db_table = 'publicacion_detalle'
+        '''
+
+
+
+
+
+
 
 
 
