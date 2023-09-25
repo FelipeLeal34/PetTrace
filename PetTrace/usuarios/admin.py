@@ -8,4 +8,4 @@ from .models import *
 admin.site.register(Usuario)
 # admin.site.register(Publicacion)
 admin.site.register(TipoPublicaciones)
-admin.site.register(CamposTipopubli)
+admin.site.register(CamposPubli)

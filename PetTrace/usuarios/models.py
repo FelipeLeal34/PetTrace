@@ -20,11 +20,11 @@ class Usuario(models.Model):
        
         db_table = 'usuarios'
 
-
+    '''
     def __str__(self):
         return f"{self.nombreusu}  {self.apellidousu}"
 
-
+'''
 
 
 class TipoPublicaciones(models.Model):
@@ -43,28 +43,29 @@ class TipoPublicaciones(models.Model):
 
 
 
-class CamposTipopubli(models.Model):
+class CamposPubli(models.Model):
     idcampo = models.AutoField(primary_key=True)
     nombrecampo = models.CharField(db_column='nombreCampo', max_length=45)  # Field name made lowercase.
 
     class Meta:
       
-        db_table = 'campos_tipopubli'
+        db_table = 'camposPubli'
 
     def __str__(self):
         return f"{self.idcampo}  {self.nombrecampo}"
 
 
 '''
-
-class CamposTipopubliHasTipoPublicaciones(models.Model):
-    idcampo = models.ForeignKey(CamposTipopubli, db_column='idcampo', blank=False, null= False, on_delete=models.CASCADE)
+class CamposTipoPubli(models.Model):
+    idCampo_tipopubli = models.AutoField(primary_key=True, default=1)
+    idcampo = models.ForeignKey(CamposPubli, db_column='idcampo', blank=False, null= False, on_delete=models.CASCADE)
     idtipo_publi = models.ForeignKey(TipoPublicaciones, db_column='idtipo_publi', blank=False, null=False, on_delete=models.CASCADE)
 
     class Meta:
        
-        db_table = 'campos_tipopubli_has_tipo_publicaciones'
+        db_table = 'CamposTipoPubli'
         
+
 
 
 
@@ -81,15 +82,15 @@ class Comentario(models.Model):
         
 
 
-
 '''
+
 
 class SaludMascota(models.Model):
     idestado_salud = models.AutoField(primary_key=True)
-    enfermedades = models.CharField(max_length=60)
-    vacunas = models.CharField(max_length=60)
-    esterilizacion = models.BooleanField(default=False)
-    medicamentos = models.CharField(max_length=60)
+    enfermedadesmas = models.CharField(max_length=60)
+    vacunasmas = models.CharField(max_length=60)
+    esterilizacionmas = models.BooleanField(default=False)
+    medicamentosmas = models.CharField(max_length=60)
 
     class Meta:
       
@@ -104,14 +105,14 @@ class SaludMascota(models.Model):
 class Mascota(models.Model):
     id_mascota = models.AutoField(primary_key=True)
     nombremas = models.CharField(max_length=45)
-    especie = models.CharField(max_length=45)
-    raza = models.CharField(max_length=45)
-    sexo = models.CharField(max_length=45)
-    color = models.CharField(max_length=45)
-    accesorios = models.CharField(max_length=45, blank=True, null=True)
-    tamano = models.CharField(max_length=45)
-    edad = models.PositiveIntegerField(blank=True, null=True)
-    caracteristicas = models.CharField(max_length=45)
+    especiemas = models.CharField(max_length=45)
+    razamas = models.CharField(max_length=45)
+    sexomas = models.CharField(max_length=45)
+    colormas = models.CharField(max_length=45)
+    accesoriosmas = models.CharField(max_length=45, blank=True, null=True)
+    tamañomas = models.CharField(max_length=45)
+    edadmas = models.PositiveIntegerField(blank=True, null=True)
+    marcasmas = models.CharField(max_length=45)
     idestado_salud = models.OneToOneField(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
     id_usuario = models.OneToOneField(Usuario, db_column='id_usuario', blank=False, null=False, verbose_name='id_dueño',on_delete=models.CASCADE)
     img1 = models.ImageField(upload_to="imgmascotas", null=False )
@@ -129,9 +130,11 @@ class Publicacion(models.Model):
     id_publicacion = models.AutoField(primary_key=True)
     estado = models.BooleanField(default=True)
     fecha = models.DateTimeField(auto_now=True)
+    recompensa = models.FloatField(null=True, blank=True)
     idestado_salud = models.OneToOneField(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
     id_usuario = models.OneToOneField(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE)
     id_mascota = models.OneToOneField(Mascota, db_column='id_mascota', blank=False, null=False,on_delete=models.CASCADE)
+    
 
     class Meta:
        
@@ -143,8 +146,9 @@ class Publicacion_detalle(models.Model):
     idestado_salud = models.ForeignKey('SaludMascota', db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
     id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False, on_delete=models.CASCADE)
     id_mascota = models.ForeignKey(Mascota, db_column='id_mascota', blank=False, null=False, on_delete=models.CASCADE)
-    idcampo = models.ForeignKey(CamposTipopubli, db_column='idcampo', blank=False, null=False, on_delete=models.CASCADE)
     idtipo_publi = models.ForeignKey(TipoPublicaciones, db_column='idtipo_publi', blank=False, null=False, on_delete=models.CASCADE)
+    id
+    
 
     class Meta:
 
