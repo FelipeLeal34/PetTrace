@@ -1,0 +1,727 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/fontello.css">
+        <link rel="stylesheet" type="text/css" href="../css/index.css">
+        <link rel="stylesheet" type="text/css" href="css/perdidas.css">
+       
+        <title>Perfil usuario</title>
+    </head>
+<body>
+   
+
+
+    {% include 'default/header.html' %}
+
+    <main class="main">
+        <div id="contenedor">
+               
+            <div id="contenido">
+                <div id="contImg">
+                    <img src="{% static 'img/fotoperfil.jpg' %}">
+                </div>
+                <div id="perfil">
+                    <h1>Nombre de usuario</h1>
+                    <h2>Descripción: Lorem ipsum dolor sit, amet consectetur adipisicing elit. Provident voluptatum recusandae, enim veniam accusamus ullam.</h2>
+                </div>
+                <div id="infoUsu">
+                    <h1>Información de usuario</h1>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Ubicación:</li>
+                        <li><i class="fas fa-phone"></i> Contacto:</li>
+                        <li><i class="fas fa-paw"></i> Mascotas Actuales:</li>
+                    </ul>
+                </div>
+                <div id="apartados">
+                    <a href="">Publicaciones</a>
+                    <a href="">Adopciones</a>
+                </div>
+                <div class="publi-container">
+                    <div class="publi" id="publi">
+                
+                        <div class="contenido-publi">
+                            <hr>
+                            <div class="img-mascota-section">
+                
+                                <div class="img-mascota-contenedor">
+                
+                                    <img src="{% static 'img/publi-1.jpg' %}">
+                
+                                </div>
+                            </div>
+                
+                            <hr>
+                            <div class="info-mascota">
+                
+                                <div class="info-mascota-contenido">
+                
+                                    <div class="col1">
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Nombre: </p>
+                                            <p> Mateo</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Raza: </p>
+                                            <p> Labrador</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Color: </p>
+                                            <p> Blanco y Dorado</p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="col2">
+                                        <div class="dato">
+                
+                                            <p class="bold">Fecha extravío: </p>
+                                            <p>25-06-2023</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Barrio de extravío: </p>
+                                            <p>Quiroga</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Localidad extravío: </p>
+                                            <p>Rafael Uribe Uribe</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <hr>
+                            <div class="datos-contacto">
+                                <div class="datos-contacto-contenedor">
+                
+                                    <div class="dato">
+                                        <p  class="bold">Nombre: </p>
+                                        <p>Andrés Felipe Leal</p>
+                                    </div>
+                                    <div class="dato">
+                                        <p  class="bold">Numero de telefono: </p>
+                                        <p>3137525713</p>
+                                    </div>
+                
+                                    <div class="dato">
+                                        <p  class="bold">Correo Electronico: </p>
+                                        <p>afleal34@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button class="btn verPubli">Ver mascota</button>
+                            </div>   
+                        </div>      
+                    </div>
+                
+                    <!-- Contenido de la segunda publicación -->
+                    <div class="publi" id="publi">
+                
+                        <div class="contenido-publi">
+                            <hr>
+                            <div class="img-mascota-section">
+                
+                                <div class="img-mascota-contenedor">
+                
+                                    <img src="{% static 'img/publi-2.jpg' %}">
+                
+                                </div>
+                            </div>
+                
+                            <hr>
+                            <div class="info-mascota">
+                
+                                <div class="info-mascota-contenido">
+                
+                                    <div class="col1">
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Nombre: </p>
+                                            <p> Luna</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Raza: </p>
+                                            <p> Beagle</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Color: </p>
+                                            <p> Marrón y Blanco</p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="col2">
+                                        <div class="dato">
+                
+                                            <p class="bold">Fecha extravío: </p>
+                                            <p>12-07-2023</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Barrio de extravío: </p>
+                                            <p>Los Alpes</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Localidad extravío: </p>
+                                            <p>Kennedy</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <hr>
+                            <div class="datos-contacto">
+                                <div class="datos-contacto-contenedor">
+                
+                                    <div class="dato">
+                                        <p  class="bold">Nombre: </p>
+                                        <p>Maria Rodriguez</p>
+                                    </div>
+                                    <div class="dato">
+                                        <p  class="bold">Numero de telefono: </p>
+                                        <p>3158742365</p>
+                                    </div>
+                
+                                    <div class="dato">
+                                        <p  class="bold">Correo Electronico: </p>
+                                        <p>maria.rodriguez@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button class="btn verPubli">Ver mascota</button>
+                            </div>   
+                        </div>      
+                    </div>
+                
+                    <!-- Contenido de la tercera publicación -->
+                    <div class="publi" id="publi">
+                
+                        <div class="contenido-publi">
+                            <hr>
+                            <div class="img-mascota-section">
+                
+                                <div class="img-mascota-contenedor">
+                
+                                    <img src="{% static 'img/publi-3.jpg' %}">
+                
+                                </div>
+                            </div>
+                
+                            <hr>
+                            <div class="info-mascota">
+                
+                                <div class="info-mascota-contenido">
+                
+                                    <div class="col1">
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Nombre: </p>
+                                            <p> Max</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Raza: </p>
+                                            <p> Golden Retriever</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Color: </p>
+                                            <p> Dorado</p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="col2">
+                                        <div class="dato">
+                
+                                            <p class="bold">Fecha extravío: </p>
+                                            <p>05-08-2023</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Barrio de extravío: </p>
+                                            <p>La Castellana</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Localidad extravío: </p>
+                                            <p>Usaquén</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <hr>
+                            <div class="datos-contacto">
+                                <div class="datos-contacto-contenedor">
+                
+                                    <div class="dato">
+                                        <p  class="bold">Nombre: </p>
+                                        <p>Carlos Gomez</p>
+                                    </div>
+                                    <div class="dato">
+                                        <p  class="bold">Numero de telefono: </p>
+                                        <p>3185967845</p>
+                                    </div>
+                
+                                    <div class="dato">
+                                        <p  class="bold">Correo Electronico: </p>
+                                        <p>carlos.gomez@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button class="btn verPubli">Ver mascota</button>
+                            </div>   
+                        </div>      
+                    </div>
+                
+                    <!-- Contenido de la cuarta publicación -->
+                    <div class="publi" id="publi">
+                
+                        <div class="contenido-publi">
+                            <hr>
+                            <div class="img-mascota-section">
+                
+                                <div class="img-mascota-contenedor">
+                
+                                    <img src="{% static 'img/publi-4.jpg' %}">
+                
+                                </div>
+                            </div>
+                
+                            <hr>
+                            <div class="info-mascota">
+                
+                                <div class="info-mascota-contenido">
+                
+                                    <div class="col1">
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Nombre: </p>
+                                            <p> Lola</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Raza: </p>
+                                            <p> Chihuahua</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Color: </p>
+                                            <p> Café</p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="col2">
+                                        <div class="dato">
+                
+                                            <p class="bold">Fecha extravío: </p>
+                                            <p>30-09-2023</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Barrio de extravío: </p>
+                                            <p>El Recuerdo</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Localidad extravío: </p>
+                                            <p>Suba</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <hr>
+                            <div class="datos-contacto">
+                                <div class="datos-contacto-contenedor">
+                
+                                    <div class="dato">
+                                        <p  class="bold">Nombre: </p>
+                                        <p>Ana Martinez</p>
+                                    </div>
+                                    <div class="dato">
+                                        <p  class="bold">Numero de telefono: </p>
+                                        <p>3209876543</p>
+                                    </div>
+                
+                                    <div class="dato">
+                                        <p  class="bold">Correo Electronico: </p>
+                                        <p>ana.martinez@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button class="btn verPubli">Ver mascota</button>
+                            </div>   
+                        </div>      
+                    </div>
+                
+                    <!-- Contenido de la quinta publicación -->
+                    <div class="publi" id="publi">
+                
+                        <div class="contenido-publi">
+                            <hr>
+                            <div class="img-mascota-section">
+                
+                                <div class="img-mascota-contenedor">
+                
+                                    <img src="{% static 'img/publi-5.jpg' %}">
+                
+                                </div>
+                            </div>
+                
+                            <hr>
+                            <div class="info-mascota">
+                
+                                <div class="info-mascota-contenido">
+                
+                                    <div class="col1">
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Nombre: </p>
+                                            <p> Rocky</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Raza: </p>
+                                            <p> Bulldog Francés</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Color: </p>
+                                            <p> Negro</p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="col2">
+                                        <div class="dato">
+                
+                                            <p class="bold">Fecha extravío: </p>
+                                            <p>18-10-2023</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Barrio de extravío: </p>
+                                            <p>Chapinero</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Localidad extravío: </p>
+                                            <p>Chapinero</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <hr>
+                            <div class="datos-contacto">
+                                <div class="datos-contacto-contenedor">
+                
+                                    <div class="dato">
+                                        <p  class="bold">Nombre: </p>
+                                        <p>Juan Perez</p>
+                                    </div>
+                                    <div class="dato">
+                                        <p  class="bold">Numero de telefono: </p>
+                                        <p>3178795432</p>
+                                    </div>
+                
+                                    <div class="dato">
+                                        <p  class="bold">Correo Electronico: </p>
+                                        <p>juan.perez@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button class="btn verPubli">Ver mascota</button>
+                            </div>   
+                        </div>      
+                    </div>
+                
+                    <!-- Contenido de la sexta publicación -->
+                    <div class="publi" id="publi">
+                
+                        <div class="contenido-publi">
+                            <hr>
+                            <div class="img-mascota-section">
+                
+                                <div class="img-mascota-contenedor">
+                
+                                    <img src="{% static 'img/publi-3.jpg' %}">
+                
+                                </div>
+                            </div>
+                
+                            <hr>
+                            <div class="info-mascota">
+                
+                                <div class="info-mascota-contenido">
+                
+                                    <div class="col1">
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Nombre: </p>
+                                            <p> Simba</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Raza: </p>
+                                            <p> Persa</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Color: </p>
+                                            <p> Naranja</p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="col2">
+                                        <div class="dato">
+                
+                                            <p class="bold">Fecha extravío: </p>
+                                            <p>02-11-2023</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Barrio de extravío: </p>
+                                            <p>La Candelaria</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Localidad extravío: </p>
+                                            <p>La Candelaria</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <hr>
+                            <div class="datos-contacto">
+                                <div class="datos-contacto-contenedor">
+                
+                                    <div class="dato">
+                                        <p  class="bold">Nombre: </p>
+                                        <p>Sofia Lopez</p>
+                                    </div>
+                                    <div class="dato">
+                                        <p  class="bold">Numero de telefono: </p>
+                                        <p>3147689034</p>
+                                    </div>
+                
+                                    <div class="dato">
+                                        <p  class="bold">Correo Electronico: </p>
+                                        <p>sofia.lopez@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button class="btn verPubli">Ver mascota</button>
+                            </div>   
+                        </div>      
+                    </div>
+                
+                    <!-- Contenido de la séptima publicación -->
+                    <div class="publi" id="publi">
+                
+                        <div class="contenido-publi">
+                            <hr>
+                            <div class="img-mascota-section">
+                
+                                <div class="img-mascota-contenedor">
+                
+                                    <img src="{% static 'img/publi-4.jpg' %}">
+                
+                                </div>
+                            </div>
+                
+                            <hr>
+                            <div class="info-mascota">
+                
+                                <div class="info-mascota-contenido">
+                
+                                    <div class="col1">
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Nombre: </p>
+                                            <p> Nala</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Raza: </p>
+                                            <p> Siames</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Color: </p>
+                                            <p> Blanco y Negro</p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="col2">
+                                        <div class="dato">
+                
+                                            <p class="bold">Fecha extravío: </p>
+                                            <p>15-12-2023</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Barrio de extravío: </p>
+                                            <p>Belén</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Localidad extravío: </p>
+                                            <p>Medellín</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <hr>
+                            <div class="datos-contacto">
+                                <div class="datos-contacto-contenedor">
+                
+                                    <div class="dato">
+                                        <p  class="bold">Nombre: </p>
+                                        <p>Javier Cardona</p>
+                                    </div>
+                                    <div class="dato">
+                                        <p  class="bold">Numero de telefono: </p>
+                                        <p>3179086721</p>
+                                    </div>
+                
+                                    <div class="dato">
+                                        <p  class="bold">Correo Electronico: </p>
+                                        <p>javier.cardona@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button class="btn verPubli">Ver mascota</button>
+                            </div>   
+                        </div>      
+                    </div>
+                
+                    <!-- Contenido de la octava publicación -->
+                    <div class="publi" id="publi">
+                
+                        <div class="contenido-publi">
+                            <hr>
+                            <div class="img-mascota-section">
+                
+                                <div class="img-mascota-contenedor">
+                
+                                    <img src="{% static 'img/publi-5.jpg' %}">
+                
+                                </div>
+                            </div>
+                
+                            <hr>
+                            <div class="info-mascota">
+                
+                                <div class="info-mascota-contenido">
+                
+                                    <div class="col1">
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Nombre: </p>
+                                            <p> Toby</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Raza: </p>
+                                            <p> Shih Tzu</p>
+                                        </div>
+                                        <div class="dato">
+                
+                                            <p class="bold">Color: </p>
+                                            <p> Blanco y Marrón</p>
+                                        </div>
+                                    </div>
+                
+                                    <div class="col2">
+                                        <div class="dato">
+                
+                                            <p class="bold">Fecha extravío: </p>
+                                            <p>20-01-2024</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Barrio de extravío: </p>
+                                            <p>San Antonio</p>
+                                        </div>
+                
+                                        <div class="dato">
+                
+                                            <p class="bold">Localidad extravío: </p>
+                                            <p>Bogotá</p>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                
+                            <hr>
+                            <div class="datos-contacto">
+                                <div class="datos-contacto-contenedor">
+                
+                                    <div class="dato">
+                                        <p  class="bold">Nombre: </p>
+                                        <p>Mariana Gomez</p>
+                                    </div>
+                                    <div class="dato">
+                                        <p  class="bold">Numero de telefono: </p>
+                                        <p>3156789087</p>
+                                    </div>
+                
+                                    <div class="dato">
+                                        <p  class="bold">Correo Electronico: </p>
+                                        <p>mariana.gomez@gmail.com</p>
+                                    </div>
+                                </div>
+                                <button class="btn verPubli">Ver mascota</button>
+                            </div>   
+                        </div>      
+                    </div>
+                
+                </div>            
+
+                <!--Aqui terminan las publicaciones-->
+    
+                </div>
+            </div>
+        </div> 
+    </main>    
+    {% include 'default/footer.html' %}
+       
+
+        </body>
+        </html>
