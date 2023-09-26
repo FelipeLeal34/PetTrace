@@ -191,6 +191,7 @@ main{
 
 .slider-img{
 	width: 100%;
+	height: 100%;
 	border-radius: 10px;
 
 	
@@ -202,7 +203,7 @@ main{
 	height: auto;
 
 
-	animation: slide 15s infinite alternate ;
+	
 
 	border-radius: 20px;
 
@@ -216,6 +217,7 @@ main{
 	display: flex;
 	padding: 0;
 	width: 400%;
+	animation: slide 15s infinite alternate ;
 
 }
 
