@@ -362,7 +362,7 @@
 				
 
 
-					<form method="post" action="{% url 'agregarPubli' %}" class=" publi-modelo-estilo agregarPubli" enctype="multipart/form-data">
+					<form method="post" action="{% url 'agregarPubliPerdidas' %}" class=" publi-modelo-estilo agregarPubli" enctype="multipart/form-data">
 
 						{% csrf_token %}
 
@@ -430,7 +430,7 @@
 														<div class="label-selectMultiple">
 														<label for="especiemas" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 														<select name="especiemas" id="especiemas" onchange="seleccionarEspecie()" class="select" required>
-															<option value="" default selected>Seleccione una</option>
+															<option value="" default disabled>Seleccione una</option>
 															<option value="perro" >Perro</option>
 															<option value="gato">Gato</option>
 
@@ -477,7 +477,7 @@
 														<div class="label-selectMultiple">
 														<label for="colormas" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 														<select name="colormas" id="colormas" class="select" required>
-															<option value="" selected default>seleccione uno</option>
+															<option value="" disabled default>seleccione uno</option>
 															<option value="rojizo">Rojizo</option>
 															<option value="naranja">Naranja</option>
 															<option value="amarillo">Amarillo</option>
@@ -509,7 +509,7 @@
 												<div class="col2">
 													<div class="dato">
 														<label for="enfermedadesmas" class="bold">Enfermedades: </label>
-														<textarea name="enfermedadesmas" id="enfermedadesmas" cols="30" rows="3" required></textarea>
+														<textarea name="enfermedadesmas" id="enfermedadesmas" cols="30"  rows="3" required></textarea>
 													</div>
 													<div class="dato-select">
 														<div class="label-selectMultiple">
@@ -523,7 +523,7 @@
 													
 													<div class="dato">
 														<label for="medicamentosmas" class="bold">Medicamentos: </label>
-														<textarea name="medicamentosmas" id="medicamentosmas" cols="30" rows="3" required></textarea>
+														<textarea name="medicamentosmas" id="medicamentosmas" placeholder="medicamentos o cuidados especificos" cols="30" rows="3" required></textarea>
 
 													</div>
 													<div class="dato-select">
@@ -538,7 +538,7 @@
 														<div class="label-selectMultiple">
 															<label for="txtlocalidad" class="mostrarSelect">Localidad de extravío</label></div>
 															<select name="txtlocalidad" id="localidades" onchange="cargarBarrios()" class="select" required>
-																	<option value="" selected disabled>Localidad de extravío</option>
+																	<option value="" default disabled>Localidad de extravío</option>
 																	<option value="Usaquén">Usaquén</option>
 																	<option value="Chapinero">Chapinero</option>
 																	<option value="Santa Fe">Santa Fe</option>
@@ -574,8 +574,13 @@
 
 												
 												<div class="dato">
-													<label for="fechaextra" class="bold">Fecha de extravío: </label>
-													<input type="date" name="fechaextra" placeholder="Nombre de la mascota" id="fechaextra" class="input-mascota">
+													<label for="fechaExtravio" class="bold">Fecha de extravío: </label>
+													<input type="datetime-local" name="fechaExtravio" placeholder="Nombre de la mascota" id="fechaExtravio" class="input-mascota" required>
+												</div>
+
+												<div class="dato">
+													<label for="recompensa" class="bold">recompensa: </label>
+													<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensa" class="input-mascota">
 												</div>
 											</div>
 										</div>

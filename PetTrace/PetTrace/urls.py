@@ -25,6 +25,6 @@ urlpatterns = [
     path('', index, name='index'),
     path('perfil/', perfil, name='perfil'),
     path('perdidas/', perdidas, name='perdidas'),
-    path('agregarPubli', agregarPubli, name='agregarPubli' )
+    path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' )
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )

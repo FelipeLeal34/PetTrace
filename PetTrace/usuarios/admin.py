@@ -7,5 +7,4 @@ from .models import *
 
 admin.site.register(Usuario)
 # admin.site.register(Publicacion)
-admin.site.register(TipoPublicaciones)
-admin.site.register(CamposPubli)
+
