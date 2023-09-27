@@ -21,6 +21,7 @@
         <div>
         <form action="{{ app_path }}" method="post">
             {% csrf_token %}
+            {{ error }}
             <div class="inputGrupo">
                 {{ form.Nombreusu.label_tag }}
                 {{ form.Nombreusu }}
@@ -45,7 +46,7 @@
                 {{ form.Telefonousu.label_tag }}
                 {{ form.Telefonousu }}
             </div>
-            <div>
+            <!--<div>
                 <span>Seleccione su ubicación:</span>
                 <button class="btn" onclick="obtenerUbicacion()">
                     <p class="paragraph"> Obtener Ubicación </p>
@@ -97,7 +98,7 @@
                 </select>
             </div>
         </div>
-        </div>
+        </div>-->
                 <div>
                     <a href="">¿Has olvidado tu contraseña?</a>
                 </div>

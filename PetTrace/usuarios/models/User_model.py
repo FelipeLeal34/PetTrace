@@ -1,11 +1,18 @@
 from django import forms
+from models import Usuarios
 
-class UsuarioRegistrar(forms.Form):
-    Nombreusu = forms.CharField(label='Nombre')
-    Apellidousu = forms.CharField(label='Apellido')
-    Documentousu = forms.IntegerField(label='Documento')
-    Correousu = forms.CharField(label='Correo')
-    Telefonousu = forms.IntegerField(label='Telefono')
-    Localidadusu = forms.CharField(label='Localidad', required=False)
-    Barriousu = forms.CharField(label='Barrio', required=False)
-    contrasena = forms.CharField(widget=forms.PasswordInput)
+class UsuarioRegistrarForm(forms.ModelForm):
+    class Meta:
+        model = Usuarios  # Reemplaza 'Usuarios' con el nombre correcto de tu modelo de base de datos
+        fields = ['nombreusu', 'apellidousu', 'documento', 'correousu', 'telefono', 'localidad', 'barrio', 'contrasena']
+        
+        labels = {
+            'nombreusu': 'Nombre',
+            'apellidousu': 'Apellido',
+            'documento': 'Documento',
+            'correousu': 'Correo',
+            'telefono': 'Teléfono',
+            'localidad': 'Localidad',
+            'barrio': 'Barrio',
+            'contrasena': 'Contraseña',
+        }
