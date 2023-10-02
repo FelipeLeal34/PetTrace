@@ -1,5 +1,4 @@
 {% load static %}
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,19 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
     <script src="{% static 'js/cargarBarrios.js' %}"></script>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-    <script src="{% static 'js/cargarBarrios.js' %}"></script>
     <title>Registrarse</title>
 </head>
 <body>
     <div id="img">
         <img src="{% static 'img/logo.png' %}" id="logoimg">
-        <img src="{% static 'img/logo.png' %}" id="logoimg">
     </div>
     <div id="content">
         <div>
             <div id="img">
-                <img src="{% static 'img/user.png' %}" width="150px">
                 <img src="{% static 'img/user.png' %}" width="150px">
             </div>
             <h1>Registrarse</h1>
@@ -124,7 +119,6 @@
             </div>
             <div>
                 <div id="boton">
-                    <input type="submit" value="Registrarse">
                     <input type="submit" value="Registrarse">
                 </div>
                 <a href="{% url 'login' %}">Ya tengo cuenta</a>
