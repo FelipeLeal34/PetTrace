@@ -1,4 +1,5 @@
 function obtenerUbicacion() {
+  event.preventDefault();
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var latitudInput = document.getElementById("latitud");

@@ -1,46 +1,5 @@
 
-/* -----------MENU DE NAVEGABILIDAD INFERIOR--------------- */
-
-.menu{
-
-	width: 100%;
-	height: auto;
-	background: #587073;
-	display: flex;
-	bottom: 0;
-	position: fixed;
-	justify-content: space-evenly;
-	border-radius: 5px;
-	z-index: 100000000;
-
-}
-
-.menu span{
-	text-decoration: none;
-	color: white;
-	margin: 10px;
-	background-color: none;
-	font-size: 25px;
-	cursor:pointer;
-	transition: all 0.8s;
-	border-radius: 50%;
-}
-
-.menu-span-focus{
-
-	transform: rotate(50deg);
-	filter: invert(1);
-
-}
-
-
-
-
-/** ----- PUBLICACIONES ------ **/
-
-
-
-/* ----------CONTENEDOR DE LAS PUBLICAICONES */
+/* ----------CONTENEDOR DE LAS PUBLICAICONES-----------*/
 
 .main{
 	display: flex;
@@ -48,20 +7,6 @@
 	text-align: center;
 	padding: 10px 0;
 	margin-bottom: 50px;
-}
-
-
-
-.mostrarSelect{
-	font-weight: bold; 
-	display: flex; 
-	align-items: center; 
-	
-	margin-right: 20px;
-}
-
-.mostrarSelect-flecha{
-	margin-left: 10px;
 }
 
 
@@ -402,14 +347,10 @@ input[type="text"]:focus {
   border: 1px solid #a7bab9;
 }
 
-
 #vacunasmas{
-	display: none;
-}
-.select{
 
-	
-	
+	display: none;
+	opacity: 0;
 	transition: opacity 0.3s ease-in-out;
 	border: none;
 	border-radius: 10px;
@@ -417,14 +358,10 @@ input[type="text"]:focus {
 
 }
 
-.select option{
+#vacunasmas option{
 	padding: 5px;
 	
 	
-}
-
-.dato, .dato-select{
-	margin-bottom: 10px;
 }
 
 
@@ -559,4 +496,8 @@ input[type="text"]:focus {
 
 .subfiltros-color-icon{
 	filter: invert(1);
+}
+
+@media screen and (min-width:1024px){
+	
 }

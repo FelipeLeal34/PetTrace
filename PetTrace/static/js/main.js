@@ -102,12 +102,16 @@ window.addEventListener("click",function(event) {
 
 
 
-/** ------------------PREVISUALIZAR IMAGEN EN EL FORMULARIO------------------------ **/
+/** PREVISUALIZAR IMAGEN **/
 
 
 
 const inputs = document.querySelectorAll(".input-file");
 const inputsText = document.querySelectorAll(".input-text");
+
+
+
+
 
 
 inputs.forEach(input => {
@@ -136,17 +140,17 @@ inputs.forEach(input => {
 
 
 
-// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA
+//VACUNAS PERROS
 
-function seleccionarVacunas(especie){
+function seleccionarVacunas(){
 
-
+var especie = document.getElementById('especiemas');
 var vacunasmas = document.getElementById('vacunasmas');
 
 
 vacunasmas.innerHTML="";
 
-if(especie == "perro"){
+if(especie.value == "perro"){
 
 	vacunasmas.innerHTML = 
 	
@@ -161,7 +165,7 @@ if(especie == "perro"){
 
 	
 
-} else if(especie == "gato"){
+} else if(especie.value == "gato"){
 
 	vacunasmas.innerHTML = 
 
@@ -181,89 +185,18 @@ if(especie == "perro"){
 }
 
 
-// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
 
-
-function seleccionarRaza(especie){
-
-	var razamas = document.getElementById('razamas');
-
-	razamas.innerHTML="";
-
-if(especie == "perro"){
-
-	razamas.innerHTML = 
-	
-
-	'<option value="pastoraleman">Pastor alemán</option>'+
-	' <option value="doberman">Doberman </option>'+
-	' <option value="boyerodeberna">Boyero de Berna </option>'+
-	'<option value="rottweiler">Rottweiler </option>'+
-	' <option value="akita">Akita </option>'+
-
-	' <option value="labradorretriever">Labrador retriever </option>'+
-	' <option value="goldenretriever">Golden retriever </option>'+
-	'<option value="bordercollie">Border collie</option>'+
-	'<option value="siberianhusky">Siberian Husky</option>'+
-	'<option value="bulldogingles">Bulldog inglés</option>'+
-	'<option value="criollo">Criollo</option>'+
-	'<option value="beagle">Beagle</option>'
-
-	
-
-} else if(especie == "gato"){
-
-	razamas.innerHTML = 
-
-	' <option value="mainecoon">Maine coon</option> ' + 
-	'<option value="bengali">Bengalí</option> ' +
-	' <option value="persa">Persa</option>' +
-	' <option value="himalayo">Himalayo</option>' +
-	' <option value="britanico">Britanico de pelo corto</option>' +
-	' <option value="egipcio">egipcio</option>' +
-	' <option value="siames">siamés</option>' +
-	' <option value="foldescoces">Fold escocés</option>' +
-	' <option value="ragdoll">Ragdoll</option>' +
-	' <option value="angora">Angora</option>' +
-	' <option value="criollo">criollo</option>' 
-
-
-} else{
-	razamas.innerHTML="";
-}
-
-	
-}
-
-
-
-function seleccionarEspecie(){
-	var especie = document.getElementById('especiemas').value;
-
-	seleccionarVacunas(especie);
-	seleccionarRaza(especie);
-
-}
-
-
-
-
-
-
-// ----------AL HACER CLICK EN EL LABEL SE DESPLIEGA EL SELECT-------
-
-
-function mostrarSelect(id) {
-	var select = document.getElementById(id);
-	if (select.style.display === "none") {
-		select.style.display = "block";
+function mostrarSelect() {
+	const selectVacunas = document.getElementById("vacunasmas");
+	if (selectVacunas.style.display === "none") {
+		selectVacunas.style.display = "block";
 		setTimeout(() => {
-			select.style.opacity = "1";
+			selectVacunas.style.opacity = "1";
 		}, 10); // Retrasamos la aparición para que la animación sea visible
 	} else {
-		select.style.opacity = "0";
+		selectVacunas.style.opacity = "0";
 		setTimeout(() => {
-			select.style.display = "none";
+			selectVacunas.style.display = "none";
 		}, 300); // Retrasamos la desaparición para que la animación sea visible
 	}
 }

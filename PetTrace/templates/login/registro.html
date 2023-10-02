@@ -1,53 +1,76 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/loguin.css">
-    <script src="js/cargarBarrios.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+    <script src="{% static 'js/cargarBarrios.js' %}"></script>
     <title>Registrarse</title>
 </head>
 <body>
     <div id="img">
-        <img src="img/logo.png" id="logoimg">
+        <img src="{% static 'img/logo.png' %}" id="logoimg">
     </div>
     <div id="content">
         <div>
             <div id="img">
-                <img src="img/user.png" width="150px">
+                <img src="{% static 'img/user.png' %}" width="150px">
             </div>
             <h1>Registrarse</h1>
-        <div>
+        </div>
+        <form class="form" method="post" action="{% url 'registrar' %}">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div id="mensaje">
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="notificacion {{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        
             <div class="inputGrupo">
-                <label for="txtnombre">Ingrese su nombre*</label>
-                <input type="text" name="txtnombre" required>
+                <label for="{{ form.first_name.id_for_label }}">Nombre*</label>
+                {{ form.first_name }}
             </div>
             <div class="inputGrupo">
-                <label for="txtdocumento">Numero de Documento*</label>
-                <input type="number" name="txtdocumento" required>
+                <label for="{{ form.last_name.id_for_label }}">Apellido*</label>
+                {{ form.last_name }}
             </div>
             <div class="inputGrupo">
-                <label for="txtcorreo">Correo*</label>
-                <input type="email" name="txtcorreo" required>
+                <label for="{{ form.username.id_for_label }}">Nombre de usuario</label>
+                {{ form.username }}
             </div>
             <div class="inputGrupo">
-                <label for="txtcontrasena">Ingrese una contraseña*</label>
-                <input type="password" name="txtcontrasena" required>
+                <label for="{{ form.documento.id_for_label }}">Numero de Documento*</label>
+                {{ form.documento }}
             </div>
             <div class="inputGrupo">
-                <label for="txttelefono">Numero de telefono*</label>
-                <input type="number" name="txttelefono" required>
+                <label for="{{ form.email.id_for_label }}">Correo*</label>
+                {{ form.email }}
             </div>
+            <div class="inputGrupo">
+                <label for="{{ form.telefono.id_for_label }}">Numero de telefono*</label>
+                {{ form.telefono }}
+            </div>
+            <div class="inputGrupo">
+                <label for="{{ form.password.id_for_label }}">Ingrese una contraseña*</label>
+                {{ form.password }}
+            </div>
+            
             <div>
                 <span>Seleccione su ubicación:</span>
-                <button class="btn" onclick="obtenerUbicacion()">
+                <button class="btn" type="button" onclick="obtenerUbicacion()">
                     <p class="paragraph"> Obtener Ubicación </p>
                     <span class="icon-wrapper">
-                      <svg class="icon" width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2C9.243 2 7 4.243 7 7C7 10.131 11.542 15.153 11.862 15.5C11.964 15.648 12.036 15.648 12.138 15.5C12.458 15.153 17 10.131 17 7C17 4.243 14.757 2 12 2ZM12 9.5C10.619 9.5 9.5 8.381 9.5 7C9.5 5.619 10.619 4.5 12 4.5C13.381 4.5 14.5 5.619 14.5 7C14.5 8.381 13.381 9.5 12 9.5ZM12 5.5C11.172 5.5 10.5 6.172 10.5 7C10.5 7.828 11.172 8.5 12 8.5C12.828 8.5 13.5 7.828 13.5 7C13.5 6.172 12.828 5.5 12 5.5Z" fill="#ffff"></path>
-                      </svg>
+                        <svg class="icon" width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2C9.243 2 7 4.243 7 7C7 10.131 11.542 15.153 11.862 15.5C11.964 15.648 12.036 15.648 12.138 15.5C12.458 15.153 17 10.131 17 7C17 4.243 14.757 2 12 2ZM12 9.5C10.619 9.5 9.5 8.381 9.5 7C9.5 5.619 10.619 4.5 12 4.5C13.381 4.5 14.5 5.619 14.5 7C14.5 8.381 13.381 9.5 12 9.5ZM12 5.5C11.172 5.5 10.5 6.172 10.5 7C10.5 7.828 11.172 8.5 12 8.5C12.828 8.5 13.5 7.828 13.5 7C13.5 6.172 12.828 5.5 12 5.5Z" fill="#ffff"></path>
+                        </svg>
                     </span>
-                  </button>
+                </button>
                 <div id="datosUbicacion" style="display: none;">
                     <input type="hidden" name="latitud" id="latitud">
                     <input type="hidden" name="longitud" id="longitud">
@@ -59,49 +82,48 @@
             <div id="ubicacionManual" style="display: none;">
                 <span>O si lo desea elijala usted mismo:</span>
                 <div>
-                <label for="txtlocalidad">Elija su localidad*</label>
-                <select name="txtlocalidad" id="localidades" onchange="cargarBarrios()">
-                    <option value="" selected disabled>Seleccione una localidad</option>
-                    <option value="Usaquén">Usaquén</option>
-                    <option value="Chapinero">Chapinero</option>
-                    <option value="Santa Fe">Santa Fe</option>
-                    <option value="San Cristóbal">San Cristóbal</option>
-                    <option value="Usme">Usme</option>
-                    <option value="Tunjuelito">Tunjuelito</option>
-                    <option value="Bosa">Bosa</option>
-                    <option value="Kennedy">Kennedy</option>
-                    <option value="Fontibón">Fontibón</option>
-                    <option value="Engativá">Engativá</option>
-                    <option value="Suba">Suba</option>
-                    <option value="Barrios Unidos">Barrios Unidos</option>
-                    <option value="Teusaquillo">Teusaquillo</option>
-                    <option value="Los Mártires">Los Mártires</option>
-                    <option value="Antonio Nariño">Antonio Nariño</option>
-                    <option value="Puente Aranda">Puente Aranda</option>
-                    <option value="La Candelaria">La Candelaria</option>
-                    <option value="Rafael Uribe">Rafael Uribe</option>
-                    <option value="Ciudad Bolívar">Ciudad Bolívar</option>
-                </select>
-            </div>
-            <div class="">
-                <label for="txtbarrio">Elija su barrio*</label>
-                <select name="txtbarrios" id="barrios">
-                    <option>Seleccione un barrio</option>
-                </select>
-            </div>
-        </div>
-        </div>
-                <div>
-                    <a href="">¿Has olvidado tu contraseña?</a>
+                    <label for="localidad">Elija su localidad*</label>
+                    <select name="localidad" id="localidades" onchange="cargarBarrios()">
+                        <option value="" selected disabled>Seleccione una localidad</option>
+                        <option value="Usaquén">Usaquén</option>
+                        <option value="Chapinero">Chapinero</option>
+                        <option value="Santa Fe">Santa Fe</option>
+                        <option value="San Cristóbal">San Cristóbal</option>
+                        <option value="Usme">Usme</option>
+                        <option value="Tunjuelito">Tunjuelito</option>
+                        <option value="Bosa">Bosa</option>
+                        <option value="Kennedy">Kennedy</option>
+                        <option value="Fontibón">Fontibón</option>
+                        <option value="Engativá">Engativá</option>
+                        <option value="Suba">Suba</option>
+                        <option value="Barrios Unidos">Barrios Unidos</option>
+                        <option value="Teusaquillo">Teusaquillo</option>
+                        <option value="Los Mártires">Los Mártires</option>
+                        <option value="Antonio Nariño">Antonio Nariño</option>
+                        <option value="Puente Aranda">Puente Aranda</option>
+                        <option value="La Candelaria">La Candelaria</option>
+                        <option value="Rafael Uribe">Rafael Uribe</option>
+                        <option value="Ciudad Bolívar">Ciudad Bolívar</option>
+                    </select>
                 </div>
-            
+                <div class="">
+                    <label for="barrio">Elija su barrio*</label>
+                    <select name="barrio" id="barrios">
+                        <option>Seleccione un barrio</option>
+                    </select>
+                </div>
+                
+            </div>
+            <div>
+                <a href="">¿Has olvidado tu contraseña?</a>
+            </div>
             <div>
                 <div id="boton">
-                    <input type="submit" value="Iniciar Sesión">
+                    <input type="submit" value="Registrarse">
                 </div>
-                <a href="">No tengo una cuenta</a>
+                <a href="{% url 'login' %}">Ya tengo cuenta</a>
             </div>
-        </div>
+        </form>
     </div>
 </body>
 </html>

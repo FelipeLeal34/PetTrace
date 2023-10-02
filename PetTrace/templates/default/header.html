@@ -1,8 +1,8 @@
 {% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">-->
 
 <script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 
@@ -25,10 +25,12 @@
                     <img src="{% static 'img/fotoperfil.jpg' %}">
                 </div>
             </li>
+        {% if user.is_authenticated %}
             <li class="li">
-                <span class="icon-user-o"></span>
-                <a href="">PERFIL</a>
+                <span class="icon-search"></span>
+                <a href="{% url 'cerrar_sesion' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">Cerrar sesión</a>
             </li>
+        
             <li class="li">
                 <span class="icon-search"></span>
                 <a href="">PERDIDAS</a>
@@ -46,12 +48,17 @@
                 <a href="">NOTIFICACIONES</a>
             </li>
             <li class="li">
-                <span class="icon-comment"></span>
-                <a href="">MENSAJES</a>
-            </li>
-            <li class="li">
                 <span class="icon-cog"></span>
                 <a href="">AJUSTES</a>
+            </li>
+        {% endif %}
+            <li class="li">
+                <span class="icon-cog"></span>
+                <a href="{% url 'registrar' %}">Registrarse</a>
+            </li> 
+            <li class="li">
+                <span class="icon-cog"></span>
+                <a href="{% url 'login' %}">Iniciar sesión</a>
             </li>
         </ul>
     </nav>
