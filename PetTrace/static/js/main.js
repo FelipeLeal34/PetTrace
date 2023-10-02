@@ -1,6 +1,8 @@
 const publis = document.querySelectorAll(".verPubli");
-const publiModal = document.querySelectorAll(".publi-modelo");
+const publiModal = document.getElementById("publi-modelo");
 const btnCerrar = document.querySelector("#btn-cerrar");
+
+// icono ṕara cerrar formulario de agregar publicacion 
 const btnCerrarModal = document.querySelector("#icon-cancel");
 const agregarPubli = document.querySelector(".agregarPubli");
 const main = document.getElementsByTagName("main");
@@ -17,14 +19,36 @@ const btnAgregarPubli = document.querySelector("#agregar");
 publis.forEach( publi => {
 	publi.addEventListener("click",e =>{
 
-	let idpubli = e.target.parentNode.children[0].value;
+
+		
+		let idpubli = e.target.closest(".publi").getAttribute("data-id")
+
+		const url = `/verPubliModal/${idpubli}/`
+
+		
+
+		fetch(url,{
+			method: "GET",
+		})
+		.then(response => response.json())
+		.then(publicacion => {
+		  
+		  console.log(publicacion);
+		})
+		
+
+	//let idpubli = e.target.parentNode.children[0].value;
 	main[0].classList.add("fondo-oscuro");
 
-	publiModal[idpubli-1].style.display = "flex";
-	publiModal[idpubli-1].style.position = "fixed"
+	publiModal.style.display = "flex";
+	publiModal.style.position = "fixed"
+
+
+
+
 
 	btnCerrar.addEventListener("click",()=>{
-		publiModal[idpubli-1].style.display = "none";
+		publiModal.style.display = "none";
 		main[0].classList.remove("fondo-oscuro");
 
 	});

@@ -28,20 +28,20 @@
 
 					<!-- -------------------primera publicacion------------------ -->
 
-
+					
 					<div class="publicaciones">
 
-
-						<div class="publi" id="publi">
+						{% for publicacion in publicaciones %}
+						<div class="publi" id="publi" data-id="{{ publicacion.id_publicacion }}">
 
 							<div class="contenido-publi">
 
-								<input type="hidden" value="1" class="idPubli">
+								<input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
 
 								<div class="info-usuario">
 									<div class="img-usuario">
 									<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
-									<h6>usuario</h6></div>
+									<h6>{{ publicacion.id_usuario.id_usuario.username }}</h6></div>
 									<div>
 									<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>
 									<span class="fa-solid fa-ellipsis-vertical"></span>
@@ -54,7 +54,7 @@
 
 									<div class="img-mascota-contenedor">
 
-										<img src="{% static 'img/publi-2.jpg' %}">
+										<img src="{{ publicacion.id_mascota.img1 }}">
 
 									</div>
 
@@ -76,17 +76,17 @@
 											<div class="dato">
 
 												<p class="bold">Nombre: </p>
-												<p> Mateo</p>
+												<p> {{ publicacion.id_mascota.nombremas }}</p>
 											</div>
 											<div class="dato">
 
 												<p class="bold">Raza: </p>
-												<p> Labrador</p>
+												<p> {{ publicacion.id_mascota.razamas }}</p>
 											</div>
 											<div class="dato">
 
 												<p class="bold">Color: </p>
-												<p> Blanco y Dorado</p>
+												<p> {{ publicacion.id_mascota.colormas }}</p>
 											</div>
 										</div>
 
@@ -94,124 +94,37 @@
 											<div class="dato">
 
 												<p class="bold">Fecha extravío: </p>
-												<p>25-06-2023</p>
+												<p>{{ publicacion.fechaExtravio }}</p>
 											</div>
 
 											<div class="dato">
 
 												<p class="bold">Barrio de extravío: </p>
-												<p>Quiroga</p>
+												<p>{{ publicacion.barrioExtravio }}</p>
 											</div>
 
 											<div class="dato">
 
 												<p class="bold">Localidad extravío: </p>
-												<p>Rafael Uribe Uribe</p>
+												<p>{{ publicacion.localidadExtravio }}</p>
 											</div>
 										</div>
 									</div>
 
+									
+
 								</div>
 
+								<a  class="btn verPubli">Ver mascota</a>
 
-								<button class="btn verPubli">Ver mascota</button>
+
+								
 								
 							</div>
 
 							
 						</div>
-
-
-<!-- --------segunda ṕublicacion----------- -->
-
-						<div class="publi">
-
-							<div class="contenido-publi">
-
-								<input type="hidden" value="2" class="idPubli">
-
-								<div class="info-usuario">
-									<div class="img-usuario">
-									<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
-									<h6>usuario</h6></div>
-									<div>
-									<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>
-									<span class="fa-solid fa-ellipsis-vertical"></span>
-									</div>
-								</div>
-
-
-								<hr>
-
-								<div class="img-mascota-section">
-
-									<div class="img-mascota-contenedor">
-
-										<img src="{% static 'img/publi-7.webp' %}">
-
-									</div>
-
-								</div>
-
-
-								<hr>
-
-								<div class="info-mascota">
-
-									<div class="info-mascota-contenido">
-
-										<div class="col1">
-
-											<div class="dato">
-
-												<p class="bold">Nombre: </p>
-												<p> Pastorito</p>
-											</div>
-											<div class="dato">
-
-												<p class="bold">Raza: </p>
-												<p> Pastor aleman</p>
-											</div>
-											<div class="dato">
-
-												<p class="bold">Color: </p>
-												<p> Negro y café</p>
-											</div>
-										</div>
-
-										<div class="col2">
-											<div class="dato">
-
-												<p class="bold">Fecha extravío: </p>
-												<p>25-06-2023</p>
-											</div>
-
-											<div class="dato">
-
-												<p class="bold">Barrio de extravío: </p>
-												<p>Quiroga</p>
-											</div>
-
-											<div class="dato">
-
-												<p class="bold">Localidad extravío: </p>
-												<p>Rafael Uribe Uribe</p>
-											</div>
-										</div>
-									</div>
-
-								</div>
-
-								
-
-								
-								<button class="btn verPubli">Ver mascota</button>
-
-								
-							</div>
-							
-						</div>
-
+						{% endfor %}
 
 
 
@@ -219,7 +132,7 @@
 <!-- -----------primera publicacion ventana modelo-------------- -->
 
 
-						<div class="publi-modelo-estilo publi-modelo">
+						<div class="publi-modelo-estilo " id="publi-modelo">
 
 							<div class="publi-modelo-contenido">
 
@@ -228,16 +141,16 @@
 									<div class="carrusel">
 
 
-										<div class="carrusel-section"><img  src="{% static 'img/publi-2.jpg' %}">
+										<div class="carrusel-section"><img  id="img2" src="{{ publicacion.id_mascota.img2 }}">
 
 										</div>
-										<div class="carrusel-section"><img  src="{% static 'img/publi-3.jpg' %}">
+										<div class="carrusel-section"><img id="img3"  src="{{ publicacion.id_mascota.img3 }}">
 
 										</div>
-										<div class="carrusel-section"><img  src="{% static 'img/publi-4.jpg' %}">
+										<div class="carrusel-section"><img id="img4"  src="{{ publicacion.id_mascota.img4 }}">
 
 										</div>
-										<div class="carrusel-section"><img  src="{% static 'img/publi-5.jpg' %}"">
+										<div class="carrusel-section"><img  id="img5" src="{{ publicacion.id_mascota.img5 }}">
 
 										</div>
 
@@ -249,36 +162,36 @@
 								</div>
 
 
-
+									<!-- m de modelo XD -->
 								<div class="datos-mascota">
 									<div class="col1">
 										<div class="dato">
 											<p  class="bold">Nombre: </p>
-											<p>Mateo</p>
+											<p id="nombremasm">{{ publicacion.id_mascota.nombremas }}</p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Raza: </p>
-											<p>Labrador</p>
+											<p id="razamasm"></p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Sexo: </p>
-											<p>Masculino</p>
+											<p id="sexomasm"></p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Color: </p>
-											<p>blanco y dorado</p>
+											<p id="colormasm"></p>
 										</div>
 										<div class="dato">
 											<p class="bold">Edad: </p>
-											<p>2 años</p>
+											<p id="edadmasm"></p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Marcas distintivas: </p>
-											<p>Lorem ipsum dolor sit amet, ull</p>
+											<p id="marcasmasm"></p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Accesorios: </p>
-											<p>collar rojo con campana</p>
+											<p id="accesoriosmasm"></p>
 										</div>
 
 
@@ -286,31 +199,31 @@
 									<div class="col2">
 										<div class="dato">
 											<p class="bold">Enfermedades: </p>
-											<p>ninguna</p>
+											<p id="enfermedadesmasm"></p>
 										</div>
 										<div class="dato">
 											<p class="bold">Esterilización: </p>
-											<p>Sí</p>
+											<p id="esterilizacionmasm"></p>
 										</div>
 										<div class="dato">
 											<p class="bold">Medicamentos: </p>
-											<p>ninguno</p>
+											<p id="medicamentosmasm"></p>
 										</div>
 										<div class="dato">
 											<p class="bold">Vacunas: </p>
-											<p>todas</p>
+											<p id="vacunasmasm"></p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Localidad de extravío: </p>
-											<p>Rafael Uribe Uribe</p>
+											<p id="localidadExtraviom"></p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Barrio de extravío: </p>
-											<p>Quiroga</p>
+											<p id="barrioExtraviom"> </p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Fecha de extravío: </p>
-											<p>25-06-2023</p>
+											<p id="fechaExtraviom"></p>
 										</div>
 									</div>
 								</div>
@@ -322,16 +235,16 @@
 
 										<div class="dato">
 											<p  class="bold">Nombre: </p>
-											<p>Andrés Felipe Leal</p>
+											<p id="nombreDueño"></p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Numero de telefono: </p>
-											<p>3137525713</p>
+											<p id="telefonoDueño"></p>
 										</div>
 
 										<div class="dato">
 											<p  class="bold">Correo Electronico: </p>
-											<p>afleal34@gmail.com</p>
+											<p id="correoDueño"></p>
 										</div>
 
 									</div>

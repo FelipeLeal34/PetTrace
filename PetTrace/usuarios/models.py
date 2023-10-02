@@ -21,11 +21,11 @@ class Usuario(models.Model):
        
         db_table = 'usuarios'
 
-    '''
+    
     def __str__(self):
-        return f"{self.nombreusu}  {self.apellidousu}"
+        return f" {self.id_usuario} {self.nombreusu}  {self.apellidousu}"
 
-'''
+
 
 
 

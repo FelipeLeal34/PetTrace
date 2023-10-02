@@ -177,7 +177,7 @@ function cargarBarrios() {
       for (var i = 0; i < barriosUsaquen.length; i++) {
         var option = document.createElement("option");
         option.text = barriosUsaquen[i];
-        option.value = barriosUsaquen[i].toLowerCase().replace(/\s/g, "_");
+        option.value = barriosUsaquen[i].toLowerCase();
         barrios.add(option);
       }
     }else if (seleccionLocalidad === "Chapinero") {
@@ -237,7 +237,7 @@ function cargarBarrios() {
         for (var i = 0; i < barriosChapinero.length; i++) {
           var option = document.createElement("option");
           option.text = barriosChapinero[i];
-          option.value = barriosChapinero[i].toLowerCase().replace(/\s/g, "_");
+          option.value = barriosChapinero[i].toLowerCase() ;
           barrios.add(option);
         }
       }else if (seleccionLocalidad === "Santa Fe") {
@@ -284,7 +284,7 @@ function cargarBarrios() {
         for (var i = 0; i < barriosSantaFe.length; i++) {
           var option = document.createElement("option");
           option.text = barriosSantaFe[i];
-          option.value = barriosSantaFe[i].toLowerCase().replace(/\s/g, "_");
+          option.value = barriosSantaFe[i].toLowerCase() ;
           barrios.add(option);
         }
       }else if (seleccionLocalidad === "San Cristóbal") {
@@ -496,7 +496,7 @@ function cargarBarrios() {
         for (var i = 0; i < barriosSanCristobal.length; i++) {
           var option = document.createElement("option");
           option.text = barriosSanCristobal[i];
-          option.value = barriosSanCristobal[i].toLowerCase().replace(/\s/g, "_");
+          option.value = barriosSanCristobal[i].toLowerCase() ;
           barrios.add(option);
         }
       }else if (seleccionLocalidad === "Usme") {
@@ -691,7 +691,7 @@ function cargarBarrios() {
         for (var i = 0; i < barriosUsme.length; i++) {
           var option = document.createElement("option");
           option.text = barriosUsme[i];
-          option.value = barriosUsme[i].toLowerCase().replace(/\s/g, "_");
+          option.value = barriosUsme[i].toLowerCase() ;
           barrios.add(option);
         }
       }else if (seleccionLocalidad === "Tunjuelito") {
@@ -729,7 +729,7 @@ function cargarBarrios() {
         for (var i = 0; i < barriosTunjuelito.length; i++) {
           var option = document.createElement("option");
           option.text = barriosTunjuelito[i];
-          option.value = barriosTunjuelito[i].toLowerCase().replace(/\s/g, "_");
+          option.value = barriosTunjuelito[i].toLowerCase() ;
           barrios.add(option);
         }
       }else if (seleccionLocalidad === "Bosa") {
@@ -916,7 +916,7 @@ function cargarBarrios() {
         for (var i = 0; i < barriosBosa.length; i++) {
           var option = document.createElement("option");
           option.text = barriosBosa[i];
-          option.value = barriosBosa[i].toLowerCase().replace(/\s/g, "_");
+          option.value = barriosBosa[i].toLowerCase() ;
           barrios.add(option);
         }
       }else if (seleccionLocalidad === "Kennedy") {
@@ -1144,7 +1144,7 @@ function cargarBarrios() {
         for (var i = 0; i < barriosKennedy.length; i++) {
           var option = document.createElement("option");
           option.text = barriosKennedy[i];
-          option.value = barriosKennedy[i].toLowerCase().replace(/\s/g, "_");
+          option.value = barriosKennedy[i].toLowerCase() ;
           barrios.add(option);
         }
       }else if(seleccionLocalidad === "Fontibón") {
@@ -1234,7 +1234,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosFontibon.length; i++) {
             var option = document.createElement("option");
             option.text = barriosFontibon[i];
-            option.value = barriosFontibon[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosFontibon[i].toLowerCase() ;
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "Suba") {
@@ -1352,7 +1352,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosSuba.length; i++) {
             var option = document.createElement("option");
             option.text = barriosSuba[i];
-            option.value = barriosSuba[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosSuba[i].toLowerCase() ;
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "Barrios Unidos") {
@@ -1406,7 +1406,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosBarriosUnidos.length; i++) {
             var option = document.createElement("option");
             option.text = barriosBarriosUnidos[i];
-            option.value = barriosBarriosUnidos[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosBarriosUnidos[i].toLowerCase() ;
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "Teusaquillo") {
@@ -1447,7 +1447,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosTeusaquillo.length; i++) {
             var option = document.createElement("option");
             option.text = barriosTeusaquillo[i];
-            option.value = barriosTeusaquillo[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosTeusaquillo[i].toLowerCase() ;
             barrios.add(option);
           }
         } else if (seleccionLocalidad === "Los Mártires") {
@@ -1478,7 +1478,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosMartires.length; i++) {
             var option = document.createElement("option");
             option.text = barriosMartires[i];
-            option.value = barriosMartires[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosMartires[i].toLowerCase() ;
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "Antonio Nariño") {
@@ -1506,7 +1506,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosAntonioNarino.length; i++) {
             var option = document.createElement("option");
             option.text = barriosAntonioNarino[i];
-            option.value = barriosAntonioNarino[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosAntonioNarino[i].toLowerCase() ;
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "Puente Aranda") {
@@ -1570,7 +1570,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosPuenteAranda.length; i++) {
             var option = document.createElement("option");
             option.text = barriosPuenteAranda[i];
-            option.value = barriosPuenteAranda[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosPuenteAranda[i].toLowerCase() ;
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "La Candelaria") {
@@ -1588,7 +1588,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosCandelaria.length; i++) {
             var option = document.createElement("option");
             option.text = barriosCandelaria[i];
-            option.value = barriosCandelaria[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosCandelaria[i].toLowerCase() ;
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "Rafael Uribe") {
@@ -1712,7 +1712,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosRafaelUribe.length; i++) {
             var option = document.createElement("option");
             option.text = barriosRafaelUribe[i];
-            option.value = barriosRafaelUribe[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosRafaelUribe[i].toLowerCase() ;
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "Ciudad Bolívar") {
@@ -2080,7 +2080,7 @@ function cargarBarrios() {
           for (var i = 0; i < barriosEngativa.length; i++) {
             var option = document.createElement("option");
             option.text = barriosEngativa[i];
-            option.value = barriosEngativa[i].toLowerCase().replace(/\s/g, "_");
+            option.value = barriosEngativa[i].toLowerCase() ;
             barrios.add(option);
           }
         }

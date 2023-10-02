@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from . forms import *
@@ -13,7 +14,24 @@ def perfil(request):
  
  
 def perdidas(request):
-     return render(request, 'index/perdidas.html')
+
+     
+     publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(apartado='perdidas')
+     return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
+
+
+
+
+def verPubliModalPerdida(request, id_publicacion):
+
+     
+
+     publicacion = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(id_publicacion=id_publicacion)
+
+     return JsonResponse(publicacion)
+
+
+
 
 
 @login_required

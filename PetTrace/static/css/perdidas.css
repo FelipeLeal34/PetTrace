@@ -185,6 +185,16 @@
   }
 
 
+.verPubli{
+	
+}
+
+#publi-modelo{
+	display: none;
+	overflow: auto;
+}
+
+
 .publi-modelo-estilo{
 
 	
@@ -210,6 +220,8 @@
 }
 
 
+
+
 .publi-modelo-contenido{
 	width: 100%;
 	overflow: auto;
@@ -220,10 +232,7 @@
 
 }
 
-.publi-modelo{
-	display: none;
-	overflow: auto;
-}
+
 
 .publi-carrusel{
 	overflow: hidden;
