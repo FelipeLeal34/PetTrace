@@ -2,6 +2,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from . forms import *
+from . models import *
+from django.core import serializers
+
+
 
 # Create your views here.
 def index(request):
@@ -16,7 +20,7 @@ def perfil(request):
 def perdidas(request):
 
      
-     publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(apartado='perdidas')
+     publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
      return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
 
 
@@ -26,9 +30,36 @@ def verPubliModalPerdida(request, id_publicacion):
 
      
 
-     publicacion = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(id_publicacion=id_publicacion)
+     publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario__id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
-     return JsonResponse(publicacion)
+     data = serializers.serialize('json', [publicacion])
+
+     return JsonResponse({'status':'success','publicacion':data})
+
+
+'''
+     data = {
+          'id_mascota': { 'id_mascota' : publicacion.id_mascota.id_mascota,
+'nombremas':publicacion.id_mascota.nombremas,
+'especiemas':publicacion.id_mascota.especiemas,
+'razamas':publicacion.id_mascota.razamas,
+'sexomas':publicacion.id_mascota.sexomas,
+'colormas':publicacion.id_mascota.colormas,
+'accesoriosmas':publicacion.id_mascota.accesoriosmas,
+'tamañomas':publicacion.id_mascota.tamañomas,
+'edadmas':publicacion.id_mascota.edadmas,
+'marcasmas':publicacion.id_mascota.marcasmas,
+'idestado_salud':publicacion.id_mascota.idestado_salud,
+'id_usuario':publicacion.id_mascota.id_usuario,
+
+'img1':publicacion.id_mascota.img1,
+'img2':publicacion.id_mascota.img2,
+'img3':publicacion.id_mascota.img3,
+'img4':publicacion.id_mascota.img4,
+'img5':publicacion.id_mascota.img5}
+     }'''
+
+     
 
 
 
@@ -108,58 +139,7 @@ def agregarPubliPerdidas(request):
 
 
 
-          '''id_usuario = request.user.id
-                    perfil = Usuario.objects.get(id=id_usuario)
-                    img1 = request.POST.get('img1')
-                    img2 = request.POST.get('img2')
-                    img3 = request.POST.get('img3')
-                    img4 = request.POST.get('img4')
-                    img5 = request.POST.get('img5')
-                    nombremas = request.POST.get('nombremas')
-                    especiemas = request.POST.get('especiemas')
-                    razamas = request.POST.get('razamas')
-                    tamañomas = request.POST.get('tamañomas')
-                    sexomas = request.POST.get('sexomas')
-                    colormas = request.POST.get('colormas')
-                    edadmas = request.POST.get('edadmas')
-                    marcasmas = request.POST.get('marcasmas')
-                    accesoriosmas = request.POST.get('accesoriosmas')
-                    enfermedadesmas = request.POST.get('enfermedadesmas')
-                    estitilizacionmas = request.POST.get('estitilizacionmas')
-                    medicamentosmas = request.POST.get('medicamentosmas')
-                    vacunasmas = request.POST.get('vacunasmas')
-                    localidad = request.POST.get('txtlocalidad')
-                    barrio = request.POST.get('txtbarrios')
-                    fechaExtravío = request.POST.get('fechaextra')
-
-
-                    saludMascota = SaludMascota(enfermedades=enfermedadesmas,vacunas=vacunasmas,esterilizacion=estitilizacionmas,
-                                                medicamentos=medicamentosmas)
-
-
-                    saludMascota.save()
-
-
-
-
-                    mascota = Mascota(nombremas=nombremas,
-                                      especie=especiemas,
-                                      raza=razamas,
-                                      sexo=sexomas,
-                                      color=colormas,
-                                      accesorios=accesoriosmas,
-                                      tamano=tamañomas,
-                                      edad=edadmas,
-                                      caracteristicas=marcasmas,
-                                      img1=img1,
-                                      img2=img2,
-                                      img3=img3,
-                                      img4=img4,
-                                      img5=img5,
-                                      id_usuario=id_usuario,
-                                      idestado_salud=)'''
-                    
-                    
+         
 
 
 

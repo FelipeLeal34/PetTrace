@@ -32,8 +32,9 @@ publis.forEach( publi => {
 		})
 		.then(response => response.json())
 		.then(publicacion => {
-		  
+			
 		  console.log(publicacion);
+		  
 		})
 		
 
@@ -56,6 +57,8 @@ publis.forEach( publi => {
 	
 	
 	
+});
+
 });
 
 
@@ -87,13 +90,13 @@ btnAgregarPubli.addEventListener("click", ()=>{
 		btnAgregarPubli.classList.remove("menu-span-focus");
 		main[0].classList.remove("fondo-oscuro");
 
-	})
+	});
 
 	
 	
 
 }
-)
+);
 
 
 
@@ -103,7 +106,7 @@ agregarPubli.addEventListener("submit", ()=>{
 	btnAgregarPubli.classList.remove("menu-span-focus");
 
 }
-)
+);
 
 window.addEventListener("click",function(event) {
 	if (event.target == agregarPubli) {
@@ -116,7 +119,7 @@ window.addEventListener("click",function(event) {
 
 
 
-});
+
 
 
 

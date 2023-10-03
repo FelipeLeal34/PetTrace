@@ -21,7 +21,7 @@ class Usuario(models.Model):
        
         db_table = 'usuarios'
 
-    
+    '''
     def __str__(self):
         return f" {self.id_usuario} {self.nombreusu}  {self.apellidousu}"
 
@@ -31,7 +31,7 @@ class Usuario(models.Model):
 
 
 
-'''
+
 
 class Comentario(models.Model):
     id_comentario = models.AutoField(primary_key=True)
