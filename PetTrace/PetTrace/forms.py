@@ -37,6 +37,22 @@ class UserRegisterForm(forms.ModelForm):
                 raise ValidationError('La latitud debe ser un número decimal.')
         return latitud
     
+
+class UserLoginForm(forms.ModelForm):
+    class Meta:
+        model = Usuario
+        fields = ['username', 'password'] # Cambiar el nombre del campo email por username
+
+    def __init__(self, *args, **kwargs):
+        super(UserLoginForm, self).__init__(*args, **kwargs)
+        # Cambiar el nombre del campo email por username
+        self.fields['username'] = self.fields.pop('email')
+        # Modificar los widgets de los campos para agregar atributos o estilos
+        self.fields['username'].widget.attrs.update({'placeholder': 'Ingresa tu nombre de usuario', 'autofocus': True})
+        self.fields['password'].widget.attrs.update({'placeholder': 'Ingresa tu contraseña'})
+
+
+    
 """class UserRegisterForm(UserCreationForm):
     class Meta:
         model = Usuario
@@ -49,7 +65,7 @@ class UserRegisterForm(forms.ModelForm):
             user.save()
         return user"""
 
-class MiLoginForm(AuthenticationForm):
+"""class MiLoginForm(AuthenticationForm):
     # Aquí puedes definir los campos adicionales o modificar los existentes del formulario de inicio de sesión
     documento = forms.IntegerField(label="Documento")
     password = forms.CharField(label="Contraseña", strip=False, widget=forms.PasswordInput)
@@ -65,7 +81,7 @@ class MiLoginForm(AuthenticationForm):
                 user = Usuario.objects.get(documento=documento)
             except Usuario.DoesNotExist:
                 # Si no existe el usuario, lanza un error de validación
-                raise ValidationError('El correo o la contraseña son incorrectos.')
+                raise ValidationError('El usuario no esta registrado.')
             else:
                 # Si existe el usuario, verifica su contraseña
                 self.user_cache = authenticate(self.request, documento=user.documento, password=password)
@@ -75,6 +91,7 @@ class MiLoginForm(AuthenticationForm):
                 else:
                     # Si la contraseña es correcta, guarda al usuario en el cache y retorna los datos limpios
                     self.confirm_login_allowed(self.user_cache)
-                    return self.cleaned_data
+                    #raise ValidationError('si sirve pero no reenvia.')
+                    
 
-        return self.cleaned_data
+        return self.cleaned_data"""

@@ -19,13 +19,15 @@ from django.contrib.auth import views as auth_views
 from django.urls import path
 from usuarios.views import *
 from usuarios import views
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('perfil/', perfil, name='perfil'),
     path('perdidas/', perdidas, name='perdidas'),
-    path('login/', login.as_view(), name='login'),
     path('registrar/', views.registrar, name='registrar'),
+    path('login/', LoginView.as_view(template_name='login/inicioSesion.html'), name='login'),
     path('cerrar-sesion/', auth_views.LogoutView.as_view(), name='cerrar_sesion'),
 ]

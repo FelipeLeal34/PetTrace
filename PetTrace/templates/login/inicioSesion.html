@@ -18,29 +18,25 @@
             </div>
             <h1>Iniciar Sesión</h1>
             <div>
-        <form method="POST" action="{% url 'login' %}">
-            {% csrf_token %} 
-            {{ form.non_field_errors }}
-
-            <div class="inputGrupo">
-                <label for="{{ form.documento.id_for_label }}">Documento</label>
-                {{ form.documento }}
-            </div>
-            <div class="inputGrupo">
-                <label for="{{ form.password.id_for_label }}">Contraseña</label>
-                {{ form.password }}
-            </div>
-            </div>
-                <div>
-                    <a href="">¿Has olvidado tu contraseña?</a>
-                </div>
-            
-            <div>
-                <div id="boton">
-                    <input type="submit" value="Iniciar Sesión">
-                </div>
-        </form>
-                <a href="">No tengo una cuenta</a>
+                <form method="POST" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    {{ form.non_field_errors }}
+                    <div class="inputGrupo">
+                        <label for="{{ form.username.id_for_label }}">Nombre de usuario</label> <!-- Cambiar el texto dentro de la etiqueta -->
+                        {{ form.username }}
+                      </div>
+                    <div class="inputGrupo">
+                      <label for="{{ form.password.id_for_label }}">Contraseña</label>
+                      {{ form.password }}
+                    </div>
+                    <div>
+                      <a href="">¿Has olvidado tu contraseña?</a>
+                    </div>
+                    <div id="boton">
+                      <input type="submit" value="Iniciar Sesión">
+                    </div>
+                </form>
+                <a href="{% url 'registrar' %}">No tengo una cuenta</a>
             </div>
         </div>
     </div>
