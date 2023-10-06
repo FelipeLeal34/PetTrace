@@ -102,12 +102,16 @@ window.addEventListener("click",function(event) {
 
 
 
-/** ------------------PREVISUALIZAR IMAGEN EN EL FORMULARIO------------------------ **/
+/** PREVISUALIZAR IMAGEN **/
 
 
 
 const inputs = document.querySelectorAll(".input-file");
 const inputsText = document.querySelectorAll(".input-text");
+
+
+
+
 
 
 inputs.forEach(input => {
@@ -136,17 +140,17 @@ inputs.forEach(input => {
 
 
 
-// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA
+//VACUNAS PERROS
 
-function seleccionarVacunas(especie){
+function seleccionarVacunas(){
 
-
+var especie = document.getElementById('especiemas');
 var vacunasmas = document.getElementById('vacunasmas');
 
 
 vacunasmas.innerHTML="";
 
-if(especie == "perro"){
+if(especie.value == "perro"){
 
 	vacunasmas.innerHTML = 
 	
@@ -161,7 +165,7 @@ if(especie == "perro"){
 
 	
 
-} else if(especie == "gato"){
+} else if(especie.value == "gato"){
 
 	vacunasmas.innerHTML = 
 
@@ -181,89 +185,18 @@ if(especie == "perro"){
 }
 
 
-// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
 
-
-function seleccionarRaza(especie){
-
-	var razamas = document.getElementById('razamas');
-
-	razamas.innerHTML="";
-
-if(especie == "perro"){
-
-	razamas.innerHTML = 
-	
-
-	'<option value="pastoraleman">Pastor alemán</option>'+
-	' <option value="doberman">Doberman </option>'+
-	' <option value="boyerodeberna">Boyero de Berna </option>'+
-	'<option value="rottweiler">Rottweiler </option>'+
-	' <option value="akita">Akita </option>'+
-
-	' <option value="labradorretriever">Labrador retriever </option>'+
-	' <option value="goldenretriever">Golden retriever </option>'+
-	'<option value="bordercollie">Border collie</option>'+
-	'<option value="siberianhusky">Siberian Husky</option>'+
-	'<option value="bulldogingles">Bulldog inglés</option>'+
-	'<option value="criollo">Criollo</option>'+
-	'<option value="beagle">Beagle</option>'
-
-	
-
-} else if(especie == "gato"){
-
-	razamas.innerHTML = 
-
-	' <option value="mainecoon">Maine coon</option> ' + 
-	'<option value="bengali">Bengalí</option> ' +
-	' <option value="persa">Persa</option>' +
-	' <option value="himalayo">Himalayo</option>' +
-	' <option value="britanico">Britanico de pelo corto</option>' +
-	' <option value="egipcio">egipcio</option>' +
-	' <option value="siames">siamés</option>' +
-	' <option value="foldescoces">Fold escocés</option>' +
-	' <option value="ragdoll">Ragdoll</option>' +
-	' <option value="angora">Angora</option>' +
-	' <option value="criollo">criollo</option>' 
-
-
-} else{
-	razamas.innerHTML="";
-}
-
-	
-}
-
-
-
-function seleccionarEspecie(){
-	var especie = document.getElementById('especiemas').value;
-
-	seleccionarVacunas(especie);
-	seleccionarRaza(especie);
-
-}
-
-
-
-
-
-
-// ----------AL HACER CLICK EN EL LABEL SE DESPLIEGA EL SELECT-------
-
-
-function mostrarSelect(id) {
-	var select = document.getElementById(id);
-	if (select.style.display === "none") {
-		select.style.display = "block";
+function mostrarSelect() {
+	const selectVacunas = document.getElementById("vacunasmas");
+	if (selectVacunas.style.display === "none") {
+		selectVacunas.style.display = "block";
 		setTimeout(() => {
-			select.style.opacity = "1";
+			selectVacunas.style.opacity = "1";
 		}, 10); // Retrasamos la aparición para que la animación sea visible
 	} else {
-		select.style.opacity = "0";
+		selectVacunas.style.opacity = "0";
 		setTimeout(() => {
-			select.style.display = "none";
+			selectVacunas.style.display = "none";
 		}, 300); // Retrasamos la desaparición para que la animación sea visible
 	}
 }
@@ -273,8 +206,7 @@ function mostrarSelect(id) {
 
 
 
-/**
-	 --------------------FILTRAR--------------------------------
+/** --------------------FILTRAR--------------------------------
  */
 
 
@@ -298,6 +230,10 @@ btnFiltrar.addEventListener("click", (e) => {
     
 });
 
+
+
+// FIlTROS
+
 const selectFiltros = document.querySelectorAll(".categoria-filtro");
 const subfiltrosBox = document.querySelector("#subfiltros-box")
 
@@ -312,29 +248,47 @@ selectFiltros.forEach(selectFiltro =>{
 		if(idSelectFiltro === "filtro-color"){
 			subfiltrosBox.innerHTML = 
 				
-			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
-			'<div class="categoria-filtro"><label for="Naranja"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #ff7800;"></i><input id="Naranja" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Naranja</label></div>'+
-			'<div class="categoria-filtro"><label for="Amarillo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6d32d;"></i><input id="Amarillo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Amarillo</label></div>'+
-			'<div class="categoria-filtro"><label for="Dorado"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #d4af37;"></i><input id="Dorado" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Dorado</label></div>'+
-			'<div class="categoria-filtro"><label for="Gris"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #77767b;"></i><input id="Gris" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Gris</label></div>'+
-			'<div class="categoria-filtro"><label for="Marron"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #865e3c;"></i><input id="Marron" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Marron</label></div>'+
-			'<div class="categoria-filtro"><label for="Blanco"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6f5f4;"></i><input id="Blanco" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Blanco</label></div>'+
-			'<div class="categoria-filtro"><label for="Negro"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #000;"></i><input id="Negro" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Negro</label></div>';
+			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" value="rojo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
+			'<div class="categoria-filtro"><label for="Naranja"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #ff7800;"></i><input id="Naranja" value="naranja"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Naranja</label></div>'+
+			'<div class="categoria-filtro"><label for="Amarillo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6d32d;"></i><input id="Amarillo" value="amarillo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Amarillo</label></div>'+
+			'<div class="categoria-filtro"><label for="Dorado"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #d4af37;"></i><input id="Dorado" value="dorado" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Dorado</label></div>'+
+			'<div class="categoria-filtro"><label for="Gris"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #77767b;"></i><input id="Gris" value="gris" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Gris</label></div>'+
+			'<div class="categoria-filtro"><label for="Marron"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #865e3c;"></i><input id="Marron" value="marron"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Marron</label></div>'+
+			'<div class="categoria-filtro"><label for="Blanco"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6f5f4;"></i><input id="Blanco" value="blanco"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Blanco</label></div>'+
+			'<div class="categoria-filtro"><label for="Negro"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #000;"></i><input id="Negro" value="negro"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Negro</label></div>';
 
 			
-				const checkboxOptions = document.querySelectorAll(".subfiltros-color-checkbox");
+			let filtroColor = document.querySelectorAll('.subfiltros-color-checkbox')
 			
-				checkboxOptions.forEach(option => {
+				filtroColor.forEach(option => {
 					option.addEventListener("change", function() {
 						
 						if (this.checked) {
-							checkboxOptions.forEach(otherOption => {
+							filtroColor.forEach(otherOption => {
 								if (otherOption !== this) {
 									otherOption.checked = false;
 								}
 							});
-							subfiltrosBox.style.display = "none";
+							 subfiltrosBox.style.display = "none";
 						}
+
+						
+
+					let colorElegido = null;
+
+					filtroColor.forEach(checkbox => {
+						if(checkbox.checked){
+							colorElegido = checkbox.value;
+							alert(colorElegido);
+						}
+						
+
+					
+					})
+
+					
+
+
 					});
 				});
 			
@@ -345,28 +299,74 @@ selectFiltros.forEach(selectFiltro =>{
 
 			
 			
-		} else if(idSelectFiltro == "filtro-raza"){
-
+		} else if (idSelectFiltro === "filtro-raza") {
 			subfiltrosBox.innerHTML = 
-			
-			'<div class="categoria-filtro"><p>Pastor alemán</p></div>'+
-			' <div class="categoria-filtro"><p>Doberman</p> </div>'+
-			' <div class="categoria-filtro"><p>Boyero de Berna</p> </div>'+
-			'<div class="categoria-filtro"><p>Rottweiler</p> </div>'+
-			' <div class="categoria-filtro"><p>Akita</p> </div>'+
+				'<div class="categoria-filtro"><label for="PastorAleman"><input id="PastorAleman" value="Pastor Alemán" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Pastor Alemán</label></div>'+
+				'<div class="categoria-filtro"><label for="Doberman"><input id="Doberman" value="Doberman" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Doberman</label></div>'+
+				'<div class="categoria-filtro"><label for="BoyeroDeBerna"><input id="BoyeroDeBerna" value="Boyero de Berna" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Boyero de Berna</label></div>'+
+				'<div class="categoria-filtro"><label for="Rottweiler"><input id="Rottweiler" value="Rottweiler" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Rottweiler</label></div>'+
+				'<div class="categoria-filtro"><label for="Akita"><input id="Akita" value="Akita" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Akita</label></div>'+
+				'<div class="categoria-filtro"><label for="LabradorRetriever"><input id="LabradorRetriever" value="Labrador retriever" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Labrador retriever</label></div>'+
+				'<div class="categoria-filtro"><label for="GoldenRetriever"><input id="GoldenRetriever" value="Golden retriever" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Golden retriever</label></div>'+
+				'<div class="categoria-filtro"><label for="BorderCollie"><input id="BorderCollie" value="Border collie" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Border collie</label></div>'+
+				'<div class="categoria-filtro"><label for="SiberianHusky"><input id="SiberianHusky" value="Siberian Husky" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Siberian Husky</label></div>'+
+				'<div class="categoria-filtro"><label for="BulldogIngles"><input id="BulldogIngles" value="Bulldog inglés" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Bulldog inglés</label></div>'+
+				'<div class="categoria-filtro"><label for="Beagle"><input id="Beagle" value="Beagle" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Beagle</label></div>';
 		
-			' <div class="categoria-filtro"><p>Labrador retriever</p> </div>'+
-			' <div class="categoria-filtro"><p>Golden retriever</p> </div>'+
-			'<div class="categoria-filtro"><p>Border collie</p></div>'+
-			'<div class="categoria-filtro"><p>Siberian Husky</p></div>'+
-			'<div class="categoria-filtro"><p>Bulldog inglés</p></div>'+
-			'<div class="categoria-filtro"><p>Beagle</p></div>'
+			let filtroRaza = document.querySelectorAll('.subfiltros-raza-checkbox');
 		
- 
+			filtroRaza.forEach(option => {
+				option.addEventListener("change", function() {
+					if (this.checked) {
+						filtroRaza.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+							}
+						});
+						subfiltrosBox.style.display = "none";
+					}
+		
+					let razaElegida = null;
+					filtroRaza.forEach(checkbox => {
+						if (checkbox.checked) {
+							razaElegida = checkbox.value;
+							alert(razaElegida);
+						}
+					});
+				});
+			});
+		
+		} else if (idSelectFiltro === "filtro-especie") {
+			subfiltrosBox.innerHTML = 
+				'<div class="categoria-filtro"><label for="Perro"><input id="Perro" value="Perro" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Perro</label></div>'+
+				'<div class="categoria-filtro"><label for="Gato"><input id="Gato" value="Gato" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Gato</label></div>';
+		
+			let filtroEspecie = document.querySelectorAll('.subfiltros-especie-checkbox');
+		
+			filtroEspecie.forEach(option => {
+				option.addEventListener("change", function() {
+					if (this.checked) {
+						filtroEspecie.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+							}
+						});
+						subfiltrosBox.style.display = "none";
+					}
+		
+					let especieElegida = null;
+					filtroEspecie.forEach(checkbox => {
+						if (checkbox.checked) {
+							especieElegida = checkbox.value;
+							alert(especieElegida);
+						}
+					});
+				});
+			});
+		}
+		
 
-			}
-		})
-
+	
 
 	})
 
@@ -379,4 +379,5 @@ selectFiltros.forEach(selectFiltro =>{
 
 
 
- 
+
+})

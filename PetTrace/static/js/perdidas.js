@@ -41,3 +41,16 @@ btnRight.addEventListener('click', function(){
 btnLeft.addEventListener('click', function(){
 	before();
 })
+
+const iconfav = document.getElementById("fav")
+
+iconfav.addEventListener("click", function(e){
+	
+	if(e.target.id == "agregarFav"){
+	iconfav.innerHTML = '<i class="fa-solid fa-heart" style="color: #000;" id="agregadoFav"></i>'
+
+	} else{
+		iconfav.innerHTML = '<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>'
+
+	}
+})
