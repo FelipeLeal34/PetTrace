@@ -163,8 +163,26 @@ input[type="password"]{
   stroke: #292929;;
 }
 
+/*Boton para mostrar y ocultar contraseña*/
+.eye {
+  /* Usa la imagen del ojo cerrado como fondo */
+  background-image: url("../img/eye.close.png");
+  /* Ajusta el tamaño y la posición del elemento */
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  vertical-align: middle;
+}
 
+.eye:hover {
+  /* Cambia el cursor a una mano */
+  cursor: pointer;
+}
 
+.eye.open {
+  /* Si el elemento tiene la clase open, cambia la imagen del ojo por la del ojo abierto */
+  background-image: url("../img/eye.open.png");
+}
 
 /*Animacion del boton inicio y registro*/
 input[type="submit"] {

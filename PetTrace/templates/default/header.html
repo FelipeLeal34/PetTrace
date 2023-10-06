@@ -20,20 +20,15 @@
     <input type="checkbox" id="checkbox">
     <nav>
         <ul>
+            {% if user.is_authenticated %}
             <li>
                 <div id="fotoperfil">
                     <img src="{% static 'img/fotoperfil.jpg' %}">
                 </div>
             </li>
-        {% if user.is_authenticated %}
             <li class="li">
                 <span class="icon-search"></span>
-                <a href="{% url 'cerrar_sesion' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">Cerrar sesión</a>
-            </li>
-        
-            <li class="li">
-                <span class="icon-search"></span>
-                <a href="">PERDIDAS</a>
+                <a href="{% url 'perdidas' %}">PERDIDAS</a>
             </li>
             <li class="li">
                 <span class="icon-paw"></span>
@@ -51,15 +46,20 @@
                 <span class="icon-cog"></span>
                 <a href="">AJUSTES</a>
             </li>
-        {% endif %}
             <li class="li">
+                <span class="icon-search"></span>
+                <a href="{% url 'logout' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">CERRAR SESIÓN</a>
+            </li>
+            {% else %}
+            <li class="log">
                 <span class="icon-cog"></span>
                 <a href="{% url 'registrar' %}">Registrarse</a>
             </li> 
-            <li class="li">
+            <li class="log">
                 <span class="icon-cog"></span>
                 <a href="{% url 'login' %}">Iniciar sesión</a>
             </li>
+            {% endif %}
         </ul>
     </nav>
 </header>    

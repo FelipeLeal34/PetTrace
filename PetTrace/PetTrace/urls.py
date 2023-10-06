@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, reverse_lazy
 from usuarios.views import *
 from usuarios import views
 from django.contrib.auth.views import LoginView, LogoutView
@@ -29,5 +29,10 @@ urlpatterns = [
     path('perdidas/', perdidas, name='perdidas'),
     path('registrar/', views.registrar, name='registrar'),
     path('login/', LoginView.as_view(template_name='login/inicioSesion.html'), name='login'),
-    path('cerrar-sesion/', auth_views.LogoutView.as_view(), name='cerrar_sesion'),
+    path('logout', auth_views.LogoutView.as_view(template_name='index/perdidas.html'), name='logout'),
+    path('reset/', views.reset, name='reset'),
+    path('resetHecho/', views.resetHecho, name='resetHecho'),
+    path('resetEmail/', views.resetEmail, name='resetEmail'),
+    path('resetConfirm/', views.resetConfirm, name='resetConfirm'),
+    path('resetComplete/', views.resetComplete, name='resetComplete'),
 ]

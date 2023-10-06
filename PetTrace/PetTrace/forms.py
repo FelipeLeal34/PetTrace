@@ -1,18 +1,20 @@
 from django import forms
 from usuarios.models import Usuario
-from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import ValidationError
-from django.contrib.auth import authenticate
 
 class UserRegisterForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ['first_name', 'last_name', 'username', 'documento', 'email', 'telefono', 'password', 'longitud', 'latitud']
+        fields = ['first_name', 'last_name', 'username', 'documento', 'email', 'telefono', 'password', 'localidad', 'barrio', 'longitud', 'latitud']
+        widgets = {
+            'password': forms.PasswordInput(attrs={'id': 'password'})
+        }
 
     def __init__(self, *args, **kwargs):
         super(UserRegisterForm, self).__init__(*args, **kwargs)
+        # Ocultar los campos
         self.fields['longitud'].widget = forms.HiddenInput()
-        self.fields['latitud'].widget = forms.HiddenInput() # Oculta el campo en el template
+        self.fields['latitud'].widget = forms.HiddenInput() 
     def clean_longitud(self):
         # Obtiene el valor del campo longitud
         longitud = self.cleaned_data.get('longitud')

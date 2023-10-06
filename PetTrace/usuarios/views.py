@@ -2,9 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from PetTrace.forms import UserRegisterForm, UserLoginForm
 from django.urls import reverse
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
-
 from usuarios.models import Usuario
 
 
@@ -37,24 +36,19 @@ def registrar(request):
             latitud = form.cleaned_data.get('latitud')
             password = form.cleaned_data.get('password')
 
-            # Creas el usuario con los datos y le asignas la contraseña encriptada
-            usuario = Usuario(first_name=first_name,last_name=last_name,documento=documento,email=email, telefono=telefono, localidad=localidad, barrio=barrio, username=username, longitud=longitud, latitud=latitud)
+            # se crea el usuario con los datos y se le asignas la contraseña encriptada
+            usuario = Usuario(first_name=first_name,last_name=last_name, username=username, documento=documento,email=email, telefono=telefono, localidad=localidad, barrio=barrio, longitud=longitud, latitud=latitud)
             usuario.set_password(password)
             usuario.save()
 
             # Aquí puedes enviar un mensaje de éxito o redirigir al usuario a otra página
             messages.success(request, f'Usuario {usuario.username} registrado con éxito.')
-            return redirect(reverse('perfil'))
+            return redirect(reverse('login'))
     else:
         form = UserRegisterForm()
         print ('error')
     return render(request, 'login/registro.html', {'form': form})
 
-
-
-
-from django.shortcuts import render, redirect
-from django.contrib.auth import get_user_model, login
 
 User = get_user_model() # Obtener el modelo de usuario personalizado
 
@@ -67,21 +61,20 @@ def login(request):
         context = {}
         if request.method == 'POST':
             # Obtener los datos del formulario
-            username = request.POST.get('username') # Cambiar el nombre de la variable email por username
+            username = request.POST.get('username')
             password = request.POST.get('password')
-            # Intentar autenticar al usuario
-            user = authenticate(request, username=username, password=password) # Pasar el valor de username al argumento username
+            # Autenticar al usuario
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 # Si el usuario existe y está activo, iniciar sesión y redirigir
                 if user.is_active:
                     login(request, user)
-                    return redirect(request.GET.get('next', 'perfil'))
                 else:
                     # Si el usuario está inactivo o la contraseña es incorrecta, mostrar un mensaje de error
-                    context['error'] = 'Tu cuenta está desactivada o tu contraseña es inválida.'
+                    context['error'] = 'Contraseña incorrecta.'
             else:
                 # Si el usuario no existe, mostrar un mensaje de error
-                context['error'] = 'No existe ningún usuario con ese nombre de usuario.'
+                context['error'] = 'El usuario no esta registrado'
         # Crear una instancia del formulario
         form = UserLoginForm()
         # Pasar el formulario y el contexto al renderizar la plantilla
@@ -89,7 +82,16 @@ def login(request):
 
 
 
-
+def reset(request):
+    return render(request, 'login/resetPassword/reset.html')
+def resetHecho(request):
+    return render(request, 'login/resetPassword/resetHecho.html')
+def resetEmail(request):
+    return render(request, 'login/resetPassword/resetEmail.html')
+def resetConfirm(request):
+    return render(request, 'login/resetPassword/resetConfirm.html')
+def resetComplete(request):
+    return render(request, 'login/resetPassword/resetComplete.html')
 
 
 

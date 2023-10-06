@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
     <script src="{% static 'js/cargarBarrios.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/hideShowPassword.min.js' %}"></script>
     <title>Registrarse</title>
 </head>
 <body>
@@ -35,30 +37,38 @@
             <div class="inputGrupo">
                 <label for="{{ form.first_name.id_for_label }}">Nombre*</label>
                 {{ form.first_name }}
+                {{ form.first_name.errors }} 
             </div>
             <div class="inputGrupo">
                 <label for="{{ form.last_name.id_for_label }}">Apellido*</label>
                 {{ form.last_name }}
+                {{ form.last_name.errors }} 
             </div>
             <div class="inputGrupo">
                 <label for="{{ form.username.id_for_label }}">Nombre de usuario</label>
                 {{ form.username }}
+                {{ form.username.errors }} 
             </div>
             <div class="inputGrupo">
                 <label for="{{ form.documento.id_for_label }}">Numero de Documento*</label>
                 {{ form.documento }}
+                {{ form.documento.errors }}
             </div>
             <div class="inputGrupo">
                 <label for="{{ form.email.id_for_label }}">Correo*</label>
                 {{ form.email }}
+                {{ form.email.errors }} 
             </div>
             <div class="inputGrupo">
                 <label for="{{ form.telefono.id_for_label }}">Numero de telefono*</label>
                 {{ form.telefono }}
+                {{ form.telefono.errors }} 
             </div>
             <div class="inputGrupo">
                 <label for="{{ form.password.id_for_label }}">Ingrese una contraseña*</label>
                 {{ form.password }}
+                {{ form.password.errors }}
+                <img src="{% static 'img/eye.close.png' %}" alt="" class="eye" id="eye"> 
             </div>
             
             <div>
@@ -126,4 +136,19 @@
         </form>
     </div>
 </body>
+<script>
+var eye = document.getElementById("eye");
+  var password = document.getElementById("password");
+  eye.addEventListener("click", function() {
+    // Si el tipo de campo es password, lo cambia a text y cambia el src del elemento img por la imagen del ojo abierto
+    if (password.type == "password") {
+        password.type = "text";
+        eye.src = "{% static 'img/eye.open.png' %}";
+    // Si no, lo cambia a password y cambia el src del elemento img por la imagen del ojo cerrado
+    } else {
+        password.type = "password";
+        eye.src = "{% static 'img/eye.close.png' %}";
+    }
+  });
+</script>
 </html>
