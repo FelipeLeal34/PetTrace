@@ -27,13 +27,17 @@ function obtenerUbicacion() {
 }
 
 
-function cargarBarrios() {
+
+  function cargarBarrios() {
     var localidades = document.getElementById("localidades");
     var barrios = document.getElementById("barrios");
     var seleccionLocalidad = localidades.value;
 
     // Limpiar el select de barrios antes de cargar nuevos elementos
     barrios.innerHTML = "";
+
+
+    
 
     if (seleccionLocalidad === "Usaquén") {
       var barriosUsaquen = [
@@ -2086,8 +2090,21 @@ function cargarBarrios() {
         }
 }
 
+
+
+
+export function listaBarrios(){
+  return {barriosAntonioNarino,barriosBarriosUnidos, barriosBosa, barriosCandelaria, 
+    barriosChapinero, barriosCiudadBolivar, barriosEngativa, barriosFontibon, barriosKennedy, 
+    barriosMartires, barriosMartires, barriosPuenteAranda, barriosRafaelUribe, barriosSanCristobal, 
+    barriosSantaFe, barriosSuba, barriosTeusaquillo, barriosTunjuelito, barriosUsaquen, barriosUsme}
+}
+
 //funcion del mapa
 
+
+
+/*
 var latitudInput;
 var longitudInput;
 var map;
@@ -2141,3 +2158,5 @@ function initMap() {
   latitudInput = document.getElementById("latitud");
   longitudInput = document.getElementById("longitud");
 }
+*/
+

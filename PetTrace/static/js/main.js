@@ -1,3 +1,6 @@
+ import { listaBarrios } from './cargarBarrios.js';
+
+
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.querySelectorAll(".publi-modelo");
 const btnCerrar = document.querySelector("#btn-cerrar");
@@ -234,6 +237,9 @@ btnFiltrar.addEventListener("click", (e) => {
 
 // FIlTROS
 
+
+
+
 const selectFiltros = document.querySelectorAll(".categoria-filtro");
 const subfiltrosBox = document.querySelector("#subfiltros-box")
 
@@ -246,6 +252,7 @@ selectFiltros.forEach(selectFiltro =>{
 		selectFiltro.style.position = "relative";
 		subfiltrosBox.style.display = "flex";
 		if(idSelectFiltro === "filtro-color"){
+			subfiltrosBox.innerHTML = ""
 			subfiltrosBox.innerHTML = 
 				
 			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" value="rojo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
@@ -300,6 +307,7 @@ selectFiltros.forEach(selectFiltro =>{
 			
 			
 		} else if (idSelectFiltro === "filtro-raza") {
+			subfiltrosBox.innerHTML = ""
 			subfiltrosBox.innerHTML = 
 				'<div class="categoria-filtro"><label for="PastorAleman"><input id="PastorAleman" value="Pastor Alemán" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Pastor Alemán</label></div>'+
 				'<div class="categoria-filtro"><label for="Doberman"><input id="Doberman" value="Doberman" class="subfiltros-checkbox subfiltros-raza-checkbox" type="checkbox">Doberman</label></div>'+
@@ -337,6 +345,8 @@ selectFiltros.forEach(selectFiltro =>{
 			});
 		
 		} else if (idSelectFiltro === "filtro-especie") {
+
+			subfiltrosBox.innerHTML = ""
 			subfiltrosBox.innerHTML = 
 				'<div class="categoria-filtro"><label for="Perro"><input id="Perro" value="Perro" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Perro</label></div>'+
 				'<div class="categoria-filtro"><label for="Gato"><input id="Gato" value="Gato" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Gato</label></div>';
@@ -363,9 +373,75 @@ selectFiltros.forEach(selectFiltro =>{
 					});
 				});
 			});
+
+
+
+			
+			
+		} else if(idSelectFiltro === "filtro-localidad"){
+
+			subfiltrosBox.innerHTML = ""
+
+			let localidades = ["Usaquen","Chapinero","Santa fe","San Cristobal","Usme","Tunjuelito","Bosa","Kennedy","Fontibon",
+			"Engativa","Suba","Barrios Unidos",
+			"Teusaquillo","Los Martires","Antonio Nariño","Puente Aranda","La candelaria","Rafael Uribe","Ciudad bolivar"];
+
+
+			for (var i = 0; i < localidades.length; i++) {
+				var div = document.createElement("div");
+				div.className = "categoria-filtro";
+				
+				var label = document.createElement("label")
+				var input = document.createElement("input")
+				
+				input.type = 'checkbox'
+				input.id = localidades[i].toLowerCase().replace(/\s/g, " ");
+				input.value = localidades[i].toLowerCase().replace(/\s/g, " ");
+				input.classList.add('subfiltros-checkbox');
+				input.classList.add('subfiltros-localidad-checkbox');
+				
+				label.htmlFor = input.id;
+				label.textContent = localidades[i]
+				
+				subfiltrosBox.appendChild(div);
+				div.appendChild(label);
+				label.appendChild(input);
+
+
+
+
+			  }
+			  let filtroLocalidad = document.querySelectorAll('.subfiltros-localidad-checkbox');
+		
+			filtroLocalidad.forEach(option => {
+				option.addEventListener("change", function() {
+					if (this.checked) {
+						filtroLocalidad.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+							}
+						});
+						subfiltrosBox.style.display = "none";
+					}
+		
+					let localidadElegida = null;
+					filtroLocalidad.forEach(checkbox => {
+						if (checkbox.checked) {
+							localidadElegida = checkbox.value;
+							alert(localidadElegida);
+						}
+					});
+				});
+			});
+
+			const barrios = listaBarrios();
+			
+		} else if(idSelectFiltro === "filtro-barrio"){
+			console.log(barrios.barriosAntonioNarino);
 		}
 		
 
+																	
 	
 
 	})
