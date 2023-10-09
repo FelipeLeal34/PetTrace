@@ -14,7 +14,7 @@ const btnAgregarPubli = document.querySelector("#agregar");
 
 
 
-
+// PETICION GET A LA BD PARA MOSTRAR LOS DATOS DE CADA PUBLICACICON EN UNA VENTANA MODAL
 
 publis.forEach( publi => {
 	publi.addEventListener("click",e =>{
@@ -32,8 +32,32 @@ publis.forEach( publi => {
 		})
 		.then(response => response.json())
 		.then(publicacion => {
+
+
+			document.getElementById("img2").src = publicacion.data.mascota.img2;
+			document.getElementById("img3").src = publicacion.data.mascota.img3;
+			document.getElementById("img4").src = publicacion.data.mascota.img4;
+			document.getElementById("img5").src = publicacion.data.mascota.img5;
+
 			
-		  console.log(publicacion);
+			document.getElementById("nombremasm").textContent = publicacion.data.mascota.nombremas;
+			document.getElementById("razamasm").textContent = publicacion.data.mascota.razamas;
+			document.getElementById("sexomasm").textContent = publicacion.data.mascota.sexomas;
+			document.getElementById("colormasm").textContent = publicacion.data.mascota.colormas;
+			document.getElementById("edadmasm").textContent = publicacion.data.mascota.edadmas;
+			document.getElementById("marcasmasm").textContent = publicacion.data.mascota.marcasmas;
+			document.getElementById("accesoriosmasm").textContent = publicacion.data.mascota.accesoriosmas;
+			document.getElementById("enfermedadesmasm").textContent = publicacion.data.estado_salud.enfermedadesmas;
+			document.getElementById("esterilizacionmasm").textContent = publicacion.data.estado_salud.esterilizacionmas;
+			document.getElementById("medicamentosmasm").textContent = publicacion.data.estado_salud.medicamentosmas;
+			document.getElementById("vacunasmasm").textContent = publicacion.data.estado_salud.vacunasmas;
+			document.getElementById("localidadExtraviom").textContent = publicacion.data.publicacion.localidadExtravio;
+			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
+			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio;
+			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
+			document.getElementById("telefonoDueño").textContent = publicacion.data.usuario.telefono;
+			document.getElementById("correoDueño").textContent = publicacion.data.usuario.email;
+			
 		  
 		})
 		
@@ -163,7 +187,7 @@ inputs.forEach(input => {
 
 
 
-// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA
+// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
 
 function seleccionarVacunas(especie){
 
