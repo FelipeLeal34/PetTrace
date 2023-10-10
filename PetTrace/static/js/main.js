@@ -12,6 +12,8 @@ const main = document.getElementsByTagName("main");
 
 const btnAgregarPubli = document.querySelector("#agregar");
 
+var filtrosBox = document.querySelector(".filtros-box");
+
 
 
 // PETICION GET A LA BD PARA MOSTRAR LOS DATOS DE CADA PUBLICACICON EN UNA VENTANA MODAL
@@ -88,6 +90,58 @@ publis.forEach( publi => {
 
 
 
+
+// ------------------EDITAR PUBLICACION----------------------------
+
+
+
+btnOpciones = document.querySelectorAll(".trespuntos");
+menuOpcionesPubli = document.querySelectorAll(".menuOpcionesPubli")
+
+btnOpciones.forEach((btnOpcion,i) => {
+	btnOpcion.addEventListener("click", e =>{
+		menuOpcionesPubli[i].style.display = "flex";
+		e.stopPropagation();
+
+		
+	});
+
+	
+
+
+
+	});
+
+	document.addEventListener("click", (event) => {
+
+		menuOpcionesPubli.forEach(menuOpcion =>{
+			if(!menuOpcion.contains(event.target)){
+				menuOpcion.style.display = "none";
+			}
+		})
+
+		
+
+	});
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -------------AGREGAR PUBLICACION-----------
 
 
 
@@ -332,7 +386,7 @@ function mostrarSelect(id) {
 
 
 const btnFiltrar = document.querySelector("#filtrar");
-const filtrosBox = document.querySelector(".filtros-box");
+
 
 btnFiltrar.addEventListener("click", (e) => {
 	e.stopPropagation();
