@@ -52,7 +52,7 @@
 								
 								<div class="menuOpcionesPubli">
 									{% if user.is_authenticated and user.id == publicacion.id_usuario.id_usuario.pk  %}
-									<div class="opcionesPubli">
+									<div class="opcionesPubli verPubli">
 										<i class="fa-solid fa-pen-to-square"></i>
 										<p>Editar publicacion</p>
 									</div>
@@ -69,7 +69,7 @@
 
 									<div class="img-mascota-contenedor">
 
-										<img src="{{ publicacion.id_mascota.img1.url.url }}">
+										<img src="{{ publicacion.id_mascota.img1.url }}">
 
 									</div>
 
@@ -156,20 +156,20 @@
 									<div class="carrusel">
 
 
-										<div class="carrusel-section"><img  id="img2" src="">
-										<div class="carrusel-section"><img  id="img2" src="">
+										<div class="carrusel-section"><img  id="img2m" src="">
+										
 
 										</div>
-										<div class="carrusel-section"><img id="img3"  src="">
-										<div class="carrusel-section"><img id="img3"  src="">
+										<div class="carrusel-section"><img id="img3m"  src="">
+										
 
 										</div>
-										<div class="carrusel-section"><img id="img4"  src="">
-										<div class="carrusel-section"><img id="img4"  src="">
+										<div class="carrusel-section"><img id="img4m"  src="">
+										
 
 										</div>
-										<div class="carrusel-section"><img  id="img5" src="">
-										<div class="carrusel-section"><img  id="img5" src="">
+										<div class="carrusel-section"><img  id="img5m" src="">
+										
 
 										</div>
 
@@ -245,6 +245,10 @@
 											<p  class="bold">Fecha de extravío: </p>
 											<p id="fechaExtraviom"></p>
 										</div>
+										<div class="dato">
+											<p  class="bold">Recompensa: </p>
+											<p id="recompensam"></p>
+										</div>
 									</div>
 								</div>
 
@@ -295,11 +299,13 @@
 				
 
 
-					<form method="post" action="{% url 'agregarPubliPerdidas' %}" class=" publi-modelo-estilo agregarPubli" enctype="multipart/form-data">
+					<form method="post" action="{% url 'agregarPubliPerdidas' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
 
 						{% csrf_token %}
 
 						<div class="publi-modelo-contenido">
+							
+							<h3>Agregar Publicacion</h3>
 
 							<span class="fa-solid fa-xmark" id="icon-cancel"></span>
 
@@ -357,12 +363,12 @@
 												<div class="col1">
 													<div class="dato">
 														<label for="nombremas" class="bold">Nombre: </label>
-														<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremas" class="input-mascota" required>
+														<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremas" class="input-mascota nombremasa" required>
 													</div>
 													<div class="dato-select">
 														<div class="label-selectMultiple">
 														<label for="especiemas" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-														<select name="especiemas" id="especiemas" onchange="seleccionarEspecie()" class="select" required>
+														<select name="especiemas" id="especiemas" onchange="seleccionarEspecie('especiemas')" class="select" required>
 															<option value="" default disabled>Seleccione una</option>
 															<option value="perro" >Perro</option>
 															<option value="gato">Gato</option>
@@ -426,7 +432,7 @@
 													
 													<div class="dato">
 														<label for="edadmas" class="bold">Edad: </label>
-														<input type="number" name="edadmas" id="edadmas" class="input-mascota" required>
+														<input type="number" name="edadmas" id="edadmas" class="input-mascota" placeholder="años" required>
 													</div>
 													<div class="dato">
 														<label for="marcasmas" class="bold">Marcas distintivas: </label>
@@ -558,11 +564,13 @@
 
 
 
-							<form method="post" action="{% url 'agregarPubliPerdidas' %}" id="editarPubli" class=" publi-modelo-estilo agregarPubli" enctype="multipart/form-data">
+							<form method="post" action="" id="editarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
 
 								{% csrf_token %}
 		
 								<div class="publi-modelo-contenido">
+
+									<h3>EDITAR PUBLICACION</h3>
 		
 									<span class="fa-solid fa-xmark" id="icon-cancel"></span>
 		
@@ -571,7 +579,7 @@
 										
 		
 		
-		
+						<!-------------------- al final de cada id hay una 'e', de 'editar'.--------------------------- -->
 		
 										<div class="input-img">
 											<label for="input-img-1" >
@@ -619,13 +627,13 @@
 													<div class="datos-mascota">
 														<div class="col1">
 															<div class="dato">
-																<label for="nombremas" class="bold">Nombre: </label>
-																<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremas" class="input-mascota" required>
+																<label for="nombremase" class="bold">Nombre: </label>
+																<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremase" class="input-mascota" required>
 															</div>
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																<label for="especiemas" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-																<select name="especiemas" id="especiemas" onchange="seleccionarEspecie()" class="select" required>
+																<label for="especiemase" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="especiemas" id="especiemase"  onchange="seleccionarEspecie('especiemase')" class="select" required>
 																	<option value="" default disabled>Seleccione una</option>
 																	<option value="perro" >Perro</option>
 																	<option value="gato">Gato</option>
@@ -636,7 +644,7 @@
 															<div class="dato-select">
 																<div class="label-selectMultiple">
 																<label for="razamas" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-																<select name="razamas" id="razamas" class="select" required>
+																<select name="razamas" id="razamase" class="select" required>
 																	
 		
 																</select>
@@ -646,7 +654,7 @@
 															<div class="dato-select">
 																<div class="label-selectMultiple">
 																<label for="tamañomas" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-																<select name="tamañomas" id="tamañomas" class="select" required>
+																<select name="tamañomas" id="tamañomase" class="select" required>
 																	<option value="" default>Seleccione una</option>
 																	<option value="pequeño">pequeño</option>
 																	<option value="mediano">mediano</option>
@@ -659,7 +667,7 @@
 															<div class="dato-select">
 																<div class="label-selectMultiple">
 																<label for="sexomas" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-																<select name="sexomas" id="sexomas" class="select" required>
+																<select name="sexomas" id="sexomase" class="select" required>
 																	<option value="">Seleccione una</option>
 																	<option value="macho">macho</option>
 																	<option value="hembra">hembra</option>
@@ -672,7 +680,7 @@
 															<div class="dato-select">
 																<div class="label-selectMultiple">
 																<label for="colormas" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-																<select name="colormas" id="colormas" class="select" required>
+																<select name="colormas" id="colormase" class="select" required>
 																	<option value="" disabled default>seleccione uno</option>
 																	<option value="rojizo">Rojizo</option>
 																	<option value="naranja">Naranja</option>
@@ -689,15 +697,15 @@
 															
 															<div class="dato">
 																<label for="edadmas" class="bold">Edad: </label>
-																<input type="number" name="edadmas" id="edadmas" class="input-mascota" required>
+																<input type="number" name="edadmas" id="edadmase" class="input-mascota" required>
 															</div>
 															<div class="dato">
 																<label for="marcasmas" class="bold">Marcas distintivas: </label>
-																<textarea name="marcasmas" id="marcasmas" cols="30" rows="3" required></textarea>
+																<textarea name="marcasmas" id="marcasmase" cols="30" rows="3" required></textarea>
 															</div>
 															<div class="dato">
 																<label for="accesoriosmas" class="bold">Accesorios: </label>
-																<textarea name="accesoriosmas" id="accesoriosmas" cols="30" rows="3" required></textarea>
+																<textarea name="accesoriosmas" id="accesoriosmase" cols="30" rows="3" required></textarea>
 															</div>
 		
 		
@@ -705,12 +713,12 @@
 														<div class="col2">
 															<div class="dato">
 																<label for="enfermedadesmas" class="bold">Enfermedades: </label>
-																<textarea name="enfermedadesmas" id="enfermedadesmas" cols="30"  rows="3" required></textarea>
+																<textarea name="enfermedadesmas" id="enfermedadesmase" cols="30"  rows="3" required></textarea>
 															</div>
 															<div class="dato-select">
 																<div class="label-selectMultiple">
 																<label for="esterilizacionmas" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-																<select name="esterilizacionmas" id="esterilizacionmas"  class="select"  required >
+																<select name="esterilizacionmas" id="esterilizacionmase"  class="select"  required >
 																	<option value="sí">Sí</option>
 																	<option value="no">No</option>
 		
@@ -719,13 +727,13 @@
 															
 															<div class="dato">
 																<label for="medicamentosmas" class="bold">Medicamentos: </label>
-																<textarea name="medicamentosmas" id="medicamentosmas" placeholder="medicamentos o cuidados especificos" cols="30" rows="3" required></textarea>
+																<textarea name="medicamentosmas" id="medicamentosmase" placeholder="medicamentos o cuidados especificos" cols="30" rows="3" required></textarea>
 		
 															</div>
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																<label for="vacunasmas" class="mostrarSelect" onclick="mostrarSelect('vacunasmas')">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-																<select name="vacunasmas" id="vacunasmas"  class="select"  multiple>
+																<label for="vacunasmase" class="mostrarSelect" onclick="mostrarSelect('vacunasmase')">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="vacunasmas" id="vacunasmase"  class="select"  multiple>
 																	
 		
 																</select>
@@ -771,12 +779,12 @@
 														
 														<div class="dato">
 															<label for="fechaExtravio" class="bold">Fecha de extravío: </label>
-															<input type="datetime-local" name="fechaExtravio" placeholder="Nombre de la mascota" id="fechaExtravio" class="input-mascota" required>
+															<input type="datetime-local" name="fechaExtravio" placeholder="Nombre de la mascota" id="fechaExtravioe" class="input-mascota" required>
 														</div>
 		
 														<div class="dato">
 															<label for="recompensa" class="bold">recompensa: </label>
-															<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensa" class="input-mascota">
+															<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensae" class="input-mascota">
 														</div>
 													</div>
 												</div>

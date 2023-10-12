@@ -1,10 +1,11 @@
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.getElementById("publi-modelo");
+const editarPubli = document.getElementById("editarPubli");
 const btnCerrar = document.querySelector("#btn-cerrar");
 
 // icono ṕara cerrar formulario de agregar publicacion 
 const btnCerrarModal = document.querySelector("#icon-cancel");
-const agregarPubli = document.querySelector(".agregarPubli");
+const agregarPubli = document.querySelector("#agregarPubli");
 const main = document.getElementsByTagName("main");
 
 
@@ -16,7 +17,7 @@ var filtrosBox = document.querySelector(".filtros-box");
 
 
 // PETICION GET A LA BD PARA MOSTRAR LOS DATOS DE CADA PUBLICACICON EN UNA VENTANA MODAL
-// PETICION GET A LA BD PARA MOSTRAR LOS DATOS DE CADA PUBLICACICON EN UNA VENTANA MODAL
+
 
 publis.forEach( publi => {
 	publi.addEventListener("click",e =>{
@@ -24,6 +25,7 @@ publis.forEach( publi => {
 
 		
 		let idpubli = e.target.closest(".publi").getAttribute("data-id")
+		console.log(e.target);
 
 		const url = `/verPubliModal/${idpubli}/`
 
@@ -36,10 +38,13 @@ publis.forEach( publi => {
 		.then(publicacion => {
 
 
-			document.getElementById("img2").src = publicacion.data.mascota.img2;
-			document.getElementById("img3").src = publicacion.data.mascota.img3;
-			document.getElementById("img4").src = publicacion.data.mascota.img4;
-			document.getElementById("img5").src = publicacion.data.mascota.img5;
+			// ---------CONSULTA PARA LA VENTANA MODELO------------------
+
+
+			document.getElementById("img2m").src = publicacion.data.mascota.img2;
+			document.getElementById("img3m").src = publicacion.data.mascota.img3;
+			document.getElementById("img4m").src = publicacion.data.mascota.img4;
+			document.getElementById("img5m").src = publicacion.data.mascota.img5;
 
 			
 			document.getElementById("nombremasm").textContent = publicacion.data.mascota.nombremas;
@@ -56,35 +61,41 @@ publis.forEach( publi => {
 			document.getElementById("localidadExtraviom").textContent = publicacion.data.publicacion.localidadExtravio;
 			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
 			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio;
+			document.getElementById("recompensam").textContent = publicacion.data.publicacion.recompensa;
 			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
 			document.getElementById("telefonoDueño").textContent = publicacion.data.usuario.telefono;
 			document.getElementById("correoDueño").textContent = publicacion.data.usuario.email;
 			
+			
+// ------------CONSULTA PARA EL FORMULARIO DE EDITAR---------
 
 
-			document.getElementById("img2").src = publicacion.data.mascota.img2;
-			document.getElementById("img3").src = publicacion.data.mascota.img3;
-			document.getElementById("img4").src = publicacion.data.mascota.img4;
-			document.getElementById("img5").src = publicacion.data.mascota.img5;
+
+
+			/*document.getElementById("img2e").src = publicacion.data.mascota.img2;
+			document.getElementById("img3e").src = publicacion.data.mascota.img3;
+			document.getElementById("img4e").src = publicacion.data.mascota.img4;
+			document.getElementById("img5e").src = publicacion.data.mascota.img5;*/
 
 			
-			document.getElementById("nombremasm").textContent = publicacion.data.mascota.nombremas;
-			document.getElementById("razamasm").textContent = publicacion.data.mascota.razamas;
-			document.getElementById("sexomasm").textContent = publicacion.data.mascota.sexomas;
-			document.getElementById("colormasm").textContent = publicacion.data.mascota.colormas;
-			document.getElementById("edadmasm").textContent = publicacion.data.mascota.edadmas;
-			document.getElementById("marcasmasm").textContent = publicacion.data.mascota.marcasmas;
-			document.getElementById("accesoriosmasm").textContent = publicacion.data.mascota.accesoriosmas;
-			document.getElementById("enfermedadesmasm").textContent = publicacion.data.estado_salud.enfermedadesmas;
-			document.getElementById("esterilizacionmasm").textContent = publicacion.data.estado_salud.esterilizacionmas;
-			document.getElementById("medicamentosmasm").textContent = publicacion.data.estado_salud.medicamentosmas;
-			document.getElementById("vacunasmasm").textContent = publicacion.data.estado_salud.vacunasmas;
-			document.getElementById("localidadExtraviom").textContent = publicacion.data.publicacion.localidadExtravio;
-			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
-			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio;
-			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
-			document.getElementById("telefonoDueño").textContent = publicacion.data.usuario.telefono;
-			document.getElementById("correoDueño").textContent = publicacion.data.usuario.email;
+			document.getElementById("nombremase").value = publicacion.data.mascota.nombremas;
+			/*document.getElementById("razamase").textContent = publicacion.data.mascota.razamas;
+			document.getElementById("sexomase").textContent = publicacion.data.mascota.sexomas;
+			document.getElementById("colormase").textContent = publicacion.data.mascota.colormas;
+			document.getElementById("edadmase").textContent = publicacion.data.mascota.edadmas;
+			document.getElementById("marcasmase").textContent = publicacion.data.mascota.marcasmas;
+			document.getElementById("accesoriosmase").textContent = publicacion.data.mascota.accesoriosmas;
+			document.getElementById("enfermedadesmase").textContent = publicacion.data.estado_salud.enfermedadesmas;
+			document.getElementById("esterilizacionmase").textContent = publicacion.data.estado_salud.esterilizacionmas;
+			document.getElementById("medicamentosmase").textContent = publicacion.data.estado_salud.medicamentosmas;
+			document.getElementById("vacunasmase").textContent = publicacion.data.estado_salud.vacunasmas;
+			document.getElementById("localidadExtravioe").textContent = publicacion.data.publicacion.localidadExtravio;
+			document.getElementById("barrioExtravioe").textContent = publicacion.data.publicacion.barrioExtravio;
+			document.getElementById("fechaExtravioe").textContent = publicacion.data.publicacion.fechaExtravio;
+			document.getElementById("recompensae").textContent = publicacion.data.publicacion.recompensa;
+			document.getElementById("nombreDueñoe").textContent = publicacion.data.usuario.nombre;
+			document.getElementById("telefonoDueñoe").textContent = publicacion.data.usuario.telefono;
+			document.getElementById("correoDueñoe").textContent = publicacion.data.usuario.email;*/
 			
 		  
 		})
@@ -93,18 +104,28 @@ publis.forEach( publi => {
 	//let idpubli = e.target.parentNode.children[0].value;
 	main[0].classList.add("fondo-oscuro");
 
-	publiModal.style.display = "flex";
-	publiModal.style.position = "fixed"
 
-
-
-
-
+	if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
+		editarPubli.style.display = "flex";
+		editarPubli.style.position = "fixed";
+	} else{
+		publiModal.style.display = "flex";
+	publiModal.style.position = "fixed";
 	btnCerrar.addEventListener("click",()=>{
 		publiModal.style.display = "none";
 		main[0].classList.remove("fondo-oscuro");
 
 	});
+
+
+	}
+	
+
+
+
+
+
+	
 
 	
 	
@@ -270,10 +291,10 @@ inputs.forEach(input => {
 // ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
 // ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
 
-function seleccionarVacunas(especie){
+function seleccionarVacunas(especie,idVacunas){
 
 
-var vacunasmas = document.getElementById('vacunasmas');
+var vacunasmas = document.getElementById(idVacunas);
 
 
 vacunasmas.innerHTML="";
@@ -316,9 +337,9 @@ if(especie == "perro"){
 // ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
 
 
-function seleccionarRaza(especie){
+function seleccionarRaza(especie,idRaza){
 
-	var razamas = document.getElementById('razamas');
+	var razamas = document.getElementById(idRaza);
 
 	razamas.innerHTML="";
 
@@ -369,11 +390,23 @@ if(especie == "perro"){
 
 
 
-function seleccionarEspecie(){
-	var especie = document.getElementById('especiemas').value;
+function seleccionarEspecie(idEspecie){
 
-	seleccionarVacunas(especie);
-	seleccionarRaza(especie);
+
+	
+	var especie = document.getElementById(idEspecie).value;
+	
+		
+	
+	if(idEspecie == 'especiemas'){
+		seleccionarVacunas(especie,'vacunasmas');
+		seleccionarRaza(especie,'razamas');
+	} else{
+		seleccionarVacunas(especie,'vacunasmase');
+		seleccionarRaza(especie,'razamase');
+	}
+
+	
 
 }
 

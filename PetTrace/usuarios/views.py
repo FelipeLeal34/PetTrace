@@ -78,73 +78,7 @@ def verPubliModalPerdida(request, id_publicacion):
 
      return JsonResponse({'status':'success','data':data})
 
-     data = {
-          'publicacion': {
-               'localidadExtravio': publicacion.localidadExtravio,
-               'barrioExtravio': publicacion.barrioExtravio,
-               'fechaExtravio': publicacion.fechaExtravio,
-               'recompensa': publicacion.recompensa
-               
-          },
-          'usuario': {
-               'nombre': publicacion.id_usuario.id_usuario.username,
-               'telefono': publicacion.id_usuario.telefono,
-               'email': publicacion.id_usuario.id_usuario.email
-               
-          },
-          'mascota': {
-               'nombremas': publicacion.id_mascota.nombremas,
-               'especiemas': publicacion.id_mascota.especiemas,
-               'razamas': publicacion.id_mascota.razamas,
-               'sexomas': publicacion.id_mascota.sexomas,
-               'colormas': publicacion.id_mascota.colormas,
-               'edadmas': publicacion.id_mascota.edadmas,
-               'accesoriosmas': publicacion.id_mascota.accesoriosmas,
-               'tamañomas': publicacion.id_mascota.tamañomas,
-               'marcasmas': publicacion.id_mascota.marcasmas,
-               'img2': publicacion.id_mascota.img2.url,
-               'img3': publicacion.id_mascota.img3.url,
-               'img4': publicacion.id_mascota.img4.url,
-               'img5': publicacion.id_mascota.img5.url,
-               
-          },
-          'estado_salud': {
-               'enfermedadesmas': publicacion.idestado_salud.enfermedadesmas,
-               'vacunasmas': publicacion.idestado_salud.mostrar_vacunas(),
-               'esterilizacionmas': publicacion.idestado_salud.esterilizacionmas,
-               'medicamentosmas': publicacion.idestado_salud.medicamentosmas,
-          },
-     }
-     '''publicacion = serializers.serialize('json', [publicacion])
-     perfil = serializers.serialize('json', [publicacion.id_usuario])
-     usuario = serializers.serialize('json', [publicacion.id_usuario.id_usuario])
-     mascota = serializers.serialize('json', [publicacion.id_mascota])
-     estado_salud = serializers.serialize('json', [publicacion.idestado_salud])'''
-
-     return JsonResponse({'status':'success','data':data})
-
-
-'''
-     data = {
-          'id_mascota': { 'id_mascota' : publicacion.id_mascota.id_mascota,
-'nombremas':publicacion.id_mascota.nombremas,
-'especiemas':publicacion.id_mascota.especiemas,
-'razamas':publicacion.id_mascota.razamas,
-'sexomas':publicacion.id_mascota.sexomas,
-'colormas':publicacion.id_mascota.colormas,
-'accesoriosmas':publicacion.id_mascota.accesoriosmas,
-'tamañomas':publicacion.id_mascota.tamañomas,
-'edadmas':publicacion.id_mascota.edadmas,
-'marcasmas':publicacion.id_mascota.marcasmas,
-'idestado_salud':publicacion.id_mascota.idestado_salud,
-'id_usuario':publicacion.id_mascota.id_usuario,
-
-'img1':publicacion.id_mascota.img1,
-'img2':publicacion.id_mascota.img2,
-'img3':publicacion.id_mascota.img3,
-'img4':publicacion.id_mascota.img4,
-'img5':publicacion.id_mascota.img5}
-     }'''
+     
 
      
 

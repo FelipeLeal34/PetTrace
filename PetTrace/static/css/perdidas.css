@@ -258,9 +258,6 @@
   }
 
 
-.verPubli{
-	
-}
 
 #publi-modelo{
 	display: none;
@@ -541,11 +538,16 @@ input[type="text"]:focus {
 }
 
 
-.agregarPubli{
+#agregarPubli{
 
 	
 	display: none;
 	
+}
+
+
+#editarPubli{
+	display: none;
 }
 
 
