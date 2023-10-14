@@ -28,7 +28,6 @@ class Usuario(AbstractUser):
     class Meta:
         db_table = 'usuarios'
 
-
     '''
     def __str__(self):
         return f"{self.nombreusu}  {self.apellidousu}"
@@ -40,6 +39,15 @@ class Usuario(AbstractUser):
 
 
 '''
+        return f" {self.id_usuario} {self.nombreusu}  {self.apellidousu}"
+
+
+
+
+
+
+
+
 
 class Comentario(models.Model):
     id_comentario = models.AutoField(primary_key=True)

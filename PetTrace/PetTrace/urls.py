@@ -20,6 +20,8 @@ from django.urls import path, reverse_lazy
 from usuarios.views import *
 from usuarios import views
 from django.contrib.auth.views import LoginView, LogoutView
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
@@ -35,4 +37,8 @@ urlpatterns = [
     path('resetEmail/', views.resetEmail, name='resetEmail'),
     path('resetConfirm/', views.resetConfirm, name='resetConfirm'),
     path('resetComplete/', views.resetComplete, name='resetComplete'),
-]
+
+    path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
+    path('verPubliModal/<int:id_publicacion>/', verPubliModalPerdida, name='verPubliModal' ),
+
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )

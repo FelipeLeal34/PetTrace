@@ -29,24 +29,42 @@
 
 
 
-<div class="publicaciones">
+					<!-- -------------------primera publicacion------------------ -->
 
+					
+					<div class="publicaciones">
 
-	<div class="publi" id="publi">
+						{% for publicacion in publicaciones %}
+						<div class="publi" id="publi" data-id="{{ publicacion.id_publicacion }}">
 
 		<div class="contenido-publi">
 
-			<input type="hidden" value="1" class="idPubli">
+								<input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
 
-			<div class="info-usuario">
-				<div class="img-usuario">
-				<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
-				<h6>usuario</h6></div>
-				<div>
-				<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>
-				<span class="fa-solid fa-ellipsis-vertical"></span>
-				</div>
-			</div>
+								<div class="info-usuario">
+									<div class="img-usuario">
+									<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
+									<h6>{{ publicacion.id_usuario.id_usuario.username }}</h6></div>
+									<div id="iconosPubli">
+									<i class="fa-regular fa-heart" style="color: #000 ;margin-right: 8px; " id="agregarFav"></i>
+									<span class="fa-solid fa-ellipsis-vertical trespuntos " ></span>
+									</div>
+									
+								</div>
+
+								
+								<div class="menuOpcionesPubli">
+									{% if user.is_authenticated and user.id == publicacion.id_usuario.id_usuario.pk  %}
+									<div class="opcionesPubli verPubli">
+										<i class="fa-solid fa-pen-to-square"></i>
+										<p>Editar publicacion</p>
+									</div>
+									{% endif %}
+									<div class="opcionesPubli">
+										<i class="fa-solid fa-flag"></i>
+										<p>Reportar publicacion</p>
+									</div>
+								</div>
 
 			<hr>
 
@@ -54,7 +72,7 @@
 
 				<div class="img-mascota-contenedor">
 
-					<img src="{% static 'img/publi-2.jpg' %}">
+										<img src="{{ publicacion.id_mascota.img1.url }}">
 
 				</div>
 
@@ -75,191 +93,64 @@
 
 						<div class="dato">
 
-							<p class="bold">Nombre: </p>
-							<p> Mateo</p>
-						</div>
-						<div class="dato">
+												<p class="bold">Nombre: </p>
+												<p> {{ publicacion.id_mascota.nombremas }}</p>
+											</div>
+											<div class="dato">
 
-							<p class="bold">Raza: </p>
-							<p> Labrador</p>
-						</div>
-						<div class="dato">
+												<p class="bold">Raza: </p>
+												<p> {{ publicacion.id_mascota.razamas }}</p>
+											</div>
+											<div class="dato">
 
-							<p class="bold">Color: </p>
-							<p> Blanco y Dorado</p>
-						</div>
-					</div>
-
-					<div class="col2">
-						<div class="dato">
-
-							<p class="bold">Fecha extravío: </p>
-							<p>25-06-2023</p>
-						</div>
-
-						<div class="dato">
-
-							<p class="bold">Barrio de extravío: </p>
-							<p>Quiroga</p>
-						</div>
-
-						<div class="dato">
-
-							<p class="bold">Localidad extravío: </p>
-							<p>Rafael Uribe Uribe</p>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
-			<hr>
-			<div class="datos-contacto">
-				<div class="datos-contacto-contenedor">
-
-					<div class="dato">
-						<p  class="bold">Nombre: </p>
-						<p>Andrés Felipe Leal</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Numero de telefono: </p>
-						<p>3137525713</p>
-					</div>
-
-					<div class="dato">
-						<p  class="bold">Correo Electronico: </p>
-						<p>afleal34@gmail.com</p>
-					</div>
-				</div>
-				
-				
-			</div>
-
-			<button class="btn verPubli">Ver mascota</button>
-			
-		</div>
-
-		
-	</div>
-
-
-
-
-	<div class="publi">
-
-		<div class="contenido-publi">
-
-			<input type="hidden" value="2" class="idPubli">
-
-			<div class="info-usuario">
-				<div class="img-usuario">
-				<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
-				<h6>usuario</h6></div>
-				<div>
-				<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>
-				<span class="fa-solid fa-ellipsis-vertical"></span>
-				</div>
-			</div>
-
-
-			<hr>
-
-			<div class="img-mascota-section">
-
-				<div class="img-mascota-contenedor">
-
-					<img src="{% static 'img/publi-7.webp' %}">
-
-				</div>
-
-			</div>
-
-
-			<hr>
-
-			<div class="info-mascota">
-
-				<div class="info-mascota-contenido">
-
-					<div class="col1">
-
-						<div class="dato">
-
-							<p class="bold">Nombre: </p>
-							<p> Pastorito</p>
-						</div>
-						<div class="dato">
-
-							<p class="bold">Raza: </p>
-							<p> Pastor aleman</p>
-						</div>
-						<div class="dato">
-
-							<p class="bold">Color: </p>
-							<p> Negro y café</p>
-						</div>
-					</div>
+												<p class="bold">Color: </p>
+												<p> {{ publicacion.id_mascota.colormas }}</p>
+											</div>
+										</div>
 
 					<div class="col2">
 						<div class="dato">
 
-							<p class="bold">Fecha extravío: </p>
-							<p>25-06-2023</p>
-						</div>
+												<p class="bold">Fecha extravío: </p>
+												<p>{{ publicacion.fechaExtravio }}</p>
+											</div>
 
 						<div class="dato">
 
-							<p class="bold">Barrio de extravío: </p>
-							<p>Quiroga</p>
-						</div>
+												<p class="bold">Barrio de extravío: </p>
+												<p>{{ publicacion.barrioExtravio }}</p>
+											</div>
 
 						<div class="dato">
 
-							<p class="bold">Localidad extravío: </p>
-							<p>Rafael Uribe Uribe</p>
+												<p class="bold">Localidad extravío: </p>
+												<p>{{ publicacion.localidadExtravio }}</p>
+											</div>
+										</div>
+									</div>
+
+									
+
+								</div>
+
+								<a  class="btn verPubli">Ver mascota</a>
+
+
+								
+								
+							</div>
+
+							
 						</div>
-					</div>
-				</div>
-
-			</div>
-
-			<hr>
-			<div class="datos-contacto">
-				<div class="datos-contacto-contenedor">
-
-					<div class="dato">
-						<p  class="bold">Nombre: </p>
-						<p>Andrés Felipe Leal</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Numero de telefono: </p>
-						<p>3137525713</p>
-					</div>
-
-					<div class="dato">
-						<p  class="bold">Correo Electronico: </p>
-						<p>afleal34@gmail.com</p>
-					</div>
-				</div>
-				<button class="btn verPubli">Ver mascota</button>
-
-			</div>
-
-			
-
-
-			
-		</div>
-		
-	</div>
+						{% endfor %}
 
 
 
 
+<!-- -----------ventana modelo-------------- -->
 
 
-
-	<div class="publi-modelo-estilo publi-modelo">
+						<div class="publi-modelo-estilo " id="publi-modelo">
 
 		<div class="publi-modelo-contenido">
 
@@ -268,16 +159,20 @@
 				<div class="carrusel">
 
 
-					<div class="carrusel-section"><img  src="{% static 'img/publi-2.jpg' %}">
+										<div class="carrusel-section"><img  id="img2m" src="">
+										
 
-					</div>
-					<div class="carrusel-section"><img  src="{% static 'img/publi-3.jpg' %}">
+										</div>
+										<div class="carrusel-section"><img id="img3m"  src="">
+										
 
-					</div>
-					<div class="carrusel-section"><img  src="{% static 'img/publi-4.jpg' %}">
+										</div>
+										<div class="carrusel-section"><img id="img4m"  src="">
+										
 
-					</div>
-					<div class="carrusel-section"><img  src="{% static 'img/publi-5.jpg' %}"">
+										</div>
+										<div class="carrusel-section"><img  id="img5m" src="">
+										
 
 					</div>
 
@@ -289,90 +184,95 @@
 			</div>
 
 
+									<!--  En el id de cada <p>, la 'm' la final de cada id es de modelo -->
+								<div class="datos-mascota">
+									<div class="col1">
+										<div class="dato">
+											<p  class="bold">Nombre: </p>
+											<p id="nombremasm"></p>
+											<p id="nombremasm"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Raza: </p>
+											<p id="razamasm"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Sexo: </p>
+											<p id="sexomasm"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Color: </p>
+											<p id="colormasm"></p>
+										</div>
+										<div class="dato">
+											<p class="bold">Edad: </p>
+											<p id="edadmasm"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Marcas distintivas: </p>
+											<p id="marcasmasm"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Accesorios: </p>
+											<p id="accesoriosmasm"></p>
+										</div>
 
-			<div class="datos-mascota">
-				<div class="col1">
-					<div class="dato">
-						<p  class="bold">Nombre: </p>
-						<p>Mateo</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Raza: </p>
-						<p>Labrador</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Sexo: </p>
-						<p>Masculino</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Color: </p>
-						<p>blanco y dorado</p>
-					</div>
-					<div class="dato">
-						<p class="bold">Edad: </p>
-						<p>2 años</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Marcas distintivas: </p>
-						<p>Lorem ipsum dolor sit amet, ull</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Accesorios: </p>
-						<p>collar rojo con campana</p>
-					</div>
 
-
-				</div>
-				<div class="col2">
-					<div class="dato">
-						<p class="bold">Enfermedades: </p>
-						<p>ninguna</p>
-					</div>
-					<div class="dato">
-						<p class="bold">Esterilización: </p>
-						<p>Sí</p>
-					</div>
-					<div class="dato">
-						<p class="bold">Medicamentos: </p>
-						<p>ninguno</p>
-					</div>
-					<div class="dato">
-						<p class="bold">Vacunas: </p>
-						<p>todas</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Localidad de extravío: </p>
-						<p>Rafael Uribe Uribe</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Barrio de extravío: </p>
-						<p>Quiroga</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Fecha de extravío: </p>
-						<p>25-06-2023</p>
-					</div>
-				</div>
-			</div>
+									</div>
+									<div class="col2">
+										<div class="dato">
+											<p class="bold">Enfermedades: </p>
+											<p id="enfermedadesmasm"></p>
+										</div>
+										<div class="dato">
+											<p class="bold">Esterilización: </p>
+											<p id="esterilizacionmasm"></p>
+										</div>
+										<div class="dato">
+											<p class="bold">Medicamentos: </p>
+											<p id="medicamentosmasm"></p>
+										</div>
+										<div class="dato">
+											<p class="bold">Vacunas: </p>
+											<p id="vacunasmasm"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Localidad de extravío: </p>
+											<p id="localidadExtraviom"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Barrio de extravío: </p>
+											<p id="barrioExtraviom"> </p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Fecha de extravío: </p>
+											<p id="fechaExtraviom"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Recompensa: </p>
+											<p id="recompensam"></p>
+										</div>
+									</div>
+								</div>
 
 			<hr>
 
 			<div class="datos-contacto">
 				<div class="datos-contacto-contenedor">
 
-					<div class="dato">
-						<p  class="bold">Nombre: </p>
-						<p>Andrés Felipe Leal</p>
-					</div>
-					<div class="dato">
-						<p  class="bold">Numero de telefono: </p>
-						<p>3137525713</p>
-					</div>
+										<div class="dato">
+											<p  class="bold">Nombre: </p>
+											<p id="nombreDueño"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Numero de telefono: </p>
+											<p id="telefonoDueño"></p>
+										</div>
 
-					<div class="dato">
-						<p  class="bold">Correo Electronico: </p>
-						<p>afleal34@gmail.com</p>
-					</div>
+										<div class="dato">
+											<p  class="bold">Correo Electronico: </p>
+											<p id="correoDueño"></p>
+										</div>
 
 				</div>
 			</div>
@@ -398,9 +298,13 @@
 
 
 
-<form method="post" action="" class=" publi-modelo-estilo agregarPubli">
+					<form method="post" action="{% url 'agregarPubliPerdidas' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
 
-	<div class="publi-modelo-contenido">
+						{% csrf_token %}
+
+						<div class="publi-modelo-contenido">
+							
+							<h3>Agregar Publicacion</h3>
 
 		<span class="fa-solid fa-xmark" id="icon-cancel"></span>
 
@@ -454,125 +358,170 @@
 
 
 
-						<div class="datos-mascota">
-							<div class="col1">
-								<div class="dato">
-									<label for="nombremas" class="bold">Nombre: </label>
-									<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremas" class="input-mascota">
-								</div>
-								<div class="dato">
-									<label for="especiemas" class="bold">Especie: </label>
-									<select name="especiemas" id="especiemas" onchange="seleccionarVacunas()">
-										<option value="">Seleccione una</option>
-										<option value="perro" selected>Perro</option>
-										<option value="gato">Gato</option>
-									</select>
-								</div>
-								<div class="dato">
-									<label for="razamas" class="bold">Raza: </label>
-									<input type="text" name="razamas" placeholder="raza de la mascota" id="razamas" class="input-mascota">
-								</div>
+											<div class="datos-mascota">
+												<div class="col1">
+													<div class="dato">
+														<label for="nombremas" class="bold">Nombre: </label>
+														<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremas" class="input-mascota nombremasa" required>
+													</div>
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+														<label for="especiemas" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+														<select name="especiemas" id="especiemas" onchange="seleccionarEspecie('especiemas')" class="select" required>
+															<option value="" default disabled>Seleccione una</option>
+															<option value="perro" >Perro</option>
+															<option value="gato">Gato</option>
 
-								<div class="dato">
-									<label for="tamañomas" class="bold">Tamaño: </label>
-									<select name="tamañomas" id="tamañomas">
-										<option value="">Seleccione una</option>
-										<option value="pequeño">pequeño</option>
-										<option value="mediano">mediano</option>
-										<option value="grande">grande</option>
-									</select>
-								</div>
-								<div class="dato">
-									<label for="sexomas" class="bold">Sexo: </label>
-									<select name="sexomas" id="sexomas">
-										
-										<option value="">Seleccione una</option>
-										<option value="macho">macho</option>
-										<option value="hembra">hembra</option>
-										
-									</select>
-								</div>
-								<div class="dato">
-									<label for="colormas" class="bold">Color: </label>
-									<input type="text" name="colormas" placeholder="Nombre de la mascota" id="colormas" class="input-mascota">
-								</div>
-								<div class="dato">
-									<label for="edadmas" class="bold">Edad: </label>
-									<input type="text" name="edadmas" placeholder="Nombre de la mascota" id="edadmas" class="input-mascota">
-								</div>
-								<div class="dato">
-									<label for="marcasmas" class="bold">Marcas distintivas: </label>
-									<input type="text" name="marcasmas" placeholder="Nombre de la mascota" id="marcasmas" class="input-mascota">
-								</div>
-								<div class="dato">
-									<label for="accesoriosmas" class="bold">Accesorios: </label>
-									<input type="text" name="accesoriosmas" placeholder="Nombre de la mascota" id="accesoriosmas" class="input-mascota">
-								</div>
+														</select>
+
+													</div>
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+														<label for="razamas" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+														<select name="razamas" id="razamas" class="select" required>
+															
+
+														</select>
+
+													</div>
+
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+														<label for="tamañomas" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+														<select name="tamañomas" id="tamañomas" class="select" required>
+															<option value="" default>Seleccione una</option>
+															<option value="pequeño">pequeño</option>
+															<option value="mediano">mediano</option>
+															<option value="grande">grande</option>
+
+														</select>
+
+													</div>
+													
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+														<label for="sexomas" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+														<select name="sexomas" id="sexomas" class="select" required>
+															<option value="">Seleccione una</option>
+															<option value="macho">macho</option>
+															<option value="hembra">hembra</option>
+
+														</select>
+
+													</div>
+
+															
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+														<label for="colormas" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+														<select name="colormas" id="colormas" class="select" required>
+															<option value="" disabled default>seleccione uno</option>
+															<option value="rojizo">Rojizo</option>
+															<option value="naranja">Naranja</option>
+															<option value="amarillo">Amarillo</option>
+															<option value="dorado">Dorado</option>
+															<option value="gris">Gris</option>
+															<option value="marron">Marron</option>
+															<option value="blanco">Blanco</option>
+															<option value="negro">Negro</option>
+
+														</select>
+
+													</div>
+													
+													<div class="dato">
+														<label for="edadmas" class="bold">Edad: </label>
+														<input type="number" name="edadmas" id="edadmas" class="input-mascota" placeholder="años" required>
+													</div>
+													<div class="dato">
+														<label for="marcasmas" class="bold">Marcas distintivas: </label>
+														<textarea name="marcasmas" id="marcasmas" cols="30" rows="3" required></textarea>
+													</div>
+													<div class="dato">
+														<label for="accesoriosmas" class="bold">Accesorios: </label>
+														<textarea name="accesoriosmas" id="accesoriosmas" cols="30" rows="3" required></textarea>
+													</div>
 
 
-							</div>
-							<div class="col2">
-								<div class="dato">
-									<label for="enfermedadesmas" class="bold">Enfermedades: </label>
-									<input type="text" name="enfermedadesmas" placeholder="Nombre de la mascota" id="enfermedadesmas" class="input-mascota">
-								</div>
-								<div class="dato">
-									<label for="esterilizacionmas" class="bold">Esterilización: </label>
-									<select name="esterilizacionmas">
-										<option value="1">sí</option>
-										<option value="0">no</option>
-									</select>
-								</div>
-								<div class="dato">
-									<label for="medicamentosmas" class="bold">Medicamentos: </label>
-									<input type="text" name="medicamentosmas" placeholder="Nombre de la mascota" id="medicamentosmas" class="input-mascota">
-								</div>
-								<div class="dato-select">
-									<div class="label-selectMultiple">
-									<label for="vacunasmas" style="font-weight: bold; display: flex; align-items: center; margin-right: 10px;" onclick="mostrarSelect()">Vacunas</label><i class="fa-solid fa-caret-down" style="color: #fff; "></i></div>
-									<select name="vacunasmas" id="vacunasmas" multiple  >
-										
+												</div>
+												<div class="col2">
+													<div class="dato">
+														<label for="enfermedadesmas" class="bold">Enfermedades: </label>
+														<textarea name="enfermedadesmas" id="enfermedadesmas" cols="30"  rows="3" required></textarea>
+													</div>
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+														<label for="esterilizacionmas" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+														<select name="esterilizacionmas" id="esterilizacionmas"  class="select"  required >
+															<option value="sí">Sí</option>
+															<option value="no">No</option>
 
-									</select>
-								</div>
-								<div class="dato">
-									<label for="txtlocalidad" class="bold">Localidad de extravío</label>
-									<select name="txtlocalidad" id="localidades" onchange="cargarBarrios()">
-										<option value="" selected disabled>Localidad de extravío</option>
-										<option value="Usaquén">Usaquén</option>
-										<option value="Chapinero">Chapinero</option>
-										<option value="Santa Fe">Santa Fe</option>
-										<option value="San Cristóbal">San Cristóbal</option>
-										<option value="Usme">Usme</option>
-										<option value="Tunjuelito">Tunjuelito</option>
-										<option value="Bosa">Bosa</option>
-										<option value="Kennedy">Kennedy</option>
-										<option value="Fontibón">Fontibón</option>
-										<option value="Engativá">Engativá</option>
-										<option value="Suba">Suba</option>
-										<option value="Barrios Unidos">Barrios Unidos</option>
-										<option value="Teusaquillo">Teusaquillo</option>
-										<option value="Los Mártires">Los Mártires</option>
-										<option value="Antonio Nariño">Antonio Nariño</option>
-										<option value="Puente Aranda">Puente Aranda</option>
-										<option value="La Candelaria">La Candelaria</option>
-										<option value="Rafael Uribe">Rafael Uribe</option>
-										<option value="Ciudad Bolívar">Ciudad Bolívar</option>
-									</select>
-								</div>
-							
-							<div class="dato">
-								<label for="txtbarrio" class="bold">Barrio de extravío</label>
-								<select name="txtbarrios" id="barrios">
-									<option>Seleccione un barrio</option>
-								</select>
-							</div>
-							<div class="dato">
-								<label for="fechaextra" class="bold">Fecha de extravío: </label>
-								<input type="date" name="fechaextra" placeholder="Nombre de la mascota" id="fechaextra" class="input-mascota">
-							</div>
-						</div>
-					</div>
+														</select>
+													</div>
+													
+													<div class="dato">
+														<label for="medicamentosmas" class="bold">Medicamentos: </label>
+														<textarea name="medicamentosmas" id="medicamentosmas" placeholder="medicamentos o cuidados especificos" cols="30" rows="3" required></textarea>
+
+													</div>
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+														<label for="vacunasmas" class="mostrarSelect" onclick="mostrarSelect('vacunasmas')">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+														<select name="vacunasmas" id="vacunasmas"  class="select"  multiple>
+															
+
+														</select>
+													</div>
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+															<label for="txtlocalidad" class="mostrarSelect">Localidad de extravío</label></div>
+															<select name="txtlocalidad" id="localidades" onchange="cargarBarrios()" class="select" required>
+																	<option value="" default disabled>Localidad de extravío</option>
+																	<option value="Usaquén">Usaquén</option>
+																	<option value="Chapinero">Chapinero</option>
+																	<option value="Santa Fe">Santa Fe</option>
+																	<option value="San Cristóbal">San Cristóbal</option>
+																	<option value="Usme">Usme</option>
+																	<option value="Tunjuelito">Tunjuelito</option>
+																	<option value="Bosa">Bosa</option>
+																	<option value="Kennedy">Kennedy</option>
+																	<option value="Fontibón">Fontibón</option>
+																	<option value="Engativá">Engativá</option>
+																	<option value="Suba">Suba</option>
+																	<option value="Barrios Unidos">Barrios Unidos</option>
+																	<option value="Teusaquillo">Teusaquillo</option>
+																	<option value="Los Mártires">Los Mártires</option>
+																	<option value="Antonio Nariño">Antonio Nariño</option>
+																	<option value="Puente Aranda">Puente Aranda</option>
+																	<option value="La Candelaria">La Candelaria</option>
+																	<option value="Rafael Uribe">Rafael Uribe</option>
+																	<option value="Ciudad Bolívar">Ciudad Bolívar</option>
+																</select> 
+														</div>
+													
+
+
+												
+													<div class="dato-select">
+														<div class="label-selectMultiple">
+															<label for="txtbarrios" class="mostrarSelect">Barrio de extravío</label></div>
+															<select name="txtbarrios" id="barrios" class="select" required>
+																<option>Seleccione un barrio</option>
+															</select>
+													</div>
+
+												
+												<div class="dato">
+													<label for="fechaExtravio" class="bold">Fecha de extravío: </label>
+													<input type="datetime-local" name="fechaExtravio" placeholder="Nombre de la mascota" id="fechaExtravio" class="input-mascota" required>
+												</div>
+
+												<div class="dato">
+													<label for="recompensa" class="bold">recompensa: </label>
+													<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensa" class="input-mascota">
+												</div>
+											</div>
+										</div>
 
 					<hr>
 
@@ -608,7 +557,537 @@
 
 
 
+							
+
+				<!-------------- EDITAR PUBLICACION------------------ -->
+
+
+
+							<form method="post" action="" id="editarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
+
+								{% csrf_token %}
 		
+								<div class="publi-modelo-contenido">
+
+									<h3>EDITAR PUBLICACION</h3>
+		
+									<span class="fa-solid fa-xmark" id="icon-cancel"></span>
+		
+									<div class="inputs-img">
+		
+										
+		
+		
+						<!-------------------- al final de cada id hay una 'e', de 'editar'.--------------------------- -->
+		
+										<div class="input-img">
+											<label for="input-img-1" >
+												<div class="input-text"><span class="fa-solid fa-upload"></span>
+													<p>click para subir imagen</p>
+													
+												</div>
+											</label>
+		
+											<input type="file" name="img1" id="input-img-1" class="input-file" required>
+		
+										</div>
+										<div class="input-img">
+											<label for="input-img-2" ><div class="input-text"><span class="fa-solid fa-upload"></span>
+												<p>click para subir imagen</p></div></label>
+												<input type="file" name="img2" id="input-img-2" class="input-file" required>
+		
+											</div>
+											<div class="input-img">
+												<label for="input-img-3" ><div class="input-text"><span class="fa-solid fa-upload"></span>
+													<p>click para subir imagen</p></div></label>
+													<input type="file" name="img3" id="input-img-3" class="input-file" required>
+		
+												</div>
+		
+												<div class="input-img"><input type="file" name="img4" id="input-img-4" class="input-file" required>
+													<label for="input-img-4" ><div class="input-text"><span class="fa-solid fa-upload"></span>
+														<p>click para subir imagen</p></div></label>
+													</div>
+		
+		
+													<div class="input-img"><input type="file" name="img5" id="input-img-5" class="input-file" required>
+														<label for="input-img-5" ><div class="input-text"><span class="fa-solid fa-upload"></span>
+															<p>click para subir imagen</p></div></label>
+														</div>
+		
+		
+		
+		
+		
+													</div>
+		
+		
+		
+													<div class="datos-mascota">
+														<div class="col1">
+															<div class="dato">
+																<label for="nombremase" class="bold">Nombre: </label>
+																<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremase" class="input-mascota" required>
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="especiemase" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="especiemas" id="especiemase"  onchange="seleccionarEspecie('especiemase')" class="select" required>
+																	<option value="" default disabled>Seleccione una</option>
+																	<option value="perro" >Perro</option>
+																	<option value="gato">Gato</option>
+		
+																</select>
+		
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="razamas" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="razamas" id="razamase" class="select" required>
+																	
+		
+																</select>
+		
+															</div>
+		
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="tamañomas" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="tamañomas" id="tamañomase" class="select" required>
+																	<option value="" default>Seleccione una</option>
+																	<option value="pequeño">pequeño</option>
+																	<option value="mediano">mediano</option>
+																	<option value="grande">grande</option>
+		
+																</select>
+		
+															</div>
+															
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="sexomas" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="sexomas" id="sexomase" class="select" required>
+																	<option value="">Seleccione una</option>
+																	<option value="macho">macho</option>
+																	<option value="hembra">hembra</option>
+		
+																</select>
+		
+															</div>
+		
+																	
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="colormas" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="colormas" id="colormase" class="select" required>
+																	<option value="" disabled default>seleccione uno</option>
+																	<option value="rojizo">Rojizo</option>
+																	<option value="naranja">Naranja</option>
+																	<option value="amarillo">Amarillo</option>
+																	<option value="dorado">Dorado</option>
+																	<option value="gris">Gris</option>
+																	<option value="marron">Marron</option>
+																	<option value="blanco">Blanco</option>
+																	<option value="negro">Negro</option>
+		
+																</select>
+		
+															</div>
+															
+															<div class="dato">
+																<label for="edadmas" class="bold">Edad: </label>
+																<input type="number" name="edadmas" id="edadmase" class="input-mascota" required>
+															</div>
+															<div class="dato">
+																<label for="marcasmas" class="bold">Marcas distintivas: </label>
+																<textarea name="marcasmas" id="marcasmase" cols="30" rows="3" required></textarea>
+															</div>
+															<div class="dato">
+																<label for="accesoriosmas" class="bold">Accesorios: </label>
+																<textarea name="accesoriosmas" id="accesoriosmase" cols="30" rows="3" required></textarea>
+															</div>
+		
+		
+														</div>
+														<div class="col2">
+															<div class="dato">
+																<label for="enfermedadesmas" class="bold">Enfermedades: </label>
+																<textarea name="enfermedadesmas" id="enfermedadesmase" cols="30"  rows="3" required></textarea>
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="esterilizacionmas" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="esterilizacionmas" id="esterilizacionmase"  class="select"  required >
+																	<option value="sí">Sí</option>
+																	<option value="no">No</option>
+		
+																</select>
+															</div>
+															
+															<div class="dato">
+																<label for="medicamentosmas" class="bold">Medicamentos: </label>
+																<textarea name="medicamentosmas" id="medicamentosmase" placeholder="medicamentos o cuidados especificos" cols="30" rows="3" required></textarea>
+		
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="vacunasmase" class="mostrarSelect" onclick="mostrarSelect('vacunasmase')">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="vacunasmas" id="vacunasmase"  class="select"  multiple>
+																	
+		
+																</select>
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																	<label for="txtlocalidad" class="mostrarSelect">Localidad de extravío</label></div>
+																	<select name="txtlocalidad" id="localidades" onchange="cargarBarrios()" class="select" required>
+																			<option value="" default disabled>Localidad de extravío</option>
+																			<option value="Usaquén">Usaquén</option>
+																			<option value="Chapinero">Chapinero</option>
+																			<option value="Santa Fe">Santa Fe</option>
+																			<option value="San Cristóbal">San Cristóbal</option>
+																			<option value="Usme">Usme</option>
+																			<option value="Tunjuelito">Tunjuelito</option>
+																			<option value="Bosa">Bosa</option>
+																			<option value="Kennedy">Kennedy</option>
+																			<option value="Fontibón">Fontibón</option>
+																			<option value="Engativá">Engativá</option>
+																			<option value="Suba">Suba</option>
+																			<option value="Barrios Unidos">Barrios Unidos</option>
+																			<option value="Teusaquillo">Teusaquillo</option>
+																			<option value="Los Mártires">Los Mártires</option>
+																			<option value="Antonio Nariño">Antonio Nariño</option>
+																			<option value="Puente Aranda">Puente Aranda</option>
+																			<option value="La Candelaria">La Candelaria</option>
+																			<option value="Rafael Uribe">Rafael Uribe</option>
+																			<option value="Ciudad Bolívar">Ciudad Bolívar</option>
+																		</select> 
+																</div>
+															
+		
+		
+														
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																	<label for="txtbarrios" class="mostrarSelect">Barrio de extravío</label></div>
+																	<select name="txtbarrios" id="barrios" class="select" required>
+																		<option>Seleccione un barrio</option>
+																	</select>
+															</div>
+		
+														
+														<div class="dato">
+															<label for="fechaExtravio" class="bold">Fecha de extravío: </label>
+															<input type="datetime-local" name="fechaExtravio" placeholder="Nombre de la mascota" id="fechaExtravioe" class="input-mascota" required>
+														</div>
+		
+														<div class="dato">
+															<label for="recompensa" class="bold">recompensa: </label>
+															<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensae" class="input-mascota">
+														</div>
+													</div>
+												</div>
+		
+												<hr>
+		
+												<div class="datos-contacto">
+													<div class="datos-contacto-contenedor">
+		
+														<div class="dato">
+															<p  class="bold">Nombre: </p>
+															<p>Andrés Felipe Leal</p>
+														</div>
+														<div class="dato">
+															<p  class="bold">Numero de telefono: </p>
+															<p>3137525713</p>
+														</div>
+		
+														<div class="dato">
+															<p  class="bold">Correo Electronico: </p>
+															<p>afleal34@gmail.com</p>
+														</div>
+		
+													</div>
+												</div>
+		
+												<input type="submit" class="btn" value="Publicar">
+		
+											</div>
+		
+										</div>
+		
+		
+		
+									</form>
+
+
+
+
+
+				<!-------------- EDITAR PUBLICACION------------------ -->
+
+
+
+							<form method="post" action="" id="editarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
+
+								{% csrf_token %}
+		
+								<div class="publi-modelo-contenido">
+
+									<h3>EDITAR PUBLICACION</h3>
+		
+									<span class="fa-solid fa-xmark" id="icon-cancel"></span>
+		
+									<div class="inputs-img">
+		
+										
+		
+		
+						<!-------------------- al final de cada id hay una 'e', de 'editar'.--------------------------- -->
+		
+										<div class="input-img">
+											<label for="input-img-1" >
+												<div class="input-text"><span class="fa-solid fa-upload"></span>
+													<p>click para subir imagen</p>
+													
+												</div>
+											</label>
+		
+											<input type="file" name="img1" id="input-img-1" class="input-file" required>
+		
+										</div>
+										<div class="input-img">
+											<label for="input-img-2" ><div class="input-text"><span class="fa-solid fa-upload"></span>
+												<p>click para subir imagen</p></div></label>
+												<input type="file" name="img2" id="input-img-2" class="input-file" required>
+		
+											</div>
+											<div class="input-img">
+												<label for="input-img-3" ><div class="input-text"><span class="fa-solid fa-upload"></span>
+													<p>click para subir imagen</p></div></label>
+													<input type="file" name="img3" id="input-img-3" class="input-file" required>
+		
+												</div>
+		
+												<div class="input-img"><input type="file" name="img4" id="input-img-4" class="input-file" required>
+													<label for="input-img-4" ><div class="input-text"><span class="fa-solid fa-upload"></span>
+														<p>click para subir imagen</p></div></label>
+													</div>
+		
+		
+													<div class="input-img"><input type="file" name="img5" id="input-img-5" class="input-file" required>
+														<label for="input-img-5" ><div class="input-text"><span class="fa-solid fa-upload"></span>
+															<p>click para subir imagen</p></div></label>
+														</div>
+		
+		
+		
+		
+		
+													</div>
+		
+		
+		
+													<div class="datos-mascota">
+														<div class="col1">
+															<div class="dato">
+																<label for="nombremase" class="bold">Nombre: </label>
+																<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremase" class="input-mascota" required>
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="especiemase" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="especiemas" id="especiemase"  onchange="seleccionarEspecie('especiemase')" class="select" required>
+																	<option value="" default disabled>Seleccione una</option>
+																	<option value="perro" >Perro</option>
+																	<option value="gato">Gato</option>
+		
+																</select>
+		
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="razamas" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="razamas" id="razamase" class="select" required>
+																	
+		
+																</select>
+		
+															</div>
+		
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="tamañomas" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="tamañomas" id="tamañomase" class="select" required>
+																	<option value="" default>Seleccione una</option>
+																	<option value="pequeño">pequeño</option>
+																	<option value="mediano">mediano</option>
+																	<option value="grande">grande</option>
+		
+																</select>
+		
+															</div>
+															
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="sexomas" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="sexomas" id="sexomase" class="select" required>
+																	<option value="">Seleccione una</option>
+																	<option value="macho">macho</option>
+																	<option value="hembra">hembra</option>
+		
+																</select>
+		
+															</div>
+		
+																	
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="colormas" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="colormas" id="colormase" class="select" required>
+																	<option value="" disabled default>seleccione uno</option>
+																	<option value="rojizo">Rojizo</option>
+																	<option value="naranja">Naranja</option>
+																	<option value="amarillo">Amarillo</option>
+																	<option value="dorado">Dorado</option>
+																	<option value="gris">Gris</option>
+																	<option value="marron">Marron</option>
+																	<option value="blanco">Blanco</option>
+																	<option value="negro">Negro</option>
+		
+																</select>
+		
+															</div>
+															
+															<div class="dato">
+																<label for="edadmas" class="bold">Edad: </label>
+																<input type="number" name="edadmas" id="edadmase" class="input-mascota" required>
+															</div>
+															<div class="dato">
+																<label for="marcasmas" class="bold">Marcas distintivas: </label>
+																<textarea name="marcasmas" id="marcasmase" cols="30" rows="3" required></textarea>
+															</div>
+															<div class="dato">
+																<label for="accesoriosmas" class="bold">Accesorios: </label>
+																<textarea name="accesoriosmas" id="accesoriosmase" cols="30" rows="3" required></textarea>
+															</div>
+		
+		
+														</div>
+														<div class="col2">
+															<div class="dato">
+																<label for="enfermedadesmas" class="bold">Enfermedades: </label>
+																<textarea name="enfermedadesmas" id="enfermedadesmase" cols="30"  rows="3" required></textarea>
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="esterilizacionmas" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="esterilizacionmas" id="esterilizacionmase"  class="select"  required >
+																	<option value="sí">Sí</option>
+																	<option value="no">No</option>
+		
+																</select>
+															</div>
+															
+															<div class="dato">
+																<label for="medicamentosmas" class="bold">Medicamentos: </label>
+																<textarea name="medicamentosmas" id="medicamentosmase" placeholder="medicamentos o cuidados especificos" cols="30" rows="3" required></textarea>
+		
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																<label for="vacunasmase" class="mostrarSelect" onclick="mostrarSelect('vacunasmase')">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<select name="vacunasmas" id="vacunasmase"  class="select"  multiple>
+																	
+		
+																</select>
+															</div>
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																	<label for="txtlocalidad" class="mostrarSelect">Localidad de extravío</label></div>
+																	<select name="txtlocalidad" id="localidades" onchange="cargarBarrios()" class="select" required>
+																			<option value="" default disabled>Localidad de extravío</option>
+																			<option value="Usaquén">Usaquén</option>
+																			<option value="Chapinero">Chapinero</option>
+																			<option value="Santa Fe">Santa Fe</option>
+																			<option value="San Cristóbal">San Cristóbal</option>
+																			<option value="Usme">Usme</option>
+																			<option value="Tunjuelito">Tunjuelito</option>
+																			<option value="Bosa">Bosa</option>
+																			<option value="Kennedy">Kennedy</option>
+																			<option value="Fontibón">Fontibón</option>
+																			<option value="Engativá">Engativá</option>
+																			<option value="Suba">Suba</option>
+																			<option value="Barrios Unidos">Barrios Unidos</option>
+																			<option value="Teusaquillo">Teusaquillo</option>
+																			<option value="Los Mártires">Los Mártires</option>
+																			<option value="Antonio Nariño">Antonio Nariño</option>
+																			<option value="Puente Aranda">Puente Aranda</option>
+																			<option value="La Candelaria">La Candelaria</option>
+																			<option value="Rafael Uribe">Rafael Uribe</option>
+																			<option value="Ciudad Bolívar">Ciudad Bolívar</option>
+																		</select> 
+																</div>
+															
+		
+		
+														
+															<div class="dato-select">
+																<div class="label-selectMultiple">
+																	<label for="txtbarrios" class="mostrarSelect">Barrio de extravío</label></div>
+																	<select name="txtbarrios" id="barrios" class="select" required>
+																		<option>Seleccione un barrio</option>
+																	</select>
+															</div>
+		
+														
+														<div class="dato">
+															<label for="fechaExtravio" class="bold">Fecha de extravío: </label>
+															<input type="datetime-local" name="fechaExtravio" placeholder="Nombre de la mascota" id="fechaExtravioe" class="input-mascota" required>
+														</div>
+		
+														<div class="dato">
+															<label for="recompensa" class="bold">recompensa: </label>
+															<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensae" class="input-mascota">
+														</div>
+													</div>
+												</div>
+		
+												<hr>
+		
+												<div class="datos-contacto">
+													<div class="datos-contacto-contenedor">
+		
+														<div class="dato">
+															<p  class="bold">Nombre: </p>
+															<p>Andrés Felipe Leal</p>
+														</div>
+														<div class="dato">
+															<p  class="bold">Numero de telefono: </p>
+															<p>3137525713</p>
+														</div>
+		
+														<div class="dato">
+															<p  class="bold">Correo Electronico: </p>
+															<p>afleal34@gmail.com</p>
+														</div>
+		
+													</div>
+												</div>
+		
+												<input type="submit" class="btn" value="Publicar">
+		
+											</div>
+		
+										</div>
+		
+		
+		
+									</form>
+
+
+
+							
 
 
 

@@ -6,7 +6,92 @@
 	text-align: center;
 	padding: 10px 0;
 	margin-bottom: 50px;
-	font-family: 'Roboto', sans-serif;
+}
+
+
+.trespuntos{
+	cursor: pointer;
+}
+
+
+.opcionesPubli{
+	
+	
+	display: flex;
+	margin: auto;
+	width: 100%;
+	
+	cursor: pointer;
+	
+	border-radius: 8px;
+	padding: 5px;
+
+}
+
+.menuOpcionesPubli{
+	display: none;
+	position: absolute;
+	width: auto;
+	max-width: 500px;
+	height: auto;
+	
+	background-color: #74868a;
+	color: white;
+	
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-left: 15%;
+	
+	font-size: 20px;
+	
+	flex-direction: column;
+	padding: 5px;
+	overflow: auto;
+	max-height: 300px;
+
+	transition: 0.5s ease-in-out;
+
+	z-index: 10000;
+}
+
+#iconosPubli{
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+
+
+.opcionesPubli i{
+	margin-right: 10px;
+}
+
+
+.opcionesPubli:hover{
+	background: rgba(255, 255, 255, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.mostrarSelect{
+	font-weight: bold; 
+	display: flex; 
+	align-items: center; 
+	
+	margin-right: 20px;
+}
+
+.mostrarSelect-flecha{
+	margin-left: 10px;
 }
 
 
@@ -62,6 +147,7 @@
 #agregarFav{
 	cursor: pointer;
 	transition: all 0.5s;
+	
 	/* border: 0.5px solid #000; */
 }
 
@@ -130,6 +216,13 @@
   }
 
 
+
+#publi-modelo{
+	display: none;
+	overflow: auto;
+}
+
+
 .publi-modelo-estilo{
 
 	
@@ -155,6 +248,8 @@
 }
 
 
+
+
 .publi-modelo-contenido{
 	width: 100%;
 	overflow: auto;
@@ -165,10 +260,7 @@
 
 }
 
-.publi-modelo{
-	display: none;
-	overflow: auto;
-}
+
 
 .publi-carrusel{
 	overflow: hidden;
@@ -396,7 +488,7 @@ input[type="text"]:focus {
 }
 
 
-.agregarPubli{
+#agregarPubli{
 
 	
 	display: none;
@@ -404,10 +496,21 @@ input[type="text"]:focus {
 }
 
 
+#editarPubli{
+	display: none;
+}
+
+
 
 .icon-th-thumb-empty{
 	position: relative;
 }
+
+
+
+
+
+
 
 
 .filtros-box{

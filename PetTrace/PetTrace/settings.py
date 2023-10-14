@@ -83,6 +83,7 @@ DATABASES = {
         'NAME': 'pettrace',
         'USER': 'root',
         'PASSWORD': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
     }
 }
