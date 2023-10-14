@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+*{
+    font-family: 'Roboto', sans-serif;
+}
 header{
     width: 100%;
     height: 70px;
@@ -14,18 +18,6 @@ header{
     width: 100;
 }
 
-/*----------Menu desplegado-----------------*/
-
-
-
-
-
-
-
-
-
-
-
 /*--------------------Estilo del main----------------*/
 #contenedor{
     margin-top: 90px;
@@ -40,6 +32,13 @@ header{
     z-index: 0;
     
 }
+/*-------imagen de perfil-------*/
+#imgperfil {
+    border: 3px solid black;
+    border-radius: 50%;
+    width: 100%;
+	height: 100%;
+}
 
 #contImg {
     z-index: 1;
@@ -53,12 +52,50 @@ header{
     left: 10%;
 }
 
-#contImg img {
-    border: 3px solid black;
-    border-radius: 50%;
-    width: 100%;
-	height: 100%;
+#contImg :hover{
+    cursor: pointer;
 }
+
+/*Mostrar img de perfil*/
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
+  
+  .close {
+    color: #aa0000;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  #imgperfil-modal {
+    width: 500px;
+  }
+
+
 
 #perfil {
     position: relative;

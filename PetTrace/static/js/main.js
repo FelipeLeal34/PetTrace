@@ -305,11 +305,27 @@ selectFiltros.forEach(selectFiltro =>{
 
 
 
+/*--------------------Foto de perfil usuarios------------------------------*/
+// Obtener la imagen y el modal
+var img = document.getElementById("imgperfil");
+var modal = document.getElementById("modal1");
+var modalImg = document.getElementById("imgperfil-modal");
+var span = document.getElementsByClassName("close")[0];
 
+// Función para abrir el modal al hacer click en la imagen
+function abrirModal() {
+  modal.style.display = "block";
+  modalImg.src = img.src;
+}
 
+// Asignar la función al evento click de la imagen y el data-modal
+img.onclick = abrirModal;
+modal.onclick = abrirModal;
 
+// Función para cerrar el modal al hacer click en la X
+function cerrarModal() {
+  modal.style.display = "none";
+}
 
-
-
-
- 
+// Asignar la función al evento click del span
+span.onclick = cerrarModal;

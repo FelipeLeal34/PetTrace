@@ -8,35 +8,41 @@
     <title>Iniciar Sesión</title>
 </head>
 <body>
-    <div id="img">
+    <div id="imglogo">
         <img src="{% static 'img/logo.png' %}" id="logoimg">
     </div>
     <div id="content">
         <div>
             <div id="img">
-                <img src="{% static 'img/user.png' %}" width="150px">
+                <img src="{% static 'img/user2.png' %}" width="150px">
             </div>
             <h1>Iniciar Sesión</h1>
             <div>
-                <form method="POST" action="{% url 'login' %}">
+                <form id="forminicio" method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     {{ form.non_field_errors }}
+                <div class="grid1">
                     <div class="inputGrupo">
-                        <label for="{{ form.username.id_for_label }}">Nombre de usuario</label> <!-- Cambiar el texto dentro de la etiqueta -->
+                        <label for="{{ form.username.id_for_label }}">Numero de documento</label>
                         {{ form.username }}
+                        {{ form.username.errors }} 
                       </div>
                     <div class="inputGrupo">
                       <label for="{{ form.password.id_for_label }}">Contraseña</label>
                       {{ form.password }}
+                      {{ form.password.errors }} 
                     </div>
-                    <div>
-                      <a href="{% url 'reset' %}">¿Has olvidado tu contraseña?</a>
-                    </div>
+                </div>
+                <div class="grid2">
                     <div id="boton">
-                      <input type="submit" value="Iniciar Sesión">
+                        <input type="submit" value="Iniciar Sesión">
                     </div>
                 </form>
-                <a href="{% url 'registrar' %}">No tengo una cuenta</a>
+                    <div>
+                        <a href="{% url 'reset' %}">¿Has olvidado tu contraseña?</a>
+                    </div>
+                        <a href="{% url 'registrar' %}">No tengo una cuenta</a>
+                </div>
             </div>
         </div>
     </div>

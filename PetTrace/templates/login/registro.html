@@ -7,40 +7,30 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
     <script src="{% static 'js/cargarBarrios.js' %}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'js/hideShowPassword.min.js' %}"></script>
     <title>Registrarse</title>
 </head>
 <body>
-    <div id="img">
+    <div id="imglogo">
         <img src="{% static 'img/logo.png' %}" id="logoimg">
     </div>
     <div id="content">
-        <div>
-            <div id="img">
-                <img src="{% static 'img/user.png' %}" width="150px">
-            </div>
-            <h1>Registrarse</h1>
+        <div id="img">
+            <img src="{% static 'img/user.png' %}" width="200px">
         </div>
-        <form class="form" method="post" action="{% url 'registrar' %}">
+        <h1>Registrarse</h1>
+        <form method="post" action="{% url 'registrar' %}">
             {% csrf_token %}
             {{ form.non_field_errors }}
-            <div id="mensaje">
-                {% if messages %}
-                    {% for message in messages %}
-                    <div class="notificacion {{ message.tags }}">
-                        {{ message }}
-                    </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
-        
+            
+        <div class="grid1">
+            
             <div class="inputGrupo">
-                <label for="{{ form.first_name.id_for_label }}">Nombre*</label>
+                <label for="{{ form.first_name.id_for_label }}">Nombre</label>
                 {{ form.first_name }}
                 {{ form.first_name.errors }} 
             </div>
             <div class="inputGrupo">
-                <label for="{{ form.last_name.id_for_label }}">Apellido*</label>
+                <label for="{{ form.last_name.id_for_label }}">Apellido</label>
                 {{ form.last_name }}
                 {{ form.last_name.errors }} 
             </div>
@@ -50,27 +40,30 @@
                 {{ form.username.errors }} 
             </div>
             <div class="inputGrupo">
-                <label for="{{ form.documento.id_for_label }}">Numero de Documento*</label>
+                <label for="{{ form.documento.id_for_label }}">Numero de Documento</label>
                 {{ form.documento }}
                 {{ form.documento.errors }}
             </div>
+        </div>
+        <div class="grid2">
             <div class="inputGrupo">
-                <label for="{{ form.email.id_for_label }}">Correo*</label>
+                <label for="{{ form.email.id_for_label }}">Correo</label>
                 {{ form.email }}
                 {{ form.email.errors }} 
             </div>
             <div class="inputGrupo">
-                <label for="{{ form.telefono.id_for_label }}">Numero de telefono*</label>
+                <label for="{{ form.telefono.id_for_label }}">Numero de telefono</label>
                 {{ form.telefono }}
                 {{ form.telefono.errors }} 
             </div>
-            <div class="inputGrupo">
-                <label for="{{ form.password.id_for_label }}">Ingrese una contraseña*</label>
-                {{ form.password }}
-                {{ form.password.errors }}
-                <img src="{% static 'img/eye.close.png' %}" alt="" class="eye" id="eye"> 
-            </div>
-            
+            <div class="password">
+                <div class="inputGrupo">
+                    <label for="{{ form.password.id_for_label }}">Ingrese una contraseña</label>
+                    {{ form.password }}
+                    {{ form.password.errors }} 
+                </div>
+                    <img src="{% static 'img/eye.close.png' %}" alt="" class="eye" id="eye">
+                </div>
             <div>
                 <span>Seleccione su ubicación:</span>
                 <button class="btn" type="button" onclick="obtenerUbicacion()">
@@ -124,16 +117,30 @@
                 </div>
                 
             </div>
-            <div>
-                <a href="">¿Has olvidado tu contraseña?</a>
-            </div>
-            <div>
-                <div id="boton">
-                    <input type="submit" value="Registrarse">
+        </div>
+        <div class="grid3">
+                <div>
+                    <div id="boton">
+                        <input type="submit" value="Registrarse">
+                    </div>
+                    <div>
+                        <a href="">¿Has olvidado tu contraseña?</a>
+                    </div>
+                    <div>
+                    <a href="{% url 'login' %}">Ya tengo cuenta</a>
                 </div>
-                <a href="{% url 'login' %}">Ya tengo cuenta</a>
             </div>
+        </div>
         </form>
+        <div id="mensaje">
+            {% if messages %}
+                {% for message in messages %}
+                <div class="notificacion {{ message.tags }}">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
     </div>
 </body>
 <script>

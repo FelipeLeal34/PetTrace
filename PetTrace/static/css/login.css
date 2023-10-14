@@ -2,23 +2,75 @@
 body {
     font-family: 'Roboto', sans-serif;
 }
-#content{
-    display: flex;
-    justify-content: center;
-    margin: 33%;
-    width: 30%;
-    padding: 50px;
-    margin-top: 10px;
-    border-radius: 20px;
-    box-shadow: 10px 10px 30px 10px grey;
+
+/*Diseño de logo*/
+#imglogo{
+  width: 100%;
+  text-align: center;
 }
-#logoimg{
-  width: 600px;
+#logoimg {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
 }
-#img,
-#boton,
-h1{
-    text-align: center;
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto; 
+  width: 80%; 
+  padding: 50px;
+  margin-top: 10px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px 10px grey;
+}
+
+#img {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/*-------------------------------Form Registro----------------------------------------*/
+
+form {
+  width: 100%;
+}
+form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, auto);
+  grid-gap: 20px;
+  align-content: center; 
+  text-align: center; 
+}
+
+.grid1 {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.grid2 {
+  grid-row: 1;
+  grid-column: 2; 
+}
+
+.grid3 {
+  grid-row: 2; 
+  grid-column: 1 / span 2; 
+}
+
+#boton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 a{
@@ -39,14 +91,24 @@ input[type="password"]{
   width: 300px;
   height: 25px;
 }
+.inputGrupo {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  align-items: center; 
+}
+
 .inputGrupo input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 100%;
     padding: 0.8em;
     outline: none;
     border: 2px solid rgb(200, 200, 200);
     background-color: transparent;
     border-radius: 20px;
-    width: 100%;
+    width: 80%;
   }
 
 .inputGrupo :is(input:focus, input:valid) {
@@ -99,10 +161,11 @@ input[type="password"]{
   transition-delay: .2s;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; 
+  margin: 0 auto;
+  margin-top: 10px;
 }
 
-/* Efecto de ampliación al pasar el cursor por encima del botón */
 .btn:hover {
   width: 200px;
   transition-delay: .2s;
@@ -119,9 +182,10 @@ input[type="password"]{
   transition: .2s linear;
   font-weight: bold;
   text-transform: uppercase;
+  
 }
 
-/* Mostrar el texto "obtener ubicacion" cuando se pasa el cursor sobre el botón */
+/* Mostrar el texto "obtener ubicacion" cuando se pasa el mouse sobre el botón */
 .btn:hover > .paragraph {
   visibility: visible;
   opacity: 1;
@@ -163,24 +227,27 @@ input[type="password"]{
   stroke: #292929;;
 }
 
-/*Boton para mostrar y ocultar contraseña*/
+/*estilos del Boton para mostrar y ocultar contraseña*/
+
+.password{
+  position: relative;
+}
+#password{
+  display: inline-flex;
+}
 .eye {
-  /* Usa la imagen del ojo cerrado como fondo */
-  background-image: url("../img/eye.close.png");
-  /* Ajusta el tamaño y la posición del elemento */
+  position: absolute;
+  top: 45px;
+  right: 75px;
   width: 24px;
   height: 24px;
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .eye:hover {
-  /* Cambia el cursor a una mano */
   cursor: pointer;
 }
 
 .eye.open {
-  /* Si el elemento tiene la clase open, cambia la imagen del ojo por la del ojo abierto */
   background-image: url("../img/eye.open.png");
 }
 
@@ -210,34 +277,38 @@ input[type="submit"] {
     transform: scale(0.98);
   }
    
-@media screen and (max-width:767px) {
+/*------------------------------Form inicio sesión---------------------------------------------*/
+
+#forminicio{
+  display: block;
+}
+
+@media screen and (max-width:1023px) {
   #content{
-    display: flex;
-    justify-content: center;
-    width: 65%;
-    margin: auto;
-    margin-top: 20px;
+    width: 100%;
+  }
+  form{
+    display: block;
+  }
+
+  .eye {
+    right: 3vh;
+  }
+
+  input[type="email"],
+  input[type="password"]{
+      border-radius: 5px;
+      width: auto;
+      height: 25px;
+  }
+  .inputGrupo input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
     border-radius: 20px;
-    box-shadow: 10px 10px 30px 10px grey;
-}
-#logoimg{
-  width: 100%;
-  height: auto;
-}
-    input[type="email"],
-    input[type="password"]{
-        border-radius: 5px;
-        width: auto;
-        height: 25px;
-    }
-    .inputGrupo input {
-      font-size: 100%;
-      padding: 0.8em;
-      outline: none;
-      border: 2px solid rgb(200, 200, 200);
-      background-color: transparent;
-      border-radius: 20px;
-      width: 100%;
-    }
+    width: 100%;
+  }
 }
 
