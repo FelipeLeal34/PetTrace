@@ -6,6 +6,7 @@ import { cargarBarrios } from "./cargarBarrios.js";
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.getElementById("publi-modelo");
 const editarPubli = document.getElementById("editarPubli");
+const editarPubli = document.getElementById("editarPubli");
 const btnCerrar = document.querySelector("#btn-cerrar");
 
 // icono ṕara cerrar formulario de agregar publicacion 
@@ -68,6 +69,7 @@ publis.forEach( publi => {
 			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
 			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio;
 			document.getElementById("recompensam").textContent = publicacion.data.publicacion.recompensa;
+			
 			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
 			document.getElementById("telefonoDueño").textContent = publicacion.data.usuario.telefono;
 			document.getElementById("correoDueño").textContent = publicacion.data.usuario.email;
@@ -77,7 +79,16 @@ publis.forEach( publi => {
 
 
 
+			
+// ------------CONSULTA PARA EL FORMULARIO DE EDITAR---------
 
+
+
+
+			/*document.getElementById("img2e").src = publicacion.data.mascota.img2;
+			document.getElementById("img3e").src = publicacion.data.mascota.img3;
+			document.getElementById("img4e").src = publicacion.data.mascota.img4;
+			document.getElementById("img5e").src = publicacion.data.mascota.img5;*/
 			/*document.getElementById("img2e").src = publicacion.data.mascota.img2;
 			document.getElementById("img3e").src = publicacion.data.mascota.img3;
 			document.getElementById("img4e").src = publicacion.data.mascota.img4;
