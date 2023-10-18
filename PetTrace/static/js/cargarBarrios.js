@@ -1,3 +1,7 @@
+
+
+
+
 function obtenerUbicacion() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -27,9 +31,14 @@ function obtenerUbicacion() {
 }
 
 
-function cargarBarrios() {
-    var localidades = document.getElementById("localidades");
-    var barrios = document.getElementById("barrios");
+function cargarBarrios(idLocalidad) {
+    var localidades = document.getElementById(idLocalidad);
+    if(localidades.id == "localidades"){
+      var barrios = document.getElementById("barrios");
+    } else{
+      var barrios = document.getElementById("barriose");
+    }
+    
     var seleccionLocalidad = localidades.value;
 
     // Limpiar el select de barrios antes de cargar nuevos elementos
@@ -1947,6 +1956,8 @@ function cargarBarrios() {
           for (var i = 0; i < barriosCiudadBolivar.length; i++) {
             var option = document.createElement("option");
             option.text = barriosCiudadBolivar[i];
+            option.value = barriosCiudadBolivar[i].toLowerCase() ;
+
             barrios.add(option);
           }
         }else if (seleccionLocalidad === "Engativá") {
@@ -2088,6 +2099,8 @@ function cargarBarrios() {
 
 //funcion del mapa
 
+/*
+
 var latitudInput;
 var longitudInput;
 var map;
@@ -2140,4 +2153,6 @@ function mostrarUbicacionManual() {
 function initMap() {
   latitudInput = document.getElementById("latitud");
   longitudInput = document.getElementById("longitud");
-}
+}*/
+
+export {cargarBarrios};
