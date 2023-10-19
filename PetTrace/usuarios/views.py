@@ -57,6 +57,7 @@ def verPubliModalPerdida(request, id_publicacion):
                'accesoriosmas': publicacion.id_mascota.accesoriosmas,
                'tamañomas': publicacion.id_mascota.tamañomas,
                'marcasmas': publicacion.id_mascota.marcasmas,
+               'img1': publicacion.id_mascota.img1.url,
                'img2': publicacion.id_mascota.img2.url,
                'img3': publicacion.id_mascota.img3.url,
                'img4': publicacion.id_mascota.img4.url,

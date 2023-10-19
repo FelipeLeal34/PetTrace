@@ -6,7 +6,7 @@ import { cargarBarrios } from "./cargarBarrios.js";
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.getElementById("publi-modelo");
 const editarPubli = document.getElementById("editarPubli");
-const editarPubli = document.getElementById("editarPubli");
+
 const btnCerrar = document.querySelector("#btn-cerrar");
 
 // icono ṕara cerrar formulario de agregar publicacion 
@@ -75,9 +75,6 @@ publis.forEach( publi => {
 			document.getElementById("correoDueño").textContent = publicacion.data.usuario.email;
 			
 			
-// ------------CONSULTA PARA EL FORMULARIO DE EDITAR---------
-
-
 
 			
 // ------------CONSULTA PARA EL FORMULARIO DE EDITAR---------
@@ -85,14 +82,12 @@ publis.forEach( publi => {
 
 
 
-			/*document.getElementById("img2e").src = publicacion.data.mascota.img2;
-			document.getElementById("img3e").src = publicacion.data.mascota.img3;
-			document.getElementById("img4e").src = publicacion.data.mascota.img4;
-			document.getElementById("img5e").src = publicacion.data.mascota.img5;*/
-			/*document.getElementById("img2e").src = publicacion.data.mascota.img2;
-			document.getElementById("img3e").src = publicacion.data.mascota.img3;
-			document.getElementById("img4e").src = publicacion.data.mascota.img4;
-			document.getElementById("img5e").src = publicacion.data.mascota.img5;*/
+			document.getElementById("imgmas1").src = publicacion.data.mascota.img1;
+			/*document.getElementById("imgmas1").src = publicacion.data.mascota.img2;
+			document.getElementById("imgmas2").src = publicacion.data.mascota.img3;
+			document.getElementById("imgmas3").src = publicacion.data.mascota.img4;
+			document.getElementById("imgmas4").src = publicacion.data.mascota.img5;*/
+			
 
 			
 			document.getElementById("nombremase").value = publicacion.data.mascota.nombremas;
@@ -391,6 +386,7 @@ window.addEventListener("click",function(event) {
 const inputs = document.querySelectorAll(".input-file");
 const inputsText = document.querySelectorAll(".input-text");
 
+//PARA CADA INPUT TIPO FILE
 
 inputs.forEach(input => {
 	input.addEventListener("change", e =>{
@@ -399,6 +395,8 @@ inputs.forEach(input => {
 			const reader = new FileReader();
 			reader.onload = function (e) {
 			let img = e.target.result;	
+			console.log(img);
+
 			inputsText[id].innerHTML= "<img src='"+img+"'>";
 			}
 
