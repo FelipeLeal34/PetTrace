@@ -1,3 +1,8 @@
+import { cargarBarrios } from "./cargarBarrios.js";
+
+
+
+
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.querySelectorAll(".publi-modelo");
 const btnCerrar = document.querySelector("#btn-cerrar");
@@ -431,10 +436,11 @@ selectFiltros.forEach(selectFiltro =>{
 				});
 			});
 
-			const barrios = listaBarrios();
+			
 			
 		} else if(idSelectFiltro === "filtro-barrio"){
-			console.log(barrios.barriosAntonioNarino);
+			console.log(cargarBarrios());
+			
 		}
 		
 
