@@ -1,6 +1,3 @@
- import { listaBarrios } from './cargarBarrios.js';
-
-
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.querySelectorAll(".publi-modelo");
 const btnCerrar = document.querySelector("#btn-cerrar");
