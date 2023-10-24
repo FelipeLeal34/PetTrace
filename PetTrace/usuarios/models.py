@@ -14,6 +14,7 @@ from django.core.validators import RegexValidator
 alphanumeric = RegexValidator (r'^ [0-9a-zA-Z]*$', 'Solo se permiten caracteres alfanuméricos.')
 
 class Usuario(AbstractUser):
+    id = models.AutoField(primary_key=True)
     documento = models.PositiveIntegerField(unique=True)
     telefono = models.IntegerField()
     localidad = models.CharField(max_length=60, null=True, blank=True)
@@ -133,7 +134,7 @@ class Publicacion(models.Model):
     fechaPubli = models.DateTimeField(auto_now=True)
     apartado = models.CharField(max_length=50, null=False, blank=False, default='')
     idestado_salud = models.OneToOneField(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
-    id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, blank=False, null=False,on_delete=models.CASCADE)
     id_mascota = models.OneToOneField(Mascota, db_column='id_mascota', blank=False, null=False,on_delete=models.CASCADE)
 
     

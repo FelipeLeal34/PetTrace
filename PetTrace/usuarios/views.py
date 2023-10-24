@@ -23,7 +23,7 @@ def perfil(request):
 def perdidas(request):
 
      
-     publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+     publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id','idestado_salud')
      return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
 
 
@@ -33,7 +33,7 @@ def verPubliModalPerdida(request, id_publicacion):
 
      
 
-     publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario__id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
+     publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario__id','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
 
      data = {
