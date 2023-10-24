@@ -22,6 +22,120 @@ const btnAgregarPubli = document.querySelector("#agregar");
 var filtrosBox = document.querySelector(".filtros-box");
 
 
+// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
+
+
+function seleccionarVacunas(especie,idVacunas){
+
+
+	let vacunasmas = document.getElementById(idVacunas);
+	
+	
+	vacunasmas.innerHTML="";
+	
+	if(especie == "perro"){
+	
+		var vacunasPerro = ['moquillo','parvovirosis','pentavalente','coronavirus canino','rabia','tos de perreras']
+	
+		for(let i = 0 ; i < vacunasPerro.length; i++){
+			let option = document.createElement('option');
+			option.text = vacunasPerro[i];
+			option.value = vacunasPerro[i];
+			vacunasmas.add(option);
+	
+		}
+	
+	
+		
+	
+	} else{
+	
+		var vacunasGatos = ['moquillo','trivalente','leucemia','gripe felina','rabia','peritonitis infecciosa felina','clamidiosis felina']
+	
+		for(let i = 0 ; i < vacunasGatos.length; i++){
+			let option = document.createElement('option');
+			option.text = vacunasGatos[i];
+			option.value = vacunasGatos[i];
+			vacunasmas.add(option);
+	
+		}
+	
+	
+	
+	} 
+	
+	}
+	
+	
+	// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
+	
+	
+	function seleccionarRaza(especie,idRaza){
+	
+		
+	
+		var razamas = document.getElementById(idRaza);
+	
+		razamas.innerHTML="";
+	
+	if(especie == "perro"){
+	
+		var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
+							'Golder retriever','Border collie','Siberian husky','Bulldog inglés','Beagle','Criollo'];
+	
+		for(let i = 0 ; i < razasPerros.length; i++){
+			let option = document.createElement('option');
+			option.text = razasPerros[i];
+			option.value = razasPerros[i];
+			razamas.add(option);
+	
+		}
+	
+		
+	
+	} else{
+	
+		var razasGatos = ['Maine coon','Bengalí','Persa','Himalayo','Britanico de pelo corto',
+		'egipcio','siamés','Fold escocés','Ragdoll','Angora','Criollo'];
+	
+		for(let i = 0 ; i < razasGatos.length; i++){
+			let option = document.createElement('option');
+			option.text = razasGatos[i];
+			option.value = razasGatos[i];
+			razamas.add(option);
+	
+		}
+	
+	
+	
+	} 
+	
+		
+	}
+	
+	
+	
+	function seleccionarEspecie(idEspecie){
+	
+	
+		
+		let especie = document.getElementById(idEspecie).value;
+		
+			
+		
+		if(idEspecie == 'especiemas'){
+			seleccionarVacunas(especie,'vacunasmas');
+			seleccionarRaza(especie,'razamas');
+		} else{
+			seleccionarVacunas(especie,'vacunasmase');
+			seleccionarRaza(especie,'razamase');
+		}
+	
+		
+	
+	}
+
+
 // PETICION GET A LA BD PARA MOSTRAR LOS DATOS DE CADA PUBLICACICON EN UNA VENTANA MODAL
 
 
@@ -67,7 +181,22 @@ publis.forEach( publi => {
 			document.getElementById("vacunasmasm").textContent = publicacion.data.estado_salud.vacunasmas;
 			document.getElementById("localidadExtraviom").textContent = publicacion.data.publicacion.localidadExtravio;
 			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
-			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio;
+
+			let fechaExtraviom = new Date(publicacion.data.publicacion.fechaExtravio)
+
+			const configuracionHora = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric',
+				second: 'numeric',
+				hour12: true,
+				timeZone: 'America/Bogota',
+			  };
+
+			document.getElementById("fechaExtraviom").textContent = fechaExtraviom.toLocaleString('es-CO',configuracionHora);
+
 			document.getElementById("recompensam").textContent = publicacion.data.publicacion.recompensa;
 			
 			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
@@ -82,11 +211,11 @@ publis.forEach( publi => {
 
 
 
-			document.getElementById("imgmas1").src = publicacion.data.mascota.img1;
-			/*document.getElementById("imgmas1").src = publicacion.data.mascota.img2;
-			document.getElementById("imgmas2").src = publicacion.data.mascota.img3;
-			document.getElementById("imgmas3").src = publicacion.data.mascota.img4;
-			document.getElementById("imgmas4").src = publicacion.data.mascota.img5;*/
+			document.getElementById("imgmas6").src = publicacion.data.mascota.img1;
+			document.getElementById("imgmas7").src = publicacion.data.mascota.img2;
+			document.getElementById("imgmas8").src = publicacion.data.mascota.img3;
+			document.getElementById("imgmas9").src = publicacion.data.mascota.img4;
+			document.getElementById("imgmas10").src = publicacion.data.mascota.img5;
 			
 
 			
@@ -190,8 +319,9 @@ publis.forEach( publi => {
 			
 
 			const fechaExtravio = document.getElementById("fechaExtravioe");
-			let fecha = publicacion.data.publicacion.fechaExtravio;
-			fechaExtravio.value = new Date(fecha).toISOString().slice(0, 16);
+			const fecha = new Date(publicacion.data.publicacion.fechaExtravio);
+			fechaExtravio.value = fecha.toISOString().slice(0, 16);
+			
 
 
 			document.getElementById("recompensae").value = publicacion.data.publicacion.recompensa;
@@ -385,19 +515,31 @@ window.addEventListener("click",function(event) {
 
 const inputs = document.querySelectorAll(".input-file");
 const inputsText = document.querySelectorAll(".input-text");
+const inputTexte = document.querySelectorAll(".input-texte");
 
 //PARA CADA INPUT TIPO FILE
 
 inputs.forEach(input => {
 	input.addEventListener("change", e =>{
-	let id = input.id.charAt(input.id.length -1) - 1;
+	let id = input.id.charAt(input.id.length -1);
 		if(e.target.files[0]) {
 			const reader = new FileReader();
 			reader.onload = function (e) {
-			let img = e.target.result;	
-			console.log(img);
+			let file = e.target.result;	
 
-			inputsText[id].innerHTML= "<img src='"+img+"'>";
+			if(inputsText[id - 1].querySelector('img')){
+
+				console.log('el elemento si contiene la etiqueta img');
+				let inputImg = document.getElementById('imgmas'+id);
+				inputImg.src = file;
+
+			} else{
+			console.log(inputsText[id - 1].id);	
+			inputsText[id - 1].innerHTML= "<img src='"+file+"'>";
+			console.log('el elemento no contiene la etiqueta img');
+
+			}
+
 			}
 
 			reader.readAsDataURL(e.target.files[0]);
@@ -416,118 +558,7 @@ inputs.forEach(input => {
 
 
 
-// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
 
-
-function seleccionarVacunas(especie,idVacunas){
-
-
-let vacunasmas = document.getElementById(idVacunas);
-
-
-vacunasmas.innerHTML="";
-
-if(especie == "perro"){
-
-	var vacunasPerro = ['moquillo','parvovirosis','pentavalente','coronavirus canino','rabia','tos de perreras']
-
-	for(let i = 0 ; i < vacunasPerro.length; i++){
-		let option = document.createElement('option');
-		option.text = vacunasPerro[i];
-		option.value = vacunasPerro[i];
-		vacunasmas.add(option);
-
-	}
-
-
-	
-
-} else{
-
-	var vacunasGatos = ['moquillo','trivalente','leucemia','gripe felina','rabia','peritonitis infecciosa felina','clamidiosis felina']
-
-	for(let i = 0 ; i < vacunasGatos.length; i++){
-		let option = document.createElement('option');
-		option.text = vacunasGatos[i];
-		option.value = vacunasGatos[i];
-		vacunasmas.add(option);
-
-	}
-
-
-
-} 
-
-}
-
-
-// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
-
-
-function seleccionarRaza(especie,idRaza){
-
-	
-
-	var razamas = document.getElementById(idRaza);
-
-	razamas.innerHTML="";
-
-if(especie == "perro"){
-
-	var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
-						'Golder retriever','Border collie','Siberian husky','Bulldog inglés','Beagle','Criollo'];
-
-	for(let i = 0 ; i < razasPerros.length; i++){
-		let option = document.createElement('option');
-		option.text = razasPerros[i];
-		option.value = razasPerros[i];
-		razamas.add(option);
-
-	}
-
-	
-
-} else{
-
-	var razasGatos = ['Maine coon','Bengalí','Persa','Himalayo','Britanico de pelo corto',
-	'egipcio','siamés','Fold escocés','Ragdoll','Angora','Criollo'];
-
-	for(let i = 0 ; i < razasGatos.length; i++){
-		let option = document.createElement('option');
-		option.text = razasGatos[i];
-		option.value = razasGatos[i];
-		razamas.add(option);
-
-	}
-
-
-
-} 
-
-	
-}
-
-
-
-function seleccionarEspecie(idEspecie){
-
-
-	
-	let especie = document.getElementById(idEspecie).value;
-	
-		
-	
-	if(idEspecie == 'especiemas'){
-		seleccionarVacunas(especie,'vacunasmas');
-		seleccionarRaza(especie,'razamas');
-	} else{
-		seleccionarVacunas(especie,'vacunasmase');
-		seleccionarRaza(especie,'razamase');
-	}
-
-	
-
-}
 
 
 
