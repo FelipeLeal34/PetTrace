@@ -10,7 +10,7 @@ const editarPubli = document.getElementById("editarPubli");
 const btnCerrar = document.querySelector("#btn-cerrar");
 
 // icono ṕara cerrar formulario de agregar publicacion 
-const btnCerrarModal = document.querySelector("#icon-cancel");
+const btnCerrarModal = document.querySelectorAll(".icon-cancel");
 const agregarPubli = document.querySelector("#agregarPubli");
 const main = document.getElementsByTagName("main");
 
@@ -115,7 +115,7 @@ function seleccionarVacunas(especie,idVacunas){
 	
 	
 	
-	function seleccionarEspecie(idEspecie){
+	export function seleccionarEspecie(idEspecie){
 	
 	
 		
@@ -144,7 +144,7 @@ publis.forEach( publi => {
 
 
 		
-		let idpubli = e.target.closest(".publi").getAttribute("data-id")
+		var idpubli = e.target.closest(".publi").getAttribute("data-id");
 		console.log(e.target);
 
 		const url = `/verPubliModal/${idpubli}/`
@@ -209,7 +209,7 @@ publis.forEach( publi => {
 // ------------CONSULTA PARA EL FORMULARIO DE EDITAR---------
 
 
-
+			document.getElementById('editarPubli').action = `/editarPubli/${idpubli}/`;  
 
 			document.getElementById("imgmas6").src = publicacion.data.mascota.img1;
 			document.getElementById("imgmas7").src = publicacion.data.mascota.img2;
@@ -366,11 +366,15 @@ publis.forEach( publi => {
 	} else{
 		publiModal.style.display = "flex";
 	publiModal.style.position = "fixed";
-	btnCerrar.addEventListener("click",()=>{
+
+	btnCerrarModal.forEach(equis => {
+	equis.addEventListener("click",()=>{
 		publiModal.style.display = "none";
 		main[0].classList.remove("fondo-oscuro");
 
 	});
+
+});
 
 
 	}
@@ -465,12 +469,15 @@ btnAgregarPubli.addEventListener("click", ()=>{
 		
 	
 
-	btnCerrarModal.addEventListener("click", ()=>{
+	btnCerrarModal.forEach( equis => {
+	equis.addEventListener("click", ()=>{
 		agregarPubli.style.display = "none";
 		btnAgregarPubli.classList.remove("menu-span-focus");
 		main[0].classList.remove("fondo-oscuro");
 
 	});
+
+});
 
 	
 	
