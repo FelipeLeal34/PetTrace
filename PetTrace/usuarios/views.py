@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from . forms import *
 from . models import *
-from django.core import serializers
+from django.http import HttpResponse
 
 
 
@@ -138,9 +138,6 @@ def agregarPubliPerdidas(request):
                mascota = Mascota.objects.get(id_mascota=id_mascota)
 
 
-               #SE OBTIENEN LA LOCALIDAD Y EL BARRIO DE EXTRAVIO MANUALMENTE, PARA NO MODIFICAR LOS NAMES DEL HTML Y EVITAR PROBLEMAS CON EL JS
-               localidadExtravio = request.POST.get('txtlocalidad')
-               barrioExtravio = request.POST.get('txtbarrios')
 
                # SE GUARDAN LOS DATOS, SE AGREGAN LOS OBJETOS Y LUGARES MANUALMENTE
                publicacion = formPublicacion.save(commit=False)
@@ -148,8 +145,6 @@ def agregarPubliPerdidas(request):
                publicacion.idestado_salud = estado_salud
                publicacion.id_usuario = usuario
                publicacion.id_mascota = mascota
-               publicacion.localidadExtravio = localidadExtravio
-               publicacion.barrioExtravio = barrioExtravio
 
                #POR ULTIMO SE GUARDA EL FORMULARIO
                publicacion.save()
@@ -165,39 +160,34 @@ def editarPubliPerdidas(request,id_publicacion):
           formSaludMascota = SaludMascotaForm(request.POST)
           formPublicacion = PubliMascotaPerdidaForm(request.POST, instance=publicacion)
           if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
+
                
                vacunasmas = request.POST.getlist('vacunasmas')
 
-               
-               salud_mascota = formSaludMascota.save()
-               
-              
-               idestado_salud = salud_mascota.pk
+               mascota = formMascota.save(commit=False)
+               # mascota.idestado_salud = publicacion.idestado_salud
+               # mascota.id_usuario = publicacion.id_usuario
+               mascota.save()
+
+               estado_salud =  formSaludMascota.save(commit=False)
 
                
-               estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
+               # estado_salud = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
                estado_salud.guardar_vacunas(vacunasmas)
-
+               estado_salud.save()
+               
 
                
-               formMascota.save()
-
-
+               formPublicacion.save()
+               
 
                
-               localidadExtravio = request.POST.get('txtlocalidad')
-               barrioExtravio = request.POST.get('txtbarrios')
-
                
-               publicacion = formPublicacion.save(commit=False)
-               
-               publicacion.localidadExtravio = localidadExtravio
-               publicacion.barrioExtravio = barrioExtravio
 
-               
-               publicacion.save()
-
-     return redirect('perdidas')
+               return redirect('perdidas')
+     
+     return HttpResponse('error al actualizar')
+     
 
 
 

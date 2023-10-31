@@ -526,17 +526,35 @@ const inputTexte = document.querySelectorAll(".input-texte");
 
 //PARA CADA INPUT TIPO FILE
 
+
+
 inputs.forEach(input => {
 	input.addEventListener("change", e =>{
-	let id = input.id.charAt(input.id.length -1);
+		
+		let idCompleto = input.id;
+		let ultimosDosDigitos = idCompleto.slice(-2);
+		var id;
+
+		if(ultimosDosDigitos>0){
+
+			id = ultimosDosDigitos;
+
+
+		} else{
+			
+			id = idCompleto.slice(-1);
+			
+		}
+
+	
 		if(e.target.files[0]) {
 			const reader = new FileReader();
 			reader.onload = function (e) {
 			let file = e.target.result;	
 
 			if(inputsText[id - 1].querySelector('img')){
-
-				console.log('el elemento si contiene la etiqueta img');
+				// console.log(id);
+				// console.log('el elemento si contiene la etiqueta img');
 				let inputImg = document.getElementById('imgmas'+id);
 				inputImg.src = file;
 
