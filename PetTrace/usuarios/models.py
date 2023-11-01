@@ -89,7 +89,7 @@ class Mascota(models.Model):
     tamañomas = models.CharField(max_length=45, null=False, default='')
     edadmas = models.PositiveIntegerField(blank=True, null=True)
     marcasmas = models.CharField(max_length=45, null=True)
-    idestado_salud = models.OneToOneField(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
+    idestado_salud = models.ForeignKey(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
     id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False, verbose_name='id_dueño',on_delete=models.CASCADE)
     
     personalidadmas = models.CharField(max_length=150, null=False, blank=False, default='')
@@ -116,7 +116,7 @@ class Publicacion(models.Model):
     estadoPubli = models.BooleanField(default=True)
     fechaPubli = models.DateTimeField(auto_now=True)
     apartado = models.CharField(max_length=50, null=False, blank=False, default='')
-    idestado_salud = models.OneToOneField(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
+    idestado_salud = models.ForeignKey(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
     id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE)
     id_mascota = models.OneToOneField(Mascota, db_column='id_mascota', blank=False, null=False,on_delete=models.CASCADE)
 

@@ -747,6 +747,8 @@
 																<label for="accesoriosmas" class="bold">Accesorios: </label>
 																<textarea name="accesoriosmas" id="accesoriosmase" cols="30" rows="3" required></textarea>
 															</div>
+
+
 		
 		
 														</div>
@@ -826,6 +828,16 @@
 															<label for="recompensa" class="bold">recompensa: </label>
 															<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensae" class="input-mascota">
 														</div>
+
+														{% if form.errors %}
+															<ul class="errorlist">
+																{% for field in form %}
+																	{% for error in field.errors %}
+																		<li>{{ error }}</li>
+																	{% endfor %}
+																{% endfor %}
+															</ul>
+														{% endif %}
 													</div>
 												</div>
 		

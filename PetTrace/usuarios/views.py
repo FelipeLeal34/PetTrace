@@ -149,15 +149,24 @@ def agregarPubliPerdidas(request):
                #POR ULTIMO SE GUARDA EL FORMULARIO
                publicacion.save()
 
+          
+
+
+
+
      return redirect('perdidas')
 
 
 @login_required
 def editarPubliPerdidas(request,id_publicacion):
      publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+     mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+     saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
+     usuario = Usuario.objects.get(id_usuario=publicacion.id_usuario.pk)
+     
      if request.method == 'POST':
-          formMascota = MascotaPerdidaForm(request.POST, request.FILES )
-          formSaludMascota = SaludMascotaForm(request.POST)
+          formMascota = MascotaPerdidaForm(request.POST, request.FILES, instance=mascotaa)
+          formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
           formPublicacion = PubliMascotaPerdidaForm(request.POST, instance=publicacion)
           if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
 
@@ -165,8 +174,8 @@ def editarPubliPerdidas(request,id_publicacion):
                vacunasmas = request.POST.getlist('vacunasmas')
 
                mascota = formMascota.save(commit=False)
-               # mascota.idestado_salud = publicacion.idestado_salud
-               # mascota.id_usuario = publicacion.id_usuario
+               mascota.idestado_salud = saludMascota
+               mascota.id_usuario = usuario
                mascota.save()
 
                estado_salud =  formSaludMascota.save(commit=False)
