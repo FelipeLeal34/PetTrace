@@ -1,4 +1,7 @@
-import { cargarBarrios } from "./cargarBarrios.js";
+import { listaBarrios } from "./cargarBarrios.js";
+
+
+const barrios=listaBarrios();
 
 
 
@@ -212,7 +215,44 @@ function mostrarSelect() {
 
 
 /** --------------------FILTRAR--------------------------------
- */
+ 
+
+
+function agregarCamposFiltros(){
+
+	
+
+	const categoriasFiltros = ["filtro-color","filtro-raza","filtro-especie","filtro-localidad","filtro-barrio","filtro-fechaPubli"];
+	const iconosFiltros = ["fa-droplet","fa-paw","fa-dog","fa-map-location-dot","fa-house","fa-calendar-days"];
+	const textosFiltros = ["Color","Raza","Especie","Localidad","Barrio","Fecha de publicación"];
+
+
+	for(let j = 1; j<6 ; j++){
+		let div = document.createElement("div");
+		let i = document.createElement("i");
+		let p = document.createElement("p");
+
+		div.classList.add('categoria-filtro');
+		div.id = categoriasFiltros[j];
+		i.classList.add('fa-solid');
+		i.classList.add(iconosFiltros[j]);
+		p.textContent = textosFiltros[j];
+
+
+		filtrosBox.appendChild(div);
+		div.appendChild(i);
+		div.appendChild(p);
+
+		
+
+		
+	}
+}
+
+
+function eliminarCamposFiltros(){
+	filtrosBox = "";
+}*/
 
 
 
@@ -223,10 +263,12 @@ const filtrosBox = document.querySelector(".filtros-box");
 btnFiltrar.addEventListener("click", (e) => {
 	e.stopPropagation();
     if (!btnFiltrar.classList.contains("menu-span-focus")) {
+		
         btnFiltrar.classList.add("menu-span-focus");
 		filtrosBox.style.display = "flex";
 		
     }else{
+		
 		btnFiltrar.classList.remove("menu-span-focus");
 		filtrosBox.style.display = "none";
 		
@@ -237,7 +279,18 @@ btnFiltrar.addEventListener("click", (e) => {
 
 
 
-// FIlTROS
+
+
+
+const localidades = ["Antonio Nariño","Barrios Unidos","Bosa","Candelaria","Chapinero","Ciudad Bolivar","Engativa","Fontibon","Kennedy",
+"Los Martires","Puente Aranda","Rafel uribe","San Cristobal","Santa Fe","Suba","Teusaquillo","Tunjuelito","Usaquen","Usme"];
+
+const valoresLocalidades = ["barriosAntonioNarino","barriosBarriosUnidos", "barriosBosa", "barriosCandelaria", 
+"barriosChapinero", "barriosCiudadBolivar", "barriosEngativa", "barriosFontibon", "barriosKennedy", 
+"barriosMartires",  "barriosPuenteAranda", "barriosRafaelUribe", "barriosSanCristobal", 
+"barriosSantaFe", "barriosSuba", "barriosTeusaquillo", "barriosTunjuelito", "barriosUsaquen", "barriosUsme"];
+
+
 
 
 
@@ -245,8 +298,81 @@ btnFiltrar.addEventListener("click", (e) => {
 const selectFiltros = document.querySelectorAll(".categoria-filtro");
 const subfiltrosBox = document.querySelector("#subfiltros-box")
 
+var filtrosSeleccionados = {color:{},raza:{},especie:{},localidad:{},barrio:{}};
+
+function funFiltroLocalidad(){
+
+
+	
+	subfiltrosBox.innerHTML = ""
+
+
+
+
+for (var i = 0; i < localidades.length; i++) {
+	
+	var div = document.createElement("div");
+	div.className = "categoria-filtro";
+	
+	var label = document.createElement("label")
+	var input = document.createElement("input")
+	
+	input.type = 'checkbox'
+	input.id = localidades[i].toLowerCase().replace(/\s/g, " ");
+	input.value = valoresLocalidades[i];
+	input.classList.add('subfiltros-checkbox');
+	input.classList.add('subfiltros-localidad-checkbox');
+	
+	label.htmlFor = input.id;
+	label.textContent = localidades[i]
+	
+	subfiltrosBox.appendChild(div);
+	div.appendChild(label);
+	label.appendChild(input);
+
+
+
+
+  
+}
+  var filtroLocalidad = document.querySelectorAll('.subfiltros-localidad-checkbox');
+
+  filtroLocalidad.forEach(option => {
+
+	if (filtrosSeleccionados.localidad[option.value]) {
+		option.checked = true;
+	}
+
+	option.addEventListener("change", function() {
+		
+		if (this.checked) {
+			filtrosSeleccionados.localidad = {};
+			filtrosSeleccionados.localidad[this.value] = true;
+			console.log(filtrosSeleccionados);
+			filtroLocalidad.forEach(otherOption => {
+				if (otherOption !== this) {
+					otherOption.checked = false;
+					
+				}
+			});
+			 subfiltrosBox.style.display = "none";
+			 
+		} 
+
+	});
+
+});
+}
+
+
+
+
+
+
 selectFiltros.forEach(selectFiltro =>{
 	selectFiltro.addEventListener("click", ()=>{
+
+		
 		
 		let idSelectFiltro = selectFiltro.id
 		let categoriaFiltro = document.getElementById(idSelectFiltro);
@@ -254,6 +380,7 @@ selectFiltros.forEach(selectFiltro =>{
 		selectFiltro.style.position = "relative";
 		subfiltrosBox.style.display = "flex";
 		if(idSelectFiltro === "filtro-color"){
+			
 			subfiltrosBox.innerHTML = ""
 			subfiltrosBox.innerHTML = 
 				
@@ -270,35 +397,36 @@ selectFiltros.forEach(selectFiltro =>{
 			let filtroColor = document.querySelectorAll('.subfiltros-color-checkbox')
 			
 				filtroColor.forEach(option => {
+
+					if (filtrosSeleccionados.color[option.value]) {
+						option.checked = true;
+					}
+
 					option.addEventListener("change", function() {
 						
 						if (this.checked) {
+							filtrosSeleccionados.color = {};
+							filtrosSeleccionados.color[this.value] = true;
+							console.log(filtrosSeleccionados);
 							filtroColor.forEach(otherOption => {
 								if (otherOption !== this) {
 									otherOption.checked = false;
+									
 								}
 							});
 							 subfiltrosBox.style.display = "none";
-						}
+						} 
 
-						
-
-					let colorElegido = null;
-
-					filtroColor.forEach(checkbox => {
-						if(checkbox.checked){
-							colorElegido = checkbox.value;
-							alert(colorElegido);
-						}
-						
 
 					
-					})
 
 					
 
 
 					});
+		
+
+
 				});
 			
 			
@@ -325,7 +453,7 @@ selectFiltros.forEach(selectFiltro =>{
 		
 			let filtroRaza = document.querySelectorAll('.subfiltros-raza-checkbox');
 		
-			filtroRaza.forEach(option => {
+			/*filtroRaza.forEach(option => {
 				option.addEventListener("change", function() {
 					if (this.checked) {
 						filtroRaza.forEach(otherOption => {
@@ -336,15 +464,44 @@ selectFiltros.forEach(selectFiltro =>{
 						subfiltrosBox.style.display = "none";
 					}
 		
-					let razaElegida = null;
-					filtroRaza.forEach(checkbox => {
-						if (checkbox.checked) {
-							razaElegida = checkbox.value;
-							alert(razaElegida);
-						}
-					});
+					
 				});
+			});*/
+
+			filtroRaza.forEach(option => {
+
+				if (filtrosSeleccionados.raza[option.value]) {
+					option.checked = true;
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.raza = {};
+						filtrosSeleccionados.raza[this.value] = true;
+						console.log(filtrosSeleccionados);
+						filtroRaza.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+						 subfiltrosBox.style.display = "none";
+					} 
+
+
+				
+
+				
+
+
+				});
+	
+
+
 			});
+
+
 		
 		} else if (idSelectFiltro === "filtro-especie") {
 
@@ -356,24 +513,28 @@ selectFiltros.forEach(selectFiltro =>{
 			let filtroEspecie = document.querySelectorAll('.subfiltros-especie-checkbox');
 		
 			filtroEspecie.forEach(option => {
+
+				if (filtrosSeleccionados.color[option.value]) {
+					option.checked = true;
+				}
+
 				option.addEventListener("change", function() {
+					
 					if (this.checked) {
+						filtrosSeleccionados.especie = {};
+						filtrosSeleccionados.especie[this.value] = true;
+						console.log(filtrosSeleccionados);
 						filtroEspecie.forEach(otherOption => {
 							if (otherOption !== this) {
 								otherOption.checked = false;
+								
 							}
 						});
-						subfiltrosBox.style.display = "none";
-					}
-		
-					let especieElegida = null;
-					filtroEspecie.forEach(checkbox => {
-						if (checkbox.checked) {
-							especieElegida = checkbox.value;
-							alert(especieElegida);
-						}
-					});
+						 subfiltrosBox.style.display = "none";
+					} 
+
 				});
+
 			});
 
 
@@ -382,72 +543,123 @@ selectFiltros.forEach(selectFiltro =>{
 			
 		} else if(idSelectFiltro === "filtro-localidad"){
 
+			
+			funFiltroLocalidad();
+			
+			
+		} else if(idSelectFiltro === "filtro-barrio"){
+
 			subfiltrosBox.innerHTML = ""
 
-			let localidades = ["Usaquen","Chapinero","Santa fe","San Cristobal","Usme","Tunjuelito","Bosa","Kennedy","Fontibon",
-			"Engativa","Suba","Barrios Unidos",
-			"Teusaquillo","Los Martires","Antonio Nariño","Puente Aranda","La candelaria","Rafael Uribe","Ciudad bolivar"];
+
+			let localidadSeleccionada = Object.keys(filtrosSeleccionados.localidad)[0];
+
+			if(localidadSeleccionada == null){
+				funFiltroLocalidad();
+			} else{
+
+				let listaBarrios = barrios[localidadSeleccionada];
+
+				
+
+			
+			
+			
+			for(let i=0;i<listaBarrios.length;i++){
 
 
-			for (var i = 0; i < localidades.length; i++) {
+
+
+				//console.log(listaBarrios[i]);
+
+				
 				var div = document.createElement("div");
 				div.className = "categoria-filtro";
 				
-				var label = document.createElement("label")
-				var input = document.createElement("input")
+				var label = document.createElement("label");
+				var input = document.createElement("input");
 				
-				input.type = 'checkbox'
-				input.id = localidades[i].toLowerCase().replace(/\s/g, " ");
-				input.value = localidades[i].toLowerCase().replace(/\s/g, " ");
+				input.type = 'checkbox';
+				input.id = listaBarrios[i].toLowerCase().replace(/\s/g, " ");
+				input.value = listaBarrios[i].toLowerCase().replace(/\s/g, " ");
 				input.classList.add('subfiltros-checkbox');
-				input.classList.add('subfiltros-localidad-checkbox');
+				input.classList.add('subfiltros-barrio-checkbox');
 				
 				label.htmlFor = input.id;
-				label.textContent = localidades[i]
+				label.textContent = listaBarrios[i]
 				
 				subfiltrosBox.appendChild(div);
 				div.appendChild(label);
 				label.appendChild(input);
+			
 
+			
+					} 
 
-
-
-			  }
-			  let filtroLocalidad = document.querySelectorAll('.subfiltros-localidad-checkbox');
+			let filtroBarrio = document.querySelectorAll('.subfiltros-barrio-checkbox');
 		
-			filtroLocalidad.forEach(option => {
+			filtroBarrio.forEach(option => {
+
+				if (filtrosSeleccionados.barrio[option.value]) {
+					option.checked = true;
+				}
+
 				option.addEventListener("change", function() {
+					
 					if (this.checked) {
-						filtroLocalidad.forEach(otherOption => {
+						filtrosSeleccionados.barrio = {};
+						filtrosSeleccionados.barrio[this.value] = true;
+						console.log(filtrosSeleccionados);
+						filtroBarrio.forEach(otherOption => {
 							if (otherOption !== this) {
 								otherOption.checked = false;
+								
 							}
 						});
-						subfiltrosBox.style.display = "none";
+
+
+						 subfiltrosBox.style.display = "none";
+
+
 					}
-		
-					let localidadElegida = null;
-					filtroLocalidad.forEach(checkbox => {
-						if (checkbox.checked) {
-							localidadElegida = checkbox.value;
-							alert(localidadElegida);
-						}
-					});
+
 				});
+
 			});
 
-			
-			
-		} else if(idSelectFiltro === "filtro-barrio"){
-			console.log(cargarBarrios());
-			
-		}
-		
 
-																	
+			}
+
+
+			
 	
 
-	})
+			
+			
+			
+																	
+		} else if(idSelectFiltro === "filtro-fechaPubli"){
+
+
+			subfiltrosBox.innerHTML = "";
+
+			var div = document.createElement("div");
+			div.className = "categoria-filtro";
+
+
+			label = document.createElement("label");
+			input = document.createElement("input");
+			input.type = 'date';
+			input.id = "fechaPubli-filtro";
+			input.classList.add('subfiltros-checkbox');
+			input.classList.add('subfiltros-fechaPubli-checkbox');
+			
+
+			subfiltrosBox.appendChild(div);
+			div.appendChild(label);
+			div.appendChild(input);
+
+		}
 
 
 
@@ -459,4 +671,10 @@ selectFiltros.forEach(selectFiltro =>{
 
 
 
-})
+
+
+	});
+
+
+
+});

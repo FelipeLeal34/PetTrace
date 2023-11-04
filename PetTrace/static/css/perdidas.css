@@ -557,10 +557,21 @@ input[type="text"]:focus {
 
 
 .subfiltros-checkbox{
-	display: none;
+	display: flex;
 }
 
 
 .subfiltros-color-icon{
 	filter: invert(1);
+}
+
+
+.subfiltros-fechaPubli-checkbox{
+	background-color: #a7bab9;
+	border: none;
+	padding: 10px;
+	width: 100%;
+	border-radius: 10px;
+	font-size: 18px;
+	color: #faf7f6;
 }
