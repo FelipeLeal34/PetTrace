@@ -9,16 +9,9 @@ class MascotaPerdidaForm(forms.ModelForm):
 
         model = Mascota
         
-        fields = ['nombremas','especiemas','razamas','sexomas','accesoriosmas','colormas','tamañomas','edadmas','marcasmas','img1','img2','img3','img4','img5']
+        fields = ['nombremas','especiemas','razamas','tamañomas','sexomas','colormas','edadmas','marcasmas','accesoriosmas','img1','img2','img3','img4','img5']
         
-        def __init__(self, *args, **kwargs):
-            super(MascotaPerdidaForm, self).__init__(*args, **kwargs)
-            
-            
-            if self.instance:
-                
-                for field_name in self.fields:
-                    self.fields[field_name].required = False
+        
 
 class SaludMascotaForm(forms.ModelForm):
 
@@ -51,7 +44,7 @@ class PubliMascotaPerdidaForm(forms.ModelForm):
     class Meta:
 
         model = MascotasPerdidas
-        fields = ['fechaExtravio','recompensa','localidadExtravio','barrioExtravio']
+        fields = ['localidadExtravio','barrioExtravio','fechaExtravio','recompensa']
 
 
 

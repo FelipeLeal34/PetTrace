@@ -26,8 +26,9 @@ urlpatterns = [
     path('perfil/', perfil, name='perfil'),
     path('perdidas/', perdidas, name='perdidas'),
     path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
-    path('verPubliModal/<int:id_publicacion>/', verPubliModalPerdida, name='verPubliModal' ),
+    path('informacionPubli/<int:id_publicacion>/', informacionPubli, name='informacionPubli' ),
     path('editarPubli/<int:id_publicacion>/', editarPubliPerdidas, name='editarPubliPerdidas' ),
+    path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli' ),
     
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )

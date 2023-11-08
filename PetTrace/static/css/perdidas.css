@@ -296,6 +296,7 @@
 	width: 100%;
 	overflow: auto;
 	height: 100%;
+	position: relative;
 	
 	
 	
@@ -526,14 +527,16 @@ input[type="text"]:focus {
 }
 
 
-#icon-cancel{
+.icon-cancel{
 	font-size: 30px;
 	width: 100%;
 	float: right;
-	display: flex;
-
-	justify-content: flex-end;
-	margin:5px 5px 0 0;
+	position: absolute;
+	right: 5px;
+	top: 3px;
+	text-align: right;
+	
+	
 	cursor:pointer;
 }
 
@@ -554,6 +557,74 @@ input[type="text"]:focus {
 
 .icon-th-thumb-empty{
 	position: relative;
+}
+
+
+
+/* --------------CONFIRMACION DE ELIMINACION DE PUBLICACION---------- */
+
+
+#eliminarPubli{
+	display: none;
+	position: absolute;
+	margin-top: 30%;
+	margin-left: 50%;
+	transform: translate(-50%,-30%);
+	height: 300px;
+	width: 500px;
+	padding: 20px;
+	background: #faf7f6;
+	border-radius: 20px;
+	
+	flex-direction: column;
+	justify-content: center;
+
+}
+
+#btnOpcionesEP{
+	margin-top: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+
+.fa-trash-can{
+	font-size: 80px;
+	margin-bottom: 30px;
+}
+
+
+.btnAceptar{
+	background: #587073;
+	border-radius: 10px;
+	margin: 2px;
+	padding: 10px;
+	color: #faf7f6;
+	cursor: pointer;
+}
+
+.btnCancelar{
+	background: #faf7f6;
+	border: 1px solid #000;
+	border-radius: 10px;
+	margin: 2px;
+	padding: 10px;
+	cursor: pointer;
+
+
+
+}
+
+#btnAceptar:hover{
+	background: rgba(88, 112, 115, 0.5);
+	
+}
+
+#btnCancelar:hover{
+	background: rgba(0, 0, 0, 0.2);
+	
 }
 
 

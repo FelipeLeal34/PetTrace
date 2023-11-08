@@ -5,6 +5,7 @@ from django.shortcuts import redirect
 from . forms import *
 from . models import *
 from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 
 
 
@@ -27,7 +28,7 @@ def perdidas(request):
 
 
 
-def verPubliModalPerdida(request, id_publicacion):
+def informacionPubli(request, id_publicacion):
 
      
 
@@ -90,71 +91,91 @@ def verPubliModalPerdida(request, id_publicacion):
 
 @login_required
 def agregarPubliPerdidas(request):
+     
      if request.method == 'POST':
+
+          
 
           # SE INSTANCIAN LOS DOS MODELSFORMS DE FORMS.PY, SE LE INDICA AL FORMULARIO DE MASCOTA QUE SE ENVIARÁN ARCHIVOS
           formMascota = MascotaPerdidaForm(request.POST, request.FILES )
           formSaludMascota = SaludMascotaForm(request.POST)
           formPublicacion = PubliMascotaPerdidaForm(request.POST)
-          if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
+          if formPublicacion.is_valid():
+            
+            if formSaludMascota.is_valid(): 
+               
+               if formMascota.is_valid():
 
-               #SE OBTIEME EL ID DEL USUARIO LOGUEADO, ES DECIR, DEL QUE HIZO LA PUBLICACION
-               id_usuario = request.user.id
-               vacunasmas = request.POST.getlist('vacunasmas')
+                    
 
-               #SE CREA UN OBJETO DE ESE USUARIO
-               usuario = Usuario.objects.get(id_usuario=id_usuario)
+                    #SE OBTIEME EL ID DEL USUARIO LOGUEADO, ES DECIR, DEL QUE HIZO LA PUBLICACION
+                    id_usuario = request.user.id
+                    vacunasmas = request.POST.getlist('vacunasmas')
 
-               #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
-               salud_mascota = formSaludMascota.save()
+                    #SE CREA UN OBJETO DE ESE USUARIO
+                    usuario = Usuario.objects.get(id_usuario=id_usuario)
+
+                    #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
+                    salud_mascota = formSaludMascota.save()
+
+                    
+                    
+                    
+
+                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'SALUD_MASCOTA'
+                    idestado_salud = salud_mascota.pk
+
+                    #SE CREA UN OBJETO DE ESE ESTADO DE SALUD
+                    estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
+                    estado_salud.guardar_vacunas(vacunasmas)
+
+                    # SE GUARDAN TODOS LOS CAMPOS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
+
+                    mascotaIns = formMascota.save(commit=False)
+
+
+                    #SE LE ASIGNA EN EL CAMPO ID_USUARIO DE LA TABLA MASCOTAS, EL OBJETO 'USUARIO' YA CREADO
+                    mascotaIns.id_usuario = usuario
+
+                    #SE LE ASIGNA EN EL CAMPO IDESTADO_SALUD DE LA TABLA MASCOTAS, EL OBJETO 'ESTADO_SALUD' YA CREADO
+                    mascotaIns.idestado_salud = estado_salud
+
+                    #SE GUARDA EL FORMULARIO DE MASCOTAS YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
+                    mascotaIns.save()
+
+                    
+
+
+                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'MASCOTAS'
+                    id_mascota = mascotaIns.pk
+
+                    #SE CREA UN OBJETO DE ESE ULTIMPO REGISTRO DE LA TABLA 'MASCOTAS'
+                    mascota = Mascota.objects.get(id_mascota=id_mascota)
+
+
+
+                    # SE GUARDAN LOS DATOS, SE AGREGAN LOS OBJETOS Y LUGARES MANUALMENTE
+                    publicacion = formPublicacion.save(commit=False)
+                    publicacion.apartado = 'perdidas'
+                    publicacion.idestado_salud = estado_salud
+                    publicacion.id_usuario = usuario
+                    publicacion.id_mascota = mascota
+
+                    #POR ULTIMO SE GUARDA EL FORMULARIO
+                    publicacion.save()
+
+                    
+
+                    return redirect('perdidas')
                
                
 
-               #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'SALUD_MASCOTA'
-               idestado_salud = salud_mascota.pk
-
-               #SE CREA UN OBJETO DE ESE ESTADO DE SALUD
-               estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
-               estado_salud.guardar_vacunas(vacunasmas)
-
-               # SE GUARDAN TODOS LOS CAMPOS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
-
-               mascotaIns = formMascota.save(commit=False)
-
-
-               #SE LE ASIGNA EN EL CAMPO ID_USUARIO DE LA TABLA MASCOTAS, EL OBJETO 'USUARIO' YA CREADO
-               mascotaIns.id_usuario = usuario
-
-               #SE LE ASIGNA EN EL CAMPO IDESTADO_SALUD DE LA TABLA MASCOTAS, EL OBJETO 'ESTADO_SALUD' YA CREADO
-               mascotaIns.idestado_salud = estado_salud
-
-               #SE GUARDA EL FORMULARIO DE MASCOTAS YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
-               mascotaIns.save()
-
-               #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'MASCOTAS'
-               id_mascota = mascotaIns.pk
-
-               #SE CREA UN OBJETO DE ESE ULTIMPO REGISTRO DE LA TABLA 'MASCOTAS'
-               mascota = Mascota.objects.get(id_mascota=id_mascota)
+     return HttpResponse('NO SE GUARDÓ')
 
 
 
-               # SE GUARDAN LOS DATOS, SE AGREGAN LOS OBJETOS Y LUGARES MANUALMENTE
-               publicacion = formPublicacion.save(commit=False)
-               publicacion.apartado = 'perdidas'
-               publicacion.idestado_salud = estado_salud
-               publicacion.id_usuario = usuario
-               publicacion.id_mascota = mascota
-
-               #POR ULTIMO SE GUARDA EL FORMULARIO
-               publicacion.save()
 
           
-
-
-
-
-     return redirect('perdidas')
 
 
 @login_required
@@ -162,7 +183,7 @@ def editarPubliPerdidas(request,id_publicacion):
      publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
      mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
      saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
-     usuario = Usuario.objects.get(id_usuario=publicacion.id_usuario.pk)
+     
      
      if request.method == 'POST':
           formMascota = MascotaPerdidaForm(request.POST, request.FILES, instance=mascotaa)
@@ -173,15 +194,13 @@ def editarPubliPerdidas(request,id_publicacion):
                
                vacunasmas = request.POST.getlist('vacunasmas')
 
-               mascota = formMascota.save(commit=False)
-               mascota.idestado_salud = saludMascota
-               mascota.id_usuario = usuario
-               mascota.save()
+     
+               formMascota.save()
 
                estado_salud =  formSaludMascota.save(commit=False)
 
                
-               # estado_salud = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
+               
                estado_salud.guardar_vacunas(vacunasmas)
                estado_salud.save()
                
@@ -194,8 +213,31 @@ def editarPubliPerdidas(request,id_publicacion):
                
 
                return redirect('perdidas')
-     
+
      return HttpResponse('error al actualizar')
+
+
+
+
+
+
+def eliminarPubli(request,id_publicacion):
+     if(request.method == "DELETE"):
+          publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+          mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+          salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+
+
+          salud_mascota.delete()
+          mascota.delete()
+          publicacion.delete()
+
+
+          return HttpResponseRedirect('/perdidas/')
+          #return JsonResponse({'estado':'exitoso'})
+     return redirect('PUBLICACION NO ELIMINADA')
+     
+     
      
 
 

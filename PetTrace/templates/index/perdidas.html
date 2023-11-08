@@ -52,9 +52,13 @@
 								
 								<div class="menuOpcionesPubli">
 									{% if user.is_authenticated and user.id == publicacion.id_usuario.id_usuario.pk  %}
-									<div class="opcionesPubli verPubli">
+									<div class="opcionesPubli btnEditarPubli">
 										<i class="fa-solid fa-pen-to-square"></i>
 										<p>Editar publicacion</p>
+									</div>
+									<div class="opcionesPubli btnEliminarPubli">
+										<i class="fa-solid fa-trash"></i>
+										<p>Eliminar publicacion</p>
 									</div>
 									{% endif %}
 									<div class="opcionesPubli">
@@ -199,6 +203,11 @@
 											<p id="razamasm"></p>
 										</div>
 										<div class="dato">
+											<p  class="bold">Tamaño: </p>
+											<p id="tamañomasm"></p>
+										</div>
+
+										<div class="dato">
 											<p  class="bold">Sexo: </p>
 											<p id="sexomasm"></p>
 										</div>
@@ -304,7 +313,7 @@
 				
 
 
-					<form method="post" action="{% url 'agregarPubliPerdidas' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
+					<form method="POST" action="{% url 'agregarPubliPerdidas' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
 
 						{% csrf_token %}
 
@@ -312,7 +321,7 @@
 							
 							<h3>Agregar Publicacion</h3>
 
-							<span class="fa-solid fa-xmark icon-cancel" id="icon-cancel"></span>
+							<span class="fa-solid fa-xmark icon-cancel" ></span>
 
 							<div class="inputs-img">
 
@@ -323,8 +332,14 @@
 
 								<div class="input-img">
 									<label for="input-img-1" >
-										<div class="input-text"><span class="fa-solid fa-upload"></span>
-											<p>click para subir imagen</p>
+										<div class="input-text">
+											
+
+											<div class="icon-upload">
+												<span class="fa-solid fa-upload"></span>
+												<p class="p-upload">click para subir imagen</p>
+											</div> 
+
 											<input type="file" name="img1" id="input-img-1" class="input-file" required>
 											
 										</div>
@@ -334,28 +349,60 @@
 
 								</div>
 								<div class="input-img">
-									<label for="input-img-2" ><div class="input-text"><span class="fa-solid fa-upload"></span>
-										<p>click para subir imagen</p></div></label>
-										<input type="file" name="img2" id="input-img-2" class="input-file" required>
+									<label for="input-img-2" >
+										<div class="input-text">
+
+											<div class="icon-upload">
+												<span class="fa-solid fa-upload"></span>
+												<p class="p-upload">click para subir imagen</p>
+											</div> 
+
+											<input type="file" name="img2" id="input-img-2" class="input-file" required>
+										</div>
+									</label>
+										
 
 									</div>
 									<div class="input-img">
-										<label for="input-img-3" ><div class="input-text"><span class="fa-solid fa-upload"></span>
-											<p>click para subir imagen</p></div></label>
-											<input type="file" name="img3" id="input-img-3" class="input-file" required>
+										<label for="input-img-3" >
+											<div class="input-text">
+												<div class="icon-upload">
+													<span class="fa-solid fa-upload"></span>
+													<p class="p-upload">click para subir imagen</p>
+												</div> 
+
+												<input type="file" name="img3" id="input-img-3" class="input-file" required>
+											</div>
+										</label>
+												
 
 										</div>
 
-										<div class="input-img"><input type="file" name="img4" id="input-img-4" class="input-file" required>
-											<label for="input-img-4" ><div class="input-text"><span class="fa-solid fa-upload"></span>
-												<p>click para subir imagen</p></div></label>
-											</div>
-
-
-											<div class="input-img"><input type="file" name="img5" id="input-img-5" class="input-file" required>
-												<label for="input-img-5" ><div class="input-text"><span class="fa-solid fa-upload"></span>
-													<p>click para subir imagen</p></div></label>
+										<div class="input-img">
+											<label for="input-img-4" >
+												<div class="input-text">
+													<div class="icon-upload">
+														<span class="fa-solid fa-upload"></span>
+														<p class="p-upload">click para subir imagen</p>
+													</div> 
+													<input type="file" name="img4" id="input-img-4" class="input-file" required>
 												</div>
+											</label>
+										</div>
+
+
+											<div class="input-img">
+												<label for="input-img-5" >
+													<div class="input-text">
+														<div class="icon-upload">
+															<span class="fa-solid fa-upload"></span>
+															<p class="p-upload">click para subir imagen</p>
+														</div> 
+														<input type="file" name="img5" id="input-img-5" class="input-file" required>
+
+													</div>
+												</label>
+											</div>
 
 
 
@@ -374,7 +421,7 @@
 													<div class="dato-select">
 														<div class="label-selectMultiple">
 														<label for="especiemas" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-														<select name="especiemas" id="especiemas" onchange="seleccionarEspecie('especiemas')" class="select" required>
+														<select name="especiemas" id="especiemas" class="select" required>
 															<option value="" disabled selected>Seleccione una</option>
 															<option value="perro">Perro</option>
 															<option value="gato">Gato</option>
@@ -491,7 +538,7 @@
 													</div>
 													<div class="dato-select">
 														<div class="label-selectMultiple">
-														<label for="vacunasmas" class="mostrarSelect" onclick="mostrarSelect('vacunasmas')">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+														<label for="vacunasmas" id="labelvacunasmas" class="mostrarSelect">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 														<select name="vacunasmas" id="vacunasmas"  class="select"  multiple>
 															
 
@@ -500,7 +547,7 @@
 													<div class="dato-select">
 														<div class="label-selectMultiple">
 															<label for="localidadExtravio" class="mostrarSelect">Localidad de extravío</label></div>
-															<select name="localidadExtravio" id="localidades" onchange="cargarBarrios('localidades')" class="select" required>
+															<select name="localidadExtravio" id="localidades" class="select" required>
 																	<option value="" default disabled>Localidad de extravío</option>
 																	<option value="Usaquén">Usaquén</option>
 																	<option value="Chapinero">Chapinero</option>
@@ -545,6 +592,16 @@
 													<label for="recompensa" class="bold">recompensa: </label>
 													<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensa" class="input-mascota">
 												</div>
+
+												{% if form.errors %}
+															<ul class="errorlist">
+																{% for field in form %}
+																	{% for error in field.errors %}
+																		<li>{{ error }}</li>
+																	{% endfor %}
+																{% endfor %}
+															</ul>
+														{% endif %}
 											</div>
 										</div>
 
@@ -596,7 +653,7 @@
 
 									<h3>EDITAR PUBLICACION</h3>
 		
-									<span class="fa-solid fa-xmark" id="icon-cancel"></span>
+									<span class="fa-solid fa-xmark icon-cancel" ></span>
 		
 									<div class="inputs-img">
 		
@@ -609,7 +666,7 @@
 											<label for="einput-img-6" >
 												<div class="input-text">
 													<img id="imgmas6" src="" alt="imagen mascota 1">
-													<input type="file" name="img1" id="einput-img-6" class="input-file" required>
+													<input type="file" name="img1" id="einput-img-6" class="input-file" >
 
 												</div>
 											</label>
@@ -619,7 +676,7 @@
 											<label for="einput-img-7" >
 												<div class="input-text">
 													<img id="imgmas7" src="" alt="imagen mascota 2">
-													<input type="file" name="img2" id="einput-img-7" class="input-file" required>
+													<input type="file" name="img2" id="einput-img-7" class="input-file" >
 
 												</div>
 											</label>
@@ -629,7 +686,7 @@
 											<label for="einput-img-8" >
 												<div class="input-text">
 													<img id="imgmas8" src="" alt="imagen mascota 3">
-													<input type="file" name="img3" id="einput-img-8" class="input-file" required>
+													<input type="file" name="img3" id="einput-img-8" class="input-file" >
 
 												</div>
 											</label>
@@ -639,7 +696,7 @@
 											<label for="einput-img-9" >
 												<div class="input-text">
 													<img id="imgmas9" src="" alt="imagen mascota 4">
-													<input type="file" name="img4" id="einput-img-9" class="input-file" required>
+													<input type="file" name="img4" id="einput-img-9" class="input-file" >
 
 												</div>
 											</label>
@@ -650,7 +707,7 @@
 											<label for="einput-img-10" >
 												<div class="input-text">
 													<img id="imgmas10" src="" alt="imagen mascota 5">
-													<input type="file" name="img5" id="einput-img-10" class="input-file" required>
+													<input type="file" name="img5" id="einput-img-10" class="input-file" >
 
 												</div>
 											</label>
@@ -673,7 +730,7 @@
 															<div class="dato-select">
 																<div class="label-selectMultiple">
 																<label for="especiemase" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-																<select name="especiemas" id="especiemase"  onchange="seleccionarEspecie('especiemase')" class="select" required>
+																<select name="especiemas" id="especiemase"  class="select" required>
 																	<option value="" disabled>Seleccione una</option>
 																	<option value="perro" selected>Perro</option>
 																	<option value="gato">Gato</option>
@@ -774,7 +831,7 @@
 															</div>
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																<label for="vacunasmase" class="mostrarSelect" onclick="mostrarSelect('vacunasmase')">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<label for="vacunasmase" id="labelvacunasmase" class="mostrarSelect">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 																<select name="vacunasmas" id="vacunasmase"  class="select"  multiple>
 																	
 		
@@ -875,6 +932,17 @@
 
 
 
+									<div id="eliminarPubli">
+										<i class="fa-regular fa-trash-can" style="color: #587073;"></i>
+										<h3>¿Está seguro de que quiere eliminar la publicacion?</h3>
+										<div id="btnOpcionesEP">
+											<button class="btnAceptar">Aceptar</button>
+											<button class="btnCancelar">Cancelar</button>
+										</div>
+									</div>
+
+
+
 							
 
 
@@ -897,7 +965,7 @@
 						
 
 
-						<script type="module" src="{% static 'js/cargarBarrios.js' %}"></script>
+						
 						<script type="module" src="{% static 'js/main.js' %}"></script>
 						<script type="text/javascript" src="{% static 'js/perdidas.js' %}"></script>
 						

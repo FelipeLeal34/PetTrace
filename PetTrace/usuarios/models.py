@@ -97,11 +97,11 @@ class Mascota(models.Model):
     socializacionmas = models.CharField(max_length=150, null=False, blank=False, default='')
 
 
-    img1 = models.ImageField(upload_to="imgmascotas", null=False )
-    img2 = models.ImageField(upload_to="imgmascotas", null=False )
-    img3 = models.ImageField(upload_to="imgmascotas", null=False )
-    img4 = models.ImageField(upload_to="imgmascotas", null=False )
-    img5 = models.ImageField(upload_to="imgmascotas", null=False )
+    img1 = models.ImageField(upload_to="imgmascotas", null=True )
+    img2 = models.ImageField(upload_to="imgmascotas", null=True )
+    img3 = models.ImageField(upload_to="imgmascotas", null=True )
+    img4 = models.ImageField(upload_to="imgmascotas", null=True )
+    img5 = models.ImageField(upload_to="imgmascotas", null=True )
 
     class Meta:
         

@@ -5,7 +5,22 @@ import { cargarBarrios } from "./cargarBarrios.js";
 
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.getElementById("publi-modelo");
+
+
+//  ELEMENTOS PARA EDITAR PUBLICACION
+const btnEditarPubli = document.querySelectorAll(".btnEditarPubli");
 const editarPubli = document.getElementById("editarPubli");
+
+
+    //   BOTONES PARA ELIMINAR PUBLICACION
+
+const btnEliminarPubli = document.querySelectorAll(".btnEliminarPubli");
+const eliminarPubli = document.querySelector("#eliminarPubli");
+const btnAceptar = document.querySelectorAll(".btnAceptar");
+const btnCancelar = document.querySelectorAll(".btnCancelar");
+
+
+
 
 const btnCerrar = document.querySelector("#btn-cerrar");
 
@@ -115,7 +130,7 @@ function seleccionarVacunas(especie,idVacunas){
 	
 	
 	
-	export function seleccionarEspecie(idEspecie){
+	 function seleccionarEspecie(idEspecie){
 	
 	
 		
@@ -135,6 +150,64 @@ function seleccionarVacunas(especie,idVacunas){
 	
 	}
 
+	// FUNCIONES DE LOS FORMULARIOS
+
+	const selectEspeciemas = document.getElementById("especiemas");
+	selectEspeciemas.addEventListener("change", ()=>{
+		seleccionarEspecie("especiemas");
+	})
+
+	const selectEspeciemase = document.getElementById("especiemase");
+	selectEspeciemase.addEventListener("change", ()=>{
+		seleccionarEspecie("especiemase");
+	})
+
+	const vacunasmas = document.getElementById("labelvacunasmas");
+	vacunasmas.addEventListener("click", ()=>{
+		mostrarSelect("vacunasmas");
+	})
+
+	const vacunasmase = document.getElementById("labelvacunasmase");
+	vacunasmase.addEventListener("click", ()=>{
+		mostrarSelect("vacunasmase");
+	})
+
+
+	const SelectCargarBarrios = document.getElementById("localidades");
+	SelectCargarBarrios.addEventListener("click", ()=>{
+		cargarBarrios("localidades");
+	})
+
+	const SelectCargarBarriose = document.getElementById("localidadese");
+	SelectCargarBarriose.addEventListener("click", ()=>{
+		cargarBarrios("localidadese");
+	})
+
+	
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // PETICION GET A LA BD PARA MOSTRAR LOS DATOS DE CADA PUBLICACICON EN UNA VENTANA MODAL
 
@@ -145,9 +218,9 @@ publis.forEach( publi => {
 
 		
 		var idpubli = e.target.closest(".publi").getAttribute("data-id");
-		console.log(e.target);
+		
 
-		const url = `/verPubliModal/${idpubli}/`
+		const url = `/informacionPubli/${idpubli}/`
 
 		
 
@@ -170,6 +243,7 @@ publis.forEach( publi => {
 			document.getElementById("nombremasm").textContent = publicacion.data.mascota.nombremas;
 			document.getElementById("especiemasm").textContent = publicacion.data.mascota.especiemas;
 			document.getElementById("razamasm").textContent = publicacion.data.mascota.razamas;
+			document.getElementById("tamañomasm").textContent = publicacion.data.mascota.tamañomas;
 			document.getElementById("sexomasm").textContent = publicacion.data.mascota.sexomas;
 			document.getElementById("colormasm").textContent = publicacion.data.mascota.colormas;
 			document.getElementById("edadmasm").textContent = publicacion.data.mascota.edadmas;
@@ -205,11 +279,62 @@ publis.forEach( publi => {
 			
 			
 
-			
-// ------------CONSULTA PARA EL FORMULARIO DE EDITAR---------
+		})
+		
+
+	//let idpubli = e.target.parentNode.children[0].value;
+	main[0].classList.add("fondo-oscuro");
+
+		publiModal.style.display = "flex";
+	publiModal.style.position = "fixed";
+
+	
+
+		btnCerrar.addEventListener("click",()=>{
+		publiModal.style.display = "none";
+		main[0].classList.remove("fondo-oscuro");
+		
+		});
 
 
-			document.getElementById('editarPubli').action = `/editarPubli/${idpubli}/`;  
+	
+	
+
+
+
+
+
+	
+
+	
+	
+	
+});
+
+});
+
+
+// ----------CONSULTA PARA PREVISUALIZACION DE INFORMACIÓN A EDITAR-----------------
+
+btnEditarPubli.forEach( btn => {
+	btn.addEventListener("click",e =>{
+
+
+		
+		var idpubli = e.target.closest(".publi").getAttribute("data-id");
+		
+
+		const url = `/informacionPubli/${idpubli}/`
+
+		
+
+		fetch(url,{
+			method: "GET",
+		})
+		.then(response => response.json())
+		.then(publicacion => {
+
+		document.getElementById('editarPubli').action = `/editarPubli/${idpubli}/`;  
 
 			document.getElementById("imgmas6").src = publicacion.data.mascota.img1;
 			document.getElementById("imgmas7").src = publicacion.data.mascota.img2;
@@ -327,71 +452,124 @@ publis.forEach( publi => {
 			document.getElementById("recompensae").value = publicacion.data.publicacion.recompensa;
 
 
+		});
 
 
-			
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			
-		  
-		})
-		
-
-	//let idpubli = e.target.parentNode.children[0].value;
-	main[0].classList.add("fondo-oscuro");
+		main[0].classList.add("fondo-oscuro");
 
 
 	if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
 		editarPubli.style.display = "flex";
 		editarPubli.style.position = "fixed";
-	} else{
-		publiModal.style.display = "flex";
-	publiModal.style.position = "fixed";
 
-	btnCerrarModal.forEach(equis => {
-	equis.addEventListener("click",()=>{
-		publiModal.style.display = "none";
-		main[0].classList.remove("fondo-oscuro");
+		btnCerrarModal.forEach(equis => {
+			equis.addEventListener("click",()=>{
+				editarPubli.style.display = "none";
+				main[0].classList.remove("fondo-oscuro");
+		
+			});
+
+			});
+
+			}
+
+		});
 
 	});
 
+
+	// CONSULTA PARA OBTERNER LAS COOKIES
+
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+		  const cookies = document.cookie.split(';');
+		  for (let i = 0; i < cookies.length; i++) {
+			const cookie = cookies[i].trim();
+			// ¿El nombre de la cookie es el que buscamos?
+			if (cookie.substring(0, name.length + 1) === (name + '=')) {
+			  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+			  break;
+			}
+		  }
+		}
+		return cookieValue;
+	  }
+
+
+	  const csrftoken = getCookie('csrftoken');
+
+
+
+
+	// CONSULTA PARA ELIMINAR PUBLICACION
+
+
+btnEliminarPubli.forEach( btn => {
+	btn.addEventListener("click",e =>{
+
+		var idpubli = e.target.closest(".publi").getAttribute("data-id");
+
+		if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
+
+			eliminarPubli.style.display = "flex";
+			main[0].classList.add("fondo-oscuro");
+	
+		btnCancelar.forEach( btn => {
+			btn.addEventListener("click",e =>{
+		
+	
+				eliminarPubli.style.display = "none";
+				main[0].classList.remove("fondo-oscuro");
+			
+	
+	
+			});
+	
+		});
+	
+				}
+
+		
+
+		btnAceptar.forEach( btn => {
+			btn.addEventListener("click",e =>{
+		
+	
+				
+		
+				const url = `/eliminarPubli/${idpubli}/`
+		
+				
+		
+				fetch(url,{
+					method: "DELETE",
+					headers: {
+						// Añadir el token CSRF al encabezado
+						"X-CSRFToken": csrftoken
+					  }
+				})
+
+				eliminarPubli.style.display = "none";
+				main[0].classList.remove("fondo-oscuro");
+				
+
+	
+			});
+	
+		});
+
+
+		
+
+
+
+
+
+
+	});
 });
 
-
-	}
-	
-
-
-
-
-
-	
-
-	
-	
-	
-});
-
-});
 
 
 
@@ -522,7 +700,8 @@ window.addEventListener("click",function(event) {
 
 const inputs = document.querySelectorAll(".input-file");
 const inputsText = document.querySelectorAll(".input-text");
-const inputTexte = document.querySelectorAll(".input-texte");
+const iconUpload = document.querySelectorAll(".icon-upload");
+
 
 //PARA CADA INPUT TIPO FILE
 
@@ -539,7 +718,6 @@ inputs.forEach(input => {
 
 			id = ultimosDosDigitos;
 
-
 		} else{
 			
 			id = idCompleto.slice(-1);
@@ -553,15 +731,22 @@ inputs.forEach(input => {
 			let file = e.target.result;	
 
 			if(inputsText[id - 1].querySelector('img')){
-				// console.log(id);
-				// console.log('el elemento si contiene la etiqueta img');
+	
 				let inputImg = document.getElementById('imgmas'+id);
 				inputImg.src = file;
 
 			} else{
-			console.log(inputsText[id - 1].id);	
-			inputsText[id - 1].innerHTML= "<img src='"+file+"'>";
-			console.log('el elemento no contiene la etiqueta img');
+				
+				
+				let img = document.createElement("img");
+				img.src = file;		
+				img.id = "imgmas"+id;
+				
+				inputsText[id - 1].removeChild(iconUpload[id - 1]);
+				
+				inputsText[id - 1].appendChild(img);
+
+			
 
 			}
 
@@ -569,10 +754,7 @@ inputs.forEach(input => {
 
 			reader.readAsDataURL(e.target.files[0]);
 
-			
 
-		} else{
-			inputsText[id].innerHTML = "<span class='icon-upload'></span> <p>click para subir imagen</p>"
 		}
 })
 
