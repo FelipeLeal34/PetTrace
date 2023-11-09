@@ -51,6 +51,78 @@
 }
 
 
+.trespuntos{
+	cursor: pointer;
+}
+
+
+.opcionesPubli{
+	
+	
+	display: flex;
+	margin: auto;
+	width: 100%;
+	
+	cursor: pointer;
+	
+	border-radius: 8px;
+	padding: 5px;
+
+}
+
+.menuOpcionesPubli{
+	display: none;
+	position: absolute;
+	width: auto;
+	max-width: 500px;
+	height: auto;
+	
+	background-color: #74868a;
+	color: white;
+	
+	border-radius: 10px;
+	margin-top: 10px;
+	margin-left: 15%;
+	
+	font-size: 20px;
+	
+	flex-direction: column;
+	padding: 5px;
+	overflow: auto;
+	max-height: 300px;
+
+	transition: 0.5s ease-in-out;
+
+	z-index: 10000;
+}
+
+#iconosPubli{
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+}
+
+
+
+.opcionesPubli i{
+	margin-right: 10px;
+}
+
+
+.opcionesPubli:hover{
+	background: rgba(255, 255, 255, 0.5);
+}
+
+
+
+
+
+
+
+
+
+
+
 
 .mostrarSelect{
 	font-weight: bold; 
@@ -189,6 +261,13 @@
   }
 
 
+
+#publi-modelo{
+	display: none;
+	overflow: auto;
+}
+
+
 .publi-modelo-estilo{
 
 	display: none;
@@ -214,20 +293,20 @@
 }
 
 
+
+
 .publi-modelo-contenido{
 	width: 100%;
 	overflow: auto;
 	height: 100%;
+	position: relative;
 	
 	
 	
 
 }
 
-.publi-modelo{
-	display: none;
-	overflow: auto;
-}
+
 
 .publi-carrusel{
 	overflow: hidden;
@@ -451,19 +530,21 @@ input[type="text"]:focus {
 }
 
 
-#icon-cancel{
+.icon-cancel{
 	font-size: 30px;
 	width: 100%;
 	float: right;
-	display: flex;
-
-	justify-content: flex-end;
-	margin:5px 5px 0 0;
+	position: absolute;
+	right: 5px;
+	top: 3px;
+	text-align: right;
+	
+	
 	cursor:pointer;
 }
 
 
-.agregarPubli{
+#agregarPubli{
 
 	
 	display: none;
@@ -471,10 +552,89 @@ input[type="text"]:focus {
 }
 
 
+#editarPubli{
+	display: none;
+}
+
+
 
 .icon-th-thumb-empty{
 	position: relative;
 }
+
+
+
+/* --------------CONFIRMACION DE ELIMINACION DE PUBLICACION---------- */
+
+
+#eliminarPubli{
+	display: none;
+	position: absolute;
+	margin-top: 30%;
+	margin-left: 50%;
+	transform: translate(-50%,-30%);
+	height: 300px;
+	width: 500px;
+	padding: 20px;
+	background: #faf7f6;
+	border-radius: 20px;
+	
+	flex-direction: column;
+	justify-content: center;
+
+}
+
+#btnOpcionesEP{
+	margin-top: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+
+.fa-trash-can{
+	font-size: 80px;
+	margin-bottom: 30px;
+}
+
+
+.btnAceptar{
+	background: #587073;
+	border-radius: 10px;
+	margin: 2px;
+	padding: 10px;
+	color: #faf7f6;
+	cursor: pointer;
+}
+
+.btnCancelar{
+	background: #faf7f6;
+	border: 1px solid #000;
+	border-radius: 10px;
+	margin: 2px;
+	padding: 10px;
+	cursor: pointer;
+
+
+
+}
+
+#btnAceptar:hover{
+	background: rgba(88, 112, 115, 0.5);
+	
+}
+
+#btnCancelar:hover{
+	background: rgba(0, 0, 0, 0.2);
+	
+}
+
+
+
+
+
+
 
 
 .filtros-box{

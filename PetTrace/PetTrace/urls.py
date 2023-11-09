@@ -25,6 +25,10 @@ urlpatterns = [
     path('', index, name='index'),
     path('perfil/', perfil, name='perfil'),
     path('perdidas/', perdidas, name='perdidas'),
-    path('agregarPubli', agregarPubli, name='agregarPubli' )
+    path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
+    path('informacionPubli/<int:id_publicacion>/', informacionPubli, name='informacionPubli' ),
+    path('editarPubli/<int:id_publicacion>/', editarPubliPerdidas, name='editarPubliPerdidas' ),
+    path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli' ),
+    
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )
