@@ -84,6 +84,16 @@ function seleccionarVacunas(especie,idVacunas){
 	} 
 	
 	}
+
+
+	var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
+						'Golder retriever','Border collie','Siberian husky','Bulldog inglés','Beagle','Criollo'];
+
+
+	var razasGatos = ['Maine coon','Bengalí','Persa','Himalayo','Britanico de pelo corto',
+	'egipcio','siamés','Fold escocés','Ragdoll','Angora','Criollo'];
+
+	
 	
 	
 	// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
@@ -99,8 +109,7 @@ function seleccionarVacunas(especie,idVacunas){
 	
 	if(especie == "perro"){
 	
-		var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
-							'Golder retriever','Border collie','Siberian husky','Bulldog inglés','Beagle','Criollo'];
+		
 	
 		for(let i = 0 ; i < razasPerros.length; i++){
 			let option = document.createElement('option');
@@ -114,8 +123,7 @@ function seleccionarVacunas(especie,idVacunas){
 	
 	} else{
 	
-		var razasGatos = ['Maine coon','Bengalí','Persa','Himalayo','Britanico de pelo corto',
-		'egipcio','siamés','Fold escocés','Ragdoll','Angora','Criollo'];
+		
 	
 		for(let i = 0 ; i < razasGatos.length; i++){
 			let option = document.createElement('option');
@@ -190,26 +198,6 @@ function seleccionarVacunas(especie,idVacunas){
 	
 
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -668,11 +656,7 @@ agregarPubli.addEventListener("submit", ()=>{
 }
 );
 
-window.addEventListener("click",function(event) {
-	if (event.target == agregarPubli) {
-	  agregarPubli.style.display = "none";
-	}
-  });
+
 
 
 	
@@ -764,50 +748,6 @@ inputs.forEach(input => {
 
 
 
-//VACUNAS PERROS
-
-function seleccionarVacunas(){
-
-var especie = document.getElementById('especiemas');
-var vacunasmas = document.getElementById('vacunasmas');
-
-
-vacunasmas.innerHTML="";
-
-if(especie.value == "perro"){
-
-	vacunasmas.innerHTML = 
-	
-	' <option value="moquillo">moquillo</option> ' + 
-	'<option value="parvovirosis">parvovirosis</option> ' +
-	' <option value="pentavalente">pentavalente</option>' +
-	' <option value="coranavirus canino">coranavirus canino</option>' +
-	' <option value="rabia">rabia</option>' +
-	' <option value="tos de perreras">tos de perreras</option>' 
-
-
-
-	
-
-} else if(especie.value == "gato"){
-
-	vacunasmas.innerHTML = 
-
-	' <option value="moquillo">moquillo</option> ' + 
-	'<option value="trivalente">trivalente</option> ' +
-	' <option value="leucemia">leucemia</option>' +
-	' <option value="gripe felina">gripe felina</option>' +
-	' <option value="rabia">rabia</option>' +
-	' <option value="Peritonitis infecciosa felina">Peritonitis infecciosa felina</option>' +
-	' <option value="Clamidiosis felina">Clamidiosis felina</option>' 
-
-
-} else{
-	vacunasmas.innerHTML="";
-}
-
-}
-
 
 
 function mostrarSelect() {
@@ -874,10 +814,15 @@ function eliminarCamposFiltros(){
 
 
 const btnFiltrar = document.querySelector("#filtrar");
+const filtrosBoxId = document.querySelector("#filtrar");
 
 
 btnFiltrar.addEventListener("click", (e) => {
 	e.stopPropagation();
+
+	
+
+
     if (!btnFiltrar.classList.contains("menu-span-focus")) {
 		
         btnFiltrar.classList.add("menu-span-focus");
@@ -887,8 +832,22 @@ btnFiltrar.addEventListener("click", (e) => {
 		
 		btnFiltrar.classList.remove("menu-span-focus");
 		filtrosBox.style.display = "none";
+		subfiltrosBox.style.display = "none";
 		
 	}
+
+	document.addEventListener("click", (event) => {
+
+		
+			if(!filtrosBox.contains(event.target)){
+				filtrosBox.style.display = "none";
+				subfiltrosBox.style.display = "none";
+				btnFiltrar.classList.remove("menu-span-focus");
+
+			}
+		
+
+	});
 
     
 });
@@ -916,11 +875,48 @@ const subfiltrosBox = document.querySelector("#subfiltros-box")
 
 var filtrosSeleccionados = {color:{},raza:{},especie:{},localidad:{},barrio:{}};
 
+
+function funFiltroEspecie(){
+	subfiltrosBox.innerHTML = "";
+			subfiltrosBox.innerHTML = 
+				'<div class="categoria-filtro"><label for="Perro"><input id="Perro" value="Perro" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Perro</label></div>'+
+				'<div class="categoria-filtro"><label for="Gato"><input id="Gato" value="Gato" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Gato</label></div>';
+		
+			let filtroEspecie = document.querySelectorAll('.subfiltros-especie-checkbox');
+		
+			filtroEspecie.forEach(option => {
+
+				if (filtrosSeleccionados.especie[option.value]) {
+					option.checked = true;
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.especie = {};
+						filtrosSeleccionados.especie[this.value] = true;
+						console.log(filtrosSeleccionados);
+						filtroEspecie.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+						 subfiltrosBox.style.display = "none";
+					} 
+
+				});
+
+			});
+
+}
+
+
 function funFiltroLocalidad(){
 
 
 	
-	subfiltrosBox.innerHTML = ""
+	subfiltrosBox.innerHTML = "";
 
 
 
@@ -1121,38 +1117,8 @@ selectFiltros.forEach(selectFiltro =>{
 		
 		} else if (idSelectFiltro === "filtro-especie") {
 
-			subfiltrosBox.innerHTML = ""
-			subfiltrosBox.innerHTML = 
-				'<div class="categoria-filtro"><label for="Perro"><input id="Perro" value="Perro" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Perro</label></div>'+
-				'<div class="categoria-filtro"><label for="Gato"><input id="Gato" value="Gato" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Gato</label></div>';
-		
-			let filtroEspecie = document.querySelectorAll('.subfiltros-especie-checkbox');
-		
-			filtroEspecie.forEach(option => {
-
-				if (filtrosSeleccionados.color[option.value]) {
-					option.checked = true;
-				}
-
-				option.addEventListener("change", function() {
-					
-					if (this.checked) {
-						filtrosSeleccionados.especie = {};
-						filtrosSeleccionados.especie[this.value] = true;
-						console.log(filtrosSeleccionados);
-						filtroEspecie.forEach(otherOption => {
-							if (otherOption !== this) {
-								otherOption.checked = false;
-								
-							}
-						});
-						 subfiltrosBox.style.display = "none";
-					} 
-
-				});
-
-			});
-
+			
+			funFiltroEspecie();
 
 
 			

@@ -523,20 +523,7 @@ var barriosUsaquen = [
   "Santa Paula"
 ];
 
-function cargarBarrios(idLocalidad) {
-    var localidades = document.getElementById(idLocalidad);
-    if(localidades.id == "localidades"){
-      var barrios = document.getElementById("barrios");
-    } else{
-      var barrios = document.getElementById("barriose");
-    }
-    
-    var seleccionLocalidad = localidades.value;
 
-    // Limpiar el select de barrios antes de cargar nuevos elementos
-    barrios.innerHTML = "";
-
-    if (seleccionLocalidad === "Usaquén") {
       var barriosUsaquen = [
         "Canaima",
         "La Floresta de La Sabana",
@@ -2098,7 +2085,7 @@ var barriosRafaelUribe = [
   "Serranía - Sector Cultivos"
 ];
 
-function cargarBarrios(idLocalidad) {
+export function cargarBarrios(idLocalidad) {
   var localidades = document.getElementById(idLocalidad);
   if(localidades.id == "localidades"){
     var barrios = document.getElementById("barrios");
@@ -2295,7 +2282,7 @@ function cargarBarrios(idLocalidad) {
 
 
 
-   function listaBarrios(){
+   export function listaBarrios(){
     
   return {barriosAntonioNarino,barriosBarriosUnidos, barriosBosa, barriosCandelaria, 
     barriosChapinero, barriosCiudadBolivar, barriosEngativa, barriosFontibon, barriosKennedy, 
@@ -2367,6 +2354,6 @@ function initMap() {
   longitudInput = document.getElementById("longitud");
 }*/
 
-export {cargarBarrios,listaBarrios};
+
 
 
