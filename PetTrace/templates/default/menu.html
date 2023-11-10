@@ -14,12 +14,27 @@
 							
     <span class="fa-solid fa-filter"  id="filtrar"></span>
 
+
+    
+
         
 
-    <div class="filtros-box">
-        <div class="categoria-filtro" id="filtro-color">
+    <div class="filtros-box" id="filtros-box">
+
+
+        
+
+
+         <div class="categoria-filtro" id="filtro-color">
             <i class="fa-solid fa-droplet"></i>
             <p>Color</p>
+            
+        </div>
+
+        <div class="categoria-filtro" id="filtro-especie">
+            <i class="fa-solid fa-dog"></i>
+
+            <p>Especie</p>
             
         </div>
         <div class="categoria-filtro" id="filtro-raza">
@@ -27,12 +42,7 @@
             <p>Raza</p>
             
         </div>
-        <div class="categoria-filtro" id="filtro-especie">
-            <i class="fa-solid fa-dog"></i>
-
-            <p>Especie</p>
-            
-        </div>
+        
         <div class="categoria-filtro" id="filtro-localidad">
             <i class="fa-solid fa-map-location-dot"></i>
             <p>Localidad</p>
@@ -46,18 +56,38 @@
         </div>
         <div class="categoria-filtro" id="filtro-fechaPubli">
             <i class="fa-solid fa-calendar-days"></i>
-            <p>Fecha de publicación</p>
+            <p>
+                Fecha publicacion  
             
-        </div>
+             </p>
+            
+            
+        </div> 
 
 
-        <div class="filtros-box" id="subfiltros-box">
-            
-        </div>
+        
+
+
+        
 
 
 
 </div>
+<div class="filtros-box" id="subfiltros-box">
+            
+</div>
+
+<div id="btnFiltros" class="">
+    <div class="btnFiltros ">
+        <p>Aplicar</p>
+    </div>
+
+    <div class=" btnFiltros">
+        <p>Limpiar</p>
+    </div>
+</div>
+
+
 
 
     
@@ -68,3 +98,6 @@
     
 
 </div>	
+
+
+<script type="module" src="{% static 'js/main.js' %}"></script>

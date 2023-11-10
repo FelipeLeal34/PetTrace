@@ -1,4 +1,8 @@
-import { cargarBarrios } from "./cargarBarrios.js";
+import { listaBarrios,cargarBarrios } from "./cargarBarrios.js";
+
+
+const barrios=listaBarrios();
+
 
 
 
@@ -80,6 +84,16 @@ function seleccionarVacunas(especie,idVacunas){
 	} 
 	
 	}
+
+
+	var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
+						'Golder retriever','Border collie','Siberian husky','Bulldog inglés','Beagle','Criollo'];
+
+
+	var razasGatos = ['Maine coon','Bengalí','Persa','Himalayo','Britanico de pelo corto',
+	'egipcio','siamés','Fold escocés','Ragdoll','Angora','Criollo'];
+
+	
 	
 	
 	// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
@@ -95,8 +109,7 @@ function seleccionarVacunas(especie,idVacunas){
 	
 	if(especie == "perro"){
 	
-		var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
-							'Golder retriever','Border collie','Siberian husky','Bulldog inglés','Beagle','Criollo'];
+		
 	
 		for(let i = 0 ; i < razasPerros.length; i++){
 			let option = document.createElement('option');
@@ -110,8 +123,7 @@ function seleccionarVacunas(especie,idVacunas){
 	
 	} else{
 	
-		var razasGatos = ['Maine coon','Bengalí','Persa','Himalayo','Britanico de pelo corto',
-		'egipcio','siamés','Fold escocés','Ragdoll','Angora','Criollo'];
+		
 	
 		for(let i = 0 ; i < razasGatos.length; i++){
 			let option = document.createElement('option');
@@ -186,26 +198,6 @@ function seleccionarVacunas(especie,idVacunas){
 	
 
 	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -298,16 +290,7 @@ publis.forEach( publi => {
 
 
 	
-	
-
-
-
-
-
-	
-
-	
-	
+		
 	
 });
 
@@ -673,11 +656,7 @@ agregarPubli.addEventListener("submit", ()=>{
 }
 );
 
-window.addEventListener("click",function(event) {
-	if (event.target == agregarPubli) {
-	  agregarPubli.style.display = "none";
-	}
-  });
+
 
 
 	
@@ -694,12 +673,16 @@ window.addEventListener("click",function(event) {
 
 
 
-/** ------------------PREVISUALIZAR IMAGEN EN EL FORMULARIO------------------------ **/
+/** PREVISUALIZAR IMAGEN **/
 
 
 
 const inputs = document.querySelectorAll(".input-file");
 const inputsText = document.querySelectorAll(".input-text");
+
+
+
+
 const iconUpload = document.querySelectorAll(".icon-upload");
 
 
@@ -767,25 +750,17 @@ inputs.forEach(input => {
 
 
 
-
-
-
-
-
-// ----------AL HACER CLICK EN EL LABEL SE DESPLIEGA EL SELECT-------
-
-
-function mostrarSelect(id) {
-	var select = document.getElementById(id);
-	if (select.style.display === "none") {
-		select.style.display = "block";
+function mostrarSelect() {
+	const selectVacunas = document.getElementById("vacunasmas");
+	if (selectVacunas.style.display === "none") {
+		selectVacunas.style.display = "block";
 		setTimeout(() => {
-			select.style.opacity = "1";
+			selectVacunas.style.opacity = "1";
 		}, 10); // Retrasamos la aparición para que la animación sea visible
 	} else {
-		select.style.opacity = "0";
+		selectVacunas.style.opacity = "0";
 		setTimeout(() => {
-			select.style.display = "none";
+			selectVacunas.style.display = "none";
 		}, 300); // Retrasamos la desaparición para que la animación sea visible
 	}
 }
@@ -795,36 +770,175 @@ function mostrarSelect(id) {
 
 
 
-/**
-	 --------------------FILTRAR--------------------------------
- */
+/** --------------------FILTRAR--------------------------------**/
+ 
 
 
 
 
-const btnFiltrar = document.querySelector("#filtrar");
 
 
-btnFiltrar.addEventListener("click", (e) => {
-	e.stopPropagation();
-    if (!btnFiltrar.classList.contains("menu-span-focus")) {
-        btnFiltrar.classList.add("menu-span-focus");
-		filtrosBox.style.display = "flex";
-		
-    }else{
-		btnFiltrar.classList.remove("menu-span-focus");
-		filtrosBox.style.display = "none";
-		
-	}
 
-    
-});
+
+
+
+
+
+
+const localidades = ["Antonio Nariño","Barrios Unidos","Bosa","Candelaria","Chapinero","Ciudad Bolivar","Engativa","Fontibon","Kennedy",
+"Los Martires","Puente Aranda","Rafel uribe","San Cristobal","Santa Fe","Suba","Teusaquillo","Tunjuelito","Usaquen","Usme"];
+
+const valoresLocalidades = ["barriosAntonioNarino","barriosBarriosUnidos", "barriosBosa", "barriosCandelaria", 
+"barriosChapinero", "barriosCiudadBolivar", "barriosEngativa", "barriosFontibon", "barriosKennedy", 
+"barriosMartires",  "barriosPuenteAranda", "barriosRafaelUribe", "barriosSanCristobal", 
+"barriosSantaFe", "barriosSuba", "barriosTeusaquillo", "barriosTunjuelito", "barriosUsaquen", "barriosUsme"];
+
+
+
+
+
 
 const selectFiltros = document.querySelectorAll(".categoria-filtro");
 const subfiltrosBox = document.querySelector("#subfiltros-box")
 
+var filtrosSeleccionados = {color:{},raza:{},especie:{},localidad:{},barrio:{}};
+
+function funAgregarFiltros(lista,filtro){
+	for (var i = 0; i < lista.length; i++) {
+	var div = document.createElement("div");
+				div.className = "categoria-filtro";
+				
+				var label = document.createElement("label");
+				var input = document.createElement("input");
+				
+				input.type = 'checkbox';
+				input.id = lista[i].toLowerCase().replace(/\s/g, " ");
+				input.value = lista[i].toLowerCase().replace(/\s/g, " ");
+				input.classList.add('subfiltros-checkbox');
+				input.classList.add('subfiltros-'+filtro+'-checkbox');
+				
+				label.htmlFor = input.id;
+				label.textContent = lista[i]
+				
+				subfiltrosBox.appendChild(div);
+				div.appendChild(label);
+				label.appendChild(input);
+}
+}
+
+
+
+function funFiltroEspecie(){
+	subfiltrosBox.innerHTML = "";
+			subfiltrosBox.innerHTML = 
+				'<div class="categoria-filtro"><label for="Perro"><input id="Perro" value="perro" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Perro</label></div>'+
+				'<div class="categoria-filtro"><label for="Gato"><input id="Gato" value="gato" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Gato</label></div>';
+		
+			let filtroEspecie = document.querySelectorAll('.subfiltros-especie-checkbox');
+		
+			filtroEspecie.forEach(option => {
+
+				if (filtrosSeleccionados.especie[option.value]) {
+					option.checked = true;
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.especie = {};
+						filtrosSeleccionados.especie[this.value] = true;
+						
+						filtroEspecie.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+						 subfiltrosBox.style.display = "none";
+					} 
+
+				});
+
+			});
+
+}
+
+
+function funFiltroLocalidad(){
+
+
+	
+	subfiltrosBox.innerHTML = "";
+
+
+
+
+for (var i = 0; i < localidades.length; i++) {
+	
+	var div = document.createElement("div");
+	div.className = "categoria-filtro";
+	
+	var label = document.createElement("label")
+	var input = document.createElement("input")
+	
+	input.type = 'checkbox'
+	input.id = localidades[i].toLowerCase().replace(/\s/g, " ");
+	input.value = valoresLocalidades[i];
+	input.classList.add('subfiltros-checkbox');
+	input.classList.add('subfiltros-localidad-checkbox');
+	
+	label.htmlFor = input.id;
+	label.textContent = localidades[i]
+	
+	subfiltrosBox.appendChild(div);
+	div.appendChild(label);
+	label.appendChild(input);
+
+
+
+
+  
+}
+  var filtroLocalidad = document.querySelectorAll('.subfiltros-localidad-checkbox');
+
+  filtroLocalidad.forEach(option => {
+
+	if (filtrosSeleccionados.localidad[option.value]) {
+		option.checked = true;
+	}
+
+	option.addEventListener("change", function() {
+		
+		if (this.checked) {
+			filtrosSeleccionados.localidad = {};
+			filtrosSeleccionados.localidad[this.value] = true;
+			 
+			filtroLocalidad.forEach(otherOption => {
+				if (otherOption !== this) {
+					otherOption.checked = false;
+					
+				}
+			});
+			 subfiltrosBox.style.display = "none";
+			 
+		} 
+
+	});
+
+});
+}
+
+
+
+
+
+
+
+
 selectFiltros.forEach(selectFiltro =>{
 	selectFiltro.addEventListener("click", ()=>{
+
+		
 		
 		let idSelectFiltro = selectFiltro.id
 		let categoriaFiltro = document.getElementById(idSelectFiltro);
@@ -832,32 +946,55 @@ selectFiltros.forEach(selectFiltro =>{
 		selectFiltro.style.position = "relative";
 		subfiltrosBox.style.display = "flex";
 		if(idSelectFiltro === "filtro-color"){
+			
+			subfiltrosBox.innerHTML = ""
 			subfiltrosBox.innerHTML = 
 				
-			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
-			'<div class="categoria-filtro"><label for="Naranja"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #ff7800;"></i><input id="Naranja" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Naranja</label></div>'+
-			'<div class="categoria-filtro"><label for="Amarillo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6d32d;"></i><input id="Amarillo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Amarillo</label></div>'+
-			'<div class="categoria-filtro"><label for="Dorado"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #d4af37;"></i><input id="Dorado" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Dorado</label></div>'+
-			'<div class="categoria-filtro"><label for="Gris"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #77767b;"></i><input id="Gris" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Gris</label></div>'+
-			'<div class="categoria-filtro"><label for="Marron"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #865e3c;"></i><input id="Marron" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Marron</label></div>'+
-			'<div class="categoria-filtro"><label for="Blanco"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6f5f4;"></i><input id="Blanco" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Blanco</label></div>'+
-			'<div class="categoria-filtro"><label for="Negro"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #000;"></i><input id="Negro" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Negro</label></div>';
+			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" value="rojo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
+			'<div class="categoria-filtro"><label for="Naranja"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #ff7800;"></i><input id="Naranja" value="naranja"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Naranja</label></div>'+
+			'<div class="categoria-filtro"><label for="Amarillo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6d32d;"></i><input id="Amarillo" value="amarillo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Amarillo</label></div>'+
+			'<div class="categoria-filtro"><label for="Dorado"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #d4af37;"></i><input id="Dorado" value="dorado" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Dorado</label></div>'+
+			'<div class="categoria-filtro"><label for="Gris"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #77767b;"></i><input id="Gris" value="gris" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Gris</label></div>'+
+			'<div class="categoria-filtro"><label for="Marron"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #865e3c;"></i><input id="Marron" value="marron"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Marron</label></div>'+
+			'<div class="categoria-filtro"><label for="Blanco"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6f5f4;"></i><input id="Blanco" value="blanco"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Blanco</label></div>'+
+			'<div class="categoria-filtro"><label for="Negro"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #000;"></i><input id="Negro" value="negro"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Negro</label></div>';
 
 			
-				const checkboxOptions = document.querySelectorAll(".subfiltros-color-checkbox");
+			let filtroColor = document.querySelectorAll('.subfiltros-color-checkbox')
 			
-				checkboxOptions.forEach(option => {
+				filtroColor.forEach(option => {
+
+					if (filtrosSeleccionados.color[option.value]) {
+						option.checked = true;
+					}
+
 					option.addEventListener("change", function() {
+
+						
 						
 						if (this.checked) {
-							checkboxOptions.forEach(otherOption => {
+							filtrosSeleccionados.color = {};
+							filtrosSeleccionados.color[this.value] = true;
+							 
+							filtroColor.forEach(otherOption => {
 								if (otherOption !== this) {
 									otherOption.checked = false;
+									
 								}
 							});
-							subfiltrosBox.style.display = "none";
-						}
+							 subfiltrosBox.style.display = "none";
+						} 
+
+
+					
+
+					
+
+
 					});
+		
+
+
 				});
 			
 			
@@ -867,38 +1004,236 @@ selectFiltros.forEach(selectFiltro =>{
 
 			
 			
-		} else if(idSelectFiltro == "filtro-raza"){
+		} else if (idSelectFiltro === "filtro-raza") {
 
-			subfiltrosBox.innerHTML = 
+
+
+
+			subfiltrosBox.innerHTML = ""
+
+			let especieSeleccionada = Object.keys(filtrosSeleccionados.especie)[0];
+
+
+			if(especieSeleccionada==null){
+				funFiltroEspecie();
+			} else{
+				if(especieSeleccionada=="perro"){
+					funAgregarFiltros(razasPerros,"raza");
+				} else{
+					funAgregarFiltros(razasGatos,"raza");
+				}
+			}
 			
-			'<div class="categoria-filtro"><p>Pastor alemán</p></div>'+
-			' <div class="categoria-filtro"><p>Doberman</p> </div>'+
-			' <div class="categoria-filtro"><p>Boyero de Berna</p> </div>'+
-			'<div class="categoria-filtro"><p>Rottweiler</p> </div>'+
-			' <div class="categoria-filtro"><p>Akita</p> </div>'+
 		
-			' <div class="categoria-filtro"><p>Labrador retriever</p> </div>'+
-			' <div class="categoria-filtro"><p>Golden retriever</p> </div>'+
-			'<div class="categoria-filtro"><p>Border collie</p></div>'+
-			'<div class="categoria-filtro"><p>Siberian Husky</p></div>'+
-			'<div class="categoria-filtro"><p>Bulldog inglés</p></div>'+
-			'<div class="categoria-filtro"><p>Beagle</p></div>'
+			let filtroRaza = document.querySelectorAll('.subfiltros-raza-checkbox');
 		
- 
+			
+
+			filtroRaza.forEach(option => {
+
+				if (filtrosSeleccionados.raza[option.value]) {
+					option.checked = true;
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.raza = {};
+						filtrosSeleccionados.raza[this.value] = true;
+						
+						filtroRaza.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+						 subfiltrosBox.style.display = "none";
+					} 
+
+
+				
+				});
+	
+
+
+			});
+
+
+		
+		} else if (idSelectFiltro === "filtro-especie") {
+
+			
+			funFiltroEspecie();
+
+
+			
+			
+		} else if(idSelectFiltro === "filtro-localidad"){
+
+			
+			funFiltroLocalidad();
+			
+			
+		} else if(idSelectFiltro === "filtro-barrio"){
+
+			subfiltrosBox.innerHTML = ""
+
+
+			let localidadSeleccionada = Object.keys(filtrosSeleccionados.localidad)[0];
+
+			if(localidadSeleccionada == null){
+				funFiltroLocalidad();
+			} else{
+
+				let listaBarrios = barrios[localidadSeleccionada];
+
+				
+				funAgregarFiltros(listaBarrios,"barrio")
+			
+			
+			
+
+			let filtroBarrio = document.querySelectorAll('.subfiltros-barrio-checkbox');
+		
+			filtroBarrio.forEach(option => {
+
+				if (filtrosSeleccionados.barrio[option.value]) {
+					option.checked = true;
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.barrio = {};
+						filtrosSeleccionados.barrio[this.value] = true;
+						 
+						filtroBarrio.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+
+
+						 subfiltrosBox.style.display = "none";
+
+
+					}
+
+				});
+
+			});
+
 
 			}
+
+
+			
+	
+
+			
+			
+			
+																	
+		} else if(idSelectFiltro === "filtro-fechaPubli"){
+
+
+			subfiltrosBox.innerHTML = "";
+
+			var div = document.createElement("div");
+			div.className = "categoria-filtro";
+
+
+			label = document.createElement("label");
+			input = document.createElement("input");
+			input.type = 'date';
+			input.id = "fechaPubli-filtro";
+			input.classList.add('subfiltros-checkbox');
+			input.classList.add('subfiltros-fechaPubli-checkbox');
+			
+
+			subfiltrosBox.appendChild(div);
+			div.appendChild(label);
+			div.appendChild(input);
+
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+	});
+
+
+
+});
+
+
+const btnFiltrar = document.querySelector("#filtrar");
+const btnFiltros = document.querySelector("#btnFiltros");
+
+
+btnFiltrar.addEventListener("click", (e) => {
+	e.stopPropagation();
+
+	
+
+
+    if (!btnFiltrar.classList.contains("menu-span-focus")) {
+		
+        btnFiltrar.classList.add("menu-span-focus");
+		filtrosBox.style.display = "flex";
+		subfiltrosBox.addEventListener("click",()=>{
+			
+			console.log(filtrosSeleccionados)
+			
+			for(let clave in filtrosSeleccionados){
+				let valor = Object.keys(filtrosSeleccionados[clave][0]);
+
+				console.log(clave + ": " + valor);
+				 if(!valor == null){
+					btnFiltros.style.display = "flex";
+				}  
+			}
+			
 		})
 
-
-	})
-
+		
 
 
+		
+    }else{
+		
+		btnFiltrar.classList.remove("menu-span-focus");
+		filtrosBox.style.display = "none";
+		btnFiltros.style.display = "none";
+		subfiltrosBox.style.display = "none";
+		
+	}
+
+	/* document.addEventListener("click", (event) => {
+
+		
+			if(!filtrosBox.contains(event.target)){
+				filtrosBox.style.display = "none";
+				subfiltrosBox.style.display = "none";
+				btnFiltrar.classList.remove("menu-span-focus");
+
+			} 
+		
+
+	}); */
+
+    
+});
 
 
 
-
-
-
-
- 

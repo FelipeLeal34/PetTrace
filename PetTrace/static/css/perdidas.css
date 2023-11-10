@@ -188,11 +188,14 @@
 
 #agregarFav{
 	cursor: pointer;
-	transition: all 0.5s;
-	
+	transition: all 2s;
 	/* border: 0.5px solid #000; */
 }
 
+#agregadoFav{
+	cursor: pointer;
+	transition: all 2s;
+}
 #agregarFav:hover{
 	color: #000;
 }
@@ -267,7 +270,7 @@
 
 .publi-modelo-estilo{
 
-	
+	display: none;
 	width: 90%;
 	height: auto;
 	max-height: 80%;
@@ -630,6 +633,46 @@ input[type="text"]:focus {
 
 
 
+#btnFiltros{
+	display: none;
+	flex-direction: row;
+	position: absolute;
+	align-items: center;
+	text-align: center;
+	margin-top: -360px;
+	margin-left: -50%;
+	height: auto;
+	width: 250px;
+	background-color: #74868a;
+	color: white;
+	border-radius: 10px;
+	transition: all 2s ease-in-out;
+
+}
+
+.btnFiltros{
+	
+	padding: 10px;
+	text-align: center;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	width: 100%;
+	border: 1px solid #faf7f6;
+	
+	
+	
+}
+
+.btnFiltros p{
+	margin: 0;
+}
+
+.btnFiltros:hover{
+	background-color: rgba(255,255,255, 0.5);
+}
 
 
 
@@ -670,6 +713,7 @@ input[type="text"]:focus {
 	
 	padding: 10px;
 	border-radius: 8px;
+	cursor: pointer;
 	
 	
 	
@@ -695,13 +739,17 @@ input[type="text"]:focus {
 	flex: 1;
 	
 	position: absolute;
-	margin-top: 0px;
-	margin-left: 0px;
+	margin-top: -320px;
+	margin-left: -100px;
 	overflow: auto;
+	height: auto;
+	max-height: 200px;
 	
 	
-	width: 100%;
+	width: 200px;
 	padding: 5px;
+
+	border-radius: 0 20px 20px 0;
 	
 
 	
@@ -714,10 +762,32 @@ input[type="text"]:focus {
 
 
 .subfiltros-checkbox{
-	display: none;
+	display: flex;
 }
 
 
 .subfiltros-color-icon{
 	filter: invert(1);
 }
+
+
+.subfiltros-fechaPubli-checkbox{
+	background-color: #a7bab9;
+	border: none;
+	padding: 10px;
+	width: 100%;
+	border-radius: 10px;
+	font-size: 18px;
+	color: #faf7f6;
+}
+
+
+.filtros-box , #subfiltros-box label{
+	filter: invert(0);
+}
+
+.filtros-box , #subfiltros-box i{
+	filter: invert(0);
+}
+
+
