@@ -21,9 +21,7 @@ class Usuario(models.Model):
        
         db_table = 'usuarios'
 
-    '''
-    def __str__(self):
-        return f" {self.id_usuario} {self.nombreusu}  {self.apellidousu}"
+  
 
 
 
@@ -44,9 +42,6 @@ class Comentario(models.Model):
         db_table = 'comentarios'
 
         
-
-
-'''
 
 
 class SaludMascota(models.Model):
@@ -97,11 +92,11 @@ class Mascota(models.Model):
     socializacionmas = models.CharField(max_length=150, null=False, blank=False, default='')
 
 
-    img1 = models.ImageField(upload_to="imgmascotas", null=True )
-    img2 = models.ImageField(upload_to="imgmascotas", null=True )
-    img3 = models.ImageField(upload_to="imgmascotas", null=True )
-    img4 = models.ImageField(upload_to="imgmascotas", null=True )
-    img5 = models.ImageField(upload_to="imgmascotas", null=True )
+    img1 = models.ImageField(upload_to="imgmascotas", null=False )
+    img2 = models.ImageField(upload_to="imgmascotas", null=False )
+    img3 = models.ImageField(upload_to="imgmascotas", null=False )
+    img4 = models.ImageField(upload_to="imgmascotas", null=False )
+    img5 = models.ImageField(upload_to="imgmascotas", null=False )
 
     class Meta:
         

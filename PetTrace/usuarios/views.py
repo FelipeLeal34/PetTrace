@@ -21,8 +21,18 @@ def perfil(request):
  
 def perdidas(request):
 
-     
-     publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+
+     if request.method == 'POST':
+
+          filtros = request.body
+          print(filtros)
+          publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+
+     else:
+
+           publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+
+
      return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
 
 

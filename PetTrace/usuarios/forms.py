@@ -10,6 +10,8 @@ class MascotaPerdidaForm(forms.ModelForm):
         model = Mascota
         
         fields = ['nombremas','especiemas','razamas','tamañomas','sexomas','colormas','edadmas','marcasmas','accesoriosmas','img1','img2','img3','img4','img5']
+
+        
         
         
 
