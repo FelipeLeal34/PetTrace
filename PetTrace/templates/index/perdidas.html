@@ -113,7 +113,7 @@
 											<div class="dato">
 
 												<p class="bold">Fecha extravío: </p>
-												<p>{{ publicacion.fechaExtravio|date:"N j, Y | f A" }}</p>
+												<p>{{ publicacion.fechaExtravio }}</p>
 											</div>
 
 											<div class="dato">
@@ -258,6 +258,10 @@
 										<div class="dato">
 											<p  class="bold">Fecha de extravío: </p>
 											<p id="fechaExtraviom"></p>
+										</div>
+										<div class="dato">
+											<p  class="bold">Hora de extravío: </p>
+											<p id="horaExtraviom"></p>
 										</div>
 										<div class="dato">
 											<p  class="bold">Recompensa: </p>
@@ -585,7 +589,12 @@
 												
 												<div class="dato">
 													<label for="fechaExtravio" class="bold">Fecha de extravío: </label>
-													<input type="datetime-local" name="fechaExtravio" placeholder="Nombre de la mascota" id="fechaExtravio" class="input-mascota" required>
+													<input type="date" name="fechaExtravio" id="fechaExtravio" class="input-mascota" required>
+												</div>
+
+												<div class="dato">
+													<label for="horaExtravio" class="bold">Hora de extravío: </label>
+													<input type="time" name="horaExtravio" id="horaExtravio" class="input-mascota" required>
 												</div>
 
 												<div class="dato">
@@ -740,7 +749,7 @@
 															</div>
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																<label for="razamas" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<label for="razamase" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 																<select name="razamas" id="razamase" class="select" required>
 																	
 		
@@ -750,7 +759,7 @@
 		
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																<label for="tamañomas" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<label for="tamañomase" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 																<select name="tamañomas" id="tamañomase" class="select" required>
 																	<option value="" default>Seleccione una</option>
 																	<option value="pequeño">pequeño</option>
@@ -763,7 +772,7 @@
 															
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																<label for="sexomas" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<label for="sexomase" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 																<select name="sexomas" id="sexomase" class="select" required>
 																	<option value="">Seleccione una</option>
 																	<option value="macho">macho</option>
@@ -776,7 +785,7 @@
 																	
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																<label for="colormas" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<label for="colormase" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 																<select name="colormas" id="colormase" class="select" required>
 																	<option value="" disabled default>seleccione uno</option>
 																	<option value="rojizo">Rojizo</option>
@@ -793,15 +802,15 @@
 															</div>
 															
 															<div class="dato">
-																<label for="edadmas" class="bold">Edad: </label>
+																<label for="edadmase" class="bold">Edad: </label>
 																<input type="number" name="edadmas" id="edadmase" class="input-mascota" required>
 															</div>
 															<div class="dato">
-																<label for="marcasmas" class="bold">Marcas distintivas: </label>
+																<label for="marcasmase" class="bold">Marcas distintivas: </label>
 																<textarea name="marcasmas" id="marcasmase" cols="30" rows="3" required></textarea>
 															</div>
 															<div class="dato">
-																<label for="accesoriosmas" class="bold">Accesorios: </label>
+																<label for="accesoriosmase" class="bold">Accesorios: </label>
 																<textarea name="accesoriosmas" id="accesoriosmase" cols="30" rows="3" required></textarea>
 															</div>
 
@@ -811,12 +820,12 @@
 														</div>
 														<div class="col2">
 															<div class="dato">
-																<label for="enfermedadesmas" class="bold">Enfermedades: </label>
+																<label for="enfermedadesmase" class="bold">Enfermedades: </label>
 																<textarea name="enfermedadesmas" id="enfermedadesmase" cols="30"  rows="3" required></textarea>
 															</div>
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																<label for="esterilizacionmas" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+																<label for="esterilizacionmase" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
 																<select name="esterilizacionmas" id="esterilizacionmase"  class="select"  required >
 																	<option value="sí">Sí</option>
 																	<option value="no">No</option>
@@ -825,7 +834,7 @@
 															</div>
 															
 															<div class="dato">
-																<label for="medicamentosmas" class="bold">Medicamentos: </label>
+																<label for="medicamentosmase" class="bold">Medicamentos: </label>
 																<textarea name="medicamentosmas" id="medicamentosmase" placeholder="medicamentos o cuidados especificos" cols="30" rows="3" required></textarea>
 		
 															</div>
@@ -839,7 +848,7 @@
 															</div>
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																	<label for="localidadExtravio" class="mostrarSelect">Localidad de extravío</label></div>
+																	<label for="localidadese" class="mostrarSelect">Localidad de extravío</label></div>
 																	<select name="localidadExtravio" id="localidadese" onchange="cargarBarrios('localidadese')" class="select" required>
 																			<option value="" default disabled>Localidad de extravío</option>
 																			<option value="Usaquén">Usaquén</option>
@@ -869,7 +878,7 @@
 														
 															<div class="dato-select">
 																<div class="label-selectMultiple">
-																	<label for="barrioExtravio" class="mostrarSelect">Barrio de extravío</label></div>
+																	<label for="barriose" class="mostrarSelect">Barrio de extravío</label></div>
 																	<select name="barrioExtravio" id="barriose" class="select" required>
 																		<option>Seleccione un barrio</option>
 																	</select>
@@ -877,12 +886,17 @@
 		
 														
 														<div class="dato">
-															<label for="fechaExtravio" class="bold">Fecha de extravío: </label>
-															<input type="datetime-local" name="fechaExtravio"  id="fechaExtravioe" class="input-mascota" required>
+															<label for="fechaExtravioe" class="bold">Fecha de extravío: </label>
+															<input type="date" name="fechaExtravio"  id="fechaExtravioe" class="input-mascota" required>
+														</div>
+
+														<div class="dato">
+															<label for="horaExtravioe" class="bold">Hora de extravío: </label>
+															<input type="time" name="horaExtravioe"  id="horaExtravioe" class="input-mascota" required>
 														</div>
 		
 														<div class="dato">
-															<label for="recompensa" class="bold">recompensa: </label>
+															<label for="recompensae" class="bold">recompensa: </label>
 															<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensae" class="input-mascota">
 														</div>
 

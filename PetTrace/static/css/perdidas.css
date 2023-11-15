@@ -631,23 +631,47 @@ input[type="text"]:focus {
 	
 }
 
+/* ICONO */
+#filtrar{
+	position: relative;
+}
 
+
+/* CONTENEDOR DE FILTROS-BOX, SUBFILTROS-BOX Y BTNFILTROS */
+
+#filtros{
+	
+	position: absolute;
+
+	margin-top: -20%;
+	margin-left: -35%;
+	
+	width: 100%;
+	max-width: 500px;
+	height: auto;
+	max-height: 500px;
+
+}
+
+
+#filtrosYsubfiltros{
+	display: flex ;
+}
 
 
 #btnFiltros{
 	display: none;
 	flex-direction: row;
-	position: absolute;
+
 	align-items: center;
 	text-align: center;
-	margin-top: -360px;
-	margin-left: -50%;
 	height: auto;
-	width: 250px;
+	width: 50%;
 	background-color: #74868a;
 	color: white;
 	border-radius: 10px;
 	transition: all 2s ease-in-out;
+	
 
 }
 
@@ -680,24 +704,24 @@ input[type="text"]:focus {
 
 .filtros-box{
 	display: none;
-	position: absolute;
-	width: auto;
-	max-width: 500px;
+	position: static;
+	width: 50%;
+	/* max-width: %; */
 	height: auto;
 	padding: 5px;
 	background-color: #74868a;
 	color: white;
+
 	
 	border-radius: 20px;
-	margin-top: -320px;
-	margin-left: -50%;
+	margin: 0;
 	
 	font-size: 20px;
 	font-weight: 200;
 	flex-direction: column;
 	padding: 10px;
 	overflow: auto;
-	max-height: 300px;
+	max-height: 250px;
 
 	transition: 0.5s ease-in-out;
 	
@@ -716,17 +740,14 @@ input[type="text"]:focus {
 	border-radius: 8px;
 	cursor: pointer;
 	
-	
-	
-	
-	
-
 
 }
+
 
 .categoria-filtro i{
 	margin-right: 10px;
 }
+
 
 .categoria-filtro:hover{
 	background-color: rgba(255,255,255, 0.5);
@@ -738,16 +759,16 @@ input[type="text"]:focus {
 	display: none;
 	flex-direction: column;
 	flex: 1;
+	position: static;
 	
-	position: absolute;
-	margin-top: -320px;
-	margin-left: -100px;
+	margin: 0;
 	overflow: auto;
 	height: auto;
-	max-height: 200px;
+	max-height: 150px;
 	
 	
-	width: 200px;
+	width: auto;
+	max-width: 200px;
 	padding: 5px;
 
 	border-radius: 0 20px 20px 0;
@@ -762,8 +783,9 @@ input[type="text"]:focus {
 
 
 
+
 .subfiltros-checkbox{
-	display: flex;
+	display: none;
 }
 
 
@@ -780,6 +802,7 @@ input[type="text"]:focus {
 	border-radius: 10px;
 	font-size: 18px;
 	color: #faf7f6;
+	display: flex;
 }
 
 

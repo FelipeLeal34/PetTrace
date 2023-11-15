@@ -6,6 +6,9 @@ from . forms import *
 from . models import *
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
+import json
+from django.db.models import Q
+
 
 
 
@@ -20,17 +23,91 @@ def perfil(request):
  
  
 def perdidas(request):
-
-
+     
      if request.method == 'POST':
 
-          filtros = request.body
-          print(filtros)
-          publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+          filtros = json.loads(request.body)
+
+          request.session['filtros']= filtros
+          request.session.modified = True
+          request.session.save()
+
+          filtros2 = request.session.get('filtros',{})
+          print(filtros2)
+
 
      else:
+          filtros = request.session.get('filtros',{})
+          print(filtros)
+         
 
-           publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+
+          color = None
+          raza = None
+          especie = None
+          sexo = None
+          tamaño = None
+          localidad = None
+          barrio = None
+          fecha = None
+
+          for clave in filtros:
+               if clave:
+                    if clave == "color":
+                          color = str(filtros["color"].keys())
+                    elif clave == "raza":
+                          raza = str(filtros["raza"].keys())
+                    elif clave == "especie":
+                          especie = str(filtros["especie"].keys())
+                    elif clave == "sexo":
+                          sexo = str(filtros["sexo"].keys())
+                    elif clave == "tamaño":
+                          tamaño = str(filtros["tamaño"].keys())
+                    elif clave == "localidad":
+                          localidad = str(filtros["localidad"].keys())
+                    elif clave == "barrio":
+                          barrio = str(filtros["barrio"].keys())
+                    else:
+                          fecha = str(filtros["fecha"].keys())
+
+
+          print(fecha)
+                    
+                         
+
+
+
+          """ color = str(filtros["color"].keys())
+          raza = str(filtros["raza"].keys())
+          especie = str(filtros["especie"].keys())
+          sexo = str(filtros["sexo"].keys())
+          tamaño = str(filtros["tamaño"].keys())
+          localidad = str(filtros["localidad"].keys())
+          barrio = str(filtros["barrio"].keys())
+          fecha = str(filtros["fecha"].keys()) """
+          
+
+
+
+
+          if color or raza or especie or localidad or barrio or fecha or sexo or tamaño is not None :
+          
+               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(
+
+               Q(id_mascota__colormas=color) | Q(id_mascota__colormas__isnull=True),
+               Q(id_mascota__razamas=raza) | Q(id_mascota__razamas__isnull=True),
+               Q(id_mascota__especiemas=especie) | Q(id_mascota__especiemas__isnull=True),
+               Q(id_mascota__sexomas=sexo) | Q(id_mascota__sexomas__isnull=True),
+               Q(id_mascota__tamañomas=tamaño) | Q(id_mascota__tamañomas__isnull=True),
+               Q(localidadExtravio=localidad) | Q(localidadExtravio__isnull=True),
+               Q(barrioExtravio=barrio) | Q(barrioExtravio__isnull=True))
+               
+               
+          
+
+          else:
+
+                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
 
 
      return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
@@ -49,7 +126,10 @@ def informacionPubli(request, id_publicacion):
           'publicacion': {
                'localidadExtravio': publicacion.localidadExtravio,
                'barrioExtravio': publicacion.barrioExtravio,
+               
                'fechaExtravio': publicacion.fechaExtravio,
+               
+               'horaExtravio': publicacion.horaExtravio,
                'recompensa': publicacion.recompensa
                
           },

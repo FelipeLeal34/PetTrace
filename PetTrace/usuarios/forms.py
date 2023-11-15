@@ -46,7 +46,7 @@ class PubliMascotaPerdidaForm(forms.ModelForm):
     class Meta:
 
         model = MascotasPerdidas
-        fields = ['localidadExtravio','barrioExtravio','fechaExtravio','recompensa']
+        fields = ['localidadExtravio','barrioExtravio','fechaExtravio','horaExtravio','recompensa']
 
 
 

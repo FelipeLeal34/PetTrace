@@ -5,7 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from datetime import date
+from datetime import date, datetime
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -92,11 +92,11 @@ class Mascota(models.Model):
     socializacionmas = models.CharField(max_length=150, null=False, blank=False, default='')
 
 
-    img1 = models.ImageField(upload_to="imgmascotas", null=False )
-    img2 = models.ImageField(upload_to="imgmascotas", null=False )
-    img3 = models.ImageField(upload_to="imgmascotas", null=False )
-    img4 = models.ImageField(upload_to="imgmascotas", null=False )
-    img5 = models.ImageField(upload_to="imgmascotas", null=False )
+    img1 = models.ImageField(upload_to="imgmascotas", null=False, default="")
+    img2 = models.ImageField(upload_to="imgmascotas", null=False, default="")
+    img3 = models.ImageField(upload_to="imgmascotas", null=False, default="")
+    img4 = models.ImageField(upload_to="imgmascotas", null=False, default="")
+    img5 = models.ImageField(upload_to="imgmascotas", null=False, default="")
 
     class Meta:
         
@@ -127,8 +127,18 @@ class Publicacion(models.Model):
 class MascotasPerdidas(Publicacion):
     localidadExtravio = models.CharField(max_length=60, null=False, blank=False)
     barrioExtravio = models.CharField(max_length=60, null=False, blank=False)
-    fechaExtravio = models.DateTimeField(default=date.today, null=False, blank=False)
+    fechaExtravio = models.DateField(default=date.today, null=False, blank=False)
+    horaExtravio = models.TimeField(null=True, blank=True)
     recompensa = models.FloatField(null=True, blank=True)
+
+    def mostrarFecha(self):
+        fechaExtravio = self.fechaExtravio.strftime('%Y-%m-%d')
+        return fechaExtravio
+
+    def mostrarHora(self):
+        horaExtravio = self.horaExtravio.strftime('%H:%M:%S')
+        return horaExtravio
+
 
     class Meta:
        

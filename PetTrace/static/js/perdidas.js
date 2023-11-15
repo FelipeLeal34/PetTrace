@@ -42,7 +42,7 @@ btnLeft.addEventListener('click', function(){
 	before();
 })
 
-const iconfav = document.getElementById("agregarFav")
+/* const iconfav = document.getElementById("agregarFav")
 
 iconfav.addEventListener("click", function(e){
 	
@@ -53,4 +53,4 @@ iconfav.addEventListener("click", function(e){
 		iconfav.innerHTML = '<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>'
 
 	}
-})
+}) */

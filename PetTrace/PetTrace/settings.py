@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pettrace',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'PIPECOMECOCO',
         'HOST': 'localhost',
         'PORT': '',
     }
@@ -132,3 +132,9 @@ MEDIA_URL = "/media-files/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+
+
+

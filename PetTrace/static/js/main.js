@@ -250,7 +250,7 @@ publis.forEach( publi => {
 			document.getElementById("localidadExtraviom").textContent = publicacion.data.publicacion.localidadExtravio;
 			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
 
-			let fechaExtraviom = new Date(publicacion.data.publicacion.fechaExtravio)
+			/* let fechaExtraviom = new Date(publicacion.data.publicacion.fechaExtravio)
 
 			const configuracionHora = {
 				year: 'numeric',
@@ -263,7 +263,9 @@ publis.forEach( publi => {
 				timeZone: 'America/Bogota',
 			  };
 
-			document.getElementById("fechaExtraviom").textContent = fechaExtraviom.toLocaleString('es-CO',configuracionHora);
+			document.getElementById("fechaExtraviom").textContent = fechaExtraviom.toLocaleString('es-CO',configuracionHora); */
+			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio; 
+			document.getElementById("horaExtraviom").textContent = publicacion.data.publicacion.horaExtravio; 
 
 			document.getElementById("recompensam").textContent = publicacion.data.publicacion.recompensa;
 			
@@ -429,8 +431,14 @@ btnEditarPubli.forEach( btn => {
 			
 
 			const fechaExtravio = document.getElementById("fechaExtravioe");
-			const fecha = new Date(publicacion.data.publicacion.fechaExtravio);
-			fechaExtravio.value = fecha.toISOString().slice(0, 16);
+			//const fecha = new Date(publicacion.data.publicacion.fechaExtravio);
+			//fechaExtravio.value = fecha.toISOString().slice(0, 16);
+			fechaExtravio.value = publicacion.data.publicacion.fechaExtravio;
+
+
+			const horaExtravio = document.getElementById("horaExtravioe");
+			
+			horaExtravio.value = publicacion.data.publicacion.horaExtravio;
 			
 
 
@@ -802,13 +810,22 @@ const valoresLocalidades = ["barriosAntonioNarino","barriosBarriosUnidos", "barr
 
 
 
+const sexos = ['Macho','Hembra'];
+const tamaños = ['Pequeño','Mediano','Grande'];
+
+
+const iconCheckeado = document.createElement("i");
+iconCheckeado.style.marginLeft = "10px";
+iconCheckeado.classList.add("fa-solid");
+iconCheckeado.classList.add("fa-check");
+
 
 
 
 const selectFiltros = document.querySelectorAll(".categoria-filtro");
 const subfiltrosBox = document.querySelector("#subfiltros-box")
 
-var filtrosSeleccionados = {color:{},raza:{},especie:{},localidad:{},barrio:{},fecha:{}};
+var filtrosSeleccionados = {color:{},raza:{},especie:{},sexo:{},tamaño:{},localidad:{},barrio:{},fecha:{}};
 
 
 
@@ -827,8 +844,6 @@ function verificarFiltros(){
 }
 
 
-
-
 function funAgregarFiltros(lista,filtro){
 	for (var i = 0; i < lista.length; i++) {
 	var div = document.createElement("div");
@@ -844,6 +859,7 @@ function funAgregarFiltros(lista,filtro){
 				input.classList.add('subfiltros-'+filtro+'-checkbox');
 				
 				label.htmlFor = input.id;
+				label.id = lista[i].toLowerCase() + "Id";
 				label.textContent = lista[i]
 				
 				subfiltrosBox.appendChild(div);
@@ -857,15 +873,18 @@ function funAgregarFiltros(lista,filtro){
 function funFiltroEspecie(){
 	subfiltrosBox.innerHTML = "";
 			subfiltrosBox.innerHTML = 
-				'<div class="categoria-filtro"><label for="Perro"><input id="Perro" value="perro" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Perro</label></div>'+
-				'<div class="categoria-filtro"><label for="Gato"><input id="Gato" value="gato" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Gato</label></div>';
+				'<div class="categoria-filtro"><label for="Perro"><i class="fa-solid fa-dog"></i><input id="Perro" value="perro" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Perro</label></div>'+
+				'<div class="categoria-filtro"><label for="Gato"><i class="fa-solid fa-cat"></i><input id="Gato" value="gato" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Gato</label></div>';
 		
 			let filtroEspecie = document.querySelectorAll('.subfiltros-especie-checkbox');
 		
 			filtroEspecie.forEach(option => {
 
+				
+
 				if (filtrosSeleccionados.especie[option.value]) {
 					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
 				}
 
 				option.addEventListener("change", function() {
@@ -933,6 +952,7 @@ for (var i = 0; i < localidades.length; i++) {
 
 	if (filtrosSeleccionados.localidad[option.value]) {
 		option.checked = true;
+		option.parentNode.appendChild(iconCheckeado);
 	}
 
 	option.addEventListener("change", function() {
@@ -996,6 +1016,7 @@ selectFiltros.forEach(selectFiltro =>{
 
 					if (filtrosSeleccionados.color[option.value]) {
 						option.checked = true;
+						option.parentNode.appendChild(iconCheckeado);
 					}
 
 					option.addEventListener("change", function() {
@@ -1055,6 +1076,7 @@ selectFiltros.forEach(selectFiltro =>{
 
 				if (filtrosSeleccionados.raza[option.value]) {
 					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
 				}
 
 				option.addEventListener("change", function() {
@@ -1091,16 +1113,123 @@ selectFiltros.forEach(selectFiltro =>{
 
 
 			
-			
-		} else if(idSelectFiltro === "filtro-localidad"){
+		} else if(idSelectFiltro === "filtro-sexo"){
+
+			subfiltrosBox.innerHTML = "";
+
+			funAgregarFiltros(sexos,"sexo");
+
+			let labelM = document.getElementById("machoId");
+			let iconM = document.createElement("i");
+			iconM.classList.add("fa-solid");
+			iconM.classList.add("fa-mars");
+			labelM.prepend(iconM);
+
+			let labelF = document.getElementById("hembraId");
+			let iconF = document.createElement("i");
+			iconF.classList.add("fa-solid");
+			iconF.classList.add("fa-venus");
+			labelF.prepend(iconF);
 
 			
-			funFiltroLocalidad();
+
+
+			let filtroSexo = document.querySelectorAll('.subfiltros-sexo-checkbox');
+		
+			filtroSexo.forEach(option => {
+
+				if (filtrosSeleccionados.sexo[option.value]) {
+					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.sexo = {};
+						filtrosSeleccionados.sexo[this.value] = true;
+						 
+						filtroSexo.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+
+						 subfiltrosBox.style.display = "none";
+
+					}
+
+					verificarFiltros();
+
+				});
+
+			});
+		
+		
+		
+		
+		
+		} else if(idSelectFiltro === "filtro-tamaño"){
+		
+			subfiltrosBox.innerHTML = "";
+			funAgregarFiltros(tamaños,"tamaño");
+
+			let filtroTamaño = document.querySelectorAll('.subfiltros-tamaño-checkbox');
+		
 			
+
+			filtroTamaño.forEach(option => {
+
+				if (filtrosSeleccionados.tamaño[option.value]) {
+					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.tamaño = {};
+						filtrosSeleccionados.tamaño[this.value] = true;
+						
+						filtroTamaño.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+						 subfiltrosBox.style.display = "none";
+					} 
+
+					verificarFiltros();
+
+
+				
+				});
+	
+
+
+			});
+
+
+		
+		} else if (idSelectFiltro === "filtro-especie") {
+
+			
+			funFiltroEspecie();
+
+			
+		} 
+
+		
+		
+		else if(idSelectFiltro === "filtro-localidad"){
+
+			funFiltroLocalidad();
 			
 		} else if(idSelectFiltro === "filtro-barrio"){
 
-			subfiltrosBox.innerHTML = ""
+			subfiltrosBox.innerHTML = "";
 
 
 			let localidadSeleccionada = Object.keys(filtrosSeleccionados.localidad)[0];
@@ -1123,6 +1252,7 @@ selectFiltros.forEach(selectFiltro =>{
 
 				if (filtrosSeleccionados.barrio[option.value]) {
 					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
 				}
 
 				option.addEventListener("change", function() {
@@ -1185,13 +1315,7 @@ selectFiltros.forEach(selectFiltro =>{
 
 			let fechaPubli = document.getElementById("fechaPubli-filtro");
 
-
-			if (filtrosSeleccionados.fecha[fechaPubli.value]) {
-
-				let fecha = new Date(this.value);
-				fechaPubli.value = fecha.toISOString().slice(0, 16);
-
-			}
+			
 
 
 			fechaPubli.addEventListener("change", function() {
@@ -1204,10 +1328,21 @@ selectFiltros.forEach(selectFiltro =>{
 					 
 				subfiltrosBox.style.display = "none";
 
+				
+
 				verificarFiltros();
 
 
 			});
+
+
+			if (filtrosSeleccionados.fecha) {
+
+				fechaPubli.value = Object.keys(filtrosSeleccionados.fecha)[0];
+				
+
+			} 
+			
 
 		}
 
@@ -1217,9 +1352,20 @@ selectFiltros.forEach(selectFiltro =>{
 
 });
 
-
+//ICONO FILTRAR, DE LA BARRA DEL MENU
 const btnFiltrar = document.querySelector("#filtrar");
+
+//CONTENEDOR DE LOS BOTONES APLICAR Y LIMPIAR
 const btnFiltros = document.querySelector("#btnFiltros");
+
+//CLase de cada boton APlciar y limpiar
+
+
+
+//CONTENEDOR DE LOS FILTROSBOX, SUBFILTROSBOX Y LOS BOTONES DE FILTRAR
+const filtros = document.querySelector("#filtros");
+
+
 
 
 btnFiltrar.addEventListener("click", (e) => {
@@ -1232,6 +1378,7 @@ btnFiltrar.addEventListener("click", (e) => {
 		
         btnFiltrar.classList.add("menu-span-focus");
 		filtrosBox.style.display = "flex";
+		verificarFiltros();
 
 		
     }else{
@@ -1248,24 +1395,27 @@ btnFiltrar.addEventListener("click", (e) => {
 
 	
 
-	/* document.addEventListener("click", (event) => {
+	 document.addEventListener("click", (event) => {
 
 		
-			if(!filtrosBox.contains(event.target)){
+			if(!filtros.contains(event.target)){
 				filtrosBox.style.display = "none";
-				subfiltrosBox.style.display = "none";
+				btnFiltros.style.display = "none";
+				subfiltrosBox.style.display = "none"; 
 				btnFiltrar.classList.remove("menu-span-focus");
 
 			} 
 		
 
-	}); */
+	}); 
 
     
 });
 
+const btnAyL = document.querySelectorAll(".btnFiltros");
 const btnAplicar = document.getElementById("btnAplicar");
 const btnLimpiar = document.getElementById("btnLimpiar");
+
 const subfiltrosCheckbox = document.querySelectorAll(".subfiltros-checkbox");
 
 btnLimpiar.addEventListener("click", ()=>{
@@ -1286,7 +1436,8 @@ btnLimpiar.addEventListener("click", ()=>{
 })
 
 
-btnAplicar.addEventListener("click",()=>{
+btnAyL.forEach(btn => {
+	btn.addEventListener("click",()=>{
 
 		
 		
@@ -1300,9 +1451,21 @@ btnAplicar.addEventListener("click",()=>{
 
 		})
 
+		.then(data => {
+			// Aquí puedes manejar la respuesta de tu servidor
+			
+			// Recargar la página
+			location.reload();
+			
+			console.table(filtrosSeleccionados);
+			verificarFiltros();
+		})
+
 
 
 })
+})
+
 
 
 
