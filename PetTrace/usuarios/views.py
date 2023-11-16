@@ -23,6 +23,8 @@ def perfil(request):
  
  
 def perdidas(request):
+
+     publicaciones = None
      
      if request.method == 'POST':
 
@@ -54,23 +56,30 @@ def perdidas(request):
           for clave in filtros:
                if clave:
                     if clave == "color":
-                          color = str(filtros["color"].keys())
+                          color = list(filtros["color"].keys())
                     elif clave == "raza":
-                          raza = str(filtros["raza"].keys())
+                          raza = list(filtros["raza"].keys())
                     elif clave == "especie":
-                          especie = str(filtros["especie"].keys())
+                          especie = list(filtros["especie"].keys())
                     elif clave == "sexo":
-                          sexo = str(filtros["sexo"].keys())
+                          sexo = list(filtros["sexo"].keys())
                     elif clave == "tamaño":
-                          tamaño = str(filtros["tamaño"].keys())
+                          tamaño = list(filtros["tamaño"].keys())
                     elif clave == "localidad":
-                          localidad = str(filtros["localidad"].keys())
+                          localidad = list(filtros["localidad"].keys())
                     elif clave == "barrio":
-                          barrio = str(filtros["barrio"].keys())
+                          barrio = list(filtros["barrio"].keys())
                     else:
-                          fecha = str(filtros["fecha"].keys())
+                          fecha = list(filtros["fecha"].keys())
 
 
+          print(color)
+          print(raza)
+          print(especie)
+          print(sexo)
+          print(tamaño)
+          print(localidad)
+          print(barrio)
           print(fecha)
                     
                          
@@ -94,16 +103,18 @@ def perdidas(request):
           
                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(
 
-               Q(id_mascota__colormas=color) | Q(id_mascota__colormas__isnull=True),
-               Q(id_mascota__razamas=raza) | Q(id_mascota__razamas__isnull=True),
-               Q(id_mascota__especiemas=especie) | Q(id_mascota__especiemas__isnull=True),
-               Q(id_mascota__sexomas=sexo) | Q(id_mascota__sexomas__isnull=True),
-               Q(id_mascota__tamañomas=tamaño) | Q(id_mascota__tamañomas__isnull=True),
-               Q(localidadExtravio=localidad) | Q(localidadExtravio__isnull=True),
-               Q(barrioExtravio=barrio) | Q(barrioExtravio__isnull=True))
-               
-               
+               Q(id_mascota__colormas__in=color) | Q(id_mascota__razamas__in=raza) 
+               | Q(id_mascota__especiemas__in=especie) | Q(id_mascota__sexomas__in=sexo) | Q(id_mascota__tamañomas__in=tamaño) 
+               | Q(localidadExtravio__in=localidad) | Q(barrioExtravio__in=barrio))
+               # Q(id_mascota__colormas__in=color) | Q(id_mascota__colormas__isnull=True),
+               # Q(id_mascota__razamas__in=raza) | Q(id_mascota__razamas__isnull=True),
+               # Q(id_mascota__especiemas__in=especie) | Q(id_mascota__especiemas__isnull=True),
+               # Q(id_mascota__sexomas__in=sexo) | Q(id_mascota__sexomas__isnull=True),
+               # Q(id_mascota__tamañomas__in=tamaño) | Q(id_mascota__tamañomas__isnull=True),
+               # Q(localidadExtravio__in=localidad) | Q(localidadExtravio__isnull=True),
+               # Q(barrioExtravio__in=barrio) | Q(barrioExtravio__isnull=True))
           
+
 
           else:
 

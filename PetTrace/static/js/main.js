@@ -825,8 +825,28 @@ iconCheckeado.classList.add("fa-check");
 const selectFiltros = document.querySelectorAll(".categoria-filtro");
 const subfiltrosBox = document.querySelector("#subfiltros-box")
 
+
+var filtrosAplicados = {};
 var filtrosSeleccionados = {color:{},raza:{},especie:{},sexo:{},tamaño:{},localidad:{},barrio:{},fecha:{}};
 
+
+Object.assign(filtrosSeleccionados, filtrosAplicados);
+
+
+
+// localStorage.setItem ("filtrosSeleccionadosCookie",JSON.stringify({}));
+
+document.addEventListener("DOMContentLoaded",(event) =>{
+
+	
+	if(JSON.parse(localStorage.getItem("filtrosSeleccionadosCookie"))){
+		filtrosSeleccionados = JSON.parse(localStorage.getItem("filtrosSeleccionadosCookie"));
+		
+		console.table(filtrosSeleccionados);
+	}
+
+	
+})
 
 
 function verificarFiltros(){
@@ -835,13 +855,17 @@ function verificarFiltros(){
 
 		if(typeof valor === "object" && Object.keys(valor).length > 0){
 			 btnFiltros.style.display = "flex";
-			 console.log(filtrosSeleccionados)
+			 console.log(filtrosSeleccionados);
+
+			 return true
 
 		}
 
 		
 }
 }
+
+
 
 
 function funAgregarFiltros(lista,filtro){
@@ -1387,6 +1411,7 @@ btnFiltrar.addEventListener("click", (e) => {
 		filtrosBox.style.display = "none";
 		btnFiltros.style.display = "none";
 		subfiltrosBox.style.display = "none";
+		verificarFiltros();
 		
 	}
 
@@ -1419,6 +1444,9 @@ const btnLimpiar = document.getElementById("btnLimpiar");
 const subfiltrosCheckbox = document.querySelectorAll(".subfiltros-checkbox");
 
 btnLimpiar.addEventListener("click", ()=>{
+
+
+	localStorage.setItem ("filtrosSeleccionadosCookie",JSON.stringify({}));
 	for(let clave in filtrosSeleccionados){
 		let valor = filtrosSeleccionados[clave];
 
@@ -1433,14 +1461,32 @@ btnLimpiar.addEventListener("click", ()=>{
 			})
 		} 
 	}
+
+	fetch('/perdidas/',
+		{
+			method : 'POST',
+			headers: {'Content-Type': 'application/json',
+					"X-CSRFToken": csrftoken},
+			body: JSON.stringify({})
+
+		})
+
+		.then(data => {
+			
+			
+			
+			location.reload();
+			
+			verificarFiltros();
+		})
+
 })
 
 
-btnAyL.forEach(btn => {
-	btn.addEventListener("click",()=>{
 
-		
-		
+btnAplicar.addEventListener("click",()=>{
+
+	localStorage.setItem ("filtrosSeleccionadosCookie", JSON.stringify(filtrosSeleccionados));
 
 		fetch('/perdidas/',
 		{
@@ -1452,19 +1498,28 @@ btnAyL.forEach(btn => {
 		})
 
 		.then(data => {
-			// Aquí puedes manejar la respuesta de tu servidor
 			
-			// Recargar la página
 			location.reload();
 			
-			console.table(filtrosSeleccionados);
-			verificarFiltros();
+			
 		})
 
+		
+
+		
+		
+})
 
 
-})
-})
+
+
+
+
+
+
+
+
+
 
 
 
