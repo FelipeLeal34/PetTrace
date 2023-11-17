@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/loguin.css">
+    <script src="js/cargarBarrios.js"></script>
+    <title>Registrarse</title>
+</head>
+<body>
+    <div id="img">
+        <img src="img/logo.png" id="logoimg">
+    </div>
+    <div id="content">
+        <div>
+            <div id="img">
+                <img src="img/user.png" width="150px">
+            </div>
+            <h1>Registrarse</h1>
+        <div>
+            <div class="inputGrupo">
+                <label for="txtnombre">Ingrese su nombre*</label>
+                <input type="text" name="txtnombre" required>
+            </div>
+            <div class="inputGrupo">
+                <label for="txtdocumento">Numero de Documento*</label>
+                <input type="number" name="txtdocumento" required>
+            </div>
+            <div class="inputGrupo">
+                <label for="txtcorreo">Correo*</label>
+                <input type="email" name="txtcorreo" required>
+            </div>
+            <div class="inputGrupo">
+                <label for="txtcontrasena">Ingrese una contraseña*</label>
+                <input type="password" name="txtcontrasena" required>
+            </div>
+            <div class="inputGrupo">
+                <label for="txttelefono">Numero de telefono*</label>
+                <input type="number" name="txttelefono" required>
+            </div>
+            <div>
+                <span>Seleccione su ubicación:</span>
+                <button class="btn" onclick="obtenerUbicacion()">
+                    <p class="paragraph"> Obtener Ubicación </p>
+                    <span class="icon-wrapper">
+                      <svg class="icon" width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C9.243 2 7 4.243 7 7C7 10.131 11.542 15.153 11.862 15.5C11.964 15.648 12.036 15.648 12.138 15.5C12.458 15.153 17 10.131 17 7C17 4.243 14.757 2 12 2ZM12 9.5C10.619 9.5 9.5 8.381 9.5 7C9.5 5.619 10.619 4.5 12 4.5C13.381 4.5 14.5 5.619 14.5 7C14.5 8.381 13.381 9.5 12 9.5ZM12 5.5C11.172 5.5 10.5 6.172 10.5 7C10.5 7.828 11.172 8.5 12 8.5C12.828 8.5 13.5 7.828 13.5 7C13.5 6.172 12.828 5.5 12 5.5Z" fill="#ffff"></path>
+                      </svg>
+                    </span>
+                  </button>
+                <div id="datosUbicacion" style="display: none;">
+                    <input type="hidden" name="latitud" id="latitud">
+                    <input type="hidden" name="longitud" id="longitud">
+                </div>
+                <div id="map" style="display: none;">
+                    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy5RZFqhkfKiKIBvRwiuQTtfn20VayQHA&callback=initMap"></script>
+                </div>
+            </div>
+            <div id="ubicacionManual" style="display: none;">
+                <span>O si lo desea elijala usted mismo:</span>
+                <div>
+                <label for="txtlocalidad">Elija su localidad*</label>
+                <select name="txtlocalidad" id="localidades" onchange="cargarBarrios()">
+                    <option value="" selected disabled>Seleccione una localidad</option>
+                    <option value="Usaquén">Usaquén</option>
+                    <option value="Chapinero">Chapinero</option>
+                    <option value="Santa Fe">Santa Fe</option>
+                    <option value="San Cristóbal">San Cristóbal</option>
+                    <option value="Usme">Usme</option>
+                    <option value="Tunjuelito">Tunjuelito</option>
+                    <option value="Bosa">Bosa</option>
+                    <option value="Kennedy">Kennedy</option>
+                    <option value="Fontibón">Fontibón</option>
+                    <option value="Engativá">Engativá</option>
+                    <option value="Suba">Suba</option>
+                    <option value="Barrios Unidos">Barrios Unidos</option>
+                    <option value="Teusaquillo">Teusaquillo</option>
+                    <option value="Los Mártires">Los Mártires</option>
+                    <option value="Antonio Nariño">Antonio Nariño</option>
+                    <option value="Puente Aranda">Puente Aranda</option>
+                    <option value="La Candelaria">La Candelaria</option>
+                    <option value="Rafael Uribe">Rafael Uribe</option>
+                    <option value="Ciudad Bolívar">Ciudad Bolívar</option>
+                </select>
+            </div>
+            <div class="">
+                <label for="txtbarrio">Elija su barrio*</label>
+                <select name="txtbarrios" id="barrios">
+                    <option>Seleccione un barrio</option>
+                </select>
+            </div>
+        </div>
+        </div>
+                <div>
+                    <a href="">¿Has olvidado tu contraseña?</a>
+                </div>
+            
+            <div>
+                <div id="boton">
+                    <input type="submit" value="Iniciar Sesión">
+                </div>
+                <a href="">No tengo una cuenta</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

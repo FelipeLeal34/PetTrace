@@ -134,7 +134,6 @@ class Perfil(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.perfil.save()
 
-
     '''
     def __str__(self):
         return f"{self.nombreusu}  {self.apellidousu}"
