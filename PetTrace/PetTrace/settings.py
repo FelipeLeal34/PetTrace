@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 import pymysql
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 pymysql.install_as_MySQLdb()
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -83,6 +84,7 @@ DATABASES = {
         'NAME': 'pettrace',
         'USER': 'root',
         'PASSWORD': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
     }
 }
@@ -140,3 +142,6 @@ AUTH_USER_MODEL = 'usuarios.Usuario'
 #URL a la que se redirige luego del login y el logout
 LOGIN_REDIRECT_URL = 'perfil'
 LOGOUT_REDIRECT_URL = 'perdidas'
+
+GOOGLE_MAPS_API_KEY = 'AIzaSyDy5RZFqhkfKiKIBvRwiuQTtfn20VayQHA'
+

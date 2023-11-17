@@ -1,0 +1,71 @@
+{% load static %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">-->
+
+<script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
+
+
+<header>
+    <div class="header">
+        <div id="logo">
+            <a href="../index.html">
+                <img src="{% static 'img/LogoPetTraceBorde.png' %}">
+            </a>
+        </div>
+        <label for="checkbox"><i class="fa-solid fa-bars"></i></label>
+    </div>
+    <input type="checkbox" id="checkbox">
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+            <li>
+                <div id="fotoperfil">
+                    <img src="{% static 'img/fotoperfil.jpg' %}">
+                </div>
+            </li>
+            <li class="li">
+                <span class="icon-search"></span>
+                <a href="{% url 'perdidas' %}">PERDIDAS</a>
+            </li>
+            <li class="li">
+                <span class="icon-paw"></span>
+                <a href="">ENCONTRADAS</a>
+            </li>
+            <li class="li">
+                <span class="icon-firefox"></span>
+                <a href="">ADOPCIONES</a>
+            </li>
+            <li class="li">
+                <span class="icon-bell-alt"></span>
+                <a href="">NOTIFICACIONES</a>
+            </li>
+            <li class="li">
+                <span class="icon-cog"></span>
+                <a href="">AJUSTES</a>
+            </li>
+            <li class="li">
+                <span class="icon-search"></span>
+                <a href="{% url 'logout' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">CERRAR SESIÓN</a>
+            </li>
+            {% else %}
+            <li class="log">
+                <span class="icon-cog"></span>
+                <a href="{% url 'registrar' %}">Registrarse</a>
+            </li> 
+            <li class="log">
+                <span class="icon-cog"></span>
+                <a href="{% url 'login' %}">Iniciar sesión</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>    
+
+
+{% block content %}
+{% endblock content %}

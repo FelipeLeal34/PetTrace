@@ -20,12 +20,15 @@ from django.urls import path, reverse_lazy
 from usuarios.views import *
 from usuarios import views
 from django.contrib.auth.views import LoginView, LogoutView
+from django.conf.urls.static import static
+from django.conf import settings
 
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('perfil/', perfil, name='perfil'),
+    path("editar-descripcion/", editar_descripcion, name="editar_descripcion"),
     path('perdidas/', perdidas, name='perdidas'),
     path('registrar/', views.registrar, name='registrar'),
     path('login/', LoginView.as_view(template_name='login/inicioSesion.html'), name='login'),
@@ -35,4 +38,8 @@ urlpatterns = [
     path('resetEmail/', views.resetEmail, name='resetEmail'),
     path('resetConfirm/', views.resetConfirm, name='resetConfirm'),
     path('resetComplete/', views.resetComplete, name='resetComplete'),
-]
+    path('prueba/', prueba, name='prueba'),
+    path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
+    path('verPubliModal/<int:id_publicacion>/', verPubliModalPerdida, name='verPubliModal' ),
+
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )
