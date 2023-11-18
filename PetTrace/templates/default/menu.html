@@ -14,12 +14,40 @@
 							
     <span class="fa-solid fa-filter"  id="filtrar"></span>
 
+
+    
+
+    <div id="filtros">
+
+
+        <div id="btnFiltros" class="">
+            <div class="btnFiltros" id="btnAplicar">
+                <p>Aplicar</p>
+            </div>
+    
+            <div class=" btnFiltros" id="btnLimpiar">
+                <p>Limpiar</p>
+            </div>
+        </div>
+
+
+    <div id="filtrosYsubfiltros">
+    <div class="filtros-box" id="filtros-box">
+
+
         
 
-    <div class="filtros-box">
-        <div class="categoria-filtro" id="filtro-color">
+
+         <div class="categoria-filtro" id="filtro-color">
             <i class="fa-solid fa-droplet"></i>
             <p>Color</p>
+            
+        </div>
+
+        <div class="categoria-filtro" id="filtro-especie">
+            <i class="fa-solid fa-shield-dog"></i>
+
+            <p>Especie</p>
             
         </div>
         <div class="categoria-filtro" id="filtro-raza">
@@ -27,12 +55,19 @@
             <p>Raza</p>
             
         </div>
-        <div class="categoria-filtro" id="filtro-especie">
-            <i class="fa-solid fa-dog"></i>
 
-            <p>Especie</p>
+        <div class="categoria-filtro" id="filtro-sexo">
+            <i class="fa-solid fa-venus-mars"></i>
+            <p>Sexo</p>
             
         </div>
+
+        <div class="categoria-filtro" id="filtro-tamaño">
+            <i class="fa-solid fa-maximize"></i>
+            <p>Tamaño</p>
+            
+        </div>
+        
         <div class="categoria-filtro" id="filtro-localidad">
             <i class="fa-solid fa-map-location-dot"></i>
             <p>Localidad</p>
@@ -46,18 +81,33 @@
         </div>
         <div class="categoria-filtro" id="filtro-fechaPubli">
             <i class="fa-solid fa-calendar-days"></i>
-            <p>Fecha de publicación</p>
+            <p>
+                Fecha publicacion  
             
-        </div>
-
-
-        <div class="filtros-box" id="subfiltros-box">
+             </p>
             
-        </div>
+            
+        </div> 
+
+        
 
 
+        
+
+
+
+    </div>
+    <div class="filtros-box" id="subfiltros-box">
+                
+    </div>
 
 </div>
+
+    
+
+</div>
+
+
 
 
     
@@ -68,3 +118,6 @@
     
 
 </div>	
+
+
+<script type="module" src="{% static 'js/main.js' %}"></script>

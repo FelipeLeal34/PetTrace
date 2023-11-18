@@ -1,10 +1,37 @@
+
+
+import { listaBarrios,cargarBarrios } from "./cargarBarrios.js";
+
+
+const barrios=listaBarrios();
+
+
+
+
+
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.getElementById("publi-modelo");
+
+
+//  ELEMENTOS PARA EDITAR PUBLICACION
+const btnEditarPubli = document.querySelectorAll(".btnEditarPubli");
 const editarPubli = document.getElementById("editarPubli");
+
+
+    //   BOTONES PARA ELIMINAR PUBLICACION
+
+const btnEliminarPubli = document.querySelectorAll(".btnEliminarPubli");
+const eliminarPubli = document.querySelector("#eliminarPubli");
+const btnAceptar = document.querySelectorAll(".btnAceptar");
+const btnCancelar = document.querySelectorAll(".btnCancelar");
+
+
+
+
 const btnCerrar = document.querySelector("#btn-cerrar");
 
 // icono ṕara cerrar formulario de agregar publicacion 
-const btnCerrarModal = document.querySelector("#icon-cancel");
+const btnCerrarModal = document.querySelectorAll(".icon-cancel");
 const agregarPubli = document.querySelector("#agregarPubli");
 const main = document.getElementsByTagName("main");
 
@@ -16,6 +43,166 @@ const btnAgregarPubli = document.querySelector("#agregar");
 var filtrosBox = document.querySelector(".filtros-box");
 
 
+// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
+
+
+function seleccionarVacunas(especie,idVacunas){
+
+
+	let vacunasmas = document.getElementById(idVacunas);
+	
+	
+	vacunasmas.innerHTML="";
+	
+	if(especie == "perro"){
+	
+		var vacunasPerro = ['moquillo','parvovirosis','pentavalente','coronavirus canino','rabia','tos de perreras']
+	
+		for(let i = 0 ; i < vacunasPerro.length; i++){
+			let option = document.createElement('option');
+			option.text = vacunasPerro[i];
+			option.value = vacunasPerro[i];
+			vacunasmas.add(option);
+	
+		}
+	
+	
+		
+	
+	} else{
+	
+		var vacunasGatos = ['moquillo','trivalente','leucemia','gripe felina','rabia','peritonitis infecciosa felina','clamidiosis felina']
+	
+		for(let i = 0 ; i < vacunasGatos.length; i++){
+			let option = document.createElement('option');
+			option.text = vacunasGatos[i];
+			option.value = vacunasGatos[i];
+			vacunasmas.add(option);
+	
+		}
+	
+	
+	
+	} 
+	
+	}
+
+
+	var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
+						'Golder retriever','Border collie','Siberian husky','Bulldog ingles','Beagle','Criollo'];
+
+
+	var razasGatos = ['Maine coon','Bengali','Persa','Himalayo','Britanico de pelo corto',
+	'egipcio','siames','Fold escoces','Ragdoll','Angora','Criollo'];
+
+	
+	
+	
+	// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
+	
+	
+	function seleccionarRaza(especie,idRaza){
+	
+		
+	
+		var razamas = document.getElementById(idRaza);
+	
+		razamas.innerHTML="";
+	
+	if(especie == "perro"){
+	
+		
+	
+		for(let i = 0 ; i < razasPerros.length; i++){
+			let option = document.createElement('option');
+			option.text = razasPerros[i];
+			option.value = razasPerros[i];
+			razamas.add(option);
+	
+		}
+	
+		
+	
+	} else{
+	
+		
+	
+		for(let i = 0 ; i < razasGatos.length; i++){
+			let option = document.createElement('option');
+			option.text = razasGatos[i];
+			option.value = razasGatos[i];
+			razamas.add(option);
+	
+		}
+	
+	
+	
+	} 
+	
+		
+	}
+	
+	
+	
+	 function seleccionarEspecie(idEspecie){
+	
+	
+		
+		let especie = document.getElementById(idEspecie).value;
+		
+			
+		
+		if(idEspecie == 'especiemas'){
+			seleccionarVacunas(especie,'vacunasmas');
+			seleccionarRaza(especie,'razamas');
+		} else{
+			seleccionarVacunas(especie,'vacunasmase');
+			seleccionarRaza(especie,'razamase');
+		}
+	
+		
+	
+	}
+
+	// FUNCIONES DE LOS FORMULARIOS
+
+	const selectEspeciemas = document.getElementById("especiemas");
+	selectEspeciemas.addEventListener("change", ()=>{
+		seleccionarEspecie("especiemas");
+	})
+
+	const selectEspeciemase = document.getElementById("especiemase");
+	selectEspeciemase.addEventListener("change", ()=>{
+		seleccionarEspecie("especiemase");
+	})
+
+	const vacunasmas = document.getElementById("labelvacunasmas");
+	vacunasmas.addEventListener("click", ()=>{
+		mostrarSelect("vacunasmas");
+	})
+
+	const vacunasmase = document.getElementById("labelvacunasmase");
+	vacunasmase.addEventListener("click", ()=>{
+		mostrarSelect("vacunasmase");
+	})
+
+
+	const SelectCargarBarrios = document.getElementById("localidades");
+	SelectCargarBarrios.addEventListener("click", ()=>{
+		cargarBarrios("localidades");
+	})
+
+	const SelectCargarBarriose = document.getElementById("localidadese");
+	SelectCargarBarriose.addEventListener("click", ()=>{
+		cargarBarrios("localidadese");
+	})
+
+	
+
+	
+
+
+
 // PETICION GET A LA BD PARA MOSTRAR LOS DATOS DE CADA PUBLICACICON EN UNA VENTANA MODAL
 
 
@@ -24,10 +211,10 @@ publis.forEach( publi => {
 
 
 		
-		let idpubli = e.target.closest(".publi").getAttribute("data-id")
-		console.log(e.target);
+		var idpubli = e.target.closest(".publi").getAttribute("data-id");
+		
 
-		const url = `/verPubliModal/${idpubli}/`
+		const url = `/informacionPubli/${idpubli}/`
 
 		
 
@@ -48,7 +235,9 @@ publis.forEach( publi => {
 
 			
 			document.getElementById("nombremasm").textContent = publicacion.data.mascota.nombremas;
+			document.getElementById("especiemasm").textContent = publicacion.data.mascota.especiemas;
 			document.getElementById("razamasm").textContent = publicacion.data.mascota.razamas;
+			document.getElementById("tamañomasm").textContent = publicacion.data.mascota.tamañomas;
 			document.getElementById("sexomasm").textContent = publicacion.data.mascota.sexomas;
 			document.getElementById("colormasm").textContent = publicacion.data.mascota.colormas;
 			document.getElementById("edadmasm").textContent = publicacion.data.mascota.edadmas;
@@ -60,79 +249,320 @@ publis.forEach( publi => {
 			document.getElementById("vacunasmasm").textContent = publicacion.data.estado_salud.vacunasmas;
 			document.getElementById("localidadExtraviom").textContent = publicacion.data.publicacion.localidadExtravio;
 			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
-			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio;
+
+			/* let fechaExtraviom = new Date(publicacion.data.publicacion.fechaExtravio)
+
+			const configuracionHora = {
+				year: 'numeric',
+				month: 'long',
+				day: 'numeric',
+				hour: 'numeric',
+				minute: 'numeric',
+				second: 'numeric',
+				hour12: true,
+				timeZone: 'America/Bogota',
+			  };
+
+			document.getElementById("fechaExtraviom").textContent = fechaExtraviom.toLocaleString('es-CO',configuracionHora); */
+			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio; 
+			document.getElementById("horaExtraviom").textContent = publicacion.data.publicacion.horaExtravio; 
+
 			document.getElementById("recompensam").textContent = publicacion.data.publicacion.recompensa;
+			
 			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
 			document.getElementById("telefonoDueño").textContent = publicacion.data.usuario.telefono;
 			document.getElementById("correoDueño").textContent = publicacion.data.usuario.email;
 			
 			
-// ------------CONSULTA PARA EL FORMULARIO DE EDITAR---------
 
-
-
-
-			/*document.getElementById("img2e").src = publicacion.data.mascota.img2;
-			document.getElementById("img3e").src = publicacion.data.mascota.img3;
-			document.getElementById("img4e").src = publicacion.data.mascota.img4;
-			document.getElementById("img5e").src = publicacion.data.mascota.img5;*/
-
-			
-			document.getElementById("nombremase").value = publicacion.data.mascota.nombremas;
-			/*document.getElementById("razamase").textContent = publicacion.data.mascota.razamas;
-			document.getElementById("sexomase").textContent = publicacion.data.mascota.sexomas;
-			document.getElementById("colormase").textContent = publicacion.data.mascota.colormas;
-			document.getElementById("edadmase").textContent = publicacion.data.mascota.edadmas;
-			document.getElementById("marcasmase").textContent = publicacion.data.mascota.marcasmas;
-			document.getElementById("accesoriosmase").textContent = publicacion.data.mascota.accesoriosmas;
-			document.getElementById("enfermedadesmase").textContent = publicacion.data.estado_salud.enfermedadesmas;
-			document.getElementById("esterilizacionmase").textContent = publicacion.data.estado_salud.esterilizacionmas;
-			document.getElementById("medicamentosmase").textContent = publicacion.data.estado_salud.medicamentosmas;
-			document.getElementById("vacunasmase").textContent = publicacion.data.estado_salud.vacunasmas;
-			document.getElementById("localidadExtravioe").textContent = publicacion.data.publicacion.localidadExtravio;
-			document.getElementById("barrioExtravioe").textContent = publicacion.data.publicacion.barrioExtravio;
-			document.getElementById("fechaExtravioe").textContent = publicacion.data.publicacion.fechaExtravio;
-			document.getElementById("recompensae").textContent = publicacion.data.publicacion.recompensa;
-			document.getElementById("nombreDueñoe").textContent = publicacion.data.usuario.nombre;
-			document.getElementById("telefonoDueñoe").textContent = publicacion.data.usuario.telefono;
-			document.getElementById("correoDueñoe").textContent = publicacion.data.usuario.email;*/
-			
-		  
 		})
 		
 
 	//let idpubli = e.target.parentNode.children[0].value;
 	main[0].classList.add("fondo-oscuro");
 
+		publiModal.style.display = "flex";
+	publiModal.style.position = "fixed";
+
+	
+
+		btnCerrar.addEventListener("click",()=>{
+		publiModal.style.display = "none";
+		main[0].classList.remove("fondo-oscuro");
+		
+		});
+
+
+	
+		
+	
+});
+
+});
+
+
+// ----------CONSULTA PARA PREVISUALIZACION DE INFORMACIÓN A EDITAR-----------------
+
+btnEditarPubli.forEach( btn => {
+	btn.addEventListener("click",e =>{
+
+
+		
+		var idpubli = e.target.closest(".publi").getAttribute("data-id");
+		
+
+		const url = `/informacionPubli/${idpubli}/`
+
+		
+
+		fetch(url,{
+			method: "GET",
+		})
+		.then(response => response.json())
+		.then(publicacion => {
+
+		document.getElementById('editarPubli').action = `/editarPubli/${idpubli}/`;  
+
+			document.getElementById("imgmas6").src = publicacion.data.mascota.img1;
+			document.getElementById("imgmas7").src = publicacion.data.mascota.img2;
+			document.getElementById("imgmas8").src = publicacion.data.mascota.img3;
+			document.getElementById("imgmas9").src = publicacion.data.mascota.img4;
+			document.getElementById("imgmas10").src = publicacion.data.mascota.img5;
+			
+
+			
+			document.getElementById("nombremase").value = publicacion.data.mascota.nombremas;
+
+			const especie = document.getElementById("especiemase");
+			for (let i = 0; i < especie.options.length; i++) {
+				const option = especie.options[i];
+				if (option.value === publicacion.data.mascota.especiemas) {
+					option.selected = true;
+				}
+			}
+			 
+			seleccionarEspecie('especiemase');
+			const raza = document.getElementById("razamase");
+			for (let i = 0; i < raza.options.length; i++) {
+				const option = raza.options[i];
+				if (option.value == publicacion.data.mascota.razamas) {
+					option.selected = true;
+				}
+			}
+
+			const tamaño = document.getElementById("tamañomase");
+			for (let i = 0; i < tamaño.options.length; i++) {
+				const option = tamaño.options[i];
+				if (option.value == publicacion.data.mascota.tamañomas) {
+					option.selected = true;
+				}
+			}
+
+			const sexo = document.getElementById("sexomase");
+			for (let i = 0; i < sexo.options.length; i++) {
+				const option = sexo.options[i];
+				if (option.value == publicacion.data.mascota.sexomas) {
+					option.selected = true;
+				}
+			}
+
+			const color = document.getElementById("colormase");
+			for (let i = 0; i < color.options.length; i++) {
+				const option = color.options[i];
+				if (option.value == publicacion.data.mascota.colormas) {
+					option.selected = true;
+				}
+			}
+
+			document.getElementById("edadmase").value = publicacion.data.mascota.edadmas;
+			document.getElementById("marcasmase").value = publicacion.data.mascota.marcasmas;
+			document.getElementById("accesoriosmase").value = publicacion.data.mascota.accesoriosmas;
+			document.getElementById("enfermedadesmase").value = publicacion.data.estado_salud.enfermedadesmas;
+
+
+			const esterilizacion = document.getElementById("esterilizacionmase") ;
+			for (let i = 0; i < esterilizacion.options.length; i++) {
+				const option = esterilizacion.options[i];
+				if (option.value == publicacion.data.estado_salud.esterilizacionmas) {
+					option.selected = true;
+				}
+			}
+
+			document.getElementById("medicamentosmase").value = publicacion.data.estado_salud.medicamentosmas;
+
+
+			const selectVacunas = document.getElementById("vacunasmase");
+			const vacunas = String(publicacion.data.estado_salud.vacunasmas);
+			const listaVacunas = vacunas.split(',');
+			
+			for(let i = 0; i < selectVacunas.options.length; i++) {
+				for(let j=0;j<listaVacunas.length;j++){
+					let option = selectVacunas.options[i];
+					if (option.value == listaVacunas[j]) {
+						option.selected = true;
+					}
+				}
+
+					
+			}
+			
+
+			
+			const localidadExtravio = document.getElementById("localidadese");
+			 
+			
+			for (let i = 0; i < localidadExtravio.options.length; i++) {
+				const option = localidadExtravio.options[i];
+				if (option.value == publicacion.data.publicacion.localidadExtravio) {
+					option.selected = true;
+				}
+			}
+
+			cargarBarrios('localidadese');
+
+			const barrioExtravio = document.getElementById("barriose");
+			for (let i = 0; i < barrioExtravio.options.length; i++) {
+				const option = barrioExtravio.options[i];
+				if (option.value == publicacion.data.publicacion.barrioExtravio) {
+					option.selected = true;
+				}
+			}
+
+			
+
+			const fechaExtravio = document.getElementById("fechaExtravioe");
+			//const fecha = new Date(publicacion.data.publicacion.fechaExtravio);
+			//fechaExtravio.value = fecha.toISOString().slice(0, 16);
+			fechaExtravio.value = publicacion.data.publicacion.fechaExtravio;
+
+
+			const horaExtravio = document.getElementById("horaExtravioe");
+			
+			horaExtravio.value = publicacion.data.publicacion.horaExtravio;
+			
+
+
+			document.getElementById("recompensae").value = publicacion.data.publicacion.recompensa;
+
+
+		});
+
+
+		main[0].classList.add("fondo-oscuro");
+
 
 	if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
 		editarPubli.style.display = "flex";
 		editarPubli.style.position = "fixed";
-	} else{
-		publiModal.style.display = "flex";
-	publiModal.style.position = "fixed";
-	btnCerrar.addEventListener("click",()=>{
-		publiModal.style.display = "none";
-		main[0].classList.remove("fondo-oscuro");
+
+		btnCerrarModal.forEach(equis => {
+			equis.addEventListener("click",()=>{
+				editarPubli.style.display = "none";
+				main[0].classList.remove("fondo-oscuro");
+		
+			});
+
+			});
+
+			}
+
+		});
 
 	});
 
 
-	}
+	// CONSULTA PARA OBTERNER LAS COOKIES
+
+	function getCookie(name) {
+		let cookieValue = null;
+		if (document.cookie && document.cookie !== '') {
+		  const cookies = document.cookie.split(';');
+		  for (let i = 0; i < cookies.length; i++) {
+			const cookie = cookies[i].trim();
+			// ¿El nombre de la cookie es el que buscamos?
+			if (cookie.substring(0, name.length + 1) === (name + '=')) {
+			  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+			  break;
+			}
+		  }
+		}
+		return cookieValue;
+	  }
+
+
+	  const csrftoken = getCookie('csrftoken');
+
+
+
+
+	// CONSULTA PARA ELIMINAR PUBLICACION
+
+
+btnEliminarPubli.forEach( btn => {
+	btn.addEventListener("click",e =>{
+
+		var idpubli = e.target.closest(".publi").getAttribute("data-id");
+
+		if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
+
+			eliminarPubli.style.display = "flex";
+			main[0].classList.add("fondo-oscuro");
 	
+		btnCancelar.forEach( btn => {
+			btn.addEventListener("click",e =>{
+		
+	
+				eliminarPubli.style.display = "none";
+				main[0].classList.remove("fondo-oscuro");
+			
+	
+	
+			});
+	
+		});
+	
+				}
 
+		
 
+		btnAceptar.forEach( btn => {
+			btn.addEventListener("click",e =>{
+		
+	
+				
+		
+				const url = `/eliminarPubli/${idpubli}/`
+		
+				
+		
+				fetch(url,{
+					method: "DELETE",
+					headers: {
+						// Añadir el token CSRF al encabezado
+						"X-CSRFToken": csrftoken
+					  }
+				})
 
-
+				eliminarPubli.style.display = "none";
+				main[0].classList.remove("fondo-oscuro");
+				
 
 	
+			});
+	
+		});
 
-	
-	
-	
+
+		
+
+
+
+
+
+
+	});
 });
 
-});
 
 
 
@@ -142,8 +572,8 @@ publis.forEach( publi => {
 
 
 
-btnOpciones = document.querySelectorAll(".trespuntos");
-menuOpcionesPubli = document.querySelectorAll(".menuOpcionesPubli")
+let btnOpciones = document.querySelectorAll(".trespuntos");
+let menuOpcionesPubli = document.querySelectorAll(".menuOpcionesPubli");
 
 btnOpciones.forEach((btnOpcion,i) => {
 	btnOpcion.addEventListener("click", e =>{
@@ -210,12 +640,15 @@ btnAgregarPubli.addEventListener("click", ()=>{
 		
 	
 
-	btnCerrarModal.addEventListener("click", ()=>{
+	btnCerrarModal.forEach( equis => {
+	equis.addEventListener("click", ()=>{
 		agregarPubli.style.display = "none";
 		btnAgregarPubli.classList.remove("menu-span-focus");
 		main[0].classList.remove("fondo-oscuro");
 
 	});
+
+});
 
 	
 	
@@ -233,11 +666,7 @@ agregarPubli.addEventListener("submit", ()=>{
 }
 );
 
-window.addEventListener("click",function(event) {
-	if (event.target == agregarPubli) {
-	  agregarPubli.style.display = "none";
-	}
-  });
+
 
 
 	
@@ -254,7 +683,7 @@ window.addEventListener("click",function(event) {
 
 
 
-/** ------------------PREVISUALIZAR IMAGEN EN EL FORMULARIO------------------------ **/
+/** PREVISUALIZAR IMAGEN **/
 
 
 
@@ -262,22 +691,63 @@ const inputs = document.querySelectorAll(".input-file");
 const inputsText = document.querySelectorAll(".input-text");
 
 
+
+
+const iconUpload = document.querySelectorAll(".icon-upload");
+
+
+//PARA CADA INPUT TIPO FILE
+
+
+
 inputs.forEach(input => {
 	input.addEventListener("change", e =>{
-	let id = input.id.charAt(input.id.length -1) - 1;
+		
+		let idCompleto = input.id;
+		let ultimosDosDigitos = idCompleto.slice(-2);
+		var id;
+
+		if(ultimosDosDigitos>0){
+
+			id = ultimosDosDigitos;
+
+		} else{
+			
+			id = idCompleto.slice(-1);
+			
+		}
+
+	
 		if(e.target.files[0]) {
 			const reader = new FileReader();
 			reader.onload = function (e) {
-			let img = e.target.result;	
-			inputsText[id].innerHTML= "<img src='"+img+"'>";
+			let file = e.target.result;	
+
+			if(inputsText[id - 1].querySelector('img')){
+	
+				let inputImg = document.getElementById('imgmas'+id);
+				inputImg.src = file;
+
+			} else{
+				
+				
+				let img = document.createElement("img");
+				img.src = file;		
+				img.id = "imgmas"+id;
+				
+				inputsText[id - 1].removeChild(iconUpload[id - 1]);
+				
+				inputsText[id - 1].appendChild(img);
+
+			
+
+			}
+
 			}
 
 			reader.readAsDataURL(e.target.files[0]);
 
-			
 
-		} else{
-			inputsText[id].innerHTML = "<span class='icon-upload'></span> <p>click para subir imagen</p>"
 		}
 })
 
@@ -288,147 +758,19 @@ inputs.forEach(input => {
 
 
 
-// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
-// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
-
-function seleccionarVacunas(especie,idVacunas){
 
 
-var vacunasmas = document.getElementById(idVacunas);
-
-
-vacunasmas.innerHTML="";
-
-if(especie == "perro"){
-
-	vacunasmas.innerHTML = 
-	
-	' <option value="moquillo">moquillo</option> ' + 
-	'<option value="parvovirosis">parvovirosis</option> ' +
-	' <option value="pentavalente">pentavalente</option>' +
-	' <option value="coranavirus canino">coranavirus canino</option>' +
-	' <option value="rabia">rabia</option>' +
-	' <option value="tos de perreras">tos de perreras</option>' 
-
-
-
-	
-
-} else if(especie == "gato"){
-
-	vacunasmas.innerHTML = 
-
-	' <option value="moquillo">moquillo</option> ' + 
-	'<option value="trivalente">trivalente</option> ' +
-	' <option value="leucemia">leucemia</option>' +
-	' <option value="gripe felina">gripe felina</option>' +
-	' <option value="rabia">rabia</option>' +
-	' <option value="Peritonitis infecciosa felina">Peritonitis infecciosa felina</option>' +
-	' <option value="Clamidiosis felina">Clamidiosis felina</option>' 
-
-
-} else{
-	vacunasmas.innerHTML="";
-}
-
-}
-
-
-// ------------- RAZAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA MASCOTA -----------
-
-
-function seleccionarRaza(especie,idRaza){
-
-	var razamas = document.getElementById(idRaza);
-
-	razamas.innerHTML="";
-
-if(especie == "perro"){
-
-	razamas.innerHTML = 
-	
-
-	'<option value="pastoraleman">Pastor alemán</option>'+
-	' <option value="doberman">Doberman </option>'+
-	' <option value="boyerodeberna">Boyero de Berna </option>'+
-	'<option value="rottweiler">Rottweiler </option>'+
-	' <option value="akita">Akita </option>'+
-
-	' <option value="labradorretriever">Labrador retriever </option>'+
-	' <option value="goldenretriever">Golden retriever </option>'+
-	'<option value="bordercollie">Border collie</option>'+
-	'<option value="siberianhusky">Siberian Husky</option>'+
-	'<option value="bulldogingles">Bulldog inglés</option>'+
-	'<option value="criollo">Criollo</option>'+
-	'<option value="beagle">Beagle</option>'
-
-	
-
-} else if(especie == "gato"){
-
-	razamas.innerHTML = 
-
-	' <option value="mainecoon">Maine coon</option> ' + 
-	'<option value="bengali">Bengalí</option> ' +
-	' <option value="persa">Persa</option>' +
-	' <option value="himalayo">Himalayo</option>' +
-	' <option value="britanico">Britanico de pelo corto</option>' +
-	' <option value="egipcio">egipcio</option>' +
-	' <option value="siames">siamés</option>' +
-	' <option value="foldescoces">Fold escocés</option>' +
-	' <option value="ragdoll">Ragdoll</option>' +
-	' <option value="angora">Angora</option>' +
-	' <option value="criollo">criollo</option>' 
-
-
-} else{
-	razamas.innerHTML="";
-}
-
-	
-}
-
-
-
-function seleccionarEspecie(idEspecie){
-
-
-	
-	var especie = document.getElementById(idEspecie).value;
-	
-		
-	
-	if(idEspecie == 'especiemas'){
-		seleccionarVacunas(especie,'vacunasmas');
-		seleccionarRaza(especie,'razamas');
-	} else{
-		seleccionarVacunas(especie,'vacunasmase');
-		seleccionarRaza(especie,'razamase');
-	}
-
-	
-
-}
-
-
-
-
-
-
-// ----------AL HACER CLICK EN EL LABEL SE DESPLIEGA EL SELECT-------
-
-
-function mostrarSelect(id) {
-	var select = document.getElementById(id);
-	if (select.style.display === "none") {
-		select.style.display = "block";
+function mostrarSelect() {
+	const selectVacunas = document.getElementById("vacunasmas");
+	if (selectVacunas.style.display === "none") {
+		selectVacunas.style.display = "block";
 		setTimeout(() => {
-			select.style.opacity = "1";
+			selectVacunas.style.opacity = "1";
 		}, 10); // Retrasamos la aparición para que la animación sea visible
 	} else {
-		select.style.opacity = "0";
+		selectVacunas.style.opacity = "0";
 		setTimeout(() => {
-			select.style.display = "none";
+			selectVacunas.style.display = "none";
 		}, 300); // Retrasamos la desaparición para que la animación sea visible
 	}
 }
@@ -438,36 +780,239 @@ function mostrarSelect(id) {
 
 
 
-/**
-	 --------------------FILTRAR--------------------------------
- */
+/** --------------------FILTRAR--------------------------------**/
 
 
 
 
-const btnFiltrar = document.querySelector("#filtrar");
+
+ 
 
 
-btnFiltrar.addEventListener("click", (e) => {
-	e.stopPropagation();
-    if (!btnFiltrar.classList.contains("menu-span-focus")) {
-        btnFiltrar.classList.add("menu-span-focus");
-		filtrosBox.style.display = "flex";
-		
-    }else{
-		btnFiltrar.classList.remove("menu-span-focus");
-		filtrosBox.style.display = "none";
-		
-	}
 
-    
-});
+
+
+
+
+
+
+
+
+
+
+const localidades = ["Antonio Nariño","Barrios Unidos","Bosa","Candelaria","Chapinero","Ciudad Bolivar","Engativa","Fontibon","Kennedy",
+"Los Martires","Puente Aranda","Rafel uribe","San Cristobal","Santa Fe","Suba","Teusaquillo","Tunjuelito","Usaquen","Usme"];
+
+const valoresLocalidades = ["barriosAntonioNarino","barriosBarriosUnidos", "barriosBosa", "barriosCandelaria", 
+"barriosChapinero", "barriosCiudadBolivar", "barriosEngativa", "barriosFontibon", "barriosKennedy", 
+"barriosMartires",  "barriosPuenteAranda", "barriosRafaelUribe", "barriosSanCristobal", 
+"barriosSantaFe", "barriosSuba", "barriosTeusaquillo", "barriosTunjuelito", "barriosUsaquen", "barriosUsme"];
+
+
+
+const sexos = ['Macho','Hembra'];
+const tamaños = ['Pequeño','Mediano','Grande'];
+
+
+const iconCheckeado = document.createElement("i");
+iconCheckeado.style.marginLeft = "10px";
+iconCheckeado.classList.add("fa-solid");
+iconCheckeado.classList.add("fa-check");
+
+
+
 
 const selectFiltros = document.querySelectorAll(".categoria-filtro");
 const subfiltrosBox = document.querySelector("#subfiltros-box")
 
+
+var filtrosAplicados = {};
+var filtrosSeleccionados = {color:{},raza:{},especie:{},sexo:{},tamaño:{},localidad:{},barrio:{},fecha:{}};
+
+
+Object.assign(filtrosSeleccionados, filtrosAplicados);
+
+
+
+// localStorage.setItem ("filtrosSeleccionadosCookie",JSON.stringify({}));
+
+document.addEventListener("DOMContentLoaded",(event) =>{
+
+	
+	if(JSON.parse(localStorage.getItem("filtrosSeleccionadosCookie"))){
+		filtrosSeleccionados = JSON.parse(localStorage.getItem("filtrosSeleccionadosCookie"));
+		
+		console.table(filtrosSeleccionados);
+	}
+
+	
+})
+
+
+function verificarFiltros(){
+	for(let clave in filtrosSeleccionados){
+		let valor = filtrosSeleccionados[clave];
+
+		if(typeof valor === "object" && Object.keys(valor).length > 0){
+			 btnFiltros.style.display = "flex";
+			 console.log(filtrosSeleccionados);
+
+			 return true
+
+		}
+
+		
+}
+}
+
+
+
+
+function funAgregarFiltros(lista,filtro){
+	for (var i = 0; i < lista.length; i++) {
+	var div = document.createElement("div");
+				div.className = "categoria-filtro";
+				
+				var label = document.createElement("label");
+				var input = document.createElement("input");
+				
+				input.type = 'checkbox';
+				input.id = lista[i].toLowerCase().replace(/\s/g, " ");
+				input.value = lista[i].toLowerCase().replace(/\s/g, " ");
+				input.classList.add('subfiltros-checkbox');
+				input.classList.add('subfiltros-'+filtro+'-checkbox');
+				
+				label.htmlFor = input.id;
+				label.id = lista[i].toLowerCase() + "Id";
+				label.textContent = lista[i]
+				
+				subfiltrosBox.appendChild(div);
+				div.appendChild(label);
+				label.appendChild(input);
+}
+}
+
+
+
+function funFiltroEspecie(){
+	subfiltrosBox.innerHTML = "";
+			subfiltrosBox.innerHTML = 
+				'<div class="categoria-filtro"><label for="Perro"><i class="fa-solid fa-dog"></i><input id="Perro" value="perro" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Perro</label></div>'+
+				'<div class="categoria-filtro"><label for="Gato"><i class="fa-solid fa-cat"></i><input id="Gato" value="gato" class="subfiltros-checkbox subfiltros-especie-checkbox" type="checkbox">Gato</label></div>';
+		
+			let filtroEspecie = document.querySelectorAll('.subfiltros-especie-checkbox');
+		
+			filtroEspecie.forEach(option => {
+
+				
+
+				if (filtrosSeleccionados.especie[option.value]) {
+					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.especie = {};
+						filtrosSeleccionados.especie[this.value] = true;
+						
+						filtroEspecie.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+						 subfiltrosBox.style.display = "none";
+					} 
+
+					verificarFiltros();
+
+				});
+
+			});
+
+}
+
+
+function funFiltroLocalidad(){
+
+
+	
+	subfiltrosBox.innerHTML = "";
+
+
+
+
+for (var i = 0; i < localidades.length; i++) {
+	
+	var div = document.createElement("div");
+	div.className = "categoria-filtro";
+	
+	var label = document.createElement("label")
+	var input = document.createElement("input")
+	
+	input.type = 'checkbox'
+	input.id = localidades[i].toLowerCase().replace(/\s/g, " ");
+	input.value = valoresLocalidades[i];
+	input.classList.add('subfiltros-checkbox');
+	input.classList.add('subfiltros-localidad-checkbox');
+	
+	label.htmlFor = input.id;
+	label.textContent = localidades[i]
+	
+	subfiltrosBox.appendChild(div);
+	div.appendChild(label);
+	label.appendChild(input);
+
+
+
+
+  
+}
+  var filtroLocalidad = document.querySelectorAll('.subfiltros-localidad-checkbox');
+
+  filtroLocalidad.forEach(option => {
+
+	if (filtrosSeleccionados.localidad[option.value]) {
+		option.checked = true;
+		option.parentNode.appendChild(iconCheckeado);
+	}
+
+	option.addEventListener("change", function() {
+		
+		if (this.checked) {
+			filtrosSeleccionados.localidad = {};
+			filtrosSeleccionados.localidad[this.value] = true;
+			 
+			filtroLocalidad.forEach(otherOption => {
+				if (otherOption !== this) {
+					otherOption.checked = false;
+					
+				}
+			});
+			 subfiltrosBox.style.display = "none";
+			 
+		} 
+
+		verificarFiltros();
+
+	});
+
+});
+}
+
+
+
+
+
+
+
+
 selectFiltros.forEach(selectFiltro =>{
 	selectFiltro.addEventListener("click", ()=>{
+
+		
 		
 		let idSelectFiltro = selectFiltro.id
 		let categoriaFiltro = document.getElementById(idSelectFiltro);
@@ -475,64 +1020,507 @@ selectFiltros.forEach(selectFiltro =>{
 		selectFiltro.style.position = "relative";
 		subfiltrosBox.style.display = "flex";
 		if(idSelectFiltro === "filtro-color"){
+			
+			subfiltrosBox.innerHTML = ""
 			subfiltrosBox.innerHTML = 
 				
-			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
-			'<div class="categoria-filtro"><label for="Naranja"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #ff7800;"></i><input id="Naranja" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Naranja</label></div>'+
-			'<div class="categoria-filtro"><label for="Amarillo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6d32d;"></i><input id="Amarillo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Amarillo</label></div>'+
-			'<div class="categoria-filtro"><label for="Dorado"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #d4af37;"></i><input id="Dorado" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Dorado</label></div>'+
-			'<div class="categoria-filtro"><label for="Gris"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #77767b;"></i><input id="Gris" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Gris</label></div>'+
-			'<div class="categoria-filtro"><label for="Marron"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #865e3c;"></i><input id="Marron" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Marron</label></div>'+
-			'<div class="categoria-filtro"><label for="Blanco"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6f5f4;"></i><input id="Blanco" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Blanco</label></div>'+
-			'<div class="categoria-filtro"><label for="Negro"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #000;"></i><input id="Negro" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Negro</label></div>';
+			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" value="rojo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
+			'<div class="categoria-filtro"><label for="Naranja"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #ff7800;"></i><input id="Naranja" value="naranja"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Naranja</label></div>'+
+			'<div class="categoria-filtro"><label for="Amarillo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6d32d;"></i><input id="Amarillo" value="amarillo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Amarillo</label></div>'+
+			'<div class="categoria-filtro"><label for="Dorado"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #d4af37;"></i><input id="Dorado" value="dorado" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Dorado</label></div>'+
+			'<div class="categoria-filtro"><label for="Gris"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #77767b;"></i><input id="Gris" value="gris" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Gris</label></div>'+
+			'<div class="categoria-filtro"><label for="Marron"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #865e3c;"></i><input id="Marron" value="marron"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Marron</label></div>'+
+			'<div class="categoria-filtro"><label for="Blanco"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6f5f4;"></i><input id="Blanco" value="blanco"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Blanco</label></div>'+
+			'<div class="categoria-filtro"><label for="Negro"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #000;"></i><input id="Negro" value="negro"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Negro</label></div>';
 
 			
-				const checkboxOptions = document.querySelectorAll(".subfiltros-color-checkbox");
+			let filtroColor = document.querySelectorAll('.subfiltros-color-checkbox')
 			
-				checkboxOptions.forEach(option => {
+				filtroColor.forEach(option => {
+
+					if (filtrosSeleccionados.color[option.value]) {
+						option.checked = true;
+						option.parentNode.appendChild(iconCheckeado);
+					}
+
 					option.addEventListener("change", function() {
+
+						filtrosSeleccionados.color = {};
 						
 						if (this.checked) {
-							checkboxOptions.forEach(otherOption => {
+							
+							filtrosSeleccionados.color[this.value] = true;
+							 
+							filtroColor.forEach(otherOption => {
 								if (otherOption !== this) {
 									otherOption.checked = false;
+									
 								}
 							});
-							subfiltrosBox.style.display = "none";
-						}
+							 subfiltrosBox.style.display = "none";
+						} 
+
+						verificarFiltros();
+
+
 					});
+		
 				});
 			
 			
 			
-
-
-
 			
 			
-		} else if(idSelectFiltro == "filtro-raza"){
+		} else if (idSelectFiltro === "filtro-raza") {
 
-			subfiltrosBox.innerHTML = 
+
+
+
+			subfiltrosBox.innerHTML = ""
+
+			let especieSeleccionada = Object.keys(filtrosSeleccionados.especie)[0];
+
+
+			if(especieSeleccionada==null){
+				funFiltroEspecie();
+			} else{
+				if(especieSeleccionada=="perro"){
+					funAgregarFiltros(razasPerros,"raza");
+				} else{
+					funAgregarFiltros(razasGatos,"raza");
+				}
+			}
 			
-			'<div class="categoria-filtro"><p>Pastor alemán</p></div>'+
-			' <div class="categoria-filtro"><p>Doberman</p> </div>'+
-			' <div class="categoria-filtro"><p>Boyero de Berna</p> </div>'+
-			'<div class="categoria-filtro"><p>Rottweiler</p> </div>'+
-			' <div class="categoria-filtro"><p>Akita</p> </div>'+
 		
-			' <div class="categoria-filtro"><p>Labrador retriever</p> </div>'+
-			' <div class="categoria-filtro"><p>Golden retriever</p> </div>'+
-			'<div class="categoria-filtro"><p>Border collie</p></div>'+
-			'<div class="categoria-filtro"><p>Siberian Husky</p></div>'+
-			'<div class="categoria-filtro"><p>Bulldog inglés</p></div>'+
-			'<div class="categoria-filtro"><p>Beagle</p></div>'
+			let filtroRaza = document.querySelectorAll('.subfiltros-raza-checkbox');
 		
- 
+			
+
+			filtroRaza.forEach(option => {
+
+				if (filtrosSeleccionados.raza[option.value]) {
+					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.raza = {};
+						filtrosSeleccionados.raza[this.value] = true;
+						
+						filtroRaza.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+						 subfiltrosBox.style.display = "none";
+					} 
+
+					verificarFiltros();
+
+
+				
+				});
+	
+
+
+			});
+
+
+		
+		} else if (idSelectFiltro === "filtro-especie") {
+
+			
+			funFiltroEspecie();
+
+
+			
+		} else if(idSelectFiltro === "filtro-sexo"){
+
+			subfiltrosBox.innerHTML = "";
+
+			funAgregarFiltros(sexos,"sexo");
+
+			let labelM = document.getElementById("machoId");
+			let iconM = document.createElement("i");
+			iconM.classList.add("fa-solid");
+			iconM.classList.add("fa-mars");
+			labelM.prepend(iconM);
+
+			let labelF = document.getElementById("hembraId");
+			let iconF = document.createElement("i");
+			iconF.classList.add("fa-solid");
+			iconF.classList.add("fa-venus");
+			labelF.prepend(iconF);
+
+			
+
+
+			let filtroSexo = document.querySelectorAll('.subfiltros-sexo-checkbox');
+		
+			filtroSexo.forEach(option => {
+
+				if (filtrosSeleccionados.sexo[option.value]) {
+					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.sexo = {};
+						filtrosSeleccionados.sexo[this.value] = true;
+						 
+						filtroSexo.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+
+						 subfiltrosBox.style.display = "none";
+
+					}
+
+					verificarFiltros();
+
+				});
+
+			});
+		
+		
+		
+		
+		
+		} else if(idSelectFiltro === "filtro-tamaño"){
+		
+			subfiltrosBox.innerHTML = "";
+			funAgregarFiltros(tamaños,"tamaño");
+
+			let filtroTamaño = document.querySelectorAll('.subfiltros-tamaño-checkbox');
+		
+			
+
+			filtroTamaño.forEach(option => {
+
+				if (filtrosSeleccionados.tamaño[option.value]) {
+					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.tamaño = {};
+						filtrosSeleccionados.tamaño[this.value] = true;
+						
+						filtroTamaño.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+						 subfiltrosBox.style.display = "none";
+					} 
+
+					verificarFiltros();
+
+
+				
+				});
+	
+
+
+			});
+
+
+		
+		} else if (idSelectFiltro === "filtro-especie") {
+
+			
+			funFiltroEspecie();
+
+			
+		} 
+
+		
+		
+		else if(idSelectFiltro === "filtro-localidad"){
+
+			funFiltroLocalidad();
+			
+		} else if(idSelectFiltro === "filtro-barrio"){
+
+			subfiltrosBox.innerHTML = "";
+
+
+			let localidadSeleccionada = Object.keys(filtrosSeleccionados.localidad)[0];
+
+			if(localidadSeleccionada == null){
+				funFiltroLocalidad();
+			} else{
+
+				let listaBarrios = barrios[localidadSeleccionada];
+
+				
+				funAgregarFiltros(listaBarrios,"barrio")
+			
+			
+			
+
+			let filtroBarrio = document.querySelectorAll('.subfiltros-barrio-checkbox');
+		
+			filtroBarrio.forEach(option => {
+
+				if (filtrosSeleccionados.barrio[option.value]) {
+					option.checked = true;
+					option.parentNode.appendChild(iconCheckeado);
+				}
+
+				option.addEventListener("change", function() {
+					
+					if (this.checked) {
+						filtrosSeleccionados.barrio = {};
+						filtrosSeleccionados.barrio[this.value] = true;
+						 
+						filtroBarrio.forEach(otherOption => {
+							if (otherOption !== this) {
+								otherOption.checked = false;
+								
+							}
+						});
+
+
+						 subfiltrosBox.style.display = "none";
+
+
+					}
+
+					verificarFiltros();
+
+				});
+
+			});
+
 
 			}
+
+
+			
+	
+
+			
+			
+			
+																	
+		} else if(idSelectFiltro === "filtro-fechaPubli"){
+
+
+			subfiltrosBox.innerHTML = "";
+
+			var div = document.createElement("div");
+			div.className = "categoria-filtro";
+
+
+			let label = document.createElement("label");
+			let input = document.createElement("input");
+			input.type = 'date';
+			input.id = "fechaPubli-filtro";
+			input.classList.add('subfiltros-checkbox');
+			input.classList.add('subfiltros-fechaPubli-checkbox');
+			
+
+			subfiltrosBox.appendChild(div);
+			div.appendChild(label);
+			div.appendChild(input);
+
+
+			let fechaPubli = document.getElementById("fechaPubli-filtro");
+
+			
+
+
+			fechaPubli.addEventListener("change", function() {
+
+				filtrosSeleccionados.fecha = {};
+				
+				filtrosSeleccionados.fecha[this.value] = true;
+
+				
+					 
+				subfiltrosBox.style.display = "none";
+
+				
+
+				verificarFiltros();
+
+
+			});
+
+
+			if (filtrosSeleccionados.fecha) {
+
+				fechaPubli.value = Object.keys(filtrosSeleccionados.fecha)[0];
+				
+
+			} 
+			
+
+		}
+
+
+	});
+
+
+});
+
+//ICONO FILTRAR, DE LA BARRA DEL MENU
+const btnFiltrar = document.querySelector("#filtrar");
+
+//CONTENEDOR DE LOS BOTONES APLICAR Y LIMPIAR
+const btnFiltros = document.querySelector("#btnFiltros");
+
+//CLase de cada boton APlciar y limpiar
+
+
+
+//CONTENEDOR DE LOS FILTROSBOX, SUBFILTROSBOX Y LOS BOTONES DE FILTRAR
+const filtros = document.querySelector("#filtros");
+
+
+
+
+btnFiltrar.addEventListener("click", (e) => {
+	e.stopPropagation();
+
+	
+
+
+    if (!btnFiltrar.classList.contains("menu-span-focus")) {
+		
+        btnFiltrar.classList.add("menu-span-focus");
+		filtrosBox.style.display = "flex";
+		verificarFiltros();
+
+		
+    }else{
+		
+		btnFiltrar.classList.remove("menu-span-focus");
+		filtrosBox.style.display = "none";
+		btnFiltros.style.display = "none";
+		subfiltrosBox.style.display = "none";
+		verificarFiltros();
+		
+	}
+
+
+
+
+	
+
+	 document.addEventListener("click", (event) => {
+
+		
+			if(!filtros.contains(event.target)){
+				filtrosBox.style.display = "none";
+				btnFiltros.style.display = "none";
+				subfiltrosBox.style.display = "none"; 
+				btnFiltrar.classList.remove("menu-span-focus");
+
+			} 
+		
+
+	}); 
+
+    
+});
+
+const btnAyL = document.querySelectorAll(".btnFiltros");
+const btnAplicar = document.getElementById("btnAplicar");
+const btnLimpiar = document.getElementById("btnLimpiar");
+
+const subfiltrosCheckbox = document.querySelectorAll(".subfiltros-checkbox");
+
+btnLimpiar.addEventListener("click", ()=>{
+
+
+	localStorage.setItem ("filtrosSeleccionadosCookie",JSON.stringify({}));
+	for(let clave in filtrosSeleccionados){
+		let valor = filtrosSeleccionados[clave];
+
+		if(typeof valor === "object" && Object.keys(valor).length > 0){
+			 
+			filtrosSeleccionados[clave] = {};
+			btnFiltros.style.display = "none";
+			subfiltrosBox.style.display = "none";
+
+			subfiltrosCheckbox.forEach(checkbox =>{
+				checkbox.checked = false;
+			})
+		} 
+	}
+
+	fetch('/perdidas/',
+		{
+			method : 'POST',
+			headers: {'Content-Type': 'application/json',
+					"X-CSRFToken": csrftoken},
+			body: JSON.stringify({})
+
 		})
 
+		.then(data => {
+			
+			
+			
+			location.reload();
+			
+			verificarFiltros();
+		})
 
-	})
+})
+
+
+
+btnAplicar.addEventListener("click",()=>{
+
+	localStorage.setItem ("filtrosSeleccionadosCookie", JSON.stringify(filtrosSeleccionados));
+
+		fetch('/perdidas/',
+		{
+			method : 'POST',
+			headers: {'Content-Type': 'application/json',
+					"X-CSRFToken": csrftoken},
+			body: JSON.stringify(filtrosSeleccionados)
+
+		})
+
+		.then(data => {
+			
+			location.reload();
+			
+			
+		})
+
+		
+
+		
+		
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

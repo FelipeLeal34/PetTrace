@@ -5,7 +5,7 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from datetime import date
+from datetime import date, datetime
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
@@ -134,18 +134,7 @@ class Perfil(models.Model):
     def save_user_profile(sender, instance, **kwargs):
         instance.perfil.save()
 
-    '''
-    def __str__(self):
-        return f"{self.nombreusu}  {self.apellidousu}"
-
-'''
-
-
-
-
-
-'''
-        return f" {self.id_usuario} {self.nombreusu}  {self.apellidousu}"
+  
 
 
 
@@ -166,9 +155,6 @@ class Comentario(models.Model):
         db_table = 'comentarios'
 
         
-
-
-'''
 
 
 class SaludMascota(models.Model):
@@ -211,7 +197,7 @@ class Mascota(models.Model):
     tamañomas = models.CharField(max_length=45, null=False, default='')
     edadmas = models.PositiveIntegerField(blank=True, null=True)
     marcasmas = models.CharField(max_length=45, null=True)
-    idestado_salud = models.OneToOneField(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
+    idestado_salud = models.ForeignKey(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
     id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False, verbose_name='id_dueño',on_delete=models.CASCADE)
     
     personalidadmas = models.CharField(max_length=150, null=False, blank=False, default='')
@@ -219,11 +205,11 @@ class Mascota(models.Model):
     socializacionmas = models.CharField(max_length=150, null=False, blank=False, default='')
 
 
-    img1 = models.ImageField(upload_to="imgmascotas", null=False )
-    img2 = models.ImageField(upload_to="imgmascotas", null=False )
-    img3 = models.ImageField(upload_to="imgmascotas", null=False )
-    img4 = models.ImageField(upload_to="imgmascotas", null=False )
-    img5 = models.ImageField(upload_to="imgmascotas", null=False )
+    img1 = models.ImageField(upload_to="imgmascotas", null=False, default="")
+    img2 = models.ImageField(upload_to="imgmascotas", null=False, default="")
+    img3 = models.ImageField(upload_to="imgmascotas", null=False, default="")
+    img4 = models.ImageField(upload_to="imgmascotas", null=False, default="")
+    img5 = models.ImageField(upload_to="imgmascotas", null=False, default="")
 
     class Meta:
         
@@ -254,8 +240,18 @@ class Publicacion(models.Model):
 class MascotasPerdidas(Publicacion):
     localidadExtravio = models.CharField(max_length=60, null=False, blank=False)
     barrioExtravio = models.CharField(max_length=60, null=False, blank=False)
-    fechaExtravio = models.DateTimeField(default=date.today, null=False, blank=False)
+    fechaExtravio = models.DateField(default=date.today, null=False, blank=False)
+    horaExtravio = models.TimeField(null=True, blank=True)
     recompensa = models.FloatField(null=True, blank=True)
+
+    def mostrarFecha(self):
+        fechaExtravio = self.fechaExtravio.strftime('%Y-%m-%d')
+        return fechaExtravio
+
+    def mostrarHora(self):
+        horaExtravio = self.horaExtravio.strftime('%H:%M:%S')
+        return horaExtravio
+
 
     class Meta:
        

@@ -146,11 +146,15 @@
 
 #agregarFav{
 	cursor: pointer;
-	transition: all 0.5s;
-	
+	transition: all 2s;
+	transition: all 2s;
 	/* border: 0.5px solid #000; */
 }
 
+#agregadoFav{
+	cursor: pointer;
+	transition: all 2s;
+}
 #agregarFav:hover{
 	color: #000;
 }
@@ -225,7 +229,7 @@
 
 .publi-modelo-estilo{
 
-	
+	display: none;
 	width: 90%;
 	height: auto;
 	max-height: 80%;
@@ -254,6 +258,7 @@
 	width: 100%;
 	overflow: auto;
 	height: 100%;
+	position: relative;
 	
 	
 	
@@ -476,14 +481,16 @@ input[type="text"]:focus {
 }
 
 
-#icon-cancel{
+.icon-cancel{
 	font-size: 30px;
 	width: 100%;
 	float: right;
-	display: flex;
-
-	justify-content: flex-end;
-	margin:5px 5px 0 0;
+	position: absolute;
+	right: 5px;
+	top: 3px;
+	text-align: right;
+	
+	
 	cursor:pointer;
 }
 
@@ -508,31 +515,163 @@ input[type="text"]:focus {
 
 
 
+/* --------------CONFIRMACION DE ELIMINACION DE PUBLICACION---------- */
 
+
+#eliminarPubli{
+	display: none;
+	position: absolute;
+	margin-top: 30%;
+	margin-left: 50%;
+	transform: translate(-50%,-30%);
+	height: 300px;
+	width: 500px;
+	padding: 20px;
+	background: #faf7f6;
+	border-radius: 20px;
+	
+	flex-direction: column;
+	justify-content: center;
+
+}
+
+#btnOpcionesEP{
+	margin-top: 50px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+
+.fa-trash-can{
+	font-size: 80px;
+	margin-bottom: 30px;
+}
+
+
+.btnAceptar{
+	background: #587073;
+	border-radius: 10px;
+	margin: 2px;
+	padding: 10px;
+	color: #faf7f6;
+	cursor: pointer;
+}
+
+.btnCancelar{
+	background: #faf7f6;
+	border: 1px solid #000;
+	border-radius: 10px;
+	margin: 2px;
+	padding: 10px;
+	cursor: pointer;
+
+
+
+}
+
+#btnAceptar:hover{
+	background: rgba(88, 112, 115, 0.5);
+	
+}
+
+#btnCancelar:hover{
+	background: rgba(0, 0, 0, 0.2);
+	
+}
+
+/* ICONO */
+#filtrar{
+	position: relative;
+}
+
+
+/* CONTENEDOR DE FILTROS-BOX, SUBFILTROS-BOX Y BTNFILTROS */
+
+#filtros{
+	
+	position: absolute;
+
+	margin-top: -20%;
+	margin-left: -35%;
+	
+	width: 100%;
+	max-width: 500px;
+	height: auto;
+	max-height: 500px;
+
+}
+
+
+#filtrosYsubfiltros{
+	display: flex ;
+}
+
+
+#btnFiltros{
+	display: none;
+	flex-direction: row;
+
+	align-items: center;
+	text-align: center;
+	height: auto;
+	width: 50%;
+	background-color: #74868a;
+	color: white;
+	border-radius: 10px;
+	transition: all 2s ease-in-out;
+	
+
+}
+
+.btnFiltros{
+	
+	padding: 10px;
+	text-align: center;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	width: 100%;
+	border: 1px solid #faf7f6;
+	
+	
+	
+}
+
+.btnFiltros p{
+	margin: 0;
+}
+
+.btnFiltros:hover{
+	background-color: rgba(255,255,255, 0.5);
+}
 
 
 
 
 .filtros-box{
 	display: none;
-	position: absolute;
-	width: auto;
-	max-width: 500px;
+	position: static;
+	width: 50%;
+	/* max-width: %; */
 	height: auto;
 	padding: 5px;
 	background-color: #74868a;
 	color: white;
+
 	
 	border-radius: 20px;
-	margin-top: -320px;
-	margin-left: -50%;
+	margin: 0;
 	
 	font-size: 20px;
 	font-weight: 200;
 	flex-direction: column;
 	padding: 10px;
 	overflow: auto;
-	max-height: 300px;
+	max-height: 250px;
 
 	transition: 0.5s ease-in-out;
 	
@@ -549,18 +688,16 @@ input[type="text"]:focus {
 	
 	padding: 10px;
 	border-radius: 8px;
+	cursor: pointer;
 	
-	
-	
-	
-	
-
 
 }
+
 
 .categoria-filtro i{
 	margin-right: 10px;
 }
+
 
 .categoria-filtro:hover{
 	background-color: rgba(255,255,255, 0.5);
@@ -572,21 +709,26 @@ input[type="text"]:focus {
 	display: none;
 	flex-direction: column;
 	flex: 1;
+	position: static;
 	
-	position: absolute;
-	margin-top: 0px;
-	margin-left: 0px;
+	margin: 0;
 	overflow: auto;
+	height: auto;
+	max-height: 150px;
 	
 	
-	width: 100%;
+	width: auto;
+	max-width: 200px;
 	padding: 5px;
+
+	border-radius: 0 20px 20px 0;
 	
 
 	
 
 	
 }
+
 
 
 
@@ -600,6 +742,28 @@ input[type="text"]:focus {
 .subfiltros-color-icon{
 	filter: invert(1);
 }
+
+
+.subfiltros-fechaPubli-checkbox{
+	background-color: #a7bab9;
+	border: none;
+	padding: 10px;
+	width: 100%;
+	border-radius: 10px;
+	font-size: 18px;
+	color: #faf7f6;
+	display: flex;
+}
+
+
+.filtros-box , #subfiltros-box label{
+	filter: invert(0);
+}
+
+.filtros-box , #subfiltros-box i{
+	filter: invert(0);
+}
+
 
 @media screen and (min-width:1024px){
 	
