@@ -463,7 +463,6 @@ main{
 
 .bold{
 	font-weight: bold;
-	filter: invert(0);
 	padding-right: 5px;
 }
 
@@ -527,7 +526,7 @@ main{
 .label-selectMultiple{
 	display: flex;
 	color: #000;
-	filter: invert(1);
+	
 	margin-bottom: 5px;
 }
 
@@ -604,7 +603,6 @@ main{
 
 .input-text{
 	
-	filter: invert(1);
 	
 	margin: auto;
 }

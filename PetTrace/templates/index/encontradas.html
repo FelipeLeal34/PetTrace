@@ -15,7 +15,7 @@
 </head>
 <body>
 
-
+    {% include 'default/header.html' %}
     <!-- --------------------------AGREGAR PUBLICACION------------------------------------------  -->
 
 
@@ -209,7 +209,7 @@
                                     <div class="col2">
                                         <div class="dato">
                                             <label for="enfermedadesmas" class="bold">Enfermedades: </label>
-                                            <textarea name="enfermedadesmas" class="input-mascota" id="enfermedadesmas" cols="30"  rows="2" required></textarea>
+                                            <textarea name="enfermedadesmas" class="input-mascota" id="enfermedadesmas" cols="30"  rows="2"></textarea>
                                         </div>
                                         <div class="dato-select">
                                             <div class="label-selectMultiple">
@@ -223,7 +223,7 @@
                                         
                                 
                                      
-                                        </div>
+                                        
                                         <div class="dato-select">
                                             <div class="label-selectMultiple">
                                                 <label for="localidadEncuentro" class="mostrarSelect">Localidad de encuentro</label></div>
@@ -273,10 +273,9 @@
                                         <input type="time" name="horaEncuentro" id="horaEncuentro" class="input-mascota" required>
                                     </div>
 
-                                    <div class="dato">
-                                        <label for="recompensa" class="bold">recompensa: </label>
-                                        <input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensa" class="input-mascota">
-                                    </div>
+                                </div>
+
+    
 
                                     {% if form.errors %}
                                                 <ul class="errorlist">
@@ -288,7 +287,7 @@
                                                 </ul>
                                             {% endif %}
                                 </div>
-                            </div>
+                            
 
                             <hr>
 
@@ -318,10 +317,7 @@
 
                         </div>
 
-                    </div>
-
-
-
+                
                 </form>
             </section>
 
@@ -408,10 +404,7 @@
 
                         <div class="datos-mascota">
                             <div class="col1">
-                                <div class="dato">
-                                    <label for="nombremase" class="bold">Nombre: </label>
-                                    <input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremase" class="input-mascota" required>
-                                </div>
+                                
                                 <div class="dato-select">
                                     <div class="label-selectMultiple">
                                     <label for="especiemase" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
@@ -476,11 +469,7 @@
                                     </select>
 
                                 </div>
-                                
-                                <div class="dato">
-                                    <label for="edadmase" class="bold">Edad: </label>
-                                    <input type="number" name="edadmas" id="edadmase" class="input-mascota" required>
-                                </div>
+                             
                                 <div class="dato">
                                     <label for="marcasmase" class="bold">Marcas distintivas: </label>
                                     <textarea name="marcasmas" id="marcasmase" cols="30" class="input-mascota" rows="2" required></textarea>
@@ -497,7 +486,7 @@
                             <div class="col2">
                                 <div class="dato">
                                     <label for="enfermedadesmase" class="bold">Enfermedades: </label>
-                                    <textarea name="enfermedadesmas" id="enfermedadesmase" cols="30"  class="input-mascota" rows="2" required></textarea>
+                                    <textarea name="enfermedadesmas" id="enfermedadesmase" cols="30"  class="input-mascota" rows="2" ></textarea>
                                 </div>
                                 <div class="dato-select">
                                     <div class="label-selectMultiple">
@@ -509,19 +498,8 @@
                                     </select>
                                 </div>
                                 
-                                <div class="dato">
-                                    <label for="medicamentosmase" class="bold">Medicamentos: </label>
-                                    <textarea name="medicamentosmas" id="medicamentosmase" placeholder="medicamentos o cuidados especificos" cols="30" class="input-mascota" rows="2" required></textarea>
-
-                                </div>
-                                <div class="dato-select">
-                                    <div class="label-selectMultiple">
-                                    <label for="vacunasmase" id="labelvacunasmase" class="mostrarSelect">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-                                    <select name="vacunasmas" id="vacunasmase"  class="select"  multiple>
-                                        
-
-                                    </select>
-                                </div>
+                             
+                             
                                 <div class="dato-select">
                                     <div class="label-selectMultiple">
                                         <label for="localidadese" class="mostrarSelect">Localidad de extravío</label></div>
@@ -571,10 +549,7 @@
                                 <input type="time" name="horaExtravioe"  id="horaExtravioe" class="input-mascota" required>
                             </div>
 
-                            <div class="dato">
-                                <label for="recompensae" class="bold">recompensa: </label>
-                                <input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensae" class="input-mascota">
-                            </div>
+    
 
                             {% if form.errors %}
                                 <ul class="errorlist">
@@ -679,11 +654,7 @@
                     <!--  En el id de cada <p>, la 'm' la final de cada id es de modelo -->
                 <div class="datos-mascota">
                     <div class="col1">
-                        <div class="dato">
-                            <p  class="bold">Nombre: </p>
-                            <p id="nombremasm" class="valorm"></p>
-                            
-                        </div>
+                    
                         <div class="dato">
                             <p  class="bold">Especie: </p>
                             <p id="especiemasm" class="valorm"></p>
@@ -707,10 +678,6 @@
                             <p id="colormasm" class="valorm"></p>
                         </div>
                         <div class="dato">
-                            <p class="bold">Edad: </p>
-                            <p id="edadmasm" class="valorm"></p>
-                        </div>
-                        <div class="dato">
                             <p  class="bold">Marcas distintivas: </p>
                             <p id="marcasmasm" class="valorm"></p>
                         </div>
@@ -730,34 +697,25 @@
                             <p class="bold">Esterilización: </p>
                             <p id="esterilizacionmasm" class="valorm"></p>
                         </div>
+                       
+                     
                         <div class="dato">
-                            <p class="bold">Medicamentos: </p>
-                            <p id="medicamentosmasm" class="valorm"></p>
-                        </div>
-                        <div class="dato">
-                            <p class="bold">Vacunas: </p>
-                            <p id="vacunasmasm" class="valorm"></p>
-                        </div>
-                        <div class="dato">
-                            <p  class="bold">Localidad de extravío: </p>
+                            <p  class="bold">Localidad de encuentro: </p>
                             <p id="localidadExtraviom" class="valorm"></p>
                         </div>
                         <div class="dato">
-                            <p  class="bold">Barrio de extravío: </p>
+                            <p  class="bold">Barrio de encuentro: </p>
                             <p id="barrioExtraviom" class="valorm"> </p>
                         </div>
                         <div class="dato">
-                            <p  class="bold">Fecha de extravío: </p>
+                            <p  class="bold">Fecha de encuentro: </p>
                             <p id="fechaExtraviom" class="valorm"></p>
                         </div>
                         <div class="dato">
-                            <p  class="bold">Hora de extravío: </p>
+                            <p  class="bold">Hora de encuentro: </p>
                             <p id="horaExtraviom" class="valorm"></p>
                         </div>
-                        <div class="dato">
-                            <p  class="bold">Recompensa: </p>
-                            <p id="recompensam" class="valorm"></p>
-                        </div>
+                      
                     </div>
                 </div>
 
@@ -796,7 +754,7 @@
 
     </section>
 
-    {% include 'default/header.html' %}
+    
 
     <main class="main ">
 
@@ -881,8 +839,8 @@
 
                                 <div class="dato">
 
-                                    <p class="bold">Nombre: </p>
-                                    <p> {{ publicacion.id_mascota.nombremas }}</p>
+                                    <p class="bold">Especie: </p>
+                                    <p> {{ publicacion.id_mascota.especiemas }}</p>
                                 </div>
                                 <div class="dato">
 
@@ -923,8 +881,6 @@
                     </div>
 
                     
-
-
                     
                     
                 </div>

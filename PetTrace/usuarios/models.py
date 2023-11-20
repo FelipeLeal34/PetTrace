@@ -75,7 +75,7 @@ class SaludMascota(models.Model):
 
 class Mascota(models.Model):
     id_mascota = models.AutoField(primary_key=True)
-    nombremas = models.CharField(max_length=45)
+    nombremas = models.CharField(max_length=45, null='True')
     especiemas = models.CharField(max_length=45, null=False, default='')
     razamas = models.CharField(max_length=45, null=False, default='')
     sexomas = models.CharField(max_length=45, null=False, default='')
