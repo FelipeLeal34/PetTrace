@@ -34,85 +34,42 @@ def perdidas(request):
           request.session.modified = True
           request.session.save()
 
-          filtros2 = request.session.get('filtros',{})
-          print(filtros2)
-
 
      else:
           filtros = request.session.get('filtros',{})
-          print(filtros)
+
+
+          args = {}
          
 
 
-          color = None
-          raza = None
-          especie = None
-          sexo = None
-          tamaño = None
-          localidad = None
-          barrio = None
-          fecha = None
-
           for clave in filtros:
-               if clave:
+              if filtros[clave]:
                     if clave == "color":
-                          color = list(filtros["color"].keys())
+                          args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "raza":
-                          raza = list(filtros["raza"].keys())
+                           args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "especie":
-                          especie = list(filtros["especie"].keys())
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "sexo":
-                          sexo = list(filtros["sexo"].keys())
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "tamaño":
-                          tamaño = list(filtros["tamaño"].keys())
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "localidad":
-                          localidad = list(filtros["localidad"].keys())
+                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[1])
                     elif clave == "barrio":
-                          barrio = list(filtros["barrio"].keys())
+                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
                     else:
-                          fecha = list(filtros["fecha"].keys())
+                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
+               
 
 
-          print(color)
-          print(raza)
-          print(especie)
-          print(sexo)
-          print(tamaño)
-          print(localidad)
-          print(barrio)
-          print(fecha)
+
+          if args :
+          
+               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(**args)
                     
-                         
-
-
-
-          """ color = str(filtros["color"].keys())
-          raza = str(filtros["raza"].keys())
-          especie = str(filtros["especie"].keys())
-          sexo = str(filtros["sexo"].keys())
-          tamaño = str(filtros["tamaño"].keys())
-          localidad = str(filtros["localidad"].keys())
-          barrio = str(filtros["barrio"].keys())
-          fecha = str(filtros["fecha"].keys()) """
-          
-
-
-
-
-          if color or raza or especie or localidad or barrio or fecha or sexo or tamaño is not None :
-          
-               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(
-
-               Q(id_mascota__colormas__in=color) | Q(id_mascota__razamas__in=raza) 
-               | Q(id_mascota__especiemas__in=especie) | Q(id_mascota__sexomas__in=sexo) | Q(id_mascota__tamañomas__in=tamaño) 
-               | Q(localidadExtravio__in=localidad) | Q(barrioExtravio__in=barrio))
-               # Q(id_mascota__colormas__in=color) | Q(id_mascota__colormas__isnull=True),
-               # Q(id_mascota__razamas__in=raza) | Q(id_mascota__razamas__isnull=True),
-               # Q(id_mascota__especiemas__in=especie) | Q(id_mascota__especiemas__isnull=True),
-               # Q(id_mascota__sexomas__in=sexo) | Q(id_mascota__sexomas__isnull=True),
-               # Q(id_mascota__tamañomas__in=tamaño) | Q(id_mascota__tamañomas__isnull=True),
-               # Q(localidadExtravio__in=localidad) | Q(localidadExtravio__isnull=True),
-               # Q(barrioExtravio__in=barrio) | Q(barrioExtravio__isnull=True))
+     
           
 
 
@@ -122,6 +79,65 @@ def perdidas(request):
 
 
      return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
+
+
+def encontradas(request):
+
+     publicaciones = None
+
+     if request.method == 'POST':
+
+          filtros = json.loads(request.body)
+
+          request.session['filtros']= filtros
+          request.session.modified = True
+          request.session.save()
+
+
+     else:
+          filtros = request.session.get('filtros',{})
+
+
+          args = {}
+          
+
+
+          for clave in filtros:
+               if filtros[clave]:
+                    if clave == "color":
+                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "raza":
+                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "especie":
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "sexo":
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "tamaño":
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "localidad":
+                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[1])
+                    elif clave == "barrio":
+                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
+                    else:
+                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
+               
+
+
+
+          if args :
+          
+               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(**args)
+                    
+
+          
+
+
+          else:
+
+                    publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+
+
+     return render(request, 'index/encontradas.html', {'publicaciones':publicaciones})
 
 
 
@@ -230,7 +246,7 @@ def agregarPubliPerdidas(request):
                     estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
                     estado_salud.guardar_vacunas(vacunasmas)
 
-                    # SE GUARDAN TODOS LOS CAMPOS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
+                    # SE GUARDAN TODOS LOS claveS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
 
                     mascotaIns = formMascota.save(commit=False)
 
@@ -268,6 +284,91 @@ def agregarPubliPerdidas(request):
                     
 
                     return redirect('perdidas')
+               
+               
+
+     return HttpResponse('NO SE GUARDÓ')
+
+
+
+
+
+@login_required
+def agregarPubliEncontradas(request):
+     
+     if request.method == 'POST':
+
+          
+
+          # SE INSTANCIAN LOS DOS MODELSFORMS DE FORMS.PY, SE LE INDICA AL FORMULARIO DE MASCOTA QUE SE ENVIARÁN ARCHIVOS
+          formMascota = MascotaEncontradaForm(request.POST, request.FILES )
+          formSaludMascota = SaludMascotaForm(request.POST)
+          formPublicacion = PubliMascotaEncontradaForm(request.POST)
+          if formPublicacion.is_valid():
+            
+            if formSaludMascota.is_valid(): 
+               
+               if formMascota.is_valid():
+
+                    
+
+                    #SE OBTIEME EL ID DEL USUARIO LOGUEADO, ES DECIR, DEL QUE HIZO LA PUBLICACION
+                    id_usuario = request.user.id
+                    
+
+                    #SE CREA UN OBJETO DE ESE USUARIO
+                    usuario = Usuario.objects.get(id_usuario=id_usuario)
+
+                    #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
+                    salud_mascota = formSaludMascota.save()
+
+                
+
+                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'SALUD_MASCOTA'
+                    idestado_salud = salud_mascota.pk
+
+                    #SE CREA UN OBJETO DE ESE ESTADO DE SALUD
+                    estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
+                    
+
+                    # SE GUARDAN TODOS LOS claveS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
+
+                    mascotaIns = formMascota.save(commit=False)
+
+
+                    #SE LE ASIGNA EN EL CAMPO ID_USUARIO DE LA TABLA MASCOTAS, EL OBJETO 'USUARIO' YA CREADO
+                    mascotaIns.id_usuario = usuario
+
+                    #SE LE ASIGNA EN EL CAMPO IDESTADO_SALUD DE LA TABLA MASCOTAS, EL OBJETO 'ESTADO_SALUD' YA CREADO
+                    mascotaIns.idestado_salud = estado_salud
+
+                    #SE GUARDA EL FORMULARIO DE MASCOTAS YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
+                    mascotaIns.save()
+
+                    
+
+
+                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'MASCOTAS'
+                    id_mascota = mascotaIns.pk
+
+                    #SE CREA UN OBJETO DE ESE ULTIMPO REGISTRO DE LA TABLA 'MASCOTAS'
+                    mascota = Mascota.objects.get(id_mascota=id_mascota)
+
+
+
+                    # SE GUARDAN LOS DATOS, SE AGREGAN LOS OBJETOS Y LUGARES MANUALMENTE
+                    publicacion = formPublicacion.save(commit=False)
+                    publicacion.apartado = 'encontradas'
+                    publicacion.idestado_salud = estado_salud
+                    publicacion.id_usuario = usuario
+                    publicacion.id_mascota = mascota
+
+                    #POR ULTIMO SE GUARDA EL FORMULARIO
+                    publicacion.save()
+
+                    
+
+                    return redirect('encontradas')
                
                
 

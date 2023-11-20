@@ -1,86 +1,5 @@
-header{
-    width: 100%;
-    height: 70px;
-    position: fixed;
-    z-index: 100;
-}
-#logo{
-    width: 300px;
-    height: auto;
-    margin-left: 30px;
-}
-.icon-menu{
-    padding: 15px;
-    width: 100;
-}
-
-/*Menu desplegado*/
-nav {	
-    z-index: 101;
-    width: 100%;
-    display: flex;
-    transform: translateX(100%);
-    transition: transform 0.5s;
-    position: absolute;
-    top: 50px;
-}
-nav ul {
-	z-index: 101;
-	background: #657174;
-	color: #fff;
-	display: flex;
-	flex-direction: column;
-	text-align: left;
-	width: 30%;
-	max-height: calc(100vh - 119px); 
-	border-radius: 10px;
-	transition: transform 0.5s;
-}
-
-nav a{
-	text-decoration: none;
-	color: white;
-}
-
-#checkbox:checked ~ nav{
-	display: block ;
-	transform: translateX(70%);
-}
-
-nav li {
-list-style: none;
-padding: 20px;
-width: 100%;
-margin: 0;
-font-size: 1em;
-background-color: #657174 ;
-opacity: 1;
-transition: opacity 0.3 ease;
-cursor: pointer;
-z-index: 100;
-}
-
-#fotoperfil{
-	border: 3px #fff solid;
-	border-radius: 50%;
-	overflow: hidden;
-	text-align: center;
-	margin: auto;
-	width: 50%;
-	height: auto;
-
-}
-
-#fotoperfil img	{
-	width: 100%;
-	height: 100%;
-}
 
 
-nav .li:hover{
-	opacity: 0.8 ;
-	border-left: 3px #fff solid ;
-}
 
 /*Estilo del main*/
 #contenedor{
@@ -173,7 +92,7 @@ a {
     justify-content: flex-start;
 }
 
-.publi {
+/* .publi {
     width: 300px;
     height: auto;
     background: #faf7f6;
@@ -183,7 +102,7 @@ a {
     margin-left: 5px;
     border-radius: 20px;
     z-index: 0;
-}
+} */
 
 .menu{
     z-index: 150;
@@ -193,21 +112,7 @@ a {
 
 @media screen and (min-width: 767px) and (max-width: 1023px){    
     
-    nav ul {
-        width: 35%;
-    }    
-
-    #checkbox:checked ~ nav{
-        transform: translateX(65%);
-    }
-    nav li {
-        font-size: 0.9em;
-        }
-
-        
-#fotoperfil{
-	width: 30%;
-}
+   
     
     #perfil, 
     #infoUsu{
@@ -221,54 +126,6 @@ a {
 }
 
 @media screen and (max-width: 766px){
-
-    header{
-        width: 100%;
-        height: 50px;
-    }
-    #logo{
-        width: 200px;
-        height: auto;
-        margin-left: 5px;
-    }
-    .icon-menu{
-        padding: 5px;
-    }
-
-
-
-    nav {
-        transform: translateX(100%);
-        top: 30px;
-    }
-    nav ul {
-        width: 100%;
-        max-height: calc(100vh - 95px); 
-        border-radius: 0px;
-        transition: transform 0.5s;
-    }
-    
-    nav a{
-        text-decoration: none;
-        color: white;
-    }
-    
-    #checkbox:checked ~ nav{
-        display: block ;
-        transform: translateX(-3%);
-    }
-    
-    nav li {
-    text-align: center;
-    padding: 15px;
-    font-size: 1em;
-    }
-    
-    #fotoperfil{
-        width: 30%;
-        height: auto;
-    }
-
 
 
     #contenedor{

@@ -2101,7 +2101,7 @@ export function cargarBarrios(idLocalidad) {
 
     
 
-    if (seleccionLocalidad === "Usaquén") {
+    if (seleccionLocalidad === "usaquen") {
       
 
       for (var i = 0; i < barriosUsaquen.length; i++) {
@@ -2110,7 +2110,7 @@ export function cargarBarrios(idLocalidad) {
         option.value = barriosUsaquen[i].toLowerCase();
         barrios.add(option);
       }
-    }else if (seleccionLocalidad === "Chapinero") {
+    }else if (seleccionLocalidad === "chapinero") {
         
     
         for (var i = 0; i < barriosChapinero.length; i++) {
@@ -2119,7 +2119,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosChapinero[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Santa Fe") {
+      }else if (seleccionLocalidad === "santa fe") {
         
     
         for (var i = 0; i < barriosSantaFe.length; i++) {
@@ -2128,7 +2128,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosSantaFe[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "San Cristóbal") {
+      }else if (seleccionLocalidad === "san cristobal") {
         
         for (var i = 0; i < barriosSanCristobal.length; i++) {
           var option = document.createElement("option");
@@ -2136,7 +2136,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosSanCristobal[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Usme") {
+      }else if (seleccionLocalidad === "usme") {
        
         for (var i = 0; i < barriosUsme.length; i++) {
           var option = document.createElement("option");
@@ -2144,7 +2144,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosUsme[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Tunjuelito") {
+      }else if (seleccionLocalidad === "tunjuelito") {
         
         for (var i = 0; i < barriosTunjuelito.length; i++) {
           var option = document.createElement("option");
@@ -2152,7 +2152,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosTunjuelito[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Bosa") {
+      }else if (seleccionLocalidad === "bosa") {
         
     
         for (var i = 0; i < barriosBosa.length; i++) {
@@ -2161,7 +2161,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosBosa[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Kennedy") {
+      }else if (seleccionLocalidad === "kennedy") {
         
     
         for (var i = 0; i < barriosKennedy.length; i++) {
@@ -2170,7 +2170,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosKennedy[i].toLowerCase();
           barrios.add(option);
         }
-      }else if(seleccionLocalidad === "Fontibón") {
+      }else if(seleccionLocalidad === "fontibon") {
           
       
           for (var i = 0; i < barriosFontibon.length; i++) {
@@ -2179,7 +2179,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosFontibon[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Suba") {
+        }else if (seleccionLocalidad === "suba") {
           
       
           for (var i = 0; i < barriosSuba.length; i++) {
@@ -2188,7 +2188,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosSuba[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Barrios Unidos") {
+        }else if (seleccionLocalidad === "barrios unidos") {
           
       
           for (var i = 0; i < barriosBarriosUnidos.length; i++) {
@@ -2197,7 +2197,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosBarriosUnidos[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Teusaquillo") {
+        }else if (seleccionLocalidad === "teusaquillo") {
           
       
           for (var i = 0; i < barriosTeusaquillo.length; i++) {
@@ -2206,7 +2206,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosTeusaquillo[i].toLowerCase();
             barrios.add(option);
           }
-        } else if (seleccionLocalidad === "Los Mártires") {
+        } else if (seleccionLocalidad === "los martires") {
           
       
           for (var i = 0; i < barriosMartires.length; i++) {
@@ -2215,7 +2215,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosMartires[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Antonio Nariño") {
+        }else if (seleccionLocalidad === "antonio narino") {
           
       
           for (var i = 0; i < barriosAntonioNarino.length; i++) {
@@ -2224,7 +2224,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosAntonioNarino[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Puente Aranda") {
+        }else if (seleccionLocalidad === "puente aranda") {
           
       
           for (var i = 0; i < barriosPuenteAranda.length; i++) {
@@ -2233,7 +2233,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosPuenteAranda[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "La Candelaria") {
+        }else if (seleccionLocalidad === "la candelaria") {
           
       
           for (var i = 0; i < barriosCandelaria.length; i++) {
@@ -2242,7 +2242,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosCandelaria[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Rafael Uribe") {
+        }else if (seleccionLocalidad === "rafael uribe") {
           
       
           for (var i = 0; i < barriosRafaelUribe.length; i++) {
@@ -2251,7 +2251,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosRafaelUribe[i].toLowerCase() ;
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Ciudad Bolívar") {
+        }else if (seleccionLocalidad === "ciudad bolivar") {
           
       
           // Cargar los barrios de Ciudad Bolívar
@@ -2263,7 +2263,7 @@ export function cargarBarrios(idLocalidad) {
             barrios.add(option);
           }
 
-        }else if (seleccionLocalidad === "Engativá") {
+        }else if (seleccionLocalidad === "engativa") {
          
       
           for (var i = 0; i < barriosEngativa.length; i++) {

@@ -11,6 +11,7 @@ const barrios=listaBarrios();
 
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.getElementById("publi-modelo");
+const contenedorPubliModal = document.querySelectorAll(".contenedor-modelo");
 
 
 //  ELEMENTOS PARA EDITAR PUBLICACION
@@ -46,46 +47,6 @@ var filtrosBox = document.querySelector(".filtros-box");
 // ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
 
 
-function seleccionarVacunas(especie,idVacunas){
-
-
-	let vacunasmas = document.getElementById(idVacunas);
-	
-	
-	vacunasmas.innerHTML="";
-	
-	if(especie == "perro"){
-	
-		var vacunasPerro = ['moquillo','parvovirosis','pentavalente','coronavirus canino','rabia','tos de perreras']
-	
-		for(let i = 0 ; i < vacunasPerro.length; i++){
-			let option = document.createElement('option');
-			option.text = vacunasPerro[i];
-			option.value = vacunasPerro[i];
-			vacunasmas.add(option);
-	
-		}
-	
-	
-		
-	
-	} else{
-	
-		var vacunasGatos = ['moquillo','trivalente','leucemia','gripe felina','rabia','peritonitis infecciosa felina','clamidiosis felina']
-	
-		for(let i = 0 ; i < vacunasGatos.length; i++){
-			let option = document.createElement('option');
-			option.text = vacunasGatos[i];
-			option.value = vacunasGatos[i];
-			vacunasmas.add(option);
-	
-		}
-	
-	
-	
-	} 
-	
-	}
 
 
 	var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
@@ -153,10 +114,10 @@ function seleccionarVacunas(especie,idVacunas){
 			
 		
 		if(idEspecie == 'especiemas'){
-			seleccionarVacunas(especie,'vacunasmas');
+			
 			seleccionarRaza(especie,'razamas');
 		} else{
-			seleccionarVacunas(especie,'vacunasmase');
+			
 			seleccionarRaza(especie,'razamase');
 		}
 	
@@ -176,24 +137,15 @@ function seleccionarVacunas(especie,idVacunas){
 		seleccionarEspecie("especiemase");
 	})
 
-	const vacunasmas = document.getElementById("labelvacunasmas");
-	vacunasmas.addEventListener("click", ()=>{
-		mostrarSelect("vacunasmas");
-	})
-
-	const vacunasmase = document.getElementById("labelvacunasmase");
-	vacunasmase.addEventListener("click", ()=>{
-		mostrarSelect("vacunasmase");
-	})
 
 
 	const SelectCargarBarrios = document.getElementById("localidades");
-	SelectCargarBarrios.addEventListener("click", ()=>{
+	SelectCargarBarrios.addEventListener("change", ()=>{
 		cargarBarrios("localidades");
 	})
 
 	const SelectCargarBarriose = document.getElementById("localidadese");
-	SelectCargarBarriose.addEventListener("click", ()=>{
+	SelectCargarBarriose.addEventListener("change", ()=>{
 		cargarBarrios("localidadese");
 	})
 
@@ -266,8 +218,6 @@ publis.forEach( publi => {
 			document.getElementById("fechaExtraviom").textContent = fechaExtraviom.toLocaleString('es-CO',configuracionHora); */
 			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio; 
 			document.getElementById("horaExtraviom").textContent = publicacion.data.publicacion.horaExtravio; 
-
-			document.getElementById("recompensam").textContent = publicacion.data.publicacion.recompensa;
 			
 			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
 			document.getElementById("telefonoDueño").textContent = publicacion.data.usuario.telefono;
@@ -279,16 +229,17 @@ publis.forEach( publi => {
 		
 
 	//let idpubli = e.target.parentNode.children[0].value;
-	main[0].classList.add("fondo-oscuro");
-
+	
 		publiModal.style.display = "flex";
-	publiModal.style.position = "fixed";
+		contenedorPubliModal[3].style.display = "flex";
 
 	
 
 		btnCerrar.addEventListener("click",()=>{
 		publiModal.style.display = "none";
-		main[0].classList.remove("fondo-oscuro");
+	
+		contenedorPubliModal[3].style.display = "none";
+	
 		
 		});
 
@@ -299,6 +250,64 @@ publis.forEach( publi => {
 });
 
 });
+
+
+
+const carrusel = document.querySelector(".carrusel");
+let carruselSection = document.querySelectorAll(".carrusel-section");
+let carruselSectionLast = carruselSection[carruselSection.length - 1];
+
+const btnLeft = document.querySelector("#btn-left");
+const btnRight = document.querySelector("#btn-right");
+
+carrusel.insertAdjacentElement('afterbegin',carruselSectionLast);
+
+function next() {
+	let carruselSectionFirst = document.querySelectorAll(".carrusel-section")[0];
+	carrusel.style.marginLeft = "-200%";
+	carrusel.style.transition = "all 0.5s";
+	setTimeout(function(){
+		carrusel.style.transition = "none";
+		carrusel.insertAdjacentElement('beforeend',carruselSectionFirst);
+			carrusel.style.marginLeft = "-100%";
+	},500);
+}
+
+function before() {
+	let carruselSection = document.querySelectorAll(".carrusel-section");
+let carruselSectionLast = carruselSection[carruselSection.length - 1];
+	carrusel.style.marginLeft = "0";
+	carrusel.style.transition = "all 0.5s";
+	setTimeout(function(){
+		carrusel.style.transition = "none";
+		carrusel.insertAdjacentElement('afterbegin',carruselSectionLast);
+			carrusel.style.marginLeft = "-100%";
+	},500);
+}
+
+
+btnRight.addEventListener('click', function(){
+	next();
+})
+
+
+btnLeft.addEventListener('click', function(){
+	before();
+})
+
+/* const iconfav = document.getElementById("agregarFav")
+
+iconfav.addEventListener("click", function(e){
+	
+	if(e.target.id == "agregarFav"){
+	iconfav.innerHTML = '<i class="fa-solid fa-heart" style="color: #000;" id="agregadoFav"></i>'
+
+	} else{
+		iconfav.innerHTML = '<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>'
+
+	}
+}) */
+
 
 
 // ----------CONSULTA PARA PREVISUALIZACION DE INFORMACIÓN A EDITAR-----------------
@@ -445,20 +454,32 @@ btnEditarPubli.forEach( btn => {
 			document.getElementById("recompensae").value = publicacion.data.publicacion.recompensa;
 
 
+			document.getElementById("nombreDueñoe").innerHTML = publicacion.data.usuario.nombre;
+			document.getElementById("numeroDueñoe").innerHTML = publicacion.data.usuario.telefono;
+			document.getElementById("correoDueñoe").innerHTML = publicacion.data.usuario.email;
+
+
+
+			
+
+
 		});
 
 
-		main[0].classList.add("fondo-oscuro");
+		
 
 
 	if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
+
 		editarPubli.style.display = "flex";
-		editarPubli.style.position = "fixed";
+		contenedorPubliModal[1].style.display = "flex";
 
 		btnCerrarModal.forEach(equis => {
 			equis.addEventListener("click",()=>{
 				editarPubli.style.display = "none";
-				main[0].classList.remove("fondo-oscuro");
+				contenedorPubliModal[1].style.display = "none";
+
+				
 		
 			});
 
@@ -506,14 +527,18 @@ btnEliminarPubli.forEach( btn => {
 		if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
 
 			eliminarPubli.style.display = "flex";
-			main[0].classList.add("fondo-oscuro");
+			contenedorPubliModal[2].style.display = "flex";
+
+			
 	
 		btnCancelar.forEach( btn => {
 			btn.addEventListener("click",e =>{
 		
 	
 				eliminarPubli.style.display = "none";
-				main[0].classList.remove("fondo-oscuro");
+				contenedorPubliModal[2].style.display = "none";
+
+				
 			
 	
 	
@@ -543,8 +568,19 @@ btnEliminarPubli.forEach( btn => {
 					  }
 				})
 
+				.then(data => {
+			
+			
+			
+					location.reload();
+					
+					
+				})
+
 				eliminarPubli.style.display = "none";
-				main[0].classList.remove("fondo-oscuro");
+				contenedorPubliModal[2].style.display = "none";
+
+				
 				
 
 	
@@ -605,19 +641,6 @@ btnOpciones.forEach((btnOpcion,i) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // -------------AGREGAR PUBLICACION-----------
 
 
@@ -631,9 +654,9 @@ btnAgregarPubli.addEventListener("click", ()=>{
 		
 		
 		agregarPubli.style.display = "flex";
-		agregarPubli.style.position = "fixed";
+		contenedorPubliModal[0].style.display = "flex";
 		btnAgregarPubli.classList.add("menu-span-focus");
-		main[0].classList.add("fondo-oscuro");
+		
 		
 	
 		
@@ -643,8 +666,9 @@ btnAgregarPubli.addEventListener("click", ()=>{
 	btnCerrarModal.forEach( equis => {
 	equis.addEventListener("click", ()=>{
 		agregarPubli.style.display = "none";
+		contenedorPubliModal[0].style.display = "none";
 		btnAgregarPubli.classList.remove("menu-span-focus");
-		main[0].classList.remove("fondo-oscuro");
+		
 
 	});
 
@@ -665,19 +689,6 @@ agregarPubli.addEventListener("submit", ()=>{
 
 }
 );
-
-
-
-
-	
-
-
-
-
-
-
-
-
 
 
 
@@ -786,20 +797,6 @@ function mostrarSelect() {
 
 
 
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const localidades = ["Antonio Nariño","Barrios Unidos","Bosa","Candelaria","Chapinero","Ciudad Bolivar","Engativa","Fontibon","Kennedy",
 "Los Martires","Puente Aranda","Rafel uribe","San Cristobal","Santa Fe","Suba","Teusaquillo","Tunjuelito","Usaquen","Usme"];
 
@@ -821,32 +818,32 @@ iconCheckeado.classList.add("fa-check");
 
 
 
+//ICONO FILTRAR, DE LA BARRA DEL MENU
+const btnFiltrar = document.querySelector("#filtrar");
+
+//CONTENEDOR DE LOS BOTONES APLICAR Y LIMPIAR
+const btnFiltros = document.querySelector("#btnFiltros");
+
+//CLase de cada boton APlciar y limpiar
+
+
+//CONTENEDOR DE LOS FILTROSBOX, SUBFILTROSBOX Y LOS BOTONES DE FILTRAR
+const filtros = document.querySelector("#filtros");
+
+
 
 const selectFiltros = document.querySelectorAll(".categoria-filtro");
-const subfiltrosBox = document.querySelector("#subfiltros-box")
+const subfiltrosBox = document.querySelector("#subfiltros-box");
 
 
 var filtrosAplicados = {};
 var filtrosSeleccionados = {color:{},raza:{},especie:{},sexo:{},tamaño:{},localidad:{},barrio:{},fecha:{}};
 
 
-Object.assign(filtrosSeleccionados, filtrosAplicados);
-
-
 
 // localStorage.setItem ("filtrosSeleccionadosCookie",JSON.stringify({}));
+filtrosAplicados = JSON.parse(localStorage.getItem("filtrosSeleccionadosCookie"));
 
-document.addEventListener("DOMContentLoaded",(event) =>{
-
-	
-	if(JSON.parse(localStorage.getItem("filtrosSeleccionadosCookie"))){
-		filtrosSeleccionados = JSON.parse(localStorage.getItem("filtrosSeleccionadosCookie"));
-		
-		console.table(filtrosSeleccionados);
-	}
-
-	
-})
 
 
 function verificarFiltros(){
@@ -854,16 +851,36 @@ function verificarFiltros(){
 		let valor = filtrosSeleccionados[clave];
 
 		if(typeof valor === "object" && Object.keys(valor).length > 0){
-			 btnFiltros.style.display = "flex";
-			 console.log(filtrosSeleccionados);
-
-			 return true
+			 
+			if(filtrosBox.style.display == "flex"){
+				btnFiltros.style.display = "flex";
+			}else{
+				btnFiltros.style.display = "none";
+			}
+			
 
 		}
 
 		
 }
 }
+
+
+document.addEventListener("DOMContentLoaded",(event) =>{
+
+	
+if(Object.keys(filtrosAplicados).length !== 0){
+		Object.assign(filtrosSeleccionados,filtrosAplicados);
+		
+		verificarFiltros();
+	}
+		
+	console.log(filtrosSeleccionados);	
+	console.log(filtrosAplicados);	
+	
+
+	
+})
 
 
 
@@ -984,6 +1001,10 @@ for (var i = 0; i < localidades.length; i++) {
 		if (this.checked) {
 			filtrosSeleccionados.localidad = {};
 			filtrosSeleccionados.localidad[this.value] = true;
+			let arreglo = this.value.split("barrios");
+			let resultado = arreglo[1].replace(/([a-z])([A-Z])/g, '$1 $2').toLowerCase();
+			filtrosSeleccionados.localidad[resultado] = true;
+
 			 
 			filtroLocalidad.forEach(otherOption => {
 				if (otherOption !== this) {
@@ -1024,7 +1045,7 @@ selectFiltros.forEach(selectFiltro =>{
 			subfiltrosBox.innerHTML = ""
 			subfiltrosBox.innerHTML = 
 				
-			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" value="rojo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
+			'<div class="categoria-filtro"><label for="Rojo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f66151;"></i><input id="Rojo" value="rojizo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Rojizo</label></div>'+
 			'<div class="categoria-filtro"><label for="Naranja"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #ff7800;"></i><input id="Naranja" value="naranja"  class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Naranja</label></div>'+
 			'<div class="categoria-filtro"><label for="Amarillo"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #f6d32d;"></i><input id="Amarillo" value="amarillo" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Amarillo</label></div>'+
 			'<div class="categoria-filtro"><label for="Dorado"><i class="fa-solid fa-droplet subfiltros-color-icon" style="color: #d4af37;"></i><input id="Dorado" value="dorado" class="subfiltros-checkbox subfiltros-color-checkbox" type="checkbox">Dorado</label></div>'+
@@ -1376,18 +1397,7 @@ selectFiltros.forEach(selectFiltro =>{
 
 });
 
-//ICONO FILTRAR, DE LA BARRA DEL MENU
-const btnFiltrar = document.querySelector("#filtrar");
 
-//CONTENEDOR DE LOS BOTONES APLICAR Y LIMPIAR
-const btnFiltros = document.querySelector("#btnFiltros");
-
-//CLase de cada boton APlciar y limpiar
-
-
-
-//CONTENEDOR DE LOS FILTROSBOX, SUBFILTROSBOX Y LOS BOTONES DE FILTRAR
-const filtros = document.querySelector("#filtros");
 
 
 
@@ -1409,7 +1419,7 @@ btnFiltrar.addEventListener("click", (e) => {
 		
 		btnFiltrar.classList.remove("menu-span-focus");
 		filtrosBox.style.display = "none";
-		btnFiltros.style.display = "none";
+		
 		subfiltrosBox.style.display = "none";
 		verificarFiltros();
 		

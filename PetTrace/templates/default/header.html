@@ -1,8 +1,9 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+
+
+
 
 <script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 
@@ -11,7 +12,7 @@
 <header>
     <div class="header">
         <div id="logo">
-            <a href="../index.html">
+            <a href="{% url 'index' %}">
                 <img src="{% static 'img/LogoPetTraceBorde.png' %}">
             </a>
         </div>
@@ -27,15 +28,15 @@
             </li>
             <li class="li">
                 <span class="icon-user-o"></span>
-                <a href="">PERFIL</a>
+                <a href="{% url 'perfil' %}">PERFIL</a>
             </li>
             <li class="li">
                 <span class="icon-search"></span>
-                <a href="">PERDIDAS</a>
+                <a href="{% url 'perdidas' %}">PERDIDAS</a>
             </li>
             <li class="li">
                 <span class="icon-paw"></span>
-                <a href="">ENCONTRADAS</a>
+                <a href="{% url 'encontradas' %}">ENCONTRADAS</a>
             </li>
             <li class="li">
                 <span class="icon-firefox"></span>

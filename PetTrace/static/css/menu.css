@@ -1,0 +1,222 @@
+
+
+
+.menu{
+
+	width: 100%;
+	height: auto;
+	background: #587073;
+	display: flex;
+	bottom: 0;
+	position: fixed;
+	justify-content: space-evenly;
+	border-radius: 5px;
+	z-index: 100000000;
+
+}
+
+.menu span{
+	text-decoration: none;
+	color: white;
+	margin: 10px;
+	background-color: none;
+	font-size: 25px;
+	cursor:pointer;
+	transition: all 0.8s;
+	border-radius: 50%;
+}
+
+.menu-span-focus{
+
+	transform: rotate(50deg);
+	filter: invert(1);
+
+
+
+
+}
+
+
+
+
+/* ICONO */
+#filtrar{
+	position: relative;
+}
+
+
+/* CONTENEDOR DE FILTROS-BOX, SUBFILTROS-BOX Y BTNFILTROS */
+
+#filtros{
+	
+	position: absolute;
+
+	margin-top: -300px;
+	margin-left: -35%;
+	
+	width: 100%;
+	max-width: 500px;
+	height: auto;
+	max-height: 500px;
+
+}
+
+
+#filtrosYsubfiltros{
+	display: flex ;
+}
+
+
+#btnFiltros{
+	display: none;
+	flex-direction: row;
+
+	align-items: center;
+	text-align: center;
+	height: auto;
+	width: 50%;
+	background-color: #74868a;
+	color: white;
+	border-radius: 10px;
+	transition: all 2s ease-in-out;
+	
+
+}
+
+.btnFiltros{
+	
+	padding: 10px;
+	text-align: center;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	width: 100%;
+	border: 1px solid #faf7f6;
+	
+	
+	
+}
+
+.btnFiltros p{
+	margin: 0;
+}
+
+.btnFiltros:hover{
+	background-color: rgba(255,255,255, 0.5);
+}
+
+
+
+
+.filtros-box{
+	display: none;
+	position: static;
+	width: 50%;
+	/* max-width: %; */
+	height: auto;
+	padding: 5px;
+	background-color: #74868a;
+	color: white;
+
+	
+	border-radius: 20px;
+	margin: 0;
+	
+	font-size: 20px;
+	font-weight: 200;
+	flex-direction: column;
+	padding: 10px;
+	overflow: auto;
+	max-height: 250px;
+
+	transition: 0.5s ease-in-out;
+	
+
+	
+	
+}
+
+.categoria-filtro{
+	display: flex;
+	margin: auto;
+	width: 100%;
+	
+	
+	padding: 10px;
+	border-radius: 8px;
+	cursor: pointer;
+	
+
+}
+
+
+.categoria-filtro i{
+	margin-right: 10px;
+}
+
+
+.categoria-filtro:hover{
+	background-color: rgba(255,255,255, 0.5);
+}
+
+
+#subfiltros-box{
+	transition: 0.5s;
+	display: none;
+	flex-direction: column;
+	flex: 1;
+	position: static;
+	
+	margin: 0;
+	overflow: auto;
+	height: auto;
+	max-height: 150px;
+	
+	
+	width: auto;
+	max-width: 200px;
+	padding: 5px;
+
+	border-radius: 0 20px 20px 0;
+	
+
+	
+
+	
+}
+
+
+
+
+
+.subfiltros-checkbox{
+	display: none;
+}
+
+
+.subfiltros-color-icon{
+	filter: invert(1);
+}
+
+
+.subfiltros-fechaPubli-checkbox{
+	background-color: #a7bab9;
+	border: none;
+	padding: 10px;
+	width: 100%;
+	border-radius: 10px;
+	font-size: 18px;
+	color: #faf7f6;
+	display: flex;
+}
+
+
+.filtros-box , #subfiltros-box label{
+	filter: invert(0);
+}
+
+.filtros-box , #subfiltros-box i{
+	filter: invert(0);
+}
