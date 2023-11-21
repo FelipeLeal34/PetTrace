@@ -27,11 +27,11 @@
                 <div id="perfil">
                     <h1>Nombre de usuario: {{ user.username }}</h1>
                     <div id="descripcion">
-                        <h2>Descripción: <span id="texto-descripcion">{{ user.perfil.descripcion }}</span></h2>
+                        <h2>Descripción: <br><span id="texto-descripcion">{{ user.perfil.descripcion }}</span></h2>
                         <a id="enlace-editar" onclick="mostrarFormulario()">Editar descripción</a>
                         <!-- Este es el elemento oculto que contiene el formulario -->
                         <div id="formulario-editar" style="display: none;">
-                            <input type="text" id="input-descripcion" value="{{ user.perfil.descripcion }}">
+                            <textarea type="textarea" id="input-descripcion">{{ user.perfil.descripcion }}</textarea>
                             <button id="boton-guardar" onclick="enviarFormulario()">Guardar</button>
                         </div>
                     </div>

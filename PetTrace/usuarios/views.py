@@ -101,7 +101,7 @@ def perdidas(request):
 
           if color or raza or especie or localidad or barrio or fecha or sexo or tamaño is not None :
           
-               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(
+               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'publicacion_ptr__usuario','idestado_salud').filter(
 
                Q(id_mascota__colormas__in=color) | Q(id_mascota__razamas__in=raza) 
                | Q(id_mascota__especiemas__in=especie) | Q(id_mascota__sexomas__in=sexo) | Q(id_mascota__tamañomas__in=tamaño) 
@@ -118,7 +118,7 @@ def perdidas(request):
 
           else:
 
-                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'publicacion_ptr__usuario','idestado_salud')
 
 
      return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
@@ -130,7 +130,7 @@ def informacionPubli(request, id_publicacion):
 
      
 
-     publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario__id','idestado_salud'  ).get(id_publicacion=id_publicacion)
+     publicacion = MascotasPerdidas.objects.select_related('id_mascota', 'publicacion_ptr__usuario','idestado_salud').get(id_publicacion=id_publicacion)
 
 
      data = {

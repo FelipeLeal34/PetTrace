@@ -58,7 +58,7 @@ imagen.addEventListener("click", function() {
     let opciones = recuadro.querySelector("#opciones")
     
     //Se le da un estilo al recuadro y al div opciones
-    recuadro.style.display = "flex";
+    recuadro.style.cssText = "position: absolute; display: flex";
     opciones.style.cssText = "display: flex; flex-direction: column; justify-content: center";
 
     //Si se le da click al primer a (ver imagen), se muestra el imgcontent que contiene la imagen de perfil
