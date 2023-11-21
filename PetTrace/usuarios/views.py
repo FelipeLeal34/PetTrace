@@ -123,14 +123,10 @@ def encontradas(request):
                
 
 
-
           if args :
           
                publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(**args)
                     
-
-          
-
 
           else:
 
@@ -144,57 +140,103 @@ def encontradas(request):
 
 def informacionPubli(request, id_publicacion):
 
+
+     publicacion = None
+     if(request.path == '/perdidas/'):
+
      
 
-     publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario__id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
+          publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario__id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
 
-     data = {
-          'publicacion': {
-               'localidadExtravio': publicacion.localidadExtravio,
-               'barrioExtravio': publicacion.barrioExtravio,
-               
-               'fechaExtravio': publicacion.fechaExtravio,
-               
-               'horaExtravio': publicacion.horaExtravio,
-               'recompensa': publicacion.recompensa
-               
-          },
-          'usuario': {
-               'nombre': publicacion.id_usuario.id_usuario.username,
-               'telefono': publicacion.id_usuario.telefono,
-               'email': publicacion.id_usuario.id_usuario.email
-               
-          },
-          'mascota': {
-               'nombremas': publicacion.id_mascota.nombremas,
-               'especiemas': publicacion.id_mascota.especiemas,
-               'razamas': publicacion.id_mascota.razamas,
-               'sexomas': publicacion.id_mascota.sexomas,
-               'colormas': publicacion.id_mascota.colormas,
-               'edadmas': publicacion.id_mascota.edadmas,
-               'accesoriosmas': publicacion.id_mascota.accesoriosmas,
-               'tamañomas': publicacion.id_mascota.tamañomas,
-               'marcasmas': publicacion.id_mascota.marcasmas,
-               'img1': publicacion.id_mascota.img1.url,
-               'img2': publicacion.id_mascota.img2.url,
-               'img3': publicacion.id_mascota.img3.url,
-               'img4': publicacion.id_mascota.img4.url,
-               'img5': publicacion.id_mascota.img5.url,
-               
-          },
-          'estado_salud': {
-               'enfermedadesmas': publicacion.idestado_salud.enfermedadesmas,
-               'vacunasmas': publicacion.idestado_salud.mostrar_vacunas(),
-               'esterilizacionmas': publicacion.idestado_salud.esterilizacionmas,
-               'medicamentosmas': publicacion.idestado_salud.medicamentosmas,
-          },
-     }
-     '''publicacion = serializers.serialize('json', [publicacion])
-     perfil = serializers.serialize('json', [publicacion.id_usuario])
-     usuario = serializers.serialize('json', [publicacion.id_usuario.id_usuario])
-     mascota = serializers.serialize('json', [publicacion.id_mascota])
-     estado_salud = serializers.serialize('json', [publicacion.idestado_salud])'''
+          data = {
+               'publicacion': {
+                    'localidadExtravio': publicacion.localidadExtravio,
+                    'barrioExtravio': publicacion.barrioExtravio,
+                    
+                    'fechaExtravio': publicacion.fechaExtravio,
+                    
+                    'horaExtravio': publicacion.horaExtravio,
+                    'recompensa': publicacion.recompensa
+                    
+               },
+               'usuario': {
+                    'nombre': publicacion.id_usuario.id_usuario.username,
+                    'telefono': publicacion.id_usuario.telefono,
+                    'email': publicacion.id_usuario.id_usuario.email
+                    
+               },
+               'mascota': {
+                    'nombremas': publicacion.id_mascota.nombremas,
+                    'especiemas': publicacion.id_mascota.especiemas,
+                    'razamas': publicacion.id_mascota.razamas,
+                    'sexomas': publicacion.id_mascota.sexomas,
+                    'colormas': publicacion.id_mascota.colormas,
+                    'edadmas': publicacion.id_mascota.edadmas,
+                    'accesoriosmas': publicacion.id_mascota.accesoriosmas,
+                    'tamañomas': publicacion.id_mascota.tamañomas,
+                    'marcasmas': publicacion.id_mascota.marcasmas,
+                    'img1': publicacion.id_mascota.img1.url,
+                    'img2': publicacion.id_mascota.img2.url,
+                    'img3': publicacion.id_mascota.img3.url,
+                    'img4': publicacion.id_mascota.img4.url,
+                    'img5': publicacion.id_mascota.img5.url,
+                    
+               },
+               'estado_salud': {
+                    'enfermedadesmas': publicacion.idestado_salud.enfermedadesmas,
+                    'vacunasmas': publicacion.idestado_salud.mostrar_vacunas(),
+                    'esterilizacionmas': publicacion.idestado_salud.esterilizacionmas,
+                    'medicamentosmas': publicacion.idestado_salud.medicamentosmas,
+               }
+          }
+
+
+     else:
+
+          publicacion = MascotasEncontradas.objects.select_related('id_mascota' , 'id_usuario__id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
+
+
+          data = {
+               'publicacion': {
+                    'localidadEncuentro': publicacion.localidadEncuentro,
+                    'barrioEncuentro': publicacion.barrioEncuentro,
+                    
+                    'fechaEncuentro': publicacion.fechaEncuentro,
+                    
+                    'horaEncuentro': publicacion.horaEncuentro
+                    
+                    
+               },
+               'usuario': {
+                    'nombre': publicacion.id_usuario.id_usuario.username,
+                    'telefono': publicacion.id_usuario.telefono,
+                    'email': publicacion.id_usuario.id_usuario.email
+                    
+               },
+               'mascota': {
+                    
+                    'especiemas': publicacion.id_mascota.especiemas,
+                    'razamas': publicacion.id_mascota.razamas,
+                    'sexomas': publicacion.id_mascota.sexomas,
+                    'colormas': publicacion.id_mascota.colormas,
+                    
+                    'accesoriosmas': publicacion.id_mascota.accesoriosmas,
+                    'tamañomas': publicacion.id_mascota.tamañomas,
+                    'marcasmas': publicacion.id_mascota.marcasmas,
+                    'img1': publicacion.id_mascota.img1.url,
+                    'img2': publicacion.id_mascota.img2.url,
+                    'img3': publicacion.id_mascota.img3.url,
+                    'img4': publicacion.id_mascota.img4.url,
+                    'img5': publicacion.id_mascota.img5.url
+                    
+               },
+               'estado_salud': {
+                    'enfermedadesmas': publicacion.idestado_salud.enfermedadesmas,
+                    'esterilizacionmas': publicacion.idestado_salud.esterilizacionmas,
+               }
+          }
+    
 
      return JsonResponse({'status':'success','data':data})
 
@@ -306,11 +348,18 @@ def agregarPubliEncontradas(request):
           formPublicacion = PubliMascotaEncontradaForm(request.POST)
           if formPublicacion.is_valid():
             
+            print("Formulario de publicacion valido")
+            
             if formSaludMascota.is_valid(): 
                
+
+               print("Formulario de salud mascota valido")
+
+
                if formMascota.is_valid():
 
-                    
+                    print("Formulario de mascota valido")
+
 
                     #SE OBTIEME EL ID DEL USUARIO LOGUEADO, ES DECIR, DEL QUE HIZO LA PUBLICACION
                     id_usuario = request.user.id
@@ -381,41 +430,55 @@ def agregarPubliEncontradas(request):
 
 
 @login_required
-def editarPubliPerdidas(request,id_publicacion):
-     publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
-     mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
-     saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
-     
-     
+def editarPubli(request,id_publicacion):
+
      if request.method == 'POST':
-          formMascota = MascotaPerdidaForm(request.POST, request.FILES, instance=mascotaa)
-          formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
-          formPublicacion = PubliMascotaPerdidaForm(request.POST, instance=publicacion)
+
+          if(request.path == '/perdidas/'):
+
+               publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+               mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
+
+               formMascota = MascotaPerdidaForm(request.POST, request.FILES, instance=mascotaa)
+               formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
+               formPublicacion = PubliMascotaPerdidaForm(request.POST, instance=publicacion)
+
+
+          else:
+               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
+               mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
+
+               formMascota = MascotaEncontradaForm(request.POST, request.FILES, instance=mascotaa)
+               formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
+               formPublicacion = PubliMascotaEncontradaForm(request.POST, instance=publicacion)
+
+
+
           if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
 
                
-               vacunasmas = request.POST.getlist('vacunasmas')
 
-     
-               formMascota.save()
+               if(request.path == '/perdidas/'):
 
-               estado_salud =  formSaludMascota.save(commit=False)
+                    vacunasmas = request.POST.getlist('vacunasmas')
+                    estado_salud =  formSaludMascota.save(commit=False)    
+                    estado_salud.guardar_vacunas(vacunasmas) 
+                    formMascota.save()
+                    formPublicacion.save()
+                    estado_salud.save()       
+                    return redirect('perdidas')
+
+
+               else:
+                    formMascota.save()
+                    formPublicacion.save()
+                    formSaludMascota.save()  
+                    return redirect('encontradas')
+
 
                
-               
-               estado_salud.guardar_vacunas(vacunasmas)
-               estado_salud.save()
-               
-
-               
-               formPublicacion.save()
-               
-
-               
-               
-
-               return redirect('perdidas')
-
      return HttpResponse('error al actualizar')
 
 
@@ -425,17 +488,36 @@ def editarPubliPerdidas(request,id_publicacion):
 
 def eliminarPubli(request,id_publicacion):
      if(request.method == "DELETE"):
-          publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
-          mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
-          salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
 
 
-          salud_mascota.delete()
-          mascota.delete()
-          publicacion.delete()
+
+          if(request.path == "/perdidas/"):
+               publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+
+               salud_mascota.delete()
+               mascota.delete()
+               publicacion.delete()
+
+               return HttpResponseRedirect('/perdidas/')
+
+          else:
+               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
+               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+               salud_mascota.delete()
+               mascota.delete()
+               publicacion.delete()
+
+               return HttpResponseRedirect('/encontradas/')
+          
 
 
-          return HttpResponseRedirect('/perdidas/')
+          
+
+
+          
           #return JsonResponse({'estado':'exitoso'})
      return redirect('PUBLICACION NO ELIMINADA')
      

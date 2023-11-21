@@ -150,7 +150,7 @@ class MascotasEncontradas(Publicacion):
 
     localidadEncuentro = models.CharField(max_length=60, null=False, blank=False)
     barrioEncuentro = models.CharField(max_length=60, null=False, blank=False)
-    fechaEncuentro = models.DateTimeField(default=date.today, null=False, blank=False)
+    fechaEncuentro = models.DateField(default=date.today, null=False, blank=False)
     horaEncuentro = models.TimeField(null=True, blank=True)
     recompensa = models.FloatField(null=True, blank=True)
 

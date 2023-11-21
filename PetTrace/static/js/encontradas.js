@@ -186,23 +186,23 @@ publis.forEach( publi => {
 			document.getElementById("img5m").src = publicacion.data.mascota.img5;
 
 			
-			document.getElementById("nombremasm").textContent = publicacion.data.mascota.nombremas;
+
 			document.getElementById("especiemasm").textContent = publicacion.data.mascota.especiemas;
 			document.getElementById("razamasm").textContent = publicacion.data.mascota.razamas;
 			document.getElementById("tamañomasm").textContent = publicacion.data.mascota.tamañomas;
 			document.getElementById("sexomasm").textContent = publicacion.data.mascota.sexomas;
 			document.getElementById("colormasm").textContent = publicacion.data.mascota.colormas;
-			document.getElementById("edadmasm").textContent = publicacion.data.mascota.edadmas;
+
 			document.getElementById("marcasmasm").textContent = publicacion.data.mascota.marcasmas;
 			document.getElementById("accesoriosmasm").textContent = publicacion.data.mascota.accesoriosmas;
 			document.getElementById("enfermedadesmasm").textContent = publicacion.data.estado_salud.enfermedadesmas;
 			document.getElementById("esterilizacionmasm").textContent = publicacion.data.estado_salud.esterilizacionmas;
-			document.getElementById("medicamentosmasm").textContent = publicacion.data.estado_salud.medicamentosmas;
-			document.getElementById("vacunasmasm").textContent = publicacion.data.estado_salud.vacunasmas;
-			document.getElementById("localidadExtraviom").textContent = publicacion.data.publicacion.localidadExtravio;
-			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
 
-			/* let fechaExtraviom = new Date(publicacion.data.publicacion.fechaExtravio)
+
+			document.getElementById("localidadEncuentrom").textContent = publicacion.data.publicacion.localidadEncuentro;
+			document.getElementById("barrioEncuentrom").textContent = publicacion.data.publicacion.barrioEncuentro;
+
+			/* let fechaEncuentrom = new Date(publicacion.data.publicacion.fechaEncuentro)
 
 			const configuracionHora = {
 				year: 'numeric',
@@ -215,9 +215,9 @@ publis.forEach( publi => {
 				timeZone: 'America/Bogota',
 			  };
 
-			document.getElementById("fechaExtraviom").textContent = fechaExtraviom.toLocaleString('es-CO',configuracionHora); */
-			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio; 
-			document.getElementById("horaExtraviom").textContent = publicacion.data.publicacion.horaExtravio; 
+			document.getElementById("fechaEncuentrom").textContent = fechaEncuentrom.toLocaleString('es-CO',configuracionHora); */
+			document.getElementById("fechaEncuentrom").textContent = publicacion.data.publicacion.fechaEncuentro; 
+			document.getElementById("horaEncuentrom").textContent = publicacion.data.publicacion.horaEncuentro; 
 			
 			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
 			document.getElementById("telefonoDueño").textContent = publicacion.data.usuario.telefono;
@@ -340,7 +340,7 @@ btnEditarPubli.forEach( btn => {
 			
 
 			
-			document.getElementById("nombremase").value = publicacion.data.mascota.nombremas;
+			
 
 			const especie = document.getElementById("especiemase");
 			for (let i = 0; i < especie.options.length; i++) {
@@ -383,7 +383,6 @@ btnEditarPubli.forEach( btn => {
 				}
 			}
 
-			document.getElementById("edadmase").value = publicacion.data.mascota.edadmas;
 			document.getElementById("marcasmase").value = publicacion.data.mascota.marcasmas;
 			document.getElementById("accesoriosmase").value = publicacion.data.mascota.accesoriosmas;
 			document.getElementById("enfermedadesmase").value = publicacion.data.estado_salud.enfermedadesmas;
@@ -397,61 +396,42 @@ btnEditarPubli.forEach( btn => {
 				}
 			}
 
-			document.getElementById("medicamentosmase").value = publicacion.data.estado_salud.medicamentosmas;
-
-
-			const selectVacunas = document.getElementById("vacunasmase");
-			const vacunas = String(publicacion.data.estado_salud.vacunasmas);
-			const listaVacunas = vacunas.split(',');
 			
-			for(let i = 0; i < selectVacunas.options.length; i++) {
-				for(let j=0;j<listaVacunas.length;j++){
-					let option = selectVacunas.options[i];
-					if (option.value == listaVacunas[j]) {
-						option.selected = true;
-					}
-				}
-
-					
-			}
 			
 
 			
-			const localidadExtravio = document.getElementById("localidadese");
+			const localidadEncuentro = document.getElementById("localidadese");
 			 
 			
-			for (let i = 0; i < localidadExtravio.options.length; i++) {
-				const option = localidadExtravio.options[i];
-				if (option.value == publicacion.data.publicacion.localidadExtravio) {
+			for (let i = 0; i < localidadEncuentro.options.length; i++) {
+				const option = localidadEncuentro.options[i];
+				if (option.value == publicacion.data.publicacion.localidadEncuentro) {
 					option.selected = true;
 				}
 			}
 
 			cargarBarrios('localidadese');
 
-			const barrioExtravio = document.getElementById("barriose");
-			for (let i = 0; i < barrioExtravio.options.length; i++) {
-				const option = barrioExtravio.options[i];
-				if (option.value == publicacion.data.publicacion.barrioExtravio) {
+			const barrioEncuentro = document.getElementById("barriose");
+			for (let i = 0; i < barrioEncuentro.options.length; i++) {
+				const option = barrioEncuentro.options[i];
+				if (option.value == publicacion.data.publicacion.barrioEncuentro) {
 					option.selected = true;
 				}
 			}
 
 			
 
-			const fechaExtravio = document.getElementById("fechaExtravioe");
-			//const fecha = new Date(publicacion.data.publicacion.fechaExtravio);
-			//fechaExtravio.value = fecha.toISOString().slice(0, 16);
-			fechaExtravio.value = publicacion.data.publicacion.fechaExtravio;
+			const fechaEncuentro = document.getElementById("fechaEncuentroe");
+			//const fecha = new Date(publicacion.data.publicacion.fechaEncuentro);
+			//fechaEncuentro.value = fecha.toISOString().slice(0, 16);
+			fechaEncuentro.value = publicacion.data.publicacion.fechaEncuentro;
 
 
-			const horaExtravio = document.getElementById("horaExtravioe");
+			const horaEncuentro = document.getElementById("horaEncuentroe");
 			
-			horaExtravio.value = publicacion.data.publicacion.horaExtravio;
+			horaEncuentro.value = publicacion.data.publicacion.horaEncuentro;
 			
-
-
-			document.getElementById("recompensae").value = publicacion.data.publicacion.recompensa;
 
 
 			document.getElementById("nombreDueñoe").innerHTML = publicacion.data.usuario.nombre;

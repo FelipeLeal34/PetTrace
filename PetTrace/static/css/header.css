@@ -1,3 +1,13 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+
+
+*{
+
+}
+
+
 header{
     width: 100%;
     height: 70px;
@@ -12,14 +22,15 @@ header{
 	width: 100%;
 	height: 100%;
 	justify-content: space-between;
+    align-items: center;
     z-index: 101;
 
-	padding: 10px;
+	padding: 10px 20px;
 }
 #logo{
     width: 300px;
     height: auto;
-    margin-left: 30px;
+    margin-left: 10px;
 }
 
 #checkbox{
@@ -88,6 +99,11 @@ opacity: 1;
 transition: opacity 0.3 ease;
 cursor: pointer;
 z-index: 100;
+font-family: 'Nanum Gothic', sans-serif;
+}
+
+.li i{
+    margin-right: 10px;
 }
 
 

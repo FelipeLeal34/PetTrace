@@ -25,12 +25,12 @@ urlpatterns = [
     path('', index, name='index'),
     path('perfil/', perfil, name='perfil'),
     path('perdidas/', perdidas, name='perdidas'),
-    path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
+    path('agregarPubliPerdidas/', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
     path('informacionPubli/<int:id_publicacion>/', informacionPubli, name='informacionPubli' ),
-    path('editarPubli/<int:id_publicacion>/', editarPubliPerdidas, name='editarPubliPerdidas' ),
+    path('editarPubli/<int:id_publicacion>/', editarPubli, name='editarPubli' ),
     path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli' ),
-    path('encontradas', encontradas, name='encontradas' ),
-    path('agregarPubli', agregarPubliEncontradas, name='agregarPubliEncontradas' ),
+    path('encontradas/', encontradas, name='encontradas' ),
+    path('agregarPubliEncontradas/', agregarPubliEncontradas, name='agregarPubliEncontradas' ),
 
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )
