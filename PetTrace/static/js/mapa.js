@@ -1,7 +1,7 @@
 // Declaramos la variable marker fuera de la función initMap
 var marker;
 
-function obtenerUbicacion(event) {
+function obtenerUbicacion() {
 
   var mapDiv = document.getElementById('map');
   var selects = document.getElementById("selects");
