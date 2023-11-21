@@ -1,0 +1,322 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/*Diseño de logo*/
+#imglogo{
+  width: 100%;
+  text-align: center;
+}
+#logoimg {
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto; 
+  width: 80%; 
+  padding: 50px;
+  margin-top: 10px;
+  border-radius: 20px;
+  box-shadow: 10px 10px 30px 10px grey;
+}
+
+#img {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/*-------------------------------Form Registro----------------------------------------*/
+
+form {
+  width: 100%;
+}
+form {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(2, auto);
+  grid-gap: 20px;
+  align-content: center; 
+  text-align: center; 
+}
+
+.grid1 {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+.grid2 {
+  grid-row: 1;
+  grid-column: 2; 
+}
+
+.grid3 {
+  grid-row: 2; 
+  grid-column: 1 / span 2; 
+}
+
+#boton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+a{
+    font-size: 15px;
+    text-decoration: none;
+    color: #2ba8fb;
+    outline: none;
+}
+  
+input{
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+input[type="email"],
+input[type="password"]{
+  border-radius: 5px;
+  width: 300px;
+  height: 25px;
+}
+.inputGrupo {
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  align-items: center; 
+}
+
+.inputGrupo input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 80%;
+  }
+
+.inputGrupo :is(input:focus, input:valid) {
+    border-color: #2ba8fb;
+  }
+
+  select {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 35px;
+    width: 100%;
+    border: 2px solid rgb(200, 200, 200);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  select:focus {
+    outline: none; 
+    border-color: #0484d9;
+    box-shadow: 0 0 5px #2ba8fb;
+  }
+  
+  select:hover,
+  select option:hover {
+    color: #0484d9;
+    border-color: #0484d9;
+    box-shadow: 0 0 5px #2ba8fb;
+  }
+  
+  option:not(:checked) {
+    color: #292929;
+  }
+/*Estilo del mapa*/
+
+#map {
+  margin-top: 10px;
+  height: 400px;
+  width: 100%;
+  border: 1px solid gray;
+  border-radius: 20px;
+}
+
+/* Estilos del botón para la animación de obtener ubicación */
+
+.btn {
+  margin: 15px;
+  margin-left: 0%;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border: none;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px .2px #00000083;
+  transition: .2s linear;
+  transition-delay: .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  margin: 0 auto;
+  margin-top: 10px;
+}
+
+.btn:hover {
+  width: 200px;
+  transition-delay: .2s;
+}
+
+/* Estilos para el párrafo que contiene el texto "obtener ubicacion" */
+.paragraph {
+  color: #292929;;
+  visibility: hidden;
+  opacity: 0;
+  font-size: 15px;
+  margin-right: 20px;
+  padding-left: 20px;
+  transition: .2s linear;
+  font-weight: bold;
+  text-transform: uppercase;
+  
+}
+
+/* Mostrar el texto "obtener ubicacion" cuando se pasa el mouse sobre el botón */
+.btn:hover > .paragraph {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: .4s;
+}
+
+/* Estilos para el contenedor del icono */
+.icon-wrapper {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilos para el icono */
+.icon {
+  transform: scale(.9);
+  transition: .2s linear;
+}
+
+/* Realzar el icono de ubicación cuando se pasa el cursor sobre el botón */
+.btn:hover > .icon-wrapper .icon {
+  transform: scale(1.1);
+}
+
+/* Estilos para el trazado del icono (ubicación) */
+.icon path {
+  stroke: #292929;
+  stroke-width: 1.5px;
+  transition: .2s linear;
+}
+
+/* Cambiar el color del trazado del icono a negro cuando se pasa el cursor sobre el botón */
+.btn:hover > .icon-wrapper .icon path {
+  stroke: #292929;;
+}
+
+/*estilos del Boton para mostrar y ocultar contraseña*/
+
+.password{
+  position: relative;
+}
+#password{
+  display: inline-flex;
+}
+.eye {
+  position: absolute;
+  top: 45px;
+  right: 75px;
+  width: 24px;
+  height: 24px;
+}
+
+.eye:hover {
+  cursor: pointer;
+}
+
+.eye.open {
+  background-image: url("../img/eye.open.png");
+}
+
+/*Animacion del boton inicio y registro*/
+input[type="submit"] {
+    padding: 12.5px 30px;
+    border: 0;
+    border-radius: 100px;
+    background-color: #0484d9;
+    color: #ffffff;
+    font-weight: Bold;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+  }
+  
+  input[type="submit"]:hover {
+    background-color: #6fc5ff;
+    box-shadow: 0 0 20px #6fc5ff50;
+    transform: scale(1.1);
+  }
+  
+  input[type="submit"]:active {
+    background-color: #3d94cf;
+    transition: all 0.25s;
+    -webkit-transition: all 0.25s;
+    box-shadow: none;
+    transform: scale(0.98);
+  }
+   
+/*------------------------------Form inicio sesión---------------------------------------------*/
+
+#forminicio{
+  display: block;
+}
+
+@media screen and (max-width:1023px) {
+  #content{
+    width: 100%;
+  }
+  form{
+    display: block;
+  }
+
+  .eye {
+    right: 3vh;
+  }
+
+  input[type="email"],
+  input[type="password"]{
+      border-radius: 5px;
+      width: auto;
+      height: 25px;
+  }
+  .inputGrupo input {
+    font-size: 100%;
+    padding: 0.8em;
+    outline: none;
+    border: 2px solid rgb(200, 200, 200);
+    background-color: transparent;
+    border-radius: 20px;
+    width: 100%;
+  }
+}
+

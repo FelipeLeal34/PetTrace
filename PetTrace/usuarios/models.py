@@ -8,42 +8,58 @@
 from datetime import date, datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+import os
 
-class Usuario(models.Model):
-    id_usuario = models.OneToOneField(User,primary_key=True, on_delete=models.CASCADE)
+
+class Usuario(AbstractUser):
+    id = models.AutoField(primary_key=True)
     documento = models.PositiveIntegerField(unique=True)
     telefono = models.IntegerField()
-    localidad = models.CharField(max_length=60)
-    barrio = models.CharField(max_length=60)
-    
+    localidad = models.CharField(max_length=60, null=True, blank=True)
+    barrio = models.CharField(max_length=60, null=True, blank=True)
+    longitud = models.FloatField(null=True)
+    latitud = models.FloatField(null=True)
+
+
+    USERNAME_FIELD = 'documento'
+    REQUIRED_FIELDS = ['username', 'email', 'first_name', 'last_name']
 
     class Meta:
-       
         db_table = 'usuarios'
 
-  
+
+class Perfil(models.Model):
+    usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='perfil')
+
+    def get_upload_path(self, instance, filename): return os.path.join('imgperfil', str(instance.usuario.id), filename)
+    imagen = models.ImageField(upload_to=get_upload_path)
+
+    descripcion = models.CharField(max_length=200, default='Nuevo usuario de PetTrace')
+    num_mascotas = models.IntegerField(default=0)
+    
+    @receiver(post_save, sender=Usuario)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Perfil.objects.create(usuario=instance)
+
+    @receiver(post_save, sender=Usuario)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.perfil.save()
 
 
-
-
-
-
-
-
-
-class Comentario(models.Model):
-    id_comentario = models.AutoField(primary_key=True)
-    comentario = models.CharField(max_length=100)
-    fechacom = models.DateTimeField()
-    id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE)
-
+class Comentario(models.Model): 
+    id_comentario = models.AutoField(primary_key=True) 
+    comentario = models.CharField(max_length=100) 
+    fechacom = models.DateTimeField() 
+    id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE, related_name='comentarios')
     class Meta:
         
         db_table = 'comentarios'
 
         
-
-
 class SaludMascota(models.Model):
     idestado_salud = models.AutoField(primary_key=True)
     enfermedadesmas = models.CharField(max_length=60, null=True, blank=True)
@@ -67,12 +83,6 @@ class SaludMascota(models.Model):
             return []
 
 
-
-
-
-
-
-
 class Mascota(models.Model):
     id_mascota = models.AutoField(primary_key=True)
     nombremas = models.CharField(max_length=45, null='True')
@@ -85,7 +95,7 @@ class Mascota(models.Model):
     edadmas = models.PositiveIntegerField(blank=True, null=True)
     marcasmas = models.CharField(max_length=45, null=True)
     idestado_salud = models.ForeignKey(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
-    id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False, verbose_name='id_dueño',on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, db_column='id', blank=False, null=False, verbose_name='id_dueño',on_delete=models.CASCADE)
     
     personalidadmas = models.CharField(max_length=150, null=False, blank=False, default='')
     entrenamientomas = models.CharField(max_length=150, null=True, blank=True)
@@ -103,16 +113,13 @@ class Mascota(models.Model):
         db_table = 'mascotas'
 
 
-
-    
-
 class Publicacion(models.Model):
     id_publicacion = models.AutoField(primary_key=True)
     estadoPubli = models.BooleanField(default=True)
     fechaPubli = models.DateTimeField(auto_now=True)
     apartado = models.CharField(max_length=50, null=False, blank=False, default='')
-    idestado_salud = models.ForeignKey(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
-    id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE)
+    idestado_salud = models.OneToOneField(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
+    id_usuario = models.ForeignKey(Usuario, db_column='id', blank=False, null=False,on_delete=models.CASCADE)
     id_mascota = models.OneToOneField(Mascota, db_column='id_mascota', blank=False, null=False,on_delete=models.CASCADE)
 
     
@@ -120,8 +127,6 @@ class Publicacion(models.Model):
     class Meta:
        
         db_table = 'publicaciones'
-
-
 
 
 class MascotasPerdidas(Publicacion):
@@ -145,7 +150,6 @@ class MascotasPerdidas(Publicacion):
         db_table = 'mascotas_perdidas'
      
 
-
 class MascotasEncontradas(Publicacion):
 
     localidadEncuentro = models.CharField(max_length=60, null=False, blank=False)
@@ -159,9 +163,6 @@ class MascotasEncontradas(Publicacion):
         db_table = 'mascotas_encontradas'
 
 
-
-
-
 class MascotasAdopcion(Publicacion):
 
     motivoAdopcion = models.CharField(max_length=200, null=False, blank=False)
@@ -170,16 +171,3 @@ class MascotasAdopcion(Publicacion):
     class Meta:
        
         db_table = 'mascotas_adopcion'
-    
-
-
-
-
-
-
-
-
-
-
-
-

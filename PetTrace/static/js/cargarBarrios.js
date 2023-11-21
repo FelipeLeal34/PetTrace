@@ -2,33 +2,9 @@
 
 
 
-function obtenerUbicacion() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var latitudInput = document.getElementById("latitud");
-      var longitudInput = document.getElementById("longitud");
-      var localidadesSelect = document.getElementById("localidades");
-      var barriosSelect = document.getElementById("barrios");
 
-      latitudInput.value = position.coords.latitude;
-      longitudInput.value = position.coords.longitude;
-      localidadesSelect.style.display = "none";
-      barriosSelect.style.display = "none";
-    }, function(error) {
-      var localidadesSelect = document.getElementById("localidades");
-      var barriosSelect = document.getElementById("barrios");
 
-      localidadesSelect.style.display = "inline-block";
-      barriosSelect.style.display = "inline-block";
-    });
-  } else {
-    var localidadesSelect = document.getElementById("localidades");
-    var barriosSelect = document.getElementById("barrios");
 
-    localidadesSelect.style.display = "inline-block";
-    barriosSelect.style.display = "inline-block";
-  }
-}
 
 //NO ESTÁN DENTRO DE NINGUNA FUNCION
 var barriosEngativa = [
@@ -2089,8 +2065,10 @@ export function cargarBarrios(idLocalidad) {
   var localidades = document.getElementById(idLocalidad);
   if(localidades.id == "localidades"){
     var barrios = document.getElementById("barrios");
+  } else if(localidades.id == "localidadese"){
+      var barrios = document.getElementById("barriose");
   } else{
-    var barrios = document.getElementById("barriose");
+    var barrios = document.getElementById("barriosRegistro");
   }
 
     var seleccionLocalidad = localidades.value;
@@ -2279,6 +2257,11 @@ export function cargarBarrios(idLocalidad) {
         
 }
 
+const SelectCargarBarrios = document.getElementById("localidadesRegistro");
+
+SelectCargarBarrios.addEventListener("change", (e)=>{
+  cargarBarrios("localidadesRegistro");
+})
 
 
 
@@ -2293,66 +2276,6 @@ export function cargarBarrios(idLocalidad) {
 
 
 
-
-
-
-//funcion del mapa
-
-/*
-
-var latitudInput;
-var longitudInput;
-var map;
-
-function obtenerUbicacion() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        var latitud = position.coords.latitude;
-        var longitud = position.coords.longitude;
-
-        mostrarMapa(latitud, longitud);
-      },
-      function (error) {
-        console.log(error);
-        mostrarUbicacionManual();
-      }
-    );
-  } else {
-    console.log("Geolocalización no soportada");
-    mostrarUbicacionManual();
-  }
-}
-
-function mostrarMapa(latitud, longitud) {
-  latitudInput.value = latitud;
-  longitudInput.value = longitud;
-
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: latitud, lng: longitud },
-    zoom: 15,
-  });
-
-  var marker = new google.maps.Marker({
-    position: { lat: latitud, lng: longitud },
-    map: map,
-  });
-
-  // Mostrar el mapa y ocultar la ubicación manual
-  document.getElementById("map").style.display = "block";
-  document.getElementById("ubicacionManual").style.display = "none";
-}
-
-function mostrarUbicacionManual() {
-  // Ocultar el mapa y mostrar la ubicación manual
-  document.getElementById("map").style.display = "none";
-  document.getElementById("ubicacionManual").style.display = "block";
-}
-
-function initMap() {
-  latitudInput = document.getElementById("latitud");
-  longitudInput = document.getElementById("longitud");
-}*/
 
 
 

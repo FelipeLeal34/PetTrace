@@ -15,17 +15,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.contrib.auth import views as auth_views
+from django.urls import path, reverse_lazy
 from usuarios.views import *
-from django.conf import settings
+from usuarios import views
+from django.contrib.auth.views import LoginView, LogoutView
 from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('perfil/', perfil, name='perfil'),
+    path("editar-descripcion/", editar_descripcion, name="editar_descripcion"),
     path('perdidas/', perdidas, name='perdidas'),
-    path('agregarPubliPerdidas/', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
+    path('registrar/', views.registrar, name='registrar'),
+    path('login/', LoginView.as_view(template_name='login/inicioSesion.html'), name='login'),
+    path('logout', auth_views.LogoutView.as_view(template_name='index/perdidas.html'), name='logout'),
+    path('reset/', views.reset, name='reset'),
+    path('resetHecho/', views.resetHecho, name='resetHecho'),
+    path('resetEmail/', views.resetEmail, name='resetEmail'),
+    path('resetConfirm/', views.resetConfirm, name='resetConfirm'),
+    path('resetComplete/', views.resetComplete, name='resetComplete'),
+    path('prueba/', prueba, name='prueba'),
+    path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
     path('informacionPubli/<int:id_publicacion>/', informacionPubli, name='informacionPubli' ),
     path('editarPubli/<int:id_publicacion>/', editarPubli, name='editarPubli' ),
     path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli' ),

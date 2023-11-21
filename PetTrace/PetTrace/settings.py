@@ -12,8 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+import pymysql
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+pymysql.install_as_MySQLdb()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -38,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'usuarios'
+    'usuarios',
 ]
 
 MIDDLEWARE = [
@@ -81,8 +84,8 @@ DATABASES = {
         'NAME': 'pettrace',
         'USER': 'root',
         'PASSWORD': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
-        'PORT': '',
     }
 }
 
@@ -96,6 +99,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -111,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'America/Bogota'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -126,15 +132,16 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = BASE_DIR / "media"
-MEDIA_URL = "/media-files/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
+#URL a la que se redirige luego del login y el logout
+LOGIN_REDIRECT_URL = 'perfil'
+LOGOUT_REDIRECT_URL = 'perdidas'
 
-
-
+GOOGLE_MAPS_API_KEY = 'AIzaSyDy5RZFqhkfKiKIBvRwiuQTtfn20VayQHA'
 

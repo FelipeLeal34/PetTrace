@@ -7,19 +7,19 @@
 }
 
 
-
-
-
-h2, h3{
-	text-align: center;
-	color: #74868a;
-	
-
-
+body{
+	width: 100%;
+	background: #faf7f6;
+	position:relative;
 }
 
-
-
+main{
+	background-color: #faf7f6;
+	width: 100%;
+	margin: auto;
+	
+	
+}
 
 #main-banner{
 	padding: 20px;
@@ -200,7 +200,6 @@ width: 100%;
 
 
 #main-servicios{
-	
 	width: 100%;
 }
 
@@ -284,44 +283,23 @@ width: 100%;
 
 
 
-footer{
-	background: #a7bab9;
-	width: 100%;
-	height: auto;
-	display: flex;
-	justify-content: center;
 
+
+@media screen and (min-width:1024px){
+	#servicios{
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+	#titulo{
+		width: 100%;
+		height: auto;
+		text-align: center;
+	}
+	.card{
+		margin: 10px;
+		flex-grow: 1;
+	}
+	
 }
-
-
-footer span{
-	filter: invert(1);
-	font-size: 20px;
-}
-
-
-
-.icon-container{
-	margin: 5px;
-	padding: 10px;
-	cursor: pointer;
-	border-radius: 50%;
-	transition: all 1s;
-}
-
-.icon-container:hover > span{
-	filter: invert(0);
-}
-
-.icon-container:hover {
-	background: #fff;
-}
-
-
-
-
-
-
-
-
-

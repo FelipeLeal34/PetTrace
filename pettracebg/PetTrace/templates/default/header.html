@@ -1,0 +1,62 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/header.css' %}">
+<!--<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">-->
+
+<script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
+
+
+
+<header>
+    <div class="header">
+        <div id="logo">
+            <a href="../index.html">
+                <img src="{% static 'img/LogoPetTraceBorde.png' %}">
+            </a>
+        </div>
+        <label for="checkbox"><i class="fa-solid fa-bars"></i></label>
+    </div>
+    <input type="checkbox" id="checkbox">
+    <nav>
+        <ul>
+            <li>
+                <div id="fotoperfil">
+                    <img src="{% static 'img/fotoperfil.jpg' %}">
+                </div>
+            </li>
+            <li class="li">
+                <span class="icon-user-o"></span>
+                <a href="">PERFIL</a>
+            </li>
+            <li class="li">
+                <span class="icon-search"></span>
+                <a href="">PERDIDAS</a>
+            </li>
+            <li class="li">
+                <span class="icon-paw"></span>
+                <a href="">ENCONTRADAS</a>
+            </li>
+            <li class="li">
+                <span class="icon-firefox"></span>
+                <a href="">ADOPCIONES</a>
+            </li>
+            <li class="li">
+                <span class="icon-bell-alt"></span>
+                <a href="">NOTIFICACIONES</a>
+            </li>
+            <li class="li">
+                <span class="icon-comment"></span>
+                <a href="">MENSAJES</a>
+            </li>
+            <li class="li">
+                <span class="icon-cog"></span>
+                <a href="">AJUSTES</a>
+            </li>
+        </ul>
+    </nav>
+</header>    
+
+
+{% block content %}
+{% endblock content %}
