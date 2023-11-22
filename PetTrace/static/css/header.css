@@ -1,0 +1,213 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap');
+
+
+*{
+
+}
+
+
+header{
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    z-index: 101;
+    background: #a7bab9;
+
+}
+
+.header{
+	display: flex;
+	width: 100%;
+	height: 100%;
+	justify-content: space-between;
+    align-items: center;
+    z-index: 101;
+
+	padding: 10px 20px;
+}
+#logo{
+    width: 300px;
+    height: auto;
+    margin-left: 10px;
+}
+
+#checkbox{
+	display: none;
+}
+
+
+
+header img{
+	
+	width: 100%;
+	height: 100%;
+	 
+}
+
+.icon-menu{
+    padding: 15px;
+    width: 100;
+}
+
+/*Menu desplegado*/
+nav {	
+    z-index: 100;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transform: translateX(100%);
+    transition: transform 0.5s;
+    position: absolute;
+    
+}
+nav ul {
+	z-index: 100;
+	background: #657174;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+	width: 30%;
+    height: auto;
+    margin-top: 0;
+	max-height: calc(100vh - 119px); 
+	border-radius: 10px;
+	transition: transform 0.5s;
+}
+
+nav a{
+	text-decoration: none;
+	color: white;
+}
+
+#checkbox:checked ~ nav{
+	display: flex ;
+	transform: translateX(70%);
+}
+
+nav li {
+list-style: none;
+padding: 20px;
+width: 100%;
+margin: 0;
+font-size: 1em;
+background-color: #657174 ;
+opacity: 1;
+transition: opacity 0.3 ease;
+cursor: pointer;
+z-index: 100;
+font-family: 'Nanum Gothic', sans-serif;
+}
+
+.li i{
+    margin-right: 10px;
+}
+
+
+#fotoperfil{
+	border: 3px #fff solid;
+	border-radius: 50%;
+	overflow: hidden;
+	text-align: center;
+	margin: auto;
+	width: 50%;
+	height: auto;
+
+}
+
+#fotoperfil img	{
+	width: 100%;
+	height: 100%;
+}
+
+
+nav .li:hover{
+	opacity: 0.8 ;
+	border-left: 3px #fff solid ;
+}
+
+
+
+
+@media screen and (min-width: 767px) and (max-width: 1023px){    
+    
+    nav ul {
+        width: 35%;
+    }    
+
+   
+
+    #checkbox:checked ~ nav{
+        transform: translateX(65%);
+    }
+    nav li {
+        font-size: 0.9em;
+        }
+
+        
+#fotoperfil{
+	width: 30%;
+}
+}
+    
+
+@media screen and (max-width: 766px){
+
+    header{
+        width: 100%;
+        height: 50px;
+    }
+    #logo{
+        width: 200px;
+        height: auto;
+        margin-left: 5px;
+    }
+    .icon-menu{
+        padding: 5px;
+    }
+
+
+
+    nav {
+        transform: translateX(100%);
+     
+       
+        
+    }
+
+    nav ul {
+        width: 100%;
+        max-height: calc(100vh - 95px); 
+        border-radius: 0px;
+        transition: transform 0.5s;
+    }
+    
+    nav a{
+        text-decoration: none;
+        color: white;
+    }
+    
+    #checkbox:checked ~ nav{
+        display: flex ;
+        transform: translateX(-0%);
+        height: 100vh;
+    }
+    
+    nav li {
+    text-align: center;
+    padding: 15px;
+    font-size: 1em;
+    }
+    
+    #fotoperfil{
+        width: 30%;
+        height: auto;
+    }
+
+
+    
+  
+}

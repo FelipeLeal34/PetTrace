@@ -137,7 +137,6 @@ main{
 .fechaPubli{
 
 	text-align: center;
-
 	width: 100%;
 	
 	color: rgba(0, 0, 0, 0.5);
@@ -527,7 +526,7 @@ main{
 .label-selectMultiple{
 	display: flex;
 	color: #000;
-
+	
 	margin-bottom: 5px;
 }
 
@@ -636,9 +635,6 @@ main{
 
 
 
-
-
-
 /* --------------CONFIRMACION DE ELIMINACION DE PUBLICACION---------- */
 
 
@@ -655,7 +651,6 @@ main{
 	justify-content: center;
 
 }
-
 
 #btnOpcionesEP{
 	margin-top: 50px;

@@ -1,14 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{% static 'js/mapa.js' %}"></script>
-    <script src="{% static 'js/cargarBarrios.js' %}"></script>
-    <title>Registrarse</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'js/mapa.js' %}"></script>
+        <script type="module" src="{% static 'js/cargarBarrios.js' %}"></script>
+        <title>Registrarse</title>
 </head>
 <body>
     <div id="imglogo">
@@ -67,7 +67,7 @@
                 </div>
             <div>
                 <span>Seleccione su ubicación:</span>
-                <button class="btn" type="button" onclick="obtenerUbicacion()">
+                <button class="btn" type="button" id="btnObtenerUbicacion" onclick="obtenerUbicacion()">
                     <p class="paragraph"> Obtener Ubicación </p>
                     <span class="icon-wrapper">
                         <svg class="icon" width="35px" height="35px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -87,32 +87,33 @@
                 <span>O si lo desea elijala usted mismo:</span>
                 <div>
                     <label for="localidad">Elija su localidad*</label>
-                    <select name="localidad" id="localidades" onchange="cargarBarrios()">
+                    <select name="localidad" id="localidadesRegistro">
                         <option value="" selected disabled>Seleccione una localidad</option>
-                        <option value="Usaquén">Usaquén</option>
-                        <option value="Chapinero">Chapinero</option>
-                        <option value="Santa Fe">Santa Fe</option>
-                        <option value="San Cristóbal">San Cristóbal</option>
-                        <option value="Usme">Usme</option>
-                        <option value="Tunjuelito">Tunjuelito</option>
-                        <option value="Bosa">Bosa</option>
-                        <option value="Kennedy">Kennedy</option>
-                        <option value="Fontibón">Fontibón</option>
-                        <option value="Engativá">Engativá</option>
-                        <option value="Suba">Suba</option>
-                        <option value="Barrios Unidos">Barrios Unidos</option>
-                        <option value="Teusaquillo">Teusaquillo</option>
-                        <option value="Los Mártires">Los Mártires</option>
-                        <option value="Antonio Nariño">Antonio Nariño</option>
-                        <option value="Puente Aranda">Puente Aranda</option>
-                        <option value="La Candelaria">La Candelaria</option>
-                        <option value="Rafael Uribe">Rafael Uribe</option>
-                        <option value="Ciudad Bolívar">Ciudad Bolívar</option>
+                        <option value="" default disabled>Localidad de extravío</option>
+                        <option value="usaquen">Usaquén</option>
+                        <option value="chapinero">Chapinero</option>
+                        <option value="santa fe">Santa Fe</option>
+                        <option value="san cristobal">San Cristóbal</option>
+                        <option value="usme">Usme</option>
+                        <option value="tunjuelito">Tunjuelito</option>
+                        <option value="bosa">Bosa</option>
+                        <option value="kennedy">Kennedy</option>
+                        <option value="fontibon">Fontibón</option>
+                        <option value="engativa">Engativá</option>
+                        <option value="suba">Suba</option>
+                        <option value="barrios unidos">Barrios Unidos</option>
+                        <option value="teusaquillo">Teusaquillo</option>
+                        <option value="los martires">Los Mártires</option>
+                        <option value="antonio narino">Antonio Nariño</option>
+                        <option value="puente aranda">Puente Aranda</option>
+                        <option value="la candelaria">La Candelaria</option>
+                        <option value="rafael uribe">Rafael Uribe</option>
+                        <option value="ciudad bolivar">Ciudad Bolívar</option>
                     </select>
                 </div>
                 <div class="">
                     <label for="barrio">Elija su barrio*</label>
-                    <select name="barrio" id="barrios">
+                    <select name="barrio" id="barriosRegistro">
                         <option>Seleccione un barrio</option>
                     </select>
                 </div>
