@@ -5,7 +5,8 @@
 #   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
-from datetime import date, datetime
+import datetime
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
@@ -38,7 +39,8 @@ class Perfil(models.Model):
     imagen = models.ImageField(upload_to=get_upload_path)
 
     descripcion = models.CharField(max_length=200, default='Nuevo usuario de PetTrace')
-    num_mascotas = models.IntegerField(default=0)
+    fecha_creacion = models.DateField(default=datetime.date.today)
+
     
     @receiver(post_save, sender=Usuario)
     def create_user_profile(sender, instance, created, **kwargs):
