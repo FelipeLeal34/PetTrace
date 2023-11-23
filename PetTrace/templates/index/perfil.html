@@ -12,7 +12,12 @@
         <link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+
+
         <script src="{% static 'js/perfil.js' %}"></script>
+        <script type="module" src="{% static 'js/perdidas.js' %}"></script>
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>Perfil usuario</title>
     </head>
@@ -52,91 +57,124 @@
                     <a href="">Publicaciones</a>
                     <a href="">Adopciones</a>
                 </div>
-                <div class="publi-container">
-                    <div class="publi" id="publi">
-                
+                <div class="publicaciones">
+                    {% for publicacion in perdidas %}
+                    <div class="publi" id="publi" data-id="{{ publicacion.id_publicacion }}">
+        
                         <div class="contenido-publi">
-                            <hr>
-                            <div class="img-mascota-section">
-                
-                                <div class="img-mascota-contenedor">
-                
-                                    <img src="{% static 'img/publi-1.jpg' %}">
-                
+        
+                            <input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
+        
+                            <div class="info-usuario">
+                                <div class="img-usuario">
+                                <img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
+                                <h6>{{ publicacion.id_usuario.username }}</h6></div>
+                                <div id="iconosPubli">
+                                <i class="fa-regular fa-heart" style="color: #000 ;margin-right: 8px; " id="agregarFav"></i>
+                                <span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
+                                </div>
+                                
+                            </div>
+        
+                            
+                            <div class="menuOpcionesPubli">
+                                {% if user.is_authenticated and user.id == publicacion.id_usuario.pk  %}
+                                <div class="opcionesPubli btnEditarPubli">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                    <p>Editar publicacion</p>
+                                </div>
+                                <div class="opcionesPubli btnEliminarPubli">
+                                    <i class="fa-solid fa-trash"></i>
+                                    <p>Eliminar publicacion</p>
+                                </div>
+                                {% endif %}
+                                <div class="opcionesPubli">
+                                    <i class="fa-solid fa-flag"></i>
+                                    <p>Reportar publicacion</p>
                                 </div>
                             </div>
-                
+        
                             <hr>
+        
+                            <div class="img-mascota-section">
+        
+                                <div class="img-mascota-contenedor">
+        
+                                    <img src="{{ publicacion.id_mascota.img1.url }}">
+        
+                                </div>
+        
+                            </div>
+        
+        
+                            <hr>
+        
                             <div class="info-mascota">
-                
+        
                                 <div class="info-mascota-contenido">
-                
+        
+                                    <p class="fechaPubli"> {{ publicacion.fechaPubli }}</p>
+        
                                     <div class="col1">
-                
+        
+                                        
+        
                                         <div class="dato">
-                
-                                            <p class="bold">Nombre: </p>
-                                            <p> Mateo</p>
+        
+                                            <p class="bold">Especie: </p>
+                                            <p> {{ publicacion.id_mascota.especiemas }}</p>
                                         </div>
                                         <div class="dato">
-                
+        
                                             <p class="bold">Raza: </p>
-                                            <p> Labrador</p>
+                                            <p> {{ publicacion.id_mascota.razamas }}</p>
                                         </div>
                                         <div class="dato">
-                
+        
                                             <p class="bold">Color: </p>
-                                            <p> Blanco y Dorado</p>
+                                            <p> {{ publicacion.id_mascota.colormas }}</p>
                                         </div>
                                     </div>
-                
+        
                                     <div class="col2">
                                         <div class="dato">
-                
-                                            <p class="bold">Fecha extravío: </p>
-                                            <p>25-06-2023</p>
+        
+                                            <p class="bold">Fecha de encuentro: </p>
+                                            <p>{{ publicacion.fechaEncuentro }}</p>
                                         </div>
-                
+        
                                         <div class="dato">
-                
-                                            <p class="bold">Barrio de extravío: </p>
-                                            <p>Quiroga</p>
+        
+                                            <p class="bold">Barrio de encuentro: </p>
+                                            <p>{{ publicacion.barrioEncuentro }}</p>
                                         </div>
-                
+        
                                         <div class="dato">
-                
-                                            <p class="bold">Localidad extravío: </p>
-                                            <p>Rafael Uribe Uribe</p>
+        
+                                            <p class="bold">Localidad encuentro: </p>
+                                            <p>{{ publicacion.localidadEncuentro }}</p>
                                         </div>
                                     </div>
+                                    <a class="btn btnVerPubli verPubli">Ver mascota</a>
                                 </div>
-                
+        
+                                
+        
                             </div>
-                
-                            <hr>
-                            <div class="datos-contacto">
-                                <div class="datos-contacto-contenedor">
-                
-                                    <div class="dato">
-                                        <p  class="bold">Nombre: </p>
-                                        <p>Andrés Felipe Leal</p>
-                                    </div>
-                                    <div class="dato">
-                                        <p  class="bold">Numero de telefono: </p>
-                                        <p>3137525713</p>
-                                    </div>
-                
-                                    <div class="dato">
-                                        <p  class="bold">Correo Electronico: </p>
-                                        <p>afleal34@gmail.com</p>
-                                    </div>
-                                </div>
-                                <button class="btn verPubli">Ver mascota</button>
-                            </div>   
-                        </div>      
+        
+                            
+                            
+                            
+                        </div>
+        
+                        
+        
+                        
                     </div>
+                    {% endfor %}
 
-                <!--Aqui terminan las publicaciones-->
+
+                
                 </div>
             </div>
         </div>

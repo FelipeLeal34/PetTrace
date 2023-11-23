@@ -17,9 +17,19 @@ import json
 # Create your views here.
 def index(request):
     return render(request, 'index/index.html')
+
+
 @login_required
 def perfil(request):
-     return render(request, 'index/perfil.html')
+
+     publiPerdidas = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=request.user.id)
+
+     publiEncontradas = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=request.user.id)
+     # publiAdopciones= MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=request.user.id)
+     context = {'perdidas':publiPerdidas,'encontradas':publiEncontradas}
+
+     return render(request, 'index/perfil.html',context)
+
  
  
 def perdidas(request):
@@ -138,13 +148,72 @@ def encontradas(request):
 
 
 
+def adopciones(request):
+
+     publicaciones = None
+
+     if request.method == 'POST':
+
+          filtros = json.loads(request.body)
+
+          request.session['filtros']= filtros
+          request.session.modified = True
+          request.session.save()
+
+
+     else:
+          filtros = request.session.get('filtros',{})
+
+
+          args = {}
+          
+
+
+          for clave in filtros:
+               if filtros[clave]:
+                    if clave == "color":
+                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "raza":
+                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "especie":
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "sexo":
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "tamaño":
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                    elif clave == "localidad":
+                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[1])
+                    elif clave == "barrio":
+                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
+                    else:
+                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
+               
+
+
+          if args :
+          
+               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
+                    
+
+          else:
+
+                    publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
+
+
+     return render(request, 'index/encontradas.html', {'publicaciones':publicaciones})
+
+
+
+
 def informacionPubli(request, id_publicacion):
 
 
      publicacion = None
-     if(request.path == '/perdidas/'):
-
+     url_anterior = request.META.get('HTTP_REFERER')
+     url = url_anterior.split(':8000')
      
+     if(url[1] == '/perdidas/'):
+
 
           publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
@@ -163,7 +232,7 @@ def informacionPubli(request, id_publicacion):
                'usuario': {
                     'nombre': publicacion.id_usuario.username,
                     'telefono': publicacion.id_usuario.telefono,
-                    'email': publicacion.id_usuario.id_usuario.email
+                    'email': publicacion.id_usuario.email
                     
                },
                'mascota': {
@@ -591,7 +660,10 @@ def editarPubli(request,id_publicacion):
 
      if request.method == 'POST':
 
-          if(request.path == '/perdidas/'):
+          url_anterior = request.META.get('HTTP_REFERER')
+          url = url_anterior.split(':8000')
+     
+          if(url[1] == '/perdidas/'):
 
                publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
                mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
