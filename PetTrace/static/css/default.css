@@ -1,72 +1,73 @@
 
 /*---------Header------------*/
+header{
+    width: 100%;
+    height: 70px;
+    position: fixed;
+    z-index: 101;
+    background: #a7bab9;
+
+}
+
 .header{
 	display: flex;
 	width: 100%;
 	height: 100%;
 	justify-content: space-between;
-	padding: 10px;
-}
+    align-items: center;
+    z-index: 101;
 
-header{
-	font-family: 'Roboto', sans-serif;
-	display: block;
-	position: static;
-	margin-top: 0;
-	margin-left: 0;
-	width: 100%;
-	height: 5vh;
-	background: #a7bab9;
+	padding: 10px 20px;
 }
-
 #logo{
-	width: 50%;
-	height: 100%;
-	left: 0;
-	cursor: pointer;
+    width: 300px;
+    height: auto;
+    margin-left: 10px;
 }
-
-header img{
-	width: 100%;
-	height: 100%;
-}
-
-
 
 #checkbox{
 	display: none;
 }
 
 
-label{
-	cursor: pointer;
-	filter: invert(1);
-    padding: 15px;
+
+header img{
+	
+	width: 100%;
+	height: 100%;
+	 
 }
 
+.icon-menu{
+    padding: 15px;
+    width: 100;
+}
 
+/*Menu desplegado*/
 nav {	
-    z-index: 101;
+    z-index: 100;
     width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     transform: translateX(100%);
     transition: transform 0.5s;
     position: absolute;
-    top: 50px;
+    
 }
-
 nav ul {
-	z-index: 101;
+	z-index: 100;
 	background: #657174;
 	color: #fff;
 	display: flex;
 	flex-direction: column;
 	text-align: left;
 	width: 30%;
-	height: calc(100vh - 10vh); 
+    height: auto;
+    margin-top: 0;
+	max-height: calc(100vh - 119px); 
 	border-radius: 10px;
 	transition: transform 0.5s;
-    
 }
 
 nav a{
@@ -75,49 +76,132 @@ nav a{
 }
 
 #checkbox:checked ~ nav{
-	display: block ;
+	display: flex ;
 	transform: translateX(70%);
 }
 
 nav li {
-    list-style: none;
-    padding: 20px;
-    width: 100%;
-    margin: 0;
-    font-size: 1em;
-    background-color: #657174 ;
-    opacity: 1;
-    transition: opacity 0.3 ease;
-    cursor: pointer;
-    z-index: 100;
-    flex-grow: 1;
+list-style: none;
+padding: 20px;
+width: 100%;
+margin: 0;
+font-size: 1em;
+background-color: #657174 ;
+opacity: 1;
+transition: opacity 0.3 ease;
+cursor: pointer;
+z-index: 100;
+font-family: 'Nanum Gothic', sans-serif;
 }
+
+.li i{
+    margin-right: 10px;
+}
+
 
 #fotoperfil{
-    border: 3px #fff solid;
-    border-radius: 50%;
-    overflow: hidden;
-    text-align: center;
-    margin: auto;
-    width: 50%;
-    height: auto;
-   
-}
-    
-#fotoperfil img	{
-    width: 100%;
-    height: 100%;
-}
-    
-    
-nav .li:hover{
-    opacity: 0.8 ;
-    border-left: 3px #fff solid ;
+	border: 3px #fff solid;
+	border-radius: 50%;
+	overflow: hidden;
+	text-align: center;
+	margin: auto;
+	width: 50%;
+	height: auto;
+
 }
 
-h2, h3{
-	text-align: center;
-	color: #74868a;
+#fotoperfil img	{
+	width: 100%;
+	height: 100%;
+}
+
+
+nav .li:hover{
+	opacity: 0.8 ;
+	border-left: 3px #fff solid ;
+}
+
+
+
+
+@media screen and (min-width: 767px) and (max-width: 1023px){    
+    
+    nav ul {
+        width: 35%;
+    }    
+
+   
+
+    #checkbox:checked ~ nav{
+        transform: translateX(65%);
+    }
+    nav li {
+        font-size: 0.9em;
+        }
+
+        
+#fotoperfil{
+	width: 30%;
+}
+}
+    
+
+@media screen and (max-width: 766px){
+
+    header{
+        width: 100%;
+        height: 50px;
+    }
+    #logo{
+        width: 200px;
+        height: auto;
+        margin-left: 5px;
+    }
+    .icon-menu{
+        padding: 5px;
+    }
+
+
+
+    nav {
+        transform: translateX(100%);
+     
+       
+        
+    }
+
+    nav ul {
+        width: 100%;
+        max-height: calc(100vh - 95px); 
+        border-radius: 0px;
+        transition: transform 0.5s;
+    }
+    
+    nav a{
+        text-decoration: none;
+        color: white;
+    }
+    
+    #checkbox:checked ~ nav{
+        display: flex ;
+        transform: translateX(-0%);
+        height: 100vh;
+    }
+    
+    nav li {
+    text-align: center;
+    padding: 15px;
+    font-size: 1em;
+    }
+    
+    #fotoperfil{
+        width: 30%;
+        height: auto;
+    }
+
+
+    
+  
 }
 
 /*---------Footer------------*/
@@ -161,13 +245,14 @@ footer span{
 .menu{
 
 	width: 100%;
-	height: 5vh;
+	height: auto;
 	background: #587073;
 	display: flex;
 	bottom: 0;
 	position: fixed;
 	justify-content: space-evenly;
-	z-index: 101;
+	border-radius: 5px;
+	z-index: 100000000;
 
 }
 
@@ -187,4 +272,192 @@ footer span{
 	transform: rotate(50deg);
 	filter: invert(1);
 
+
+
+
+}
+
+
+
+
+/* ICONO */
+#filtrar{
+	position: relative;
+}
+
+
+/* CONTENEDOR DE FILTROS-BOX, SUBFILTROS-BOX Y BTNFILTROS */
+
+#filtros{
+	
+	position: absolute;
+
+	margin-top: -300px;
+	margin-left: -35%;
+	
+	width: 100%;
+	max-width: 500px;
+	height: auto;
+	max-height: 500px;
+
+}
+
+
+#filtrosYsubfiltros{
+	display: flex ;
+}
+
+
+#btnFiltros{
+	display: none;
+	flex-direction: row;
+
+	align-items: center;
+	text-align: center;
+	height: auto;
+	width: 50%;
+	background-color: #74868a;
+	color: white;
+	border-radius: 10px;
+	transition: all 2s ease-in-out;
+	
+
+}
+
+.btnFiltros{
+	
+	padding: 10px;
+	text-align: center;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	width: 100%;
+	border: 1px solid #faf7f6;
+	
+	
+	
+}
+
+.btnFiltros p{
+	margin: 0;
+}
+
+.btnFiltros:hover{
+	background-color: rgba(255,255,255, 0.5);
+}
+
+
+
+
+.filtros-box{
+	display: none;
+	position: static;
+	width: 50%;
+	/* max-width: %; */
+	height: auto;
+	padding: 5px;
+	background-color: #74868a;
+	color: white;
+
+	
+	border-radius: 20px;
+	margin: 0;
+	
+	font-size: 20px;
+	font-weight: 200;
+	flex-direction: column;
+	padding: 10px;
+	overflow: auto;
+	max-height: 250px;
+
+	transition: 0.5s ease-in-out;
+	
+
+	
+	
+}
+
+.categoria-filtro{
+	display: flex;
+	margin: auto;
+	width: 100%;
+	
+	
+	padding: 10px;
+	border-radius: 8px;
+	cursor: pointer;
+	
+
+}
+
+
+.categoria-filtro i{
+	margin-right: 10px;
+}
+
+
+.categoria-filtro:hover{
+	background-color: rgba(255,255,255, 0.5);
+}
+
+
+#subfiltros-box{
+	transition: 0.5s;
+	display: none;
+	flex-direction: column;
+	flex: 1;
+	position: static;
+	
+	margin: 0;
+	overflow: auto;
+	height: auto;
+	max-height: 150px;
+	
+	
+	width: auto;
+	max-width: 200px;
+	padding: 5px;
+
+	border-radius: 0 20px 20px 0;
+	
+
+	
+
+	
+}
+
+
+
+
+
+.subfiltros-checkbox{
+	display: none;
+}
+
+
+.subfiltros-color-icon{
+	filter: invert(1);
+}
+
+
+.subfiltros-fechaPubli-checkbox{
+	background-color: #a7bab9;
+	border: none;
+	padding: 10px;
+	width: 100%;
+	border-radius: 10px;
+	font-size: 18px;
+	color: #faf7f6;
+	display: flex;
+}
+
+
+.filtros-box , #subfiltros-box label{
+	filter: invert(0);
+}
+
+.filtros-box , #subfiltros-box i{
+	filter: invert(0);
 }

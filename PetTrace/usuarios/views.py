@@ -1,12 +1,12 @@
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from PetTrace.forms import *
+from usuarios.forms import *
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
-from usuarios.models import Usuario
-from .models import *
+from usuarios.models import *
+# from usuarios.models import Usuario
 from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
@@ -67,15 +67,15 @@ def perdidas(request):
 
           if args :
           
-               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(**args)
+               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
                     
      
           
 
 
           else:
-
-                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'publicacion_ptr__usuario','idestado_salud')
+               # publicacion_ptr__usuario
+                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
 
 
      return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
@@ -125,12 +125,12 @@ def encontradas(request):
 
           if args :
           
-               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud').filter(**args)
+               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
                     
 
           else:
 
-                    publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario__id_usuario','idestado_salud')
+                    publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
 
 
      return render(request, 'index/encontradas.html', {'publicaciones':publicaciones})
@@ -146,7 +146,7 @@ def informacionPubli(request, id_publicacion):
 
      
 
-          publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario__id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
+          publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
 
           data = {
@@ -161,7 +161,7 @@ def informacionPubli(request, id_publicacion):
                     
                },
                'usuario': {
-                    'nombre': publicacion.id_usuario.id_usuario.username,
+                    'nombre': publicacion.id_usuario.username,
                     'telefono': publicacion.id_usuario.telefono,
                     'email': publicacion.id_usuario.id_usuario.email
                     
@@ -194,7 +194,7 @@ def informacionPubli(request, id_publicacion):
 
      else:
 
-          publicacion = MascotasEncontradas.objects.select_related('id_mascota' , 'id_usuario__id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
+          publicacion = MascotasEncontradas.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
 
           data = {
@@ -209,9 +209,9 @@ def informacionPubli(request, id_publicacion):
                     
                },
                'usuario': {
-                    'nombre': publicacion.id_usuario.id_usuario.username,
+                    'nombre': publicacion.id_usuario.username,
                     'telefono': publicacion.id_usuario.telefono,
-                    'email': publicacion.id_usuario.id_usuario.email
+                    'email': publicacion.id_usuario.email
                     
                },
                'mascota': {
@@ -324,7 +324,7 @@ def editar_descripcion(request):
         return JsonResponse({"success": False, "error": "Método no permitido"})
     
 def usuario_view(request):
-    form = UsuarioForm()
+    form = UserRegisterForm()
     context = {'form': form}
     return render(request, 'usuario.html', context)
 
@@ -429,7 +429,7 @@ def agregarPubliPerdidas(request):
                     vacunasmas = request.POST.getlist('vacunasmas')
 
                     #SE CREA UN OBJETO DE ESE USUARIO
-                    usuario = Usuario.objects.get(id_usuario=id_usuario)
+                    usuario = Usuario.objects.get(id=id_usuario)
 
                     #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
                     salud_mascota = formSaludMascota.save()
@@ -523,7 +523,7 @@ def agregarPubliEncontradas(request):
                     
 
                     #SE CREA UN OBJETO DE ESE USUARIO
-                    usuario = Usuario.objects.get(id_usuario=id_usuario)
+                    usuario = Usuario.objects.get(id=id_usuario)
 
                     #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
                     salud_mascota = formSaludMascota.save()

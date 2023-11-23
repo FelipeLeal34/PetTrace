@@ -1,8 +1,5 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
-<!--<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">-->
 <script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 
 
@@ -48,11 +45,11 @@
             </li>
 
             <li class="li">
-                <span class="icon-cog"></span>
+                <i class="fa-solid fa-gear"></i>
                 <a href="">AJUSTES</a>
             </li>
             <li class="li">
-                <span class="icon-search"></span>
+                <i class="fa-solid fa-right-from-bracket"></i>
                 <a href="{% url 'logout' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">CERRAR SESIÓN</a>
             </li>
             {% else %}

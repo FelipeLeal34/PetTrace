@@ -10,6 +10,7 @@
 
         
         <link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
         <script src="{% static 'js/perfil.js' %}"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -26,15 +27,17 @@
                 </div>
                 <div id="perfil">
                     <h1>Nombre de usuario: {{ user.username }}</h1>
+
                     <div id="descripcion">
                         <h2>Descripción: <br><span id="texto-descripcion">{{ user.perfil.descripcion }}</span></h2>
-                        <a id="enlace-editar" onclick="mostrarFormulario()">Editar descripción</a>
+                        <a id="enlace-editar" onclick="mostrarFormulario()"><i class="fa-solid fa-pencil"></i>Editar descripción</a>
                         <!-- Este es el elemento oculto que contiene el formulario -->
                         <div id="formulario-editar" style="display: none;">
                             <textarea type="textarea" id="input-descripcion">{{ user.perfil.descripcion }}</textarea>
                             <button id="boton-guardar" onclick="enviarFormulario()">Guardar</button>
                         </div>
                     </div>
+                    
                 </div>
                 
                 <div id="infoUsu">
@@ -42,7 +45,7 @@
                     <ul>
                         <li><i class="fas fa-map-marker-alt"></i> Ubicación: {{ user.localidad }}</li>
                         <li><i class="fas fa-phone"></i> Contacto: <br> Telefono: {{ user.telefono }}, <br>Correo: {{ user.email }}</li>
-                        <li><i class="fas fa-paw"></i> Mascotas Actuales: {{ user.perfil.num_mascotas }}</li>
+                        <li><i class="fas fa-paw"></i> Miembro desde: <br> {{ user.perfil.fecha_creacion }}</li>
                     </ul>
                 </div>
                 <div id="apartados">
@@ -165,7 +168,7 @@
           
     </main>    
     {% include 'default/footer.html' %}
-    {% include 'default/menu.html' %}
+
        
 
         </body>

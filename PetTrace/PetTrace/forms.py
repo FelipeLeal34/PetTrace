@@ -1,4 +1,4 @@
-
+"""
 from django import forms
 from usuarios.models import *
 from django.core.exceptions import ValidationError
@@ -55,3 +55,4 @@ class UserLoginForm(forms.ModelForm):
         self.fields['password'].widget.attrs.update({'placeholder': 'Ingresa tu contraseña'})
 
 
+"""

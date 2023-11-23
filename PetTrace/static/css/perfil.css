@@ -241,7 +241,7 @@ a {
     justify-content: flex-start;
 }
 
-/* .publi {
+.publi {
     width: 300px;
     height: auto;
     background: #faf7f6;
@@ -255,7 +255,21 @@ a {
 
 @media screen and (min-width: 767px) and (max-width: 1023px){    
     
-   
+    nav ul {
+        width: 35%;
+    }    
+
+    #checkbox:checked ~ nav{
+        transform: translateX(65%);
+    }
+    nav li {
+        font-size: 0.9em;
+        }
+
+        
+#fotoperfil{
+	width: 30%;
+}
     
     #perfil, 
     #infoUsu{
@@ -269,6 +283,54 @@ a {
 }
 
 @media screen and (max-width: 766px){
+
+    header{
+        width: 100%;
+        height: 50px;
+    }
+    #logo{
+        width: 200px;
+        height: auto;
+        margin-left: 5px;
+    }
+    .icon-menu{
+        padding: 5px;
+    }
+
+
+
+    nav {
+        transform: translateX(100%);
+        top: 30px;
+    }
+    nav ul {
+        width: 100%;
+        max-height: calc(100vh - 95px); 
+        border-radius: 0px;
+        transition: transform 0.5s;
+    }
+    
+    nav a{
+        text-decoration: none;
+        color: white;
+    }
+    
+    #checkbox:checked ~ nav{
+        display: block ;
+        transform: translateX(-3%);
+    }
+    
+    nav li {
+    text-align: center;
+    padding: 15px;
+    font-size: 1em;
+    }
+    
+    #fotoperfil{
+        width: 30%;
+        height: auto;
+    }
+
 
 
     #contenedor{
