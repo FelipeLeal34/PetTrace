@@ -40,6 +40,7 @@ const main = document.getElementsByTagName("main");
 
 
 const btnAgregarPubli = document.querySelector("#agregar");
+const aAgregarPubli = document.querySelector("#aAgregar");
 
 var filtrosBox = document.querySelector(".filtros-box");
 
@@ -695,51 +696,51 @@ btnOpciones.forEach((btnOpcion,i) => {
 // -------------AGREGAR PUBLICACION-----------
 
 
+document.addEventListener("DOMContentLoaded", ()=>{
 
-btnAgregarPubli.addEventListener("click", ()=>{
-	
 
-	
-	
-		
-		
-		
-		agregarPubli.style.display = "flex";
-		contenedorPubliModal[0].style.display = "flex";
-		btnAgregarPubli.classList.add("menu-span-focus");
-		
-		
-	
-		
-		
-	
 
-	btnCerrarModal.forEach( equis => {
-	equis.addEventListener("click", ()=>{
-		agregarPubli.style.display = "none";
-		contenedorPubliModal[0].style.display = "none";
-		btnAgregarPubli.classList.remove("menu-span-focus");
+	if(aAgregarPubli){
+		aAgregarPubli.addEventListener("click", (e)=>{
+	
+			mostrarFormularioAgregar(e);
 		
-
-	});
-
+		}
+		);
+	}
 });
 
+
+
+
+
+function mostrarFormularioAgregar(e){
+
+	e.preventDefault();
+
+	agregarPubli.style.display = "flex";
+		contenedorPubliModal[0].style.display = "flex";
+		btnAgregarPubli.classList.add("menu-span-focus");
+
+	btnCerrarModal.forEach( equis => {
+		equis.addEventListener("click", ()=>{
+			agregarPubli.style.display = "none";
+			contenedorPubliModal[0].style.display = "none";
+			btnAgregarPubli.classList.remove("menu-span-focus");
+			
 	
+		});
 	
+	});
 
+	agregarPubli.addEventListener("submit", ()=>{
+		agregarPubli.style.display = "none";
+		agregarPubli.style.position = "static";
+		btnAgregarPubli.classList.remove("menu-span-focus");
+	
+	}
+	);
 }
-);
-
-
-
-agregarPubli.addEventListener("submit", ()=>{
-	agregarPubli.style.display = "none";
-	agregarPubli.style.position = "static";
-	btnAgregarPubli.classList.remove("menu-span-focus");
-
-}
-);
 
 
 
@@ -919,12 +920,13 @@ function verificarFiltros(){
 
 document.addEventListener("DOMContentLoaded",(event) =>{
 
-	
+if(filtrosAplicados){
 if(Object.keys(filtrosAplicados).length !== 0){
 		Object.assign(filtrosSeleccionados,filtrosAplicados);
 		
 		verificarFiltros();
 	}
+}
 		
 	console.log(filtrosSeleccionados);	
 	console.log(filtrosAplicados);	

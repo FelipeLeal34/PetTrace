@@ -7,8 +7,8 @@
 				<meta charset="utf-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				
-				<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-				<link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
+
+				<link rel="stylesheet" type="text/css" href="{% static 'css/publicaciones.css' %}">
 				<script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 			
 				<title>Mascotas Perdidas</title>
@@ -319,7 +319,7 @@
 												</div>
 												<div class="dato">
 													<p  class="bold">Numero de telefono: </p>
-													<p> {{ request.user.usuario.telefono }} </p>
+													<p> {{ request.user.telefono }} </p>
 												</div>
 
 												<div class="dato">
@@ -849,7 +849,7 @@
 								<div class="info-usuario">
 									<div class="img-usuario">
 									<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
-									<h6>{{ publicacion.id_usuario.username }}</h6></div>
+									<h5>{{ publicacion.id_usuario.username }}</h5></div>
 									<div id="iconosPubli">
 									<i class="fa-regular fa-heart" style="color: #000 ;margin-right: 8px; " id="agregarFav"></i>
 									<span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
@@ -896,10 +896,7 @@
 
 										<p class="fechaPubli"> {{ publicacion.fechaPubli }}</p>
 
-										<div class="col1">
-
-											
-
+										
 											<div class="dato">
 
 												<p class="bold">Nombre: </p>
@@ -915,9 +912,8 @@
 												<p class="bold">Color: </p>
 												<p> {{ publicacion.id_mascota.colormas }}</p>
 											</div>
-										</div>
-
-										<div class="col2">
+										
+										
 											<div class="dato">
 
 												<p class="bold">Fecha extravío: </p>
@@ -935,7 +931,7 @@
 												<p class="bold">Localidad extravío: </p>
 												<p>{{ publicacion.localidadExtravio }}</p>
 											</div>
-										</div>
+										
 										<a class="btn btnVerPubli verPubli">Ver mascota</a>
 									</div>
 

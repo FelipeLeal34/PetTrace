@@ -9,9 +9,6 @@
 	font-family: Garamond;
 }
 
-body{
-	background: #FAF9FA;
-}
 
 
 .titulo-perdidas{
@@ -44,7 +41,42 @@ body{
 
 
 
+.btn{
+	margin-left: auto;
+	margin-right: auto;
+	text-decoration: none;
+	color: #ffff;
+	padding: 10px;
+	
+	background: #74868a  ;
+	cursor: pointer;
+	
+	
+	width: auto;
+	border-radius: 10px;
+	line-height: 1;
 
+	
+	
+	text-align: center;
+	font-size: 15px;
+	transition: all 0.5s;
+
+	font-weight: 600;
+
+	
+
+	max-width: 200px;
+}
+
+.btn:hover{
+	background: #faf7f6 ;
+	color: #74868a ;
+	border: 1px solid #74868a;
+
+	
+
+}
 
 
 
@@ -59,7 +91,7 @@ body{
 main{
 	width: 100%;
 	height: auto;
-
+	background: #FAF9FA;
 	
 }
 
@@ -146,6 +178,7 @@ main{
 
 	text-align: center;
 	width: 100%;
+	margin-bottom: 10px;
 	
 	color: rgba(0, 0, 0, 0.5);
 }
@@ -199,7 +232,7 @@ main{
 .publi{
 	width: 300px;
 	height: auto;
-	background: none;
+	background: #f9f9f9;
 	box-shadow: 5px 5px 5px 5px #a7bab9;
 	margin: 15px auto;
 	
@@ -209,6 +242,9 @@ main{
 }
 
 
+.publi .dato{
+	margin-bottom: 12px;
+}
 
 
 .img-mascota-contenedor{
@@ -286,7 +322,8 @@ main{
 }
 
 .info-mascota-contenido{
-	padding: 5px 15px 15px 20px;
+	
+	padding: 10px 15px 15px 20px;
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
@@ -804,5 +841,3 @@ main{
 	
 	}
   }
-
-

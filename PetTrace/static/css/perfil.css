@@ -207,7 +207,7 @@ h2 {
     width: 30%;
     min-height: 30%;
     float: right;
-    background-color: #D3D3D3;
+   background-color: #D3D3D3;
     border-radius: 10px;
     padding: 10px;
 }
@@ -223,10 +223,47 @@ li {
 #apartados {
     clear: both;
     padding: 30px 0 50px;
+    display: flex;
+    width: 100%;
     font-size: 1.5em;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
 }
+
+
+#apartados-mascotas{
+    display: flex;
+    justify-content: space-evenly;
+    width: 40%;
+}
+
+
+#label-favoritas{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+
+.apartados-a-perfil{
+    color:#fff;
+    margin: 0;
+    cursor: pointer;
+}
+
+
+
+
+.apartados-a-perfil:hover{
+    text-decoration: underline;
+    margin: 0;
+}
+
+.apartados-a-perfil:active {
+    text-decoration: underline;
+
+  }
+
+
 
 a {
     margin-right: 30px;
@@ -234,15 +271,59 @@ a {
     color: white;
 }
 
-.publicaciones {
-    display: flex;
-	padding: 0 250px;
-	flex-wrap: wrap;	
-	text-align: center;
-	justify-content: space-between;
+
+#perdidas{
+    background: #D3D3D3;
+}
+
+#encontradas{
+    background: #a7bab9;
+}
+
+#favoritas{
+    background: #faf7f6;
+}
+
+#adopciones{
+    background: #D3D3D3;
+}
+
+
+
+
+.publis-perfil{
+    position: static;
+    margin-top: 30%;
+}
+
+#publicaciones {
+    
 	
+    margin :0 auto;
 	width: 100%;
 	height: auto;
+    max-width: 100vw;
+}
+
+
+#apartados-contenedor{
+    display:flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    width: 400%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.apartado-perfil{
+    width: 100%;
+
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    overflow: hidden;
+
 }
 
 .publi {

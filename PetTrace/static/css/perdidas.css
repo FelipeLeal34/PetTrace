@@ -196,6 +196,14 @@ main{
 }
 
 
+.col1, .col2{
+
+	width: 50%;
+	
+
+}
+
+
 .btnVerPubli{
 	margin-top: 3px;
 	

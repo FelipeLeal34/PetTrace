@@ -83,8 +83,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pettrace',
         'USER': 'root',
-        'PASSWORD': '',
-        'PASSWORD': '',
+        'PASSWORD': 'PIPECOMECOCO',
+ 
         'HOST': 'localhost',
     }
 }
