@@ -347,18 +347,11 @@ btnLeft.addEventListener('click', function(){
 	before();
 })
 
-/* const iconfav = document.getElementById("agregarFav")
 
-iconfav.addEventListener("click", function(e){
-	
-	if(e.target.id == "agregarFav"){
-	iconfav.innerHTML = '<i class="fa-solid fa-heart" style="color: #000;" id="agregadoFav"></i>'
 
-	} else{
-		iconfav.innerHTML = '<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>'
 
-	}
-}) */
+
+
 
 
 
@@ -608,7 +601,7 @@ btnEliminarPubli.forEach( btn => {
 	
 				
 		
-				const url = `/eliminarPubli/${idpubli}/`
+				const url = `/eliminarPubli/${idpubli}/`;
 		
 				
 		
@@ -631,9 +624,6 @@ btnEliminarPubli.forEach( btn => {
 
 				eliminarPubli.style.display = "none";
 				contenedorPubliModal[2].style.display = "none";
-
-				
-				
 
 	
 			});
@@ -1568,9 +1558,43 @@ btnAplicar.addEventListener("click",()=>{
 		})
 
 		
+})
+
+const agregarFav = document.querySelectorAll(".agregarFav");
+
+
+agregarFav.forEach(agregarFav => {
+
+agregarFav.addEventListener("click", function(e){
+	
+	var idpubli = e.target.closest(".publi").getAttribute("data-id");
+		
+
+		const url = `/agregarFav/${idpubli}/`
 
 		
-		
+
+		fetch(url,{
+			method: "GET",
+			headers: {
+	
+				"X-CSRFToken": csrftoken
+			  }
+		})
+		.then(response => response.json())
+		.then(respuesta => {
+
+			if(respuesta.success){
+				agregarFav.innerHTML = '<i class="fa-solid fa-heart" style="color: #000; "></i>';
+			} else{
+				console.log(respuesta.message);
+			}
+
+
+
+}) 
+
+})
 })
 
 

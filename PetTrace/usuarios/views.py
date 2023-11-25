@@ -78,6 +78,8 @@ def perdidas(request):
           if args :
           
                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
+
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id)
                     
      
           
@@ -86,9 +88,12 @@ def perdidas(request):
           else:
                # publicacion_ptr__usuario
                 publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
+                publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user)
+
+                
 
 
-     return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
+     return render(request, 'index/perdidas.html', {'publicaciones':publicaciones,'publicacionesFav':publicacionesFav})
 
 
 def encontradas(request):
@@ -748,7 +753,56 @@ def eliminarPubli(request,id_publicacion):
 
           
           #return JsonResponse({'estado':'exitoso'})
-     return redirect('PUBLICACION NO ELIMINADA')
+     return HttpResponse('PUBLICACION NO ELIMINADA')
+
+
+
+def agregarFav(request,id_publicacion):
+
+     url_anterior = request.META.get('HTTP_REFERER')
+     url = url_anterior.split(':8000')
+
+     if(url[1] == '/perdidas/'):
+
+          try:
+
+               usuario = Usuario.objects.get(id = request.user.id)
+               publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+
+               publifav = publicacionesFavoritas(id_publicacion=publicacion,id_usuario=usuario)
+
+               publifav.save()
+
+               response_data = {'success': True}
+
+          except Exception as e:
+
+               response_data = {'success': False, 'message': str(e)}
+     
+
+     else:
+
+          try:
+
+               usuario = Usuario.objects.get(id = request.user.id)
+               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
+
+               publifav = publicacionesFavoritas(id_publicacion=publicacion,usuario=usuario)
+
+               publifav.save()
+
+               response_data = {'success': True}
+
+          except Exception as e:
+               
+               response_data = {'success': False, 'message': str(e)}
+     
+     
+     return JsonResponse(response_data)
+
+
+
+
      
      
      

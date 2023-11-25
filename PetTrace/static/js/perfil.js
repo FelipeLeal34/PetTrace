@@ -210,8 +210,15 @@ const labelApartados = document.querySelectorAll(".apartados-a-perfil");
 const publicaciones = document.getElementById("publicaciones");
 let apartadoActual = 1;
 let numeroApartados = 4;
-let anchoApartado = publicaciones.offsetWidth;
 let $contenedor = document.querySelector("#apartados-contenedor");
+let anchoApartado = publicaciones.offsetWidth;
+
+
+window.addEventListener("resize", function() {
+  location.reload()
+  anchoApartado = publicaciones.offsetWidth;
+
+});
 
 
 labelApartados.forEach(label => {
@@ -228,10 +235,10 @@ function cambiarApartado(event) {
   event.preventDefault(); // Evitar que se recargue la página
   let apartado = event.target.dataset.apartado; // Obtener el número del apartado
   apartadoActual = parseInt(apartado); // Convertirlo a número entero
-  actualizarCarrusel(); // Actualizar el carrusel con el nuevo apartado
+  actualizarCarrusel(apartadoActual); // Actualizar el carrusel con el nuevo apartado
 }
 
-function actualizarCarrusel() {
+function actualizarCarrusel(apartadoActual) {
   let desplazamiento = -anchoApartado * (apartadoActual - 1);
   $contenedor.style.transform = `translateX(${desplazamiento}px)`;
   

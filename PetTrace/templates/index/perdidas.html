@@ -851,7 +851,15 @@
 									<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
 									<h5>{{ publicacion.id_usuario.username }}</h5></div>
 									<div id="iconosPubli">
-									<i class="fa-regular fa-heart" style="color: #000 ;margin-right: 8px; " id="agregarFav"></i>
+										<span class="agregarFav" style="margin-right: 8px; ">
+											{% if publicacion.id_publicacion in publicacionesFav.values_list(id_publicacion_id, flat=True) %}
+												<i class="fa-solid fa-heart" style="color: #000;"></i>
+											{% else %}
+												<i class="fa-regular fa-heart" style="color: #000;"></i>
+											{% endif %}
+											
+										</span>
+									
 									<span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
 									</div>
 									

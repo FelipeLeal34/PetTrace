@@ -45,6 +45,7 @@ urlpatterns = [
     path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli' ),
     path('encontradas/', encontradas, name='encontradas' ),
     path('agregarPubliEncontradas/', agregarPubliEncontradas, name='agregarPubliEncontradas' ),
+    path('agregarFav/<int:id_publicacion>/', agregarFav ),
 
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )
