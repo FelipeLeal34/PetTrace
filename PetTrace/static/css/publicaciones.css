@@ -10,14 +10,6 @@
 }
 
 
-body{
-	background: #FAF9FA;
-}
-
-
-
-
-
 
 .titulo-perdidas{
 	display: flex;
@@ -41,6 +33,7 @@ body{
 	border: 1px #587073 solid;
 }
 
+
 .titulo h2{
 	color: #587073 ;
 }
@@ -48,7 +41,42 @@ body{
 
 
 
+.btn{
+	margin-left: auto;
+	margin-right: auto;
+	text-decoration: none;
+	color: #ffff;
+	padding: 10px;
+	
+	background: #74868a  ;
+	cursor: pointer;
+	
+	
+	width: auto;
+	border-radius: 10px;
+	line-height: 1;
 
+	
+	
+	text-align: center;
+	font-size: 15px;
+	transition: all 0.5s;
+
+	font-weight: 600;
+
+	
+
+	max-width: 200px;
+}
+
+.btn:hover{
+	background: #faf7f6 ;
+	color: #74868a ;
+	border: 1px solid #74868a;
+
+	
+
+}
 
 
 
@@ -63,7 +91,7 @@ body{
 main{
 	width: 100%;
 	height: auto;
-	
+	background: #FAF9FA;
 	
 }
 
@@ -149,8 +177,8 @@ main{
 .fechaPubli{
 
 	text-align: center;
-
 	width: 100%;
+	margin-bottom: 10px;
 	
 	color: rgba(0, 0, 0, 0.5);
 }
@@ -196,14 +224,6 @@ main{
 }
 
 
-.col1, .col2{
-
-	width: 50%;
-	
-
-}
-
-
 .btnVerPubli{
 	margin-top: 3px;
 	
@@ -212,7 +232,7 @@ main{
 .publi{
 	width: 300px;
 	height: auto;
-	background: none;
+	background: #f9f9f9;
 	box-shadow: 5px 5px 5px 5px #a7bab9;
 	margin: 15px auto;
 	
@@ -222,6 +242,9 @@ main{
 }
 
 
+.publi .dato{
+	margin-bottom: 12px;
+}
 
 
 .img-mascota-contenedor{
@@ -245,9 +268,12 @@ main{
 
 .agregarFav{
 	cursor: pointer;
-
+	transition: all 2s;
 
 }
+
+
+
 
 
 .info-mascota{
@@ -289,7 +315,8 @@ main{
 }
 
 .info-mascota-contenido{
-	padding: 5px 15px 15px 20px;
+	
+	padding: 10px 15px 15px 20px;
 	width: 100%;
 	display: flex;
 	flex-wrap: wrap;
@@ -537,7 +564,7 @@ main{
 .label-selectMultiple{
 	display: flex;
 	color: #000;
-
+	
 	margin-bottom: 5px;
 }
 
@@ -646,9 +673,6 @@ main{
 
 
 
-
-
-
 /* --------------CONFIRMACION DE ELIMINACION DE PUBLICACION---------- */
 
 
@@ -665,7 +689,6 @@ main{
 	justify-content: center;
 
 }
-
 
 #btnOpcionesEP{
 	margin-top: 50px;
@@ -811,5 +834,3 @@ main{
 	
 	}
   }
-
-

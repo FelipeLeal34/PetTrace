@@ -40,6 +40,7 @@ const main = document.getElementsByTagName("main");
 
 
 const btnAgregarPubli = document.querySelector("#agregar");
+const aAgregarPubli = document.querySelector("#aAgregar");
 
 var filtrosBox = document.querySelector(".filtros-box");
 
@@ -346,18 +347,11 @@ btnLeft.addEventListener('click', function(){
 	before();
 })
 
-/* const iconfav = document.getElementById("agregarFav")
 
-iconfav.addEventListener("click", function(e){
-	
-	if(e.target.id == "agregarFav"){
-	iconfav.innerHTML = '<i class="fa-solid fa-heart" style="color: #000;" id="agregadoFav"></i>'
 
-	} else{
-		iconfav.innerHTML = '<i class="fa-regular fa-heart" style="color: #000;" id="agregarFav"></i>'
 
-	}
-}) */
+
+
 
 
 
@@ -607,7 +601,7 @@ btnEliminarPubli.forEach( btn => {
 	
 				
 		
-				const url = `/eliminarPubli/${idpubli}/`
+				const url = `/eliminarPubli/${idpubli}/`;
 		
 				
 		
@@ -630,9 +624,6 @@ btnEliminarPubli.forEach( btn => {
 
 				eliminarPubli.style.display = "none";
 				contenedorPubliModal[2].style.display = "none";
-
-				
-				
 
 	
 			});
@@ -695,51 +686,51 @@ btnOpciones.forEach((btnOpcion,i) => {
 // -------------AGREGAR PUBLICACION-----------
 
 
+document.addEventListener("DOMContentLoaded", ()=>{
 
-btnAgregarPubli.addEventListener("click", ()=>{
-	
 
-	
-	
-		
-		
-		
-		agregarPubli.style.display = "flex";
-		contenedorPubliModal[0].style.display = "flex";
-		btnAgregarPubli.classList.add("menu-span-focus");
-		
-		
-	
-		
-		
-	
 
-	btnCerrarModal.forEach( equis => {
-	equis.addEventListener("click", ()=>{
-		agregarPubli.style.display = "none";
-		contenedorPubliModal[0].style.display = "none";
-		btnAgregarPubli.classList.remove("menu-span-focus");
+	if(aAgregarPubli){
+		aAgregarPubli.addEventListener("click", (e)=>{
+	
+			mostrarFormularioAgregar(e);
 		
-
-	});
-
+		}
+		);
+	}
 });
 
+
+
+
+
+function mostrarFormularioAgregar(e){
+
+	e.preventDefault();
+
+	agregarPubli.style.display = "flex";
+		contenedorPubliModal[0].style.display = "flex";
+		btnAgregarPubli.classList.add("menu-span-focus");
+
+	btnCerrarModal.forEach( equis => {
+		equis.addEventListener("click", ()=>{
+			agregarPubli.style.display = "none";
+			contenedorPubliModal[0].style.display = "none";
+			btnAgregarPubli.classList.remove("menu-span-focus");
+			
 	
+		});
 	
+	});
 
+	agregarPubli.addEventListener("submit", ()=>{
+		agregarPubli.style.display = "none";
+		agregarPubli.style.position = "static";
+		btnAgregarPubli.classList.remove("menu-span-focus");
+	
+	}
+	);
 }
-);
-
-
-
-agregarPubli.addEventListener("submit", ()=>{
-	agregarPubli.style.display = "none";
-	agregarPubli.style.position = "static";
-	btnAgregarPubli.classList.remove("menu-span-focus");
-
-}
-);
 
 
 
@@ -919,12 +910,13 @@ function verificarFiltros(){
 
 document.addEventListener("DOMContentLoaded",(event) =>{
 
-	
+if(filtrosAplicados){
 if(Object.keys(filtrosAplicados).length !== 0){
 		Object.assign(filtrosSeleccionados,filtrosAplicados);
 		
 		verificarFiltros();
 	}
+}
 		
 	console.log(filtrosSeleccionados);	
 	console.log(filtrosAplicados);	
@@ -1566,9 +1558,43 @@ btnAplicar.addEventListener("click",()=>{
 		})
 
 		
+})
+
+const agregarFav = document.querySelectorAll(".agregarFav");
+
+
+agregarFav.forEach(agregarFav => {
+
+agregarFav.addEventListener("click", function(e){
+	
+	var idpubli = e.target.closest(".publi").getAttribute("data-id");
+		
+
+		const url = `/agregarFav/${idpubli}/`
 
 		
-		
+
+		fetch(url,{
+			method: "GET",
+			headers: {
+	
+				"X-CSRFToken": csrftoken
+			  }
+		})
+		.then(response => response.json())
+		.then(respuesta => {
+
+			if(respuesta.success){
+				agregarFav.innerHTML = '<i class="fa-solid fa-heart" style="color: #000; "></i>';
+			} else{
+				console.log(respuesta.message);
+			}
+
+
+
+}) 
+
+})
 })
 
 

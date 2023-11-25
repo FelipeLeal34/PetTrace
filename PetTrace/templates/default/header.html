@@ -53,13 +53,25 @@
                 <a href="{% url 'logout' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">CERRAR SESIÓN</a>
             </li>
             {% else %}
-            <li class="log">
-                <span class="icon-cog"></span>
-                <a href="{% url 'registrar' %}">Registrarse</a>
+            <li class="li">
+                <i class="fa-solid fa-user-plus fa-lg"></i>
+                <a href="{% url 'registrar' %}">REGISTRARSE</a>
             </li> 
-            <li class="log">
-                <span class="icon-cog"></span>
-                <a href="{% url 'login' %}">Iniciar sesión</a>
+            <li class="li">
+                <i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i>
+                <a href="{% url 'login' %}">INICIAR SESIÓN</a>
+            </li>
+            <li class="li">
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                <a href="{% url 'perdidas' %}">PERDIDAS</a>
+            </li>
+            <li class="li">
+                <i class="fa-solid fa-paw fa-lg"></i>
+                <a href="{% url 'encontradas' %}">ENCONTRADAS</a>
+            </li>
+            <li class="li">
+                <i class="fa-brands fa-firefox-browser fa-lg"></i>
+                <a href="">ADOPCIONES</a>
             </li>
             {% endif %}
         </ul>

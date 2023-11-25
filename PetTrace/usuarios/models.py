@@ -124,11 +124,22 @@ class Publicacion(models.Model):
     id_usuario = models.ForeignKey(Usuario, db_column='id', blank=False, null=False,on_delete=models.CASCADE)
     id_mascota = models.OneToOneField(Mascota, db_column='id_mascota', blank=False, null=False,on_delete=models.CASCADE)
 
-    
 
     class Meta:
        
         db_table = 'publicaciones'
+
+
+
+
+
+class publicacionesFavoritas(models.Model):
+    id = models.AutoField(primary_key=True)
+    id_publicacion = models.ForeignKey(Publicacion, null=False, on_delete=models.CASCADE)
+    id_usuario = models.ForeignKey(Usuario, null=False, on_delete=models.CASCADE)
+
+
+
 
 
 class MascotasPerdidas(Publicacion):

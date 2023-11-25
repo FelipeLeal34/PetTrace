@@ -11,12 +11,11 @@
         
         <link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/publicaciones.css' %}">
 
 
-        <script src="{% static 'js/perfil.js' %}"></script>
-        <script type="module" src="{% static 'js/perdidas.js' %}"></script>
+
+        
         
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>Perfil usuario</title>
@@ -25,11 +24,12 @@
    {% include 'default/header.html' %}
     <main class="main">
         <div id="contenedor">
-               
+            
             <div id="contenido">
                 <div id="contImg">
                     <img src="{% static 'img/fotoperfil.jpg' %}" id="imgperfil" data-modal="modal1">
                 </div>
+                <div id="informacion-perfil">
                 <div id="perfil">
                     <h1>Nombre de usuario: {{ user.username }}</h1>
 
@@ -53,129 +53,288 @@
                         <li><i class="fas fa-paw"></i> Miembro desde: <br> {{ user.perfil.fecha_creacion }}</li>
                     </ul>
                 </div>
+            </div>
+
+
+
+
+                <div class="publis-perfil">
+
+                    <div  class="titulo-perdidas">
+						<div class="titulo">
+						<h2 style="color: #fff;">PUBLICACIONES</h2>
+						<hr style="border: 1px #fff solid;">
+						</div>
+					</div>
+
                 <div id="apartados">
-                    <a href="">Publicaciones</a>
-                    <a href="">Adopciones</a>
+
+
+                    
+
+                    <div id="apartados-mascotas">
+                    <label class="apartados-a-perfil" data-apartado="1">Perdidas</label>
+                    <label class="apartados-a-perfil" data-apartado="2">Encontradas</label>
+                    <label class="apartados-a-perfil" data-apartado="3">Adopciones</label>
                 </div>
-                <div class="publicaciones">
+
+                <div id="label-favoritas">
+                    <label href="" class="apartados-a-perfil" data-apartado="4">Favoritas</label>
+                </div>
+
+                </div>
+
+
+                <div id="publicaciones">
+
+                    <div id="apartados-contenedor">
+
+                    <div id="perdidas" class="apartado-perfil">
                     {% for publicacion in perdidas %}
-                    <div class="publi" id="publi" data-id="{{ publicacion.id_publicacion }}">
-        
-                        <div class="contenido-publi">
-        
-                            <input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
-        
-                            <div class="info-usuario">
-                                <div class="img-usuario">
-                                <img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
-                                <h6>{{ publicacion.id_usuario.username }}</h6></div>
-                                <div id="iconosPubli">
-                                <i class="fa-regular fa-heart" style="color: #000 ;margin-right: 8px; " id="agregarFav"></i>
-                                <span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
-                                </div>
-                                
-                            </div>
-        
-                            
-                            <div class="menuOpcionesPubli">
-                                {% if user.is_authenticated and user.id == publicacion.id_usuario.pk  %}
-                                <div class="opcionesPubli btnEditarPubli">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                    <p>Editar publicacion</p>
-                                </div>
-                                <div class="opcionesPubli btnEliminarPubli">
-                                    <i class="fa-solid fa-trash"></i>
-                                    <p>Eliminar publicacion</p>
-                                </div>
-                                {% endif %}
-                                <div class="opcionesPubli">
-                                    <i class="fa-solid fa-flag"></i>
-                                    <p>Reportar publicacion</p>
-                                </div>
-                            </div>
-        
-                            <hr>
-        
-                            <div class="img-mascota-section">
-        
-                                <div class="img-mascota-contenedor">
-        
-                                    <img src="{{ publicacion.id_mascota.img1.url }}">
-        
-                                </div>
-        
-                            </div>
-        
-        
-                            <hr>
-        
-                            <div class="info-mascota">
-        
-                                <div class="info-mascota-contenido">
-        
-                                    <p class="fechaPubli"> {{ publicacion.fechaPubli }}</p>
-        
-                                    <div class="col1">
-        
-                                        
-        
-                                        <div class="dato">
-        
-                                            <p class="bold">Especie: </p>
-                                            <p> {{ publicacion.id_mascota.especiemas }}</p>
-                                        </div>
-                                        <div class="dato">
-        
-                                            <p class="bold">Raza: </p>
-                                            <p> {{ publicacion.id_mascota.razamas }}</p>
-                                        </div>
-                                        <div class="dato">
-        
-                                            <p class="bold">Color: </p>
-                                            <p> {{ publicacion.id_mascota.colormas }}</p>
-                                        </div>
-                                    </div>
-        
-                                    <div class="col2">
-                                        <div class="dato">
-        
-                                            <p class="bold">Fecha de encuentro: </p>
-                                            <p>{{ publicacion.fechaEncuentro }}</p>
-                                        </div>
-        
-                                        <div class="dato">
-        
-                                            <p class="bold">Barrio de encuentro: </p>
-                                            <p>{{ publicacion.barrioEncuentro }}</p>
-                                        </div>
-        
-                                        <div class="dato">
-        
-                                            <p class="bold">Localidad encuentro: </p>
-                                            <p>{{ publicacion.localidadEncuentro }}</p>
-                                        </div>
-                                    </div>
-                                    <a class="btn btnVerPubli verPubli">Ver mascota</a>
-                                </div>
-        
-                                
-        
-                            </div>
-        
-                            
-                            
-                            
+						<div class="publi" id="publi" data-id="{{ publicacion.id_publicacion }}">
+
+							<div class="contenido-publi">
+
+								<input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
+
+								<div class="info-usuario">
+									<div class="img-usuario">
+									<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
+									<h5>{{ publicacion.id_usuario.username }}</h5></div>
+									<div id="iconosPubli">
+									<i class="fa-regular fa-heart" style="color: #000 ;margin-right: 8px; " id="agregarFav"></i>
+									<span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
+									</div>
+									
+								</div>
+
+								
+								<div class="menuOpcionesPubli">
+									{% if user.is_authenticated and user.id == publicacion.id_usuario.pk  %}
+									<div class="opcionesPubli btnEditarPubli">
+										<i class="fa-solid fa-pen-to-square"></i>
+										<p>Editar publicacion</p>
+									</div>
+									<div class="opcionesPubli btnEliminarPubli">
+										<i class="fa-solid fa-trash"></i>
+										<p>Eliminar publicacion</p>
+									</div>
+									{% endif %}
+									<div class="opcionesPubli">
+										<i class="fa-solid fa-flag"></i>
+										<p>Reportar publicacion</p>
+									</div>
+								</div>
+
+								<hr>
+
+								<div class="img-mascota-section">
+
+									<div class="img-mascota-contenedor">
+
+										<img src="{{ publicacion.id_mascota.img1.url }}">
+
+									</div>
+
+								</div>
+
+
+								<hr>
+
+								<div class="info-mascota">
+
+									<div class="info-mascota-contenido">
+
+										<p class="fechaPubli"> {{ publicacion.fechaPubli }}</p>
+
+										
+											<div class="dato">
+
+												<p class="bold">Nombre: </p>
+												<p> {{ publicacion.id_mascota.nombremas }}</p>
+											</div>
+											<div class="dato">
+
+												<p class="bold">Raza: </p>
+												<p> {{ publicacion.id_mascota.razamas }}</p>
+											</div>
+											<div class="dato">
+
+												<p class="bold">Color: </p>
+												<p> {{ publicacion.id_mascota.colormas }}</p>
+											</div>
+										
+										
+											<div class="dato">
+
+												<p class="bold">Fecha extravío: </p>
+												<p>{{ publicacion.fechaExtravio }}</p>
+											</div>
+
+											<div class="dato">
+
+												<p class="bold">Barrio de extravío: </p>
+												<p>{{ publicacion.barrioExtravio }}</p>
+											</div>
+
+											<div class="dato">
+
+												<p class="bold">Localidad extravío: </p>
+												<p>{{ publicacion.localidadExtravio }}</p>
+											</div>
+										
+										<a class="btn btnVerPubli verPubli">Ver mascota</a>
+									</div>
+
+									
+
+								</div>
+
+								
+
+
+								
+								
+							</div>
+
+							
+
+							
+						</div>
+						{% endfor %}
+                    </div>
+
+                    <div id="encontradas" class="apartado-perfil">
+                        {% for publicacion in encontradas %}
+            <div class="publi" id="publi" data-id="{{ publicacion.id_publicacion }}">
+
+                <div class="contenido-publi">
+
+                    <input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
+
+                    <div class="info-usuario">
+                        <div class="img-usuario">
+                        <img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
+                        <h6>{{ publicacion.id_usuario.username }}</h6></div>
+                        <div id="iconosPubli">
+                        <i class="fa-regular fa-heart" style="color: #000 ;margin-right: 8px; " id="agregarFav"></i>
+                        <span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
                         </div>
-        
-                        
-        
                         
                     </div>
-                    {% endfor %}
+
+                    
+                    <div class="menuOpcionesPubli">
+                        {% if user.is_authenticated and user.id == publicacion.id_usuario.pk  %}
+                        <div class="opcionesPubli btnEditarPubli">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                            <p>Editar publicacion</p>
+                        </div>
+                        <div class="opcionesPubli btnEliminarPubli">
+                            <i class="fa-solid fa-trash"></i>
+                            <p>Eliminar publicacion</p>
+                        </div>
+                        {% endif %}
+                        <div class="opcionesPubli">
+                            <i class="fa-solid fa-flag"></i>
+                            <p>Reportar publicacion</p>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="img-mascota-section">
+
+                        <div class="img-mascota-contenedor">
+
+                            <img src="{{ publicacion.id_mascota.img1.url }}">
+
+                        </div>
+
+                    </div>
+
+
+                    <hr>
+
+                    <div class="info-mascota">
+
+                        <div class="info-mascota-contenido">
+
+                            <p class="fechaPubli"> {{ publicacion.fechaPubli }}</p>
+
+                            <div class="col1">
+
+                                
+
+                                <div class="dato">
+
+                                    <p class="bold">Especie: </p>
+                                    <p> {{ publicacion.id_mascota.especiemas }}</p>
+                                </div>
+                                <div class="dato">
+
+                                    <p class="bold">Raza: </p>
+                                    <p> {{ publicacion.id_mascota.razamas }}</p>
+                                </div>
+                                <div class="dato">
+
+                                    <p class="bold">Color: </p>
+                                    <p> {{ publicacion.id_mascota.colormas }}</p>
+                                </div>
+                            </div>
+
+                            <div class="col2">
+                                <div class="dato">
+
+                                    <p class="bold">Fecha de encuentro: </p>
+                                    <p>{{ publicacion.fechaEncuentro }}</p>
+                                </div>
+
+                                <div class="dato">
+
+                                    <p class="bold">Barrio de encuentro: </p>
+                                    <p>{{ publicacion.barrioEncuentro }}</p>
+                                </div>
+
+                                <div class="dato">
+
+                                    <p class="bold">Localidad encuentro: </p>
+                                    <p>{{ publicacion.localidadEncuentro }}</p>
+                                </div>
+                            </div>
+                            <a class="btn btnVerPubli verPubli">Ver mascota</a>
+                        </div>
+
+                        
+
+                    </div>
+
+                    
+                    
+                    
+                </div>
+
+                
+
+                
+            </div>
+            {% endfor %}
+                    </div>
+
+                    <div id="adopciones" class="apartado-perfil">
+
+                    </div>
+
+                    <div id="favoritas" class="apartado-perfil">
+
+
+                    </div>
 
 
                 
                 </div>
+            
+            </div>
             </div>
         </div>
         <!-- Div para mostrar img de perfil del usuario -->
@@ -208,6 +367,7 @@
     {% include 'default/footer.html' %}
 
        
-
+    <script src="{% static 'js/perfil.js' %}"></script>
+    <!-- <script type="module" src="{% static 'js/perdidas.js' %}"></script> -->
         </body>
         </html>
