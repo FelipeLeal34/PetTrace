@@ -1585,7 +1585,12 @@ agregarFav.addEventListener("click", function(e){
 		.then(respuesta => {
 
 			if(respuesta.success){
-				agregarFav.innerHTML = '<i class="fa-solid fa-heart" style="color: #000; "></i>';
+				if(respuesta.saved){
+					agregarFav.innerHTML = '<i class="fa-solid fa-heart" style="color: red; "></i>';
+				} else{
+					agregarFav.innerHTML = '<i class="fa-regular fa-heart" style="color: black; "></i>';
+				}
+				
 			} else{
 				console.log(respuesta.message);
 			}

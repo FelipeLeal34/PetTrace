@@ -34,6 +34,8 @@ def perfil(request):
  
 def perdidas(request):
 
+     context = {}
+
      publicaciones = None
      
      if request.method == 'POST':
@@ -79,7 +81,12 @@ def perdidas(request):
           
                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
 
-               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id)
+               context['publicaciones'] = publicaciones
+
+               if request.user.is_authenticated:
+                    publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+                    
+                    context['publicacionesFav'] = publicacionesFav
                     
      
           
@@ -88,12 +95,18 @@ def perdidas(request):
           else:
                # publicacion_ptr__usuario
                 publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
-                publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user)
+
+                context['publicaciones'] = publicaciones
+
+                if request.user.is_authenticated:
+                    publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+                    
+                    context['publicacionesFav'] = publicacionesFav
 
                 
 
 
-     return render(request, 'index/perdidas.html', {'publicaciones':publicaciones,'publicacionesFav':publicacionesFav})
+     return render(request, 'index/perdidas.html', context)
 
 
 def encontradas(request):
@@ -762,6 +775,8 @@ def agregarFav(request,id_publicacion):
      url_anterior = request.META.get('HTTP_REFERER')
      url = url_anterior.split(':8000')
 
+     response_data = {}
+
      if(url[1] == '/perdidas/'):
 
           try:
@@ -769,11 +784,28 @@ def agregarFav(request,id_publicacion):
                usuario = Usuario.objects.get(id = request.user.id)
                publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
 
-               publifav = publicacionesFavoritas(id_publicacion=publicacion,id_usuario=usuario)
+               try:
+                    publicacionfav = publicacionesFavoritas.objects.get(id_publicacion=publicacion,id_usuario=usuario)
+               except publicacionesFavoritas.DoesNotExist:
+                    publicacionfav = None
 
-               publifav.save()
+               if(publicacionfav):
 
-               response_data = {'success': True}
+                    publicacionfav.delete()
+
+                    response_data['deleted'] = True
+                    response_data['success'] = True
+
+               else:
+
+
+                    publifav = publicacionesFavoritas(id_publicacion=publicacion,id_usuario=usuario)
+
+                    publifav.save()
+
+                    response_data['saved'] = True
+                    response_data['success'] = True
+
 
           except Exception as e:
 
@@ -787,11 +819,22 @@ def agregarFav(request,id_publicacion):
                usuario = Usuario.objects.get(id = request.user.id)
                publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
 
-               publifav = publicacionesFavoritas(id_publicacion=publicacion,usuario=usuario)
+               publicacionfav = publicacionesFavoritas.objects.get(id_publicacion=publicacion,usuario=usuario)
 
-               publifav.save()
+               if(publicacionfav):
 
-               response_data = {'success': True}
+                    publicacionfav.delete()
+
+                    response_data = {'success': True}
+
+               else:
+
+
+                    publifav = publicacionesFavoritas(id_publicacion=publicacion,usuario=usuario)
+
+                    publifav.save()
+
+                    response_data = {'success': True}
 
           except Exception as e:
                

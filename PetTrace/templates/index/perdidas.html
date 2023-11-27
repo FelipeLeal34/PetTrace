@@ -851,14 +851,21 @@
 									<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
 									<h5>{{ publicacion.id_usuario.username }}</h5></div>
 									<div id="iconosPubli">
+
+										{% if user.is_authenticated %}
 										<span class="agregarFav" style="margin-right: 8px; ">
-											{% if publicacion.id_publicacion in publicacionesFav.values_list(id_publicacion_id, flat=True) %}
-												<i class="fa-solid fa-heart" style="color: #000;"></i>
+											{% if publicacion.id_publicacion in publicacionesFav %}
+												<i class="fa-solid fa-heart" style="color: red;"></i>
 											{% else %}
-												<i class="fa-regular fa-heart" style="color: #000;"></i>
-											{% endif %}
-											
+												<i class="fa-regular fa-heart" style="color: black;"></i>
+											{% endif %}	
 										</span>
+										{% else %}
+										<a href="{% url 'login' %}" style="margin-right: 8px; ">
+											
+												<i class="fa-regular fa-heart" style="color: black;"></i>
+										</a>
+										{% endif %}
 									
 									<span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
 									</div>
@@ -877,6 +884,8 @@
 										<p>Eliminar publicacion</p>
 									</div>
 									{% endif %}
+
+									
 									<div class="opcionesPubli">
 										<i class="fa-solid fa-flag"></i>
 										<p>Reportar publicacion</p>

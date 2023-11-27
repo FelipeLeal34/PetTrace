@@ -133,10 +133,16 @@ class Publicacion(models.Model):
 
 
 
+
 class publicacionesFavoritas(models.Model):
     id = models.AutoField(primary_key=True)
     id_publicacion = models.ForeignKey(Publicacion, null=False, on_delete=models.CASCADE)
     id_usuario = models.ForeignKey(Usuario, null=False, on_delete=models.CASCADE)
+
+
+    class Meta:
+       
+        db_table = 'publicacionesFavoritas'
 
 
 
