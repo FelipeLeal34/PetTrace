@@ -384,10 +384,29 @@ main{
 	
 	
 	
-	
 
 }
 
+
+textarea{
+	resize: none;
+	height: auto;
+
+}
+
+.dato:has(textarea) {
+	position: relative;
+  
+	
+  }
+
+  textarea::placeholder {
+	position: absolute;
+	top: 50%;
+
+	transform: translateY(-50%);
+
+  }
 
 
 .publi-carrusel{
