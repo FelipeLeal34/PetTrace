@@ -54,7 +54,6 @@ def perdidas(request):
           args = {}
          
 
-
           for clave in filtros:
               if filtros[clave]:
                     if clave == "color":
@@ -72,9 +71,8 @@ def perdidas(request):
                     elif clave == "barrio":
                          args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
                     else:
-                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
+                         args[clave+'Publicacion'] = str(list(filtros[clave].keys())[0])
                
-
 
 
           if args :
@@ -147,7 +145,7 @@ def encontradas(request):
                     elif clave == "barrio":
                          args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
                     else:
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
+                         args[clave+'Publicacion'] = str(list(filtros[clave].keys())[0])
                
 
 
@@ -200,25 +198,25 @@ def adopciones(request):
                     elif clave == "tamaño":
                          args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "localidad":
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[1])
+                         args[clave+'Adopcion'] = str(list(filtros[clave].keys())[1])
                     elif clave == "barrio":
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
+                         args[clave+'Adopcion'] = str(list(filtros[clave].keys())[0])
                     else:
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
-               
+                         args[clave+'Publicacion'] = str(list(filtros[clave].keys())[0])
 
+               
 
           if args :
           
-               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
+               publicaciones = MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
                     
 
           else:
 
-                    publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
+                    publicaciones = MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
 
 
-     return render(request, 'index/encontradas.html', {'publicaciones':publicaciones})
+     return render(request, 'index/adopciones.html', {'publicaciones':publicaciones})
 
 
 
@@ -489,188 +487,83 @@ def resetComplete(request):
                     #raise ValidationError('si sirve pero no reenvia.')"""
                     
     
-    
-    
+def agregarPubli(request):
 
-@login_required
-def agregarPubliPerdidas(request):
-     
+     url_anterior = request.META.get('HTTP_REFERER')
+     url = url_anterior.split(':8000')
+
      if request.method == 'POST':
 
           
-
-          # SE INSTANCIAN LOS DOS MODELSFORMS DE FORMS.PY, SE LE INDICA AL FORMULARIO DE MASCOTA QUE SE ENVIARÁN ARCHIVOS
-          formMascota = MascotaPerdidaForm(request.POST, request.FILES )
-          formSaludMascota = SaludMascotaForm(request.POST)
-          formPublicacion = PubliMascotaPerdidaForm(request.POST)
-          if formPublicacion.is_valid():
-            
-            if formSaludMascota.is_valid(): 
-               
-               if formMascota.is_valid():
-
-                    
-
-                    #SE OBTIEME EL ID DEL USUARIO LOGUEADO, ES DECIR, DEL QUE HIZO LA PUBLICACION
-                    id_usuario = request.user.id
-                    vacunasmas = request.POST.getlist('vacunasmas')
-
-                    #SE CREA UN OBJETO DE ESE USUARIO
-                    usuario = Usuario.objects.get(id=id_usuario)
-
-                    #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
-                    salud_mascota = formSaludMascota.save()
-
-                    
-                    
-                    
-
-                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'SALUD_MASCOTA'
-                    idestado_salud = salud_mascota.pk
-
-                    #SE CREA UN OBJETO DE ESE ESTADO DE SALUD
-                    estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
-                    estado_salud.guardar_vacunas(vacunasmas)
-
-                    # SE GUARDAN TODOS LOS claveS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
-
-                    mascotaIns = formMascota.save(commit=False)
-
-
-                    #SE LE ASIGNA EN EL CAMPO ID_USUARIO DE LA TABLA MASCOTAS, EL OBJETO 'USUARIO' YA CREADO
-                    mascotaIns.id_usuario = usuario
-
-                    #SE LE ASIGNA EN EL CAMPO IDESTADO_SALUD DE LA TABLA MASCOTAS, EL OBJETO 'ESTADO_SALUD' YA CREADO
-                    mascotaIns.idestado_salud = estado_salud
-
-                    #SE GUARDA EL FORMULARIO DE MASCOTAS YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
-                    mascotaIns.save()
-
-                    
-
-
-                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'MASCOTAS'
-                    id_mascota = mascotaIns.pk
-
-                    #SE CREA UN OBJETO DE ESE ULTIMPO REGISTRO DE LA TABLA 'MASCOTAS'
-                    mascota = Mascota.objects.get(id_mascota=id_mascota)
-
-
-
-                    # SE GUARDAN LOS DATOS, SE AGREGAN LOS OBJETOS Y LUGARES MANUALMENTE
-                    publicacion = formPublicacion.save(commit=False)
-                    publicacion.apartado = 'perdidas'
-                    publicacion.idestado_salud = estado_salud
-                    publicacion.id_usuario = usuario
-                    publicacion.id_mascota = mascota
-
-                    #POR ULTIMO SE GUARDA EL FORMULARIO
-                    publicacion.save()
-
-                    
-
-                    return redirect('perdidas')
-               
-               
-
-     return HttpResponse('NO SE GUARDÓ')
-
-
-
-
-
-@login_required
-def agregarPubliEncontradas(request):
      
-     if request.method == 'POST':
+          if(url[1] == '/perdidas/'):
+
+               formMascota = MascotaPerdidaForm(request.POST, request.FILES)
+               formSaludMascota = SaludMascotaForm(request.POST)
+               formPublicacion = PubliMascotaPerdidaForm(request.POST)
+
+
+          elif(url[1] == '/encontradas/'):
+      
+
+               formMascota = MascotaEncontradaForm(request.POST, request.FILES)
+               formSaludMascota = SaludMascotaForm(request.POST)
+               formPublicacion = PubliMascotaEncontradaForm(request.POST)
+
+          else:
+
+
+               formMascota = MascotaAdopcionForm(request.POST, request.FILES)
+               formSaludMascota = SaludMascotaForm(request.POST)
+               formPublicacion = PubliMascotaAdopcionForm(request.POST)
+
+
+          if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
 
           
 
-          # SE INSTANCIAN LOS DOS MODELSFORMS DE FORMS.PY, SE LE INDICA AL FORMULARIO DE MASCOTA QUE SE ENVIARÁN ARCHIVOS
-          formMascota = MascotaEncontradaForm(request.POST, request.FILES )
-          formSaludMascota = SaludMascotaForm(request.POST)
-          formPublicacion = PubliMascotaEncontradaForm(request.POST)
-          if formPublicacion.is_valid():
-            
-            print("Formulario de publicacion valido")
-            
-            if formSaludMascota.is_valid(): 
-               
-
-               print("Formulario de salud mascota valido")
-
-
-               if formMascota.is_valid():
-
-                    print("Formulario de mascota valido")
-
-
-                    #SE OBTIEME EL ID DEL USUARIO LOGUEADO, ES DECIR, DEL QUE HIZO LA PUBLICACION
                     id_usuario = request.user.id
-                    
-
-                    #SE CREA UN OBJETO DE ESE USUARIO
                     usuario = Usuario.objects.get(id=id_usuario)
 
-                    #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
                     salud_mascota = formSaludMascota.save()
-
-                
-
-                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'SALUD_MASCOTA'
                     idestado_salud = salud_mascota.pk
-
-                    #SE CREA UN OBJETO DE ESE ESTADO DE SALUD
                     estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
-                    
 
-                    # SE GUARDAN TODOS LOS claveS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
+
+                    if(url[1] == '/perdidas/' or url[1] == '/adopciones/' ):
+                         vacunasmas = request.POST.getlist('vacunasmas')
+                         estado_salud.guardar_vacunas(vacunasmas)
+
 
                     mascotaIns = formMascota.save(commit=False)
-
-
-                    #SE LE ASIGNA EN EL CAMPO ID_USUARIO DE LA TABLA MASCOTAS, EL OBJETO 'USUARIO' YA CREADO
                     mascotaIns.id_usuario = usuario
-
-                    #SE LE ASIGNA EN EL CAMPO IDESTADO_SALUD DE LA TABLA MASCOTAS, EL OBJETO 'ESTADO_SALUD' YA CREADO
                     mascotaIns.idestado_salud = estado_salud
-
-                    #SE GUARDA EL FORMULARIO DE MASCOTAS YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
                     mascotaIns.save()
 
                     
-
-
-                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'MASCOTAS'
                     id_mascota = mascotaIns.pk
-
-                    #SE CREA UN OBJETO DE ESE ULTIMPO REGISTRO DE LA TABLA 'MASCOTAS'
                     mascota = Mascota.objects.get(id_mascota=id_mascota)
 
 
-
-                    # SE GUARDAN LOS DATOS, SE AGREGAN LOS OBJETOS Y LUGARES MANUALMENTE
                     publicacion = formPublicacion.save(commit=False)
-                    publicacion.apartado = 'encontradas'
+                    publicacion.apartado = url[1].strip('/')
                     publicacion.idestado_salud = estado_salud
                     publicacion.id_usuario = usuario
                     publicacion.id_mascota = mascota
-
-                    #POR ULTIMO SE GUARDA EL FORMULARIO
                     publicacion.save()
-
                     
 
-                    return redirect('encontradas')
                
                
-
-     return HttpResponse('NO SE GUARDÓ')
-
+                    return redirect(url[1])
 
 
+               
+     return HttpResponse('error al guardar')
+    
 
-          
+
+
 
 
 @login_required
@@ -692,7 +585,7 @@ def editarPubli(request,id_publicacion):
                formPublicacion = PubliMascotaPerdidaForm(request.POST, instance=publicacion)
 
 
-          else:
+          elif(url[1] == '/encontradas/'):
                publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
                mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
                saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
@@ -701,28 +594,39 @@ def editarPubli(request,id_publicacion):
                formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
                formPublicacion = PubliMascotaEncontradaForm(request.POST, instance=publicacion)
 
+          else:
+
+               publicacion = MascotasAdopcion.objects.get(id_publicacion=id_publicacion)
+               mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
+
+               formMascota = MascotaAdopcionForm(request.POST, request.FILES, instance=mascotaa)
+               formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
+               formPublicacion = PubliMascotaAdopcionForm(request.POST, instance=publicacion)
 
 
           if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
 
                
 
-               if(request.path == '/perdidas/'):
+               if(url[1] == '/perdidas/' or url[1] == '/adopciones/' ):
 
                     vacunasmas = request.POST.getlist('vacunasmas')
                     estado_salud =  formSaludMascota.save(commit=False)    
                     estado_salud.guardar_vacunas(vacunasmas) 
                     formMascota.save()
                     formPublicacion.save()
-                    estado_salud.save()       
-                    return redirect('perdidas')
+                    estado_salud.save()      
 
+                    
 
                else:
                     formMascota.save()
                     formPublicacion.save()
                     formSaludMascota.save()  
-                    return redirect('encontradas')
+                    
+
+               return redirect(url[1])
 
 
                
@@ -734,38 +638,39 @@ def editarPubli(request,id_publicacion):
 
 
 def eliminarPubli(request,id_publicacion):
+
+
+     url_anterior = request.META.get('HTTP_REFERER')
+     url = url_anterior.split(':8000')
+
+
      if(request.method == "DELETE"):
 
 
-
-          if(request.path == "/perdidas/"):
+          if(url[1] == "/perdidas/"):
                publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
-               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
-               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+               
 
-               salud_mascota.delete()
-               mascota.delete()
-               publicacion.delete()
-
-               return HttpResponseRedirect('/perdidas/')
+          elif(url[1] == "/encontradas/"):
+               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
 
           else:
-               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
-               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
-               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
-               salud_mascota.delete()
-               mascota.delete()
-               publicacion.delete()
+               publicacion = MascotasAdopcion.objects.get(id_publicacion=id_publicacion)
+               
+              
 
-               return HttpResponseRedirect('/encontradas/')
+
+          mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+          salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+
+          salud_mascota.delete()
+          mascota.delete()
+          publicacion.delete()
+
+          return HttpResponseRedirect(url[1])
+
           
 
-
-          
-
-
-          
-          #return JsonResponse({'estado':'exitoso'})
      return HttpResponse('PUBLICACION NO ELIMINADA')
 
 
