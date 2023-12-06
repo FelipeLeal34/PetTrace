@@ -94,7 +94,7 @@ class Mascota(models.Model):
     colormas = models.CharField(max_length=45, null=False, default='')
     accesoriosmas = models.CharField(max_length=45, blank=True, null=True)
     tamañomas = models.CharField(max_length=45, null=False, default='')
-    edadmas = models.PositiveIntegerField(blank=True, null=True)
+    edadmas = models.FloatField(blank=True, null=True)
     marcasmas = models.CharField(max_length=45, null=True)
     idestado_salud = models.ForeignKey(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
     id_usuario = models.ForeignKey(Usuario, db_column='id', blank=False, null=False, verbose_name='id_dueño',on_delete=models.CASCADE)

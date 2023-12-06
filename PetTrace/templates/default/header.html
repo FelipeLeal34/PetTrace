@@ -18,14 +18,14 @@
             {% if user.is_authenticated %}
             <li>
                 <div id="fotoperfil">
-                    <a href="{% url 'perfil' %}">
+                    <a href="{% url 'perfil' request.user.id %}">
                         <img src="{% static 'img/fotoperfil.jpg' %}">
                     </a>
                 </div>
             </li>
             <li class="li">
                 <i class="fa-solid fa-user fa-lg"></i>
-                <a href="{% url 'perfil' %}">PERFIL</a>
+                <a href="{% url 'perfil' request.user.id %}">PERFIL</a>
             </li>
             <li class="li">
                 <i class="fa-solid fa-magnifying-glass fa-lg"></i>
@@ -71,7 +71,7 @@
             </li>
             <li class="li">
                 <i class="fa-brands fa-firefox-browser fa-lg"></i>
-                <a href="">ADOPCIONES</a>
+                <a href="{% url 'adopciones' %}">ADOPCIONES</a>
             </li>
             {% endif %}
         </ul>

@@ -27,7 +27,7 @@ from django.conf import settings
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('perfil/', perfil, name='perfil'),
+    path('perfil/<int:id_usuario>/', perfil, name='perfil'),
     path("editar-descripcion/", editar_descripcion, name="editar_descripcion"),
     path('perdidas/', perdidas, name='perdidas'),
     path('encontradas/', encontradas, name='encontradas' ),

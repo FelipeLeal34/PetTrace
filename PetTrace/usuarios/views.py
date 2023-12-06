@@ -13,31 +13,18 @@ from django.views.decorators.csrf import csrf_exempt
 #import requests
 import json
 
+from django.template.loader import render_to_string
+
 
 # Create your views here.
 def index(request):
     return render(request, 'index/index.html')
 
 
-@login_required
-def perfil(request):
 
-     publiPerdidas = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=request.user.id)
 
-     publiEncontradas = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=request.user.id)
-     # publiAdopciones= MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=request.user.id)
-     context = {'perdidas':publiPerdidas,'encontradas':publiEncontradas}
 
-     return render(request, 'index/perfil.html',context)
-
- 
- 
-def perdidas(request):
-
-     context = {}
-
-     publicaciones = None
-     
+def filtros(request,apartado):
      if request.method == 'POST':
 
           filtros = json.loads(request.body)
@@ -67,156 +54,109 @@ def perdidas(request):
                     elif clave == "tamaño":
                          args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "localidad":
-                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[1])
+                         args[clave+apartado] = str(list(filtros[clave].keys())[1])
                     elif clave == "barrio":
-                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
+                         args[clave+apartado] = str(list(filtros[clave].keys())[0])
                     else:
                          args[clave+'Publicacion'] = str(list(filtros[clave].keys())[0])
+
+     return args
+
+ 
+ 
+def perdidas(request):
+
+     context = {}
+
+     publicaciones = None
+     
+     args = filtros(request,'Extravio')
+
+     if args:
+     
+          publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
+
+
+          
+               
+     else:
+          # publicacion_ptr__usuario
+               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
                
 
+     context['publicaciones'] = publicaciones
 
-          if args :
-          
-               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
-
-               context['publicaciones'] = publicaciones
-
-               if request.user.is_authenticated:
-                    publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
-                    
-                    context['publicacionesFav'] = publicacionesFav
-                    
      
-          
+     if request.user.is_authenticated:
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+               
+               context['publicacionesFav'] = publicacionesFav
 
-
-          else:
-               # publicacion_ptr__usuario
-                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
-
-                context['publicaciones'] = publicaciones
-
-                if request.user.is_authenticated:
-                    publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
-                    
-                    context['publicacionesFav'] = publicacionesFav
 
                 
-
-
      return render(request, 'index/perdidas.html', context)
 
 
 def encontradas(request):
 
+     context = {}
+
      publicaciones = None
+     
+     args = filtros(request,'Encuentro')
 
-     if request.method == 'POST':
+     if args:
+     
+          publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
 
-          filtros = json.loads(request.body)
-
-          request.session['filtros']= filtros
-          request.session.modified = True
-          request.session.save()
-
-
+               
      else:
-          filtros = request.session.get('filtros',{})
-
-
-          args = {}
-          
-
-
-          for clave in filtros:
-               if filtros[clave]:
-                    if clave == "color":
-                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "raza":
-                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "especie":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "sexo":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "tamaño":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "localidad":
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[1])
-                    elif clave == "barrio":
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
-                    else:
-                         args[clave+'Publicacion'] = str(list(filtros[clave].keys())[0])
+          # publicacion_ptr__usuario
+               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
                
 
+     context['publicaciones'] = publicaciones
 
-          if args :
-          
-               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
-                    
+     
+     if request.user.is_authenticated:
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+               
+               context['publicacionesFav'] = publicacionesFav
 
-          else:
-
-                    publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
-
-
-     return render(request, 'index/encontradas.html', {'publicaciones':publicaciones})
+     return render(request, 'index/encontradas.html', context)
 
 
 
 
 def adopciones(request):
 
+     context = {}
+
      publicaciones = None
+     
+     args = filtros(request,'Adopcion')
 
-     if request.method == 'POST':
-
-          filtros = json.loads(request.body)
-
-          request.session['filtros']= filtros
-          request.session.modified = True
-          request.session.save()
-
-
-     else:
-          filtros = request.session.get('filtros',{})
-
-
-          args = {}
-          
-
-
-          for clave in filtros:
-               if filtros[clave]:
-                    if clave == "color":
-                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "raza":
-                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "especie":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "sexo":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "tamaño":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "localidad":
-                         args[clave+'Adopcion'] = str(list(filtros[clave].keys())[1])
-                    elif clave == "barrio":
-                         args[clave+'Adopcion'] = str(list(filtros[clave].keys())[0])
-                    else:
-                         args[clave+'Publicacion'] = str(list(filtros[clave].keys())[0])
+     if args:
+     
+          publicaciones = MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
 
                
+     else:
+          # publicacion_ptr__usuario
+               publicaciones = MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
+               
 
-          if args :
-          
-               publicaciones = MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
-                    
+     context['publicaciones'] = publicaciones
 
-          else:
+     
+     if request.user.is_authenticated:
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+               
+               context['publicacionesFav'] = publicacionesFav
 
-                    publicaciones = MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
 
 
-     return render(request, 'index/adopciones.html', {'publicaciones':publicaciones})
+     return render(request, 'index/adopciones.html', context)
 
 
 
@@ -224,11 +164,13 @@ def adopciones(request):
 def informacionPubli(request, id_publicacion):
 
 
-     publicacion = None
-     url_anterior = request.META.get('HTTP_REFERER')
-     url = url_anterior.split(':8000')
+     mensaje = json.loads(request.body)
      
-     if(url[1] == '/perdidas/'):
+     apartado = str(mensaje['apartado'])
+
+     publicacion = None
+
+     if(apartado == 'perdidas'):
 
 
           publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
@@ -274,10 +216,11 @@ def informacionPubli(request, id_publicacion):
                     'esterilizacionmas': publicacion.idestado_salud.esterilizacionmas,
                     'medicamentosmas': publicacion.idestado_salud.medicamentosmas,
                }
+
           }
 
 
-     else:
+     elif(apartado == 'encontradas'):
 
           publicacion = MascotasEncontradas.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
@@ -322,6 +265,57 @@ def informacionPubli(request, id_publicacion):
                }
           }
     
+     else:
+
+          publicacion = MascotasAdopcion.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
+
+
+          data = {
+               'publicacion': {
+                    'localidadAdopcion': publicacion.localidadAdopcion,
+                    'barrioAdopcion': publicacion.barrioAdopcion,
+                    'motivoAdopcion': publicacion.motivoAdopcion,
+                    'requisitosAdopcion': publicacion.requisitosAdopcion
+                    
+               },
+               'usuario': {
+                    'nombre': publicacion.id_usuario.username,
+                    'telefono': publicacion.id_usuario.telefono,
+                    'email': publicacion.id_usuario.email
+                    
+               },
+               'mascota': {
+                    'nombremas': publicacion.id_mascota.nombremas,
+                    'especiemas': publicacion.id_mascota.especiemas,
+                    'edadmas': publicacion.id_mascota.edadmas,
+                    'razamas': publicacion.id_mascota.razamas,
+                    'tamañomas': publicacion.id_mascota.tamañomas,
+                    'sexomas': publicacion.id_mascota.sexomas,
+                    'colormas': publicacion.id_mascota.colormas,
+                    'personalidadmas': publicacion.id_mascota.personalidadmas,
+                    'entrenamientomas': publicacion.id_mascota.entrenamientomas,
+                    'socializacionmas': publicacion.id_mascota.socializacionmas,
+
+                    'img1': publicacion.id_mascota.img1.url,
+                    'img2': publicacion.id_mascota.img2.url,
+                    'img3': publicacion.id_mascota.img3.url,
+                    'img4': publicacion.id_mascota.img4.url,
+                    'img5': publicacion.id_mascota.img5.url
+                    
+               },
+               'estado_salud': {
+                    'enfermedadesmas': publicacion.idestado_salud.enfermedadesmas,
+                    'vacunasmas': publicacion.idestado_salud.mostrar_vacunas(),
+                    'esterilizacionmas': publicacion.idestado_salud.esterilizacionmas,
+                    'medicamentosmas': publicacion.idestado_salud.medicamentosmas,
+               }
+          }
+
+
+
+
+
+
 
      return JsonResponse({'status':'success','data':data})
 
@@ -365,7 +359,8 @@ User = get_user_model() # Obtener el modelo de usuario personalizado"""
 def login(request):
     if request.user.is_authenticated:
         # Si el usuario está logueado, redirigirlo a su perfil
-        return redirect('perfil')
+        
+        return redirect('perfil', request.user.id)
     else:
         # Si el usuario no está logueado, mostrarle el formulario de login
         context = {}
@@ -442,6 +437,77 @@ def resetComplete(request):
 
 
 
+@login_required (login_url='login')
+def perfil(request, id_usuario):
+
+     context = {}
+     favoritas = []
+     publisPerdidas = []
+     publisEncontradas = []
+     publisAdopciones = []
+
+
+
+     usuario = Usuario.objects.get(id=id_usuario)
+     context['usuario'] = usuario
+
+
+
+     publiPerdidasUsu = MascotasPerdidas.objects.select_related('id_mascota','id_usuario','idestado_salud').filter(id_usuario=id_usuario)
+     context['perdidas'] = publiPerdidasUsu
+
+     publiEncontradasUsu = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=id_usuario)
+     context['encontradas'] = publiEncontradasUsu
+
+     publiAdopcionesUsu= MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=id_usuario)
+     context['adopciones'] = publiAdopcionesUsu
+
+     publiFavsUsu= publicacionesFavoritas.objects.select_related('id_publicacion').filter(id_usuario=id_usuario)
+     
+
+     for publicacion in publiFavsUsu:
+          if publicacion.id_publicacion.apartado == 'perdidas':
+               
+               publiPerdida = MascotasPerdidas.objects.filter(pk = publicacion.id_publicacion.pk)
+               publisPerdidas.extend(publiPerdida)
+
+          elif publicacion.id_publicacion.apartado == 'encontradas':
+               
+               publiEncontrada = MascotasEncontradas.objects.filter(pk = publicacion.id_publicacion.pk)
+               publisEncontradas.extend(publiEncontrada)
+
+
+          else:
+               
+               publiAdopcion = MascotasAdopcion.objects.filter(pk = publicacion.id_publicacion.pk)
+               publisAdopciones.extend(publiAdopcion)
+
+
+     
+
+
+
+     
+     favoritas.extend(publisPerdidas)
+     favoritas.extend(publisEncontradas)
+     favoritas.extend(publisAdopciones) 
+
+     context['favoritas'] = favoritas
+
+
+
+     if request.user.is_authenticated:
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+               
+               context['publicacionesFav'] = publicacionesFav
+     
+
+     return render(request, 'index/perfil.html',context)
+
+
+
+
+
 """def login(request):
     
     documento = request.POST["documento"]
@@ -486,7 +552,7 @@ def resetComplete(request):
                     self.confirm_login_allowed(self.user_cache)
                     #raise ValidationError('si sirve pero no reenvia.')"""
                     
-    
+@login_required (login_url='login')
 def agregarPubli(request):
 
      url_anterior = request.META.get('HTTP_REFERER')
@@ -566,7 +632,7 @@ def agregarPubli(request):
 
 
 
-@login_required
+@login_required (login_url='login')
 def editarPubli(request,id_publicacion):
 
      if request.method == 'POST':
@@ -636,7 +702,7 @@ def editarPubli(request,id_publicacion):
 
 
 
-
+@login_required (login_url='login')
 def eliminarPubli(request,id_publicacion):
 
 
@@ -674,7 +740,7 @@ def eliminarPubli(request,id_publicacion):
      return HttpResponse('PUBLICACION NO ELIMINADA')
 
 
-
+@login_required (login_url='login')
 def agregarFav(request,id_publicacion):
 
      url_anterior = request.META.get('HTTP_REFERER')
@@ -684,66 +750,52 @@ def agregarFav(request,id_publicacion):
 
      if(url[1] == '/perdidas/'):
 
-          try:
+          publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
 
-               usuario = Usuario.objects.get(id = request.user.id)
-               publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+     elif(url[1] == '/encontradas/'):
 
-               try:
-                    publicacionfav = publicacionesFavoritas.objects.get(id_publicacion=publicacion,id_usuario=usuario)
-               except publicacionesFavoritas.DoesNotExist:
-                    publicacionfav = None
-
-               if(publicacionfav):
-
-                    publicacionfav.delete()
-
-                    response_data['deleted'] = True
-                    response_data['success'] = True
-
-               else:
-
-
-                    publifav = publicacionesFavoritas(id_publicacion=publicacion,id_usuario=usuario)
-
-                    publifav.save()
-
-                    response_data['saved'] = True
-                    response_data['success'] = True
-
-
-          except Exception as e:
-
-               response_data = {'success': False, 'message': str(e)}
-     
+          publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
 
      else:
 
+          publicacion = MascotasAdopcion.objects.get(id_publicacion=id_publicacion)
+
+
+
+     try:
+
+          usuario = Usuario.objects.get(id = request.user.id)
+
+
           try:
+               publicacionfav = publicacionesFavoritas.objects.get(id_publicacion=publicacion,id_usuario=usuario)
+          except publicacionesFavoritas.DoesNotExist:
+               publicacionfav = None
 
-               usuario = Usuario.objects.get(id = request.user.id)
-               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
+          if(publicacionfav):
 
-               publicacionfav = publicacionesFavoritas.objects.get(id_publicacion=publicacion,usuario=usuario)
+               publicacionfav.delete()
 
-               if(publicacionfav):
+               response_data['deleted'] = True
+               response_data['success'] = True
 
-                    publicacionfav.delete()
-
-                    response_data = {'success': True}
-
-               else:
+          else:
 
 
-                    publifav = publicacionesFavoritas(id_publicacion=publicacion,usuario=usuario)
+               publifav = publicacionesFavoritas(id_publicacion=publicacion,id_usuario=usuario)
 
-                    publifav.save()
+               publifav.save()
 
-                    response_data = {'success': True}
+               response_data['saved'] = True
+               response_data['success'] = True
 
-          except Exception as e:
-               
-               response_data = {'success': False, 'message': str(e)}
+
+     except Exception as e:
+
+          response_data = {'success': False, 'message': str(e)}
+     
+
+          
      
      
      return JsonResponse(response_data)

@@ -17,13 +17,19 @@
 
 				
 				{% include 'default/header.html' %}
+
+
+
+				{% include 'publicaciones/ventanaModalAdopciones.html' %}
+
+
 				<!-- --------------------------AGREGAR PUBLICACION------------------------------------------  -->
 
 
 
 
 
-				<section class="contenedor-modelo">
+				<section class="contenedor-modelo-adopciones">
 					<form method="POST" action="{% url 'agregarPubli' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
 
 						{% csrf_token %}
@@ -34,7 +40,7 @@
 
 							<span class="fa-solid fa-xmark icon-cancel" style="color: #fff;" ></span>
 
-		<div class="inputs-img">
+			<div class="inputs-img">
 
 			
 
@@ -201,7 +207,7 @@
 													
 													<div class="dato">
 														<label for="edadmas" class="bold">Edad: </label>
-														<input type="number" name="edadmas" id="edadmas" class="input-mascota" placeholder="años" required>
+														<input type="number" step="any" name="edadmas" id="edadmas" class="input-mascota" min="0" max="20" placeholder="años" required>
 													</div>
 
 													<div class="dato">
@@ -270,7 +276,7 @@
 
 													<div class="dato-select">
 														<div class="label-selectMultiple">
-															<label for="localidadAdopcion" class="mostrarSelect">Localidad de Adopcion</label></div>
+															<label for="localidades" class="mostrarSelect">Localidad de Adopcion</label></div>
 															<select name="localidadAdopcion" id="localidades" class="select" required>
 																<option value="" default disabled>Localidad de Adopcion</option>
 																<option value="usaquen">Usaquén</option>
@@ -343,487 +349,19 @@
 											</div>
 										</div>
 
-										
 
 									</div>
-
-								
-
-
 
 							</form>
 						</section>
 
 
-		<!-------------- EDITAR PUBLICACION------------------ -->
+						{% include 'publicaciones/editarPubliAdopciones.html' %}
 
 
-		<section class="contenedor-modelo">
-			<form method="post" action="" id="editarPubli" class="publi-modelo-estilo" enctype="multipart/form-data">
+						{% include 'publicaciones/eliminarPubli.html' %}
 
-				{% csrf_token %}
 
-				<div class="publi-modelo-contenido">
-
-					<h3>EDITAR PUBLICACION</h3>
-
-					<span class="fa-solid fa-xmark icon-cancel" style="color: #fff;" ></span>
-
-					<div class="inputs-img">
-
-						
-
-
-		<!-------------------- al final de cada id hay una 'e', de 'editar'.--------------------------- -->
-
-						<div class="input-img">
-							<label for="einput-img-6" >
-								<div class="input-text">
-									<img id="imgmas6" src="" alt="imagen mascota 1">
-									<input type="file" name="img1" id="einput-img-6" class="input-file" >
-
-								</div>
-							</label>
-						</div>
-
-						<div class="input-img">
-							<label for="einput-img-7" >
-								<div class="input-text">
-									<img id="imgmas7" src="" alt="imagen mascota 2">
-									<input type="file" name="img2" id="einput-img-7" class="input-file" >
-
-								</div>
-							</label>
-						</div>
-
-							<div class="input-img">
-							<label for="einput-img-8" >
-								<div class="input-text">
-									<img id="imgmas8" src="" alt="imagen mascota 3">
-									<input type="file" name="img3" id="einput-img-8" class="input-file" >
-
-								</div>
-							</label>
-						</div>
-
-						<div class="input-img">
-							<label for="einput-img-9" >
-								<div class="input-text">
-									<img id="imgmas9" src="" alt="imagen mascota 4">
-									<input type="file" name="img4" id="einput-img-9" class="input-file" >
-
-								</div>
-							</label>
-						</div>
-
-
-						<div class="input-img">
-							<label for="einput-img-10" >
-								<div class="input-text">
-									<img id="imgmas10" src="" alt="imagen mascota 5">
-									<input type="file" name="img5" id="einput-img-10" class="input-file" >
-
-								</div>
-							</label>
-						</div>
-
-
-
-
-
-					</div>
-
-
-
-									<div class="datos-mascota">
-										<div class="col1">
-											<div class="dato">
-												<label for="nombremase" class="bold">Nombre: </label>
-												<input type="text" name="nombremas" placeholder="Nombre de la mascota" id="nombremase" class="input-mascota" required>
-											</div>
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-												<label for="especiemase" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-												<select name="especiemas" id="especiemase"  class="select" required>
-													<option value="" disabled>Seleccione una</option>
-													<option value="perro" selected>Perro</option>
-													<option value="gato">Gato</option>
-
-												</select>
-
-											</div>
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-												<label for="razamase" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-												<select name="razamas" id="razamase" class="select" required>
-													
-
-												</select>
-
-											</div>
-
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-												<label for="tamañomase" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-												<select name="tamañomas" id="tamañomase" class="select" required>
-													<option value="" default>Seleccione una</option>
-													<option value="pequeño">pequeño</option>
-													<option value="mediano">mediano</option>
-													<option value="grande">grande</option>
-
-												</select>
-
-											</div>
-											
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-												<label for="sexomase" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-												<select name="sexomas" id="sexomase" class="select" required>
-													<option value="">Seleccione una</option>
-													<option value="macho">macho</option>
-													<option value="hembra">hembra</option>
-
-												</select>
-
-											</div>
-
-													
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-												<label for="colormase" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-												<select name="colormas" id="colormase" class="select" required>
-													<option value="" disabled default>seleccione uno</option>
-													<option value="rojizo">Rojizo</option>
-													<option value="naranja">Naranja</option>
-													<option value="amarillo">Amarillo</option>
-													<option value="dorado">Dorado</option>
-													<option value="gris">Gris</option>
-													<option value="marron">Marron</option>
-													<option value="blanco">Blanco</option>
-													<option value="negro">Negro</option>
-
-												</select>
-
-											</div>
-											
-											<div class="dato">
-												<label for="edadmase" class="bold">Edad: </label>
-												<input type="number" name="edadmas" id="edadmase" class="input-mascota" required>
-											</div>
-											<div class="dato">
-												<label for="marcasmase" class="bold">Marcas distintivas: </label>
-												<textarea name="marcasmas" id="marcasmase" cols="30" class="input-mascota" rows="2" required></textarea>
-											</div>
-											<div class="dato">
-												<label for="accesoriosmase" class="bold">Accesorios: </label>
-												<textarea name="accesoriosmas" id="accesoriosmase" cols="30" class="input-mascota" rows="2" required></textarea>
-											</div>
-
-
-
-
-										</div>
-										<div class="col2">
-											<div class="dato">
-												<label for="enfermedadesmase" class="bold">Enfermedades: </label>
-												<textarea name="enfermedadesmas" id="enfermedadesmase" cols="30"  class="input-mascota" rows="2" required></textarea>
-											</div>
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-												<label for="esterilizacionmase" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-												<select name="esterilizacionmas" id="esterilizacionmase"  class="select"  required >
-													<option value="sí">Sí</option>
-													<option value="no">No</option>
-
-												</select>
-											</div>
-											
-											<div class="dato">
-												<label for="medicamentosmase" class="bold">Medicamentos: </label>
-												<textarea name="medicamentosmas" id="medicamentosmase" placeholder="medicamentos o cuidados especificos" cols="30" class="input-mascota" rows="2" required></textarea>
-
-											</div>
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-												<label for="vacunasmase" id="labelvacunasmase" class="mostrarSelect">Vacunas<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-												<select name="vacunasmas" id="vacunasmase"  class="select"  multiple>
-													
-
-												</select>
-											</div>
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-													<label for="localidadese" class="mostrarSelect">Localidad de extravío</label></div>
-													<select name="localidadExtravio" id="localidadese" class="select" required>
-															<option value="" default disabled>Localidad de extravío</option>
-															<option value="usaquen">Usaquén</option>
-															<option value="chapinero">Chapinero</option>
-															<option value="santa fe">Santa Fe</option>
-															<option value="san cristobal">San Cristóbal</option>
-															<option value="usme">Usme</option>
-															<option value="tunjuelito">Tunjuelito</option>
-															<option value="bosa">Bosa</option>
-															<option value="kennedy">Kennedy</option>
-															<option value="fontibon">Fontibón</option>
-															<option value="engativa">Engativá</option>
-															<option value="suba">Suba</option>
-															<option value="barrios unidos">Barrios Unidos</option>
-															<option value="teusaquillo">Teusaquillo</option>
-															<option value="los martires">Los Mártires</option>
-															<option value="antonio narino">Antonio Nariño</option>
-															<option value="puente aranda">Puente Aranda</option>
-															<option value="la candelaria">La Candelaria</option>
-															<option value="rafael uribe">Rafael Uribe</option>
-															<option value="ciudad bolivar">Ciudad Bolívar</option>
-														</select> 
-												</div>
-											
-
-
-										
-											<div class="dato-select">
-												<div class="label-selectMultiple">
-													<label for="barriose" class="mostrarSelect">Barrio de extravío</label></div>
-													<select name="barrioExtravio" id="barriose" class="select" required>
-														<option>Seleccione un barrio</option>
-													</select>
-											</div>
-
-										
-										<div class="dato">
-											<label for="fechaExtravioe" class="bold">Fecha de extravío: </label>
-											<input type="date" name="fechaExtravio"  id="fechaExtravioe" class="input-mascota" required>
-										</div>
-
-										<div class="dato">
-											<label for="horaExtravioe" class="bold">Hora de extravío: </label>
-											<input type="time" name="horaExtravioe"  id="horaExtravioe" class="input-mascota" required>
-										</div>
-
-										<div class="dato">
-											<label for="recompensae" class="bold">recompensa: </label>
-											<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensae" class="input-mascota">
-										</div>
-
-										{% if form.errors %}
-											<ul class="errorlist">
-												{% for field in form %}
-													{% for error in field.errors %}
-														<li>{{ error }}</li>
-													{% endfor %}
-												{% endfor %}
-											</ul>
-										{% endif %}
-									</div>
-								</div>
-
-								<hr>
-
-								<div class="datos-contacto">
-									<div class="datos-contacto-contenedor">
-
-										<div class="dato">
-											<p  class="bold">Nombre: </p>
-											<p id="nombreDueñoe"></p>
-										</div>
-										<div class="dato">
-											<p  class="bold">Numero de telefono: </p>
-											<p id="numeroDueñoe"></p>
-										</div>
-
-										<div class="dato">
-											<p  class="bold">Correo Electronico: </p>
-											<p id="correoDueñoe"></p>
-										</div>
-
-										<input type="submit" class="btn" value="Actualizar">
-
-									</div>
-								</div>
-
-								
-
-							</div>
-
-						</div>
-
-
-
-					</form>
-				</section>
-
-
-				<section class="contenedor-modelo">
-					<div id="eliminarPubli">
-						<i class="fa-regular fa-trash-can" style="color: #587073;"></i>
-						<h3>¿Está seguro de que quiere eliminar la publicacion?</h3>
-						<div id="btnOpcionesEP">
-							<button class="btnAceptar">Aceptar</button>
-							<button class="btnCancelar">Cancelar</button>
-						</div>
-					</div>
-				</section>
-
-
-
-
-
-<!-- ................................VENTANA modelo-------------- -->
-
-				<section class="contenedor-modelo">
-					<div class="publi-modelo-estilo " id="publi-modelo">
-
-						<div class="publi-modelo-contenido">
-
-							<div class="publi-carrusel">
-
-								<div class="carrusel">
-
-
-									<div class="carrusel-section"><img  id="img2m" src="">
-									
-
-									</div>
-									<div class="carrusel-section"><img id="img3m"  src="">
-									
-
-									</div>
-									<div class="carrusel-section"><img id="img4m"  src="">
-									
-
-									</div>
-									<div class="carrusel-section"><img  id="img5m" src="">
-									
-
-									</div>
-
-									<div class="carrusel-btn carrusel-btn-right" id="btn-right">&#62;</div>
-									<div class="carrusel-btn carrusel-btn-left" id="btn-left">&#60;</div>
-
-								</div>
-
-							</div>
-
-
-								<!--  En el id de cada <p>, la 'm' la final de cada id es de modelo -->
-							<div class="datos-mascota">
-								<div class="col1">
-									<div class="dato">
-										<p  class="bold">Nombre: </p>
-										<p id="nombremasm" class="valorm"></p>
-										
-									</div>
-									<div class="dato">
-										<p  class="bold">Especie: </p>
-										<p id="especiemasm" class="valorm"></p>
-										
-									</div>
-									<div class="dato">
-										<p  class="bold">Raza: </p>
-										<p id="razamasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Tamaño: </p>
-										<p id="tamañomasm" class="valorm"></p>
-									</div>
-
-									<div class="dato">
-										<p  class="bold">Sexo: </p>
-										<p id="sexomasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Color: </p>
-										<p id="colormasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p class="bold">Edad: </p>
-										<p id="edadmasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Marcas distintivas: </p>
-										<p id="marcasmasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Accesorios: </p>
-										<p id="accesoriosmasm" class="valorm"></p>
-									</div>
-
-
-								</div>
-								<div class="col2">
-									<div class="dato">
-										<p class="bold">Enfermedades: </p>
-										<p id="enfermedadesmasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p class="bold">Esterilización: </p>
-										<p id="esterilizacionmasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p class="bold">Medicamentos: </p>
-										<p id="medicamentosmasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p class="bold">Vacunas: </p>
-										<p id="vacunasmasm" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Localidad de extravío: </p>
-										<p id="localidadExtraviom" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Barrio de extravío: </p>
-										<p id="barrioExtraviom" class="valorm"> </p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Fecha de extravío: </p>
-										<p id="fechaExtraviom" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Hora de extravío: </p>
-										<p id="horaExtraviom" class="valorm"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Recompensa: </p>
-										<p id="recompensam" class="valorm"></p>
-									</div>
-								</div>
-							</div>
-
-							<hr>
-
-							<div class="datos-contacto">
-								<div class="datos-contacto-contenedor">
-
-									<div class="dato">
-										<p  class="bold">Nombre: </p>
-										<p id="nombreDueño"></p>
-									</div>
-									<div class="dato">
-										<p  class="bold">Numero de telefono: </p>
-										<p id="telefonoDueño"></p>
-									</div>
-
-									<div class="dato">
-										<p  class="bold">Correo Electronico: </p>
-										<p id="correoDueño"></p>
-									</div>
-									<button id="btn-cerrar" class="btn btnVerPubli">cerrar</button>
-								</div>
-								
-							</div>
-
-							<div class="comentarios">
-
-							</div>
-
-							
-
-						</div>
-
-					</div>
-
-				</section>
 
 
 				
@@ -844,143 +382,14 @@
 					</div>
 
 
-
-					<!-- -------------------primera publicacion------------------ -->
-
 					
 					<div class="publicaciones">
 
 						{% for publicacion in publicaciones %}
-						<div class="publi" id="publi" data-id="{{ publicacion.id_publicacion }}">
+						
+							{% include 'publicaciones/publicacionAdopciones.html' %}
 
-							<div class="contenido-publi">
-
-								<input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
-
-								<div class="info-usuario">
-									<div class="img-usuario">
-									<img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
-									<h5>{{ publicacion.id_usuario.username }}</h5></div>
-									<div id="iconosPubli">
-
-										{% if user.is_authenticated %}
-										<span class="agregarFav" style="margin-right: 8px; ">
-											{% if publicacion.id_publicacion in publicacionesFav %}
-												<i class="fa-solid fa-heart" style="color: red;"></i>
-											{% else %}
-												<i class="fa-regular fa-heart" style="color: black;"></i>
-											{% endif %}	
-										</span>
-										{% else %}
-										<a href="{% url 'login' %}" style="margin-right: 8px; ">
-											
-												<i class="fa-regular fa-heart" style="color: black;"></i>
-										</a>
-										{% endif %}
-									
-									<span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
-									</div>
-									
-								</div>
-
-								
-								<div class="menuOpcionesPubli">
-									{% if user.is_authenticated and user.id == publicacion.id_usuario.pk  %}
-									<div class="opcionesPubli btnEditarPubli">
-										<i class="fa-solid fa-pen-to-square"></i>
-										<p>Editar publicacion</p>
-									</div>
-									<div class="opcionesPubli btnEliminarPubli">
-										<i class="fa-solid fa-trash"></i>
-										<p>Eliminar publicacion</p>
-									</div>
-									{% endif %}
-
-									
-									<div class="opcionesPubli">
-										<i class="fa-solid fa-flag"></i>
-										<p>Reportar publicacion</p>
-									</div>
-								</div>
-
-								<hr>
-
-								<div class="img-mascota-section">
-
-									<div class="img-mascota-contenedor">
-
-										<img src="{{ publicacion.id_mascota.img1.url }}">
-
-									</div>
-
-								</div>
-
-
-								<hr>
-
-								<div class="info-mascota">
-
-									<div class="info-mascota-contenido">
-
-										<p class="fechaPubli"> {{ publicacion.fechaPubli }}</p>
-
-										
-											<div class="dato">
-
-												<p class="bold">Nombre: </p>
-												<p> {{ publicacion.id_mascota.nombremas }}</p>
-											</div>
-											<div class="dato">
-
-												<p class="bold">Raza: </p>
-												<p> {{ publicacion.id_mascota.razamas }}</p>
-											</div>
-											<div class="dato">
-
-												<p class="bold">Color: </p>
-												<p> {{ publicacion.id_mascota.colormas }}</p>
-											</div>
-										
-										
-											<div class="dato">
-
-												<p class="bold">Fecha extravío: </p>
-												<p>{{ publicacion.fechaExtravio }}</p>
-											</div>
-
-											<div class="dato">
-
-												<p class="bold">Barrio de extravío: </p>
-												<p>{{ publicacion.barrioExtravio }}</p>
-											</div>
-
-											<div class="dato">
-
-												<p class="bold">Localidad extravío: </p>
-												<p>{{ publicacion.localidadExtravio }}</p>
-											</div>
-										
-										<a class="btn btnVerPubli verPubli">Ver mascota</a>
-									</div>
-
-									
-
-								</div>
-
-								
-
-
-								
-								
-							</div>
-
-							
-
-							
-						</div>
 						{% endfor %}
-
-						<!-- -----------ventana modelo-------------- -->
 
 					
 					</div>
@@ -990,21 +399,12 @@
 				</main>
 
 					
-
-
-					
 					{% include 'default/menu.html' %}
-
-
-
-	
-
-	
-
-
 						
-						<script type="module" src="{% static 'js/perdidas.js' %}"></script>
-						
+						<script type="module" src="{% static 'js/adopciones.js' %}"></script>
+						<script type="module" src="{% static 'js/publicaciones.js' %}"></script>
+						<script type="module" src="{% static 'js/filtrar.js' %}"></script>
+
 						
 					</body>
 					</html>

@@ -255,10 +255,9 @@ li {
 
 .apartados-a-perfil:hover{
     text-decoration: underline;
-    margin: 0;
 }
 
-.apartados-a-perfil:active {
+.apartados-a-perfil:focus {
     text-decoration: underline;
 
   }
@@ -271,22 +270,6 @@ a {
     color: white;
 }
 
-
-#perdidas{
-    background: #D3D3D3;
-}
-
-#encontradas{
-    background: #a7bab9;
-}
-
-#favoritas{
-    background: #faf7f6;
-}
-
-#adopciones{
-    background: #D3D3D3;
-}
 
 
 
@@ -303,7 +286,9 @@ a {
 	width: 100%;
 	height: auto;
   
-    overflow: hidden;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 10px;
 }
 
 
@@ -317,6 +302,8 @@ a {
     transform: translateX(0%);
     transition: all 0.3s ease-in-out;
 
+
+
 }
 
 
@@ -326,7 +313,10 @@ a {
     height: 100%;
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
+
     overflow: hidden;
+    background: #a7bab9;
 
 
 }
@@ -335,13 +325,17 @@ a {
     width: 300px;
     height: auto;
     background: #faf7f6;
-    box-shadow: 5px 5px 5px 5px #a7bab9;
+    box-shadow: 5px 5px 5px 5px #667175;
     margin-bottom: 20px;
     margin-right: 5px;
     margin-left: 5px;
     border-radius: 20px;
     z-index: 0;
 }
+
+
+
+
 
 @media screen and (min-width: 767px) and (max-width: 1023px){    
     
@@ -369,7 +363,23 @@ a {
     #contenedor{
         margin-top: 110px;
     }
-  
+
+    #apartados{
+        justify-content: space-around;
+    }
+
+    
+
+    #apartados-mascotas{
+        justify-content: space-between;
+        width: 55%;
+    
+    }
+
+    #label-favoritas{
+        width: auto;
+    }
+
 }
 
 @media screen and (max-width: 766px){
@@ -461,6 +471,23 @@ a {
         font-size: 1rem;
         max-width: 50%;
         margin-top: 40%;
+    }
+
+    #apartados{
+        justify-content: space-around;
+    }
+
+    
+
+    #apartados-mascotas{
+        justify-content: space-between;
+        width: 55%;
+        flex-wrap: wrap;
+    
+    }
+
+    #label-favoritas{
+        width: auto;
     }
   
 }

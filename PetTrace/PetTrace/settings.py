@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 import pymysql
+from django.urls import reverse_lazy
+from django.http import request
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -140,7 +142,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
 #URL a la que se redirige luego del login y el logout
-LOGIN_REDIRECT_URL = 'perfil'
+LOGIN_REDIRECT_URL = 'perdidas'
 LOGOUT_REDIRECT_URL = 'perdidas'
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyDy5RZFqhkfKiKIBvRwiuQTtfn20VayQHA'
