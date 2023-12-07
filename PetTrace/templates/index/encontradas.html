@@ -786,7 +786,7 @@
                     <div class="info-usuario">
                         <div class="img-usuario">
                         <img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
-                        <h6>{{ publicacion.id_usuario.username }}</h6></div>
+                        <h6>{{ publicacion.id_usuario.id_usuario.username }}</h6></div>
                         <div id="iconosPubli">
                         <i class="fa-regular fa-heart" style="color: #000 ;margin-right: 8px; " id="agregarFav"></i>
                         <span class="fa-solid fa-ellipsis-vertical trespuntos" ></span>
@@ -796,7 +796,7 @@
 
                     
                     <div class="menuOpcionesPubli">
-                        {% if user.is_authenticated and user.id == publicacion.id_usuario.pk  %}
+                        {% if user.is_authenticated and user.id == publicacion.id_usuario.id_usuario.pk  %}
                         <div class="opcionesPubli btnEditarPubli">
                             <i class="fa-solid fa-pen-to-square"></i>
                             <p>Editar publicacion</p>

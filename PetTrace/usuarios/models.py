@@ -7,6 +7,8 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 import datetime
 from datetime import date
+import datetime
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
@@ -91,6 +93,7 @@ class SaludMascota(models.Model):
 class Mascota(models.Model):
     id_mascota = models.AutoField(primary_key=True)
     nombremas = models.CharField(max_length=45, null='True')
+    nombremas = models.CharField(max_length=45, null='True')
     especiemas = models.CharField(max_length=45, null=False, default='')
     razamas = models.CharField(max_length=45, null=False, default='')
     sexomas = models.CharField(max_length=45, null=False, default='')
@@ -159,6 +162,8 @@ class MascotasEncontradas(Publicacion):
 
     localidadEncuentro = models.CharField(max_length=60, null=False, blank=False)
     barrioEncuentro = models.CharField(max_length=60, null=False, blank=False)
+    fechaEncuentro = models.DateField(default=date.today, null=False, blank=False)
+    horaEncuentro = models.TimeField(null=True, blank=True)
     fechaEncuentro = models.DateField(default=date.today, null=False, blank=False)
     horaEncuentro = models.TimeField(null=True, blank=True)
     recompensa = models.FloatField(null=True, blank=True)

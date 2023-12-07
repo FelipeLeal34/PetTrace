@@ -39,21 +39,34 @@ def perdidas(request):
          
 
 
+
+          args = {}
+         
+
+
           for clave in filtros:
+              if filtros[clave]:
               if filtros[clave]:
                     if clave == "color":
                           args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                          args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "raza":
+                           args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                            args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "especie":
                          args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "sexo":
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                          args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "tamaño":
                          args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
+                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "localidad":
                          args[clave+'Extravio'] = str(list(filtros[clave].keys())[1])
+                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[1])
                     elif clave == "barrio":
+                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
                          args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
                     else:
                          args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
@@ -424,6 +437,7 @@ def agregarPubliPerdidas(request):
                     estado_salud.guardar_vacunas(vacunasmas)
 
                     # SE GUARDAN TODOS LOS claveS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
+                    # SE GUARDAN TODOS LOS claveS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
 
                     mascotaIns = formMascota.save(commit=False)
 
@@ -591,9 +605,45 @@ def editarPubli(request,id_publicacion):
 
 
 
+def editarPubli(request,id_publicacion):
+
+     if request.method == 'POST':
+
+          if(request.path == '/perdidas/'):
+
+               publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+               mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
+
+               formMascota = MascotaPerdidaForm(request.POST, request.FILES, instance=mascotaa)
+               formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
+               formPublicacion = PubliMascotaPerdidaForm(request.POST, instance=publicacion)
+
+
+          else:
+               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
+               mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
+
+               formMascota = MascotaEncontradaForm(request.POST, request.FILES, instance=mascotaa)
+               formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
+               formPublicacion = PubliMascotaEncontradaForm(request.POST, instance=publicacion)
+
+
+
           if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
 
                
+
+               if(request.path == '/perdidas/'):
+
+                    vacunasmas = request.POST.getlist('vacunasmas')
+                    estado_salud =  formSaludMascota.save(commit=False)    
+                    estado_salud.guardar_vacunas(vacunasmas) 
+                    formMascota.save()
+                    formPublicacion.save()
+                    estado_salud.save()       
+                    return redirect('perdidas')
 
                if(request.path == '/perdidas/'):
 
@@ -612,7 +662,14 @@ def editarPubli(request,id_publicacion):
                     formSaludMascota.save()  
                     return redirect('encontradas')
 
+               else:
+                    formMascota.save()
+                    formPublicacion.save()
+                    formSaludMascota.save()  
+                    return redirect('encontradas')
 
+
+               
                
      return HttpResponse('error al actualizar')
 
@@ -631,6 +688,18 @@ def eliminarPubli(request,id_publicacion):
                mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
                salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
 
+
+
+          if(request.path == "/perdidas/"):
+               publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+
+               salud_mascota.delete()
+               mascota.delete()
+               publicacion.delete()
+
+               return HttpResponseRedirect('/perdidas/')
                salud_mascota.delete()
                mascota.delete()
                publicacion.delete()
@@ -644,7 +713,22 @@ def eliminarPubli(request,id_publicacion):
                salud_mascota.delete()
                mascota.delete()
                publicacion.delete()
+          else:
+               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
+               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+               salud_mascota.delete()
+               mascota.delete()
+               publicacion.delete()
 
+               return HttpResponseRedirect('/encontradas/')
+          
+
+
+          
+
+
+          
                return HttpResponseRedirect('/encontradas/')
           
 
