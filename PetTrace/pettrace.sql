@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-10-2023 a las 20:40:18
--- Versión del servidor: 10.4.28-MariaDB
--- Versión de PHP: 8.2.4
+-- Tiempo de generación: 07-12-2023 a las 02:28:10
+-- Versión del servidor: 10.4.32-MariaDB
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -109,7 +109,11 @@ INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALU
 (45, 'Can add mascotas perdidas', 12, 'add_mascotasperdidas'),
 (46, 'Can change mascotas perdidas', 12, 'change_mascotasperdidas'),
 (47, 'Can delete mascotas perdidas', 12, 'delete_mascotasperdidas'),
-(48, 'Can view mascotas perdidas', 12, 'view_mascotasperdidas');
+(48, 'Can view mascotas perdidas', 12, 'view_mascotasperdidas'),
+(49, 'Can add perfil', 13, 'add_perfil'),
+(50, 'Can change perfil', 13, 'change_perfil'),
+(51, 'Can delete perfil', 13, 'delete_perfil'),
+(52, 'Can view perfil', 13, 'view_perfil');
 
 -- --------------------------------------------------------
 
@@ -125,7 +129,7 @@ CREATE TABLE `django_admin_log` (
   `action_flag` smallint(5) UNSIGNED NOT NULL CHECK (`action_flag` >= 0),
   `change_message` longtext NOT NULL,
   `content_type_id` int(11) DEFAULT NULL,
-  `user_id` bigint(20) NOT NULL
+  `user_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -154,6 +158,7 @@ INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
 (10, 'usuarios', 'mascotasadopcion'),
 (11, 'usuarios', 'mascotasencontradas'),
 (12, 'usuarios', 'mascotasperdidas'),
+(13, 'usuarios', 'perfil'),
 (8, 'usuarios', 'publicacion'),
 (9, 'usuarios', 'saludmascota'),
 (6, 'usuarios', 'usuario');
@@ -176,28 +181,25 @@ CREATE TABLE `django_migrations` (
 --
 
 INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
-(1, 'usuarios', '0001_initial', '2023-09-28 22:22:59.569180'),
-(2, 'contenttypes', '0001_initial', '2023-09-28 22:22:59.600122'),
-(3, 'admin', '0001_initial', '2023-09-28 22:22:59.722880'),
-(4, 'admin', '0002_logentry_remove_auto_add', '2023-09-28 22:22:59.732924'),
-(5, 'admin', '0003_logentry_add_action_flag_choices', '2023-09-28 22:22:59.740867'),
-(6, 'contenttypes', '0002_remove_content_type_name', '2023-09-28 22:22:59.792919'),
-(7, 'auth', '0001_initial', '2023-09-28 22:22:59.983039'),
-(8, 'auth', '0002_alter_permission_name_max_length', '2023-09-28 22:23:00.033096'),
-(9, 'auth', '0003_alter_user_email_max_length', '2023-09-28 22:23:00.040633'),
-(10, 'auth', '0004_alter_user_username_opts', '2023-09-28 22:23:00.046945'),
-(11, 'auth', '0005_alter_user_last_login_null', '2023-09-28 22:23:00.049214'),
-(12, 'auth', '0006_require_contenttypes_0002', '2023-09-28 22:23:00.054712'),
-(13, 'auth', '0007_alter_validators_add_error_messages', '2023-09-28 22:23:00.061726'),
-(14, 'auth', '0008_alter_user_username_max_length', '2023-09-28 22:23:00.068251'),
-(15, 'auth', '0009_alter_user_last_name_max_length', '2023-09-28 22:23:00.072764'),
-(16, 'auth', '0010_alter_group_name_max_length', '2023-09-28 22:23:00.093830'),
-(17, 'auth', '0011_update_proxy_permissions', '2023-09-28 22:23:00.105590'),
-(18, 'auth', '0012_alter_user_first_name_max_length', '2023-09-28 22:23:00.113104'),
-(19, 'sessions', '0001_initial', '2023-09-28 22:23:00.139427'),
-(20, 'usuarios', '0002_alter_usuario_managers_remove_usuario_user_and_more', '2023-09-30 04:17:16.073001'),
-(21, 'usuarios', '0003_usuario_latitud_usuario_longitud', '2023-09-30 05:04:34.293394'),
-(22, 'usuarios', '0004_alter_usuario_barrio_alter_usuario_localidad_and_more', '2023-09-30 06:08:06.850961');
+(1, 'contenttypes', '0001_initial', '2023-12-06 23:07:34.376975'),
+(2, 'contenttypes', '0002_remove_content_type_name', '2023-12-06 23:07:34.416482'),
+(3, 'auth', '0001_initial', '2023-12-06 23:07:34.588235'),
+(4, 'auth', '0002_alter_permission_name_max_length', '2023-12-06 23:07:34.623235'),
+(5, 'auth', '0003_alter_user_email_max_length', '2023-12-06 23:07:34.628235'),
+(6, 'auth', '0004_alter_user_username_opts', '2023-12-06 23:07:34.633235'),
+(7, 'auth', '0005_alter_user_last_login_null', '2023-12-06 23:07:34.651235'),
+(8, 'auth', '0006_require_contenttypes_0002', '2023-12-06 23:07:34.654236'),
+(9, 'auth', '0007_alter_validators_add_error_messages', '2023-12-06 23:07:34.660235'),
+(10, 'auth', '0008_alter_user_username_max_length', '2023-12-06 23:07:34.666235'),
+(11, 'auth', '0009_alter_user_last_name_max_length', '2023-12-06 23:07:34.672241'),
+(12, 'auth', '0010_alter_group_name_max_length', '2023-12-06 23:07:34.682239'),
+(13, 'auth', '0011_update_proxy_permissions', '2023-12-06 23:07:34.688445'),
+(14, 'auth', '0012_alter_user_first_name_max_length', '2023-12-06 23:07:34.694449'),
+(15, 'usuarios', '0001_initial', '2023-12-06 23:07:35.313922'),
+(16, 'admin', '0001_initial', '2023-12-06 23:07:35.399422'),
+(17, 'admin', '0002_logentry_remove_auto_add', '2023-12-06 23:07:35.407422'),
+(18, 'admin', '0003_logentry_add_action_flag_choices', '2023-12-06 23:07:35.418422'),
+(19, 'sessions', '0001_initial', '2023-12-06 23:07:35.442451');
 
 -- --------------------------------------------------------
 
@@ -211,6 +213,14 @@ CREATE TABLE `django_session` (
   `expire_date` datetime(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('2w0ccy17v32gjqsf06blriwpslw5bbvt', '.eJxVjDsOwjAQBe_iGll24i8lPWewdtdrHECOFCcV4u4QKQW0b2beSyTY1pq2zkuasjgLLU6_GwI9uO0g36HdZklzW5cJ5a7Ig3Z5nTM_L4f7d1Ch12-tuJSofTFMZAOMI4ZBO-M0FetQ5YCodInemkjZRuOBg2EcQsDMyqJ4fwDvxjhC:1rB10b:S-pYGYddYKTcMwPFvoxkvM9m0M01E-A9YQIjG5fsCNk', '2023-12-20 23:08:49.599995'),
+('qmr6cjl66tv2fzrst4ksrt7eleifw1ky', '.eJxVjDsOwjAQBe_iGll24i8lPWewdtdrHECOFCcV4u4QKQW0b2beSyTY1pq2zkuasjgLLU6_GwI9uO0g36HdZklzW5cJ5a7Ig3Z5nTM_L4f7d1Ch12-tuJSofTFMZAOMI4ZBO-M0FetQ5YCodInemkjZRuOBg2EcQsDMyqJ4fwDvxjhC:1rB1Am:TjkMg3rjzVWwugQwVUKWULhY2HcWK35LCH9MOkyb3iM', '2023-12-20 23:19:20.297426');
+
 -- --------------------------------------------------------
 
 --
@@ -219,7 +229,7 @@ CREATE TABLE `django_session` (
 
 CREATE TABLE `mascotas` (
   `id_mascota` int(11) NOT NULL,
-  `nombremas` varchar(45) NOT NULL,
+  `nombremas` varchar(45) DEFAULT NULL,
   `especiemas` varchar(45) NOT NULL,
   `razamas` varchar(45) NOT NULL,
   `sexomas` varchar(45) NOT NULL,
@@ -236,7 +246,7 @@ CREATE TABLE `mascotas` (
   `img3` varchar(100) NOT NULL,
   `img4` varchar(100) NOT NULL,
   `img5` varchar(100) NOT NULL,
-  `id_usuario` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL,
   `idestado_salud` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -262,7 +272,8 @@ CREATE TABLE `mascotas_encontradas` (
   `publicacion_ptr_id` int(11) NOT NULL,
   `localidadEncuentro` varchar(60) NOT NULL,
   `barrioEncuentro` varchar(60) NOT NULL,
-  `fechaEncuentro` datetime(6) NOT NULL,
+  `fechaEncuentro` date NOT NULL,
+  `horaEncuentro` time(6) DEFAULT NULL,
   `recompensa` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -276,7 +287,8 @@ CREATE TABLE `mascotas_perdidas` (
   `publicacion_ptr_id` int(11) NOT NULL,
   `localidadExtravio` varchar(60) NOT NULL,
   `barrioExtravio` varchar(60) NOT NULL,
-  `fechaExtravio` datetime(6) NOT NULL,
+  `fechaExtravio` date NOT NULL,
+  `horaExtravio` time(6) DEFAULT NULL,
   `recompensa` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -292,7 +304,7 @@ CREATE TABLE `publicaciones` (
   `fechaPubli` datetime(6) NOT NULL,
   `apartado` varchar(50) NOT NULL,
   `id_mascota` int(11) NOT NULL,
-  `id_usuario` bigint(20) NOT NULL,
+  `id` int(11) NOT NULL,
   `idestado_salud` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -317,31 +329,31 @@ CREATE TABLE `salud_mascota` (
 --
 
 CREATE TABLE `usuarios` (
-  `id` bigint(20) NOT NULL,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime(6) DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(150) NOT NULL,
   `first_name` varchar(150) NOT NULL,
   `last_name` varchar(150) NOT NULL,
-  `documento` int(10) UNSIGNED NOT NULL CHECK (`documento` >= 0),
   `email` varchar(254) NOT NULL,
-  `telefono` int(11) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL,
+  `id` int(11) NOT NULL,
+  `documento` int(10) UNSIGNED NOT NULL CHECK (`documento` >= 0),
+  `telefono` bigint(20) NOT NULL,
   `localidad` varchar(60) DEFAULT NULL,
   `barrio` varchar(60) DEFAULT NULL,
-  `password` varchar(128) NOT NULL,
-  `date_joined` datetime(6) NOT NULL,
-  `is_active` tinyint(1) NOT NULL,
-  `is_staff` tinyint(1) NOT NULL,
-  `is_superuser` tinyint(1) NOT NULL,
-  `last_login` datetime(6) DEFAULT NULL,
-  `username` varchar(20) NOT NULL,
-  `latitud` double DEFAULT NULL,
-  `longitud` double DEFAULT NULL
+  `longitud` double DEFAULT NULL,
+  `latitud` double DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `first_name`, `last_name`, `documento`, `email`, `telefono`, `localidad`, `barrio`, `password`, `date_joined`, `is_active`, `is_staff`, `is_superuser`, `last_login`, `username`, `latitud`, `longitud`) VALUES
-(5, 'Nixon', 'cañon', 1025524770, 'canonalejandro17@gmail.com', 123, NULL, NULL, 'pbkdf2_sha256$600000$fEJkpUrXwJnKETWWWZEp5O$i6NweV5hb7qW0nUOQ/KW1N2mr0gWMXH4ysrRFYaL8d8=', '2023-09-30 06:11:45.960787', 1, 0, 0, NULL, 'Ninix304', 4.6192877, -74.1827004);
+INSERT INTO `usuarios` (`password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`, `id`, `documento`, `telefono`, `localidad`, `barrio`, `longitud`, `latitud`) VALUES
+('pbkdf2_sha256$600000$MoKKgrpTxgUu5AgiWhG4Eh$2LfTfrqaEVXBCrsMSFkNJJ7QusrzhGNwUVw8YBxPw9s=', '2023-12-06 23:19:20.278424', 0, 'prueba2', 'admin', 'admin', 'admin@admin.com', 0, 1, '2023-12-06 23:08:41.681500', 1, 1, 3104308888, NULL, 'Seleccione un barrio', -74.0921369, 4.616693);
 
 -- --------------------------------------------------------
 
@@ -351,9 +363,30 @@ INSERT INTO `usuarios` (`id`, `first_name`, `last_name`, `documento`, `email`, `
 
 CREATE TABLE `usuarios_groups` (
   `id` bigint(20) NOT NULL,
-  `usuario_id` bigint(20) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
   `group_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios_perfil`
+--
+
+CREATE TABLE `usuarios_perfil` (
+  `id` bigint(20) NOT NULL,
+  `imagen` varchar(100) NOT NULL,
+  `descripcion` varchar(200) NOT NULL,
+  `fecha_creacion` date NOT NULL,
+  `usuario_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios_perfil`
+--
+
+INSERT INTO `usuarios_perfil` (`id`, `imagen`, `descripcion`, `fecha_creacion`, `usuario_id`) VALUES
+(1, 'imgperfil/1/Avengers_Assemble.jpg', 'prueba2', '2023-12-06', 1);
 
 -- --------------------------------------------------------
 
@@ -363,7 +396,7 @@ CREATE TABLE `usuarios_groups` (
 
 CREATE TABLE `usuarios_user_permissions` (
   `id` bigint(20) NOT NULL,
-  `usuario_id` bigint(20) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
   `permission_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -426,8 +459,8 @@ ALTER TABLE `django_session`
 --
 ALTER TABLE `mascotas`
   ADD PRIMARY KEY (`id_mascota`),
-  ADD UNIQUE KEY `idestado_salud` (`idestado_salud`),
-  ADD KEY `mascotas_id_usuario_43441751_fk_usuarios_id` (`id_usuario`);
+  ADD KEY `mascotas_idestado_salud_fd8b9d4a_fk_salud_mascota_idestado_salud` (`idestado_salud`),
+  ADD KEY `mascotas_id_d4f2f9d5_fk_usuarios_id` (`id`);
 
 --
 -- Indices de la tabla `mascotas_adopcion`
@@ -454,7 +487,7 @@ ALTER TABLE `publicaciones`
   ADD PRIMARY KEY (`id_publicacion`),
   ADD UNIQUE KEY `id_mascota` (`id_mascota`),
   ADD UNIQUE KEY `idestado_salud` (`idestado_salud`),
-  ADD KEY `publicaciones_id_usuario_fc4196b1_fk_usuarios_id` (`id_usuario`);
+  ADD KEY `publicaciones_id_92bc2fc9_fk_usuarios_id` (`id`);
 
 --
 -- Indices de la tabla `salud_mascota`
@@ -467,8 +500,8 @@ ALTER TABLE `salud_mascota`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `documento` (`documento`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `documento` (`documento`);
 
 --
 -- Indices de la tabla `usuarios_groups`
@@ -477,6 +510,13 @@ ALTER TABLE `usuarios_groups`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `usuarios_groups_usuario_id_group_id_a66c5ef3_uniq` (`usuario_id`,`group_id`),
   ADD KEY `usuarios_groups_group_id_18c61092_fk_auth_group_id` (`group_id`);
+
+--
+-- Indices de la tabla `usuarios_perfil`
+--
+ALTER TABLE `usuarios_perfil`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `usuario_id` (`usuario_id`);
 
 --
 -- Indices de la tabla `usuarios_user_permissions`
@@ -506,7 +546,7 @@ ALTER TABLE `auth_group_permissions`
 -- AUTO_INCREMENT de la tabla `auth_permission`
 --
 ALTER TABLE `auth_permission`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT de la tabla `django_admin_log`
@@ -518,13 +558,13 @@ ALTER TABLE `django_admin_log`
 -- AUTO_INCREMENT de la tabla `django_content_type`
 --
 ALTER TABLE `django_content_type`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `django_migrations`
 --
 ALTER TABLE `django_migrations`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `mascotas`
@@ -548,13 +588,19 @@ ALTER TABLE `salud_mascota`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios_groups`
 --
 ALTER TABLE `usuarios_groups`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios_perfil`
+--
+ALTER TABLE `usuarios_perfil`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios_user_permissions`
@@ -590,7 +636,7 @@ ALTER TABLE `django_admin_log`
 -- Filtros para la tabla `mascotas`
 --
 ALTER TABLE `mascotas`
-  ADD CONSTRAINT `mascotas_id_usuario_43441751_fk_usuarios_id` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
+  ADD CONSTRAINT `mascotas_id_d4f2f9d5_fk_usuarios_id` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `mascotas_idestado_salud_fd8b9d4a_fk_salud_mascota_idestado_salud` FOREIGN KEY (`idestado_salud`) REFERENCES `salud_mascota` (`idestado_salud`);
 
 --
@@ -615,8 +661,8 @@ ALTER TABLE `mascotas_perdidas`
 -- Filtros para la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
+  ADD CONSTRAINT `publicaciones_id_92bc2fc9_fk_usuarios_id` FOREIGN KEY (`id`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `publicaciones_id_mascota_cb7e1d3b_fk_mascotas_id_mascota` FOREIGN KEY (`id_mascota`) REFERENCES `mascotas` (`id_mascota`),
-  ADD CONSTRAINT `publicaciones_id_usuario_fc4196b1_fk_usuarios_id` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id`),
   ADD CONSTRAINT `publicaciones_idestado_salud_c0af2f79_fk_salud_mas` FOREIGN KEY (`idestado_salud`) REFERENCES `salud_mascota` (`idestado_salud`);
 
 --
@@ -625,6 +671,12 @@ ALTER TABLE `publicaciones`
 ALTER TABLE `usuarios_groups`
   ADD CONSTRAINT `usuarios_groups_group_id_18c61092_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
   ADD CONSTRAINT `usuarios_groups_usuario_id_1132ca50_fk_usuarios_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
+
+--
+-- Filtros para la tabla `usuarios_perfil`
+--
+ALTER TABLE `usuarios_perfil`
+  ADD CONSTRAINT `usuarios_perfil_usuario_id_ca6ea2f9_fk_usuarios_id` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `usuarios_user_permissions`

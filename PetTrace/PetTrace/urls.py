@@ -28,7 +28,8 @@ urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', index, name='index'),
     path('perfil/', perfil, name='perfil'),
-    path("editar-descripcion/", editar_descripcion, name="editar_descripcion"),
+    path("editar-descripcion/", views.editar_descripcion, name='editar_descripcion'),
+    path('editar-usuario/', editar_usuario, name='editar_usuario'),
     path('perdidas/', perdidas, name='perdidas'),
     path('registrar/', views.registrar, name='registrar'),
     path('login/', LoginView.as_view(template_name='login/inicioSesion.html'), name='login'),
@@ -41,8 +42,10 @@ urlpatterns = [
     path('prueba/', prueba, name='prueba'),
     path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
     path('informacionPubli/<int:id_publicacion>/', informacionPubli, name='informacionPubli' ),
-    path('editarPubli/<int:id_publicacion>/', editarPubliPerdidas, name='editarPubliPerdidas' ),
+    path('editarPubli/<int:id_publicacion>/', editarPubli, name='editarPubli' ),
     path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli' ),
-    
+    path('encontradas/', encontradas, name='encontradas' ),
+    path('agregarPubliEncontradas/', agregarPubliEncontradas, name='agregarPubliEncontradas' ),
+
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )

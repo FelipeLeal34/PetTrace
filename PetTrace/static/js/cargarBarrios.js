@@ -1,157 +1,11 @@
-// Declaramos la variable marker fuera de la función initMap
-var marker;
-
-function obtenerUbicacion() {
-  event.preventDefault();
-  var mapDiv = document.getElementById('map');
-  var selects = document.getElementById("selects");
-  var mensaje = document.getElementById("mensaje");
-  if (navigator.geolocation) {
-    // Agregamos el argumento de opciones con un tiempo de espera de 10 segundos y una alta precisión
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var latitudInput = document.getElementById("latitud");
-      var longitudInput = document.getElementById("longitud");
-
-      latitudInput.value = position.coords.latitude;
-      longitudInput.value = position.coords.longitude;
-      selects.style.display = "none";
-      // Añadimos esta línea para actualizar la posición del marcador
-      marker.setPosition({lat: parseFloat(latitudInput.value), lng: parseFloat(longitudInput.value)});
-      mapDiv.style.display = "block";
-      mensaje.style.display = "none";
-
-    }, mostrarError, function(error) {
-      // Mostramos los select y el error cuando se agota el tiempo
-      if (error.code == error.TIMEOUT) {
-        selects.style.display = "inline-block";
-        mostrarError(error);
-      }
-    }, {timeout: 1000, enableHighAccuracy: true}); // Este es el argumento de opciones
-  } else {
-    selects.style.display = "inline-block";
-    mapDiv.style.display = "none";
-    mensaje.textContent = "Tu navegador no soporta la geolocalización.";
-    mensaje.style.display = "block";
-  }
-}
-
-function mostrarError(error) {
-  var mensaje = document.getElementById("mensaje");
-  var selects = document.getElementById("selects");
-  var mapDiv = document.getElementById('map');
-  switch(error.code) {
-    case error.PERMISSION_DENIED:
-      mensaje.textContent = "El usuario no permitió el acceso a la ubicación.";
-      selects.style.display = "inline-block"; 
-      mapDiv.style.display = "none";
-      break;
-    case error.POSITION_UNAVAILABLE:
-      mensaje.textContent = "No se pudo obtener la ubicación del usuario.";
-      selects.style.display = "inline-block";
-      mapDiv.style.display = "none";
-      break;
-    case error.TIMEOUT:
-      mensaje.textContent = "Se agotó el tiempo de espera para obtener la ubicación.";
-      selects.style.display = "inline-block"; 
-      mapDiv.style.display = "none";
-      break;
-    case error.UNKNOWN_ERROR:
-      mensaje.textContent = "Ocurrió un error desconocido.";
-      selects.style.display = "inline-block";
-      mapDiv.style.display = "none"; 
-      break;
-  }
-  mensaje.style.display = "block";
-}
 
 
 
 
 
-//--------------------**funcion del mapa**-----------------------------------
-
-// Esta función se ejecuta cuando el script de la API de Google Maps está listo
-function initMap() {
-  // Creamos una variable para guardar el elemento div donde se mostrará el mapa
-  var mapDiv = document.getElementById('map');
-  // Creamos una variable para guardar el elemento input donde se guardará la latitud
-  var latInput = document.getElementById('latitud');
-  // Creamos una variable para guardar el elemento input donde se guardará la longitud
-  var lngInput = document.getElementById('longitud');
-  // Creamos el mapa con una posición inicial y un nivel de zoom de 16
-  var map = new google.maps.Map(mapDiv, {
-    center: {lat: 4.658512182837962, lng: -74.0934705734253},
-    zoom: 10
-  });
-  // Asignamos el valor a la variable marker dentro de la función initMap
-  marker = new google.maps.Marker({
-    position: {lat: 4.658512182837962, lng: -74.0934705734253},
-    map: map
-  });
-  // Añadimos un evento click al mapa que se active cuando el usuario haga clic en él
-  map.addListener('click', function(event) {
-    // Obtenemos las coordenadas del punto donde el usuario hizo clic
-    var newPosition = event.latLng;
-    // Actualizamos la posición del marcador con las nuevas coordenadas
-    marker.setPosition(newPosition);
-    map.panTo(newPosition);
-    // Actualizamos los valores de los inputs ocultos con las nuevas coordenadas
-    latInput.value = newPosition.lat();
-    lngInput.value = newPosition.lng();
-  });
-  $('#obtenerUbicacion').click(function() {
-    // Llamamos a la función obtenerUbicacion
-    obtenerUbicacion();
-  });
-}
 
 
-/*// Esta función se encarga de obtener la posición del usuario y actualizar la posición del mapa y del marcador con esa posición
-// Recibe como parámetros el mapa y el marcador
-function obtenerUbicacion(map, marker) {
-  event.preventDefault();
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var latitudInput = document.getElementById("latitud");
-      var longitudInput = document.getElementById("longitud");
-      var localidadesSelect = document.getElementById("localidades");
-      var barriosSelect = document.getElementById("barrios");
 
-      latitudInput.value = position.coords.latitude;
-      longitudInput.value = position.coords.longitude;
-      localidadesSelect.style.display = "none";
-      barriosSelect.style.display = "none";
-      // Creamos una variable para guardar las coordenadas del usuario
-      var userPosition = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      // Actualizamos la posición del mapa y del marcador con las coordenadas del usuario
-      map.panTo(new google.maps.LatLng(userPosition.lat, userPosition.lng));
-      marker.setPosition(userPosition);
-    }, function(error) {
-      var localidadesSelect = document.getElementById("localidades");
-      var barriosSelect = document.getElementById("barrios");
-
-      localidadesSelect.style.display = "inline-block";
-      barriosSelect.style.display = "inline-block";
-    });
-  } else {
-    var localidadesSelect = document.getElementById("localidades");
-    var barriosSelect = document.getElementById("barrios");
-
-    localidadesSelect.style.display = "inline-block";
-    barriosSelect.style.display = "inline-block";
-  }
-}
-
-
-// Añadimos un evento click al botón para obtener ubicación
-$('#obtenerUbicacion').click(function() {
-  // Llamamos a la función obtenerUbicacion pasando el mapa y el marcador como argumentos
-  obtenerUbicacion(map, marker);
-});
-*/
 //NO ESTÁN DENTRO DE NINGUNA FUNCION
 var barriosEngativa = [
   "Acapulco",
@@ -2211,8 +2065,10 @@ export function cargarBarrios(idLocalidad) {
   var localidades = document.getElementById(idLocalidad);
   if(localidades.id == "localidades"){
     var barrios = document.getElementById("barrios");
+  } else if(localidades.id == "localidadese"){
+      var barrios = document.getElementById("barriose");
   } else{
-    var barrios = document.getElementById("barriose");
+    var barrios = document.getElementById("barriosRegistro");
   }
 
     var seleccionLocalidad = localidades.value;
@@ -2223,7 +2079,7 @@ export function cargarBarrios(idLocalidad) {
 
     
 
-    if (seleccionLocalidad === "Usaquén") {
+    if (seleccionLocalidad === "usaquen") {
       
 
       for (var i = 0; i < barriosUsaquen.length; i++) {
@@ -2232,7 +2088,7 @@ export function cargarBarrios(idLocalidad) {
         option.value = barriosUsaquen[i].toLowerCase();
         barrios.add(option);
       }
-    }else if (seleccionLocalidad === "Chapinero") {
+    }else if (seleccionLocalidad === "chapinero") {
         
     
         for (var i = 0; i < barriosChapinero.length; i++) {
@@ -2241,7 +2097,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosChapinero[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Santa Fe") {
+      }else if (seleccionLocalidad === "santa fe") {
         
     
         for (var i = 0; i < barriosSantaFe.length; i++) {
@@ -2250,7 +2106,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosSantaFe[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "San Cristóbal") {
+      }else if (seleccionLocalidad === "san cristobal") {
         
         for (var i = 0; i < barriosSanCristobal.length; i++) {
           var option = document.createElement("option");
@@ -2258,7 +2114,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosSanCristobal[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Usme") {
+      }else if (seleccionLocalidad === "usme") {
        
         for (var i = 0; i < barriosUsme.length; i++) {
           var option = document.createElement("option");
@@ -2266,7 +2122,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosUsme[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Tunjuelito") {
+      }else if (seleccionLocalidad === "tunjuelito") {
         
         for (var i = 0; i < barriosTunjuelito.length; i++) {
           var option = document.createElement("option");
@@ -2274,7 +2130,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosTunjuelito[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Bosa") {
+      }else if (seleccionLocalidad === "bosa") {
         
     
         for (var i = 0; i < barriosBosa.length; i++) {
@@ -2283,7 +2139,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosBosa[i].toLowerCase();
           barrios.add(option);
         }
-      }else if (seleccionLocalidad === "Kennedy") {
+      }else if (seleccionLocalidad === "kennedy") {
         
     
         for (var i = 0; i < barriosKennedy.length; i++) {
@@ -2292,7 +2148,7 @@ export function cargarBarrios(idLocalidad) {
           option.value = barriosKennedy[i].toLowerCase();
           barrios.add(option);
         }
-      }else if(seleccionLocalidad === "Fontibón") {
+      }else if(seleccionLocalidad === "fontibon") {
           
       
           for (var i = 0; i < barriosFontibon.length; i++) {
@@ -2301,7 +2157,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosFontibon[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Suba") {
+        }else if (seleccionLocalidad === "suba") {
           
       
           for (var i = 0; i < barriosSuba.length; i++) {
@@ -2310,7 +2166,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosSuba[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Barrios Unidos") {
+        }else if (seleccionLocalidad === "barrios unidos") {
           
       
           for (var i = 0; i < barriosBarriosUnidos.length; i++) {
@@ -2319,7 +2175,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosBarriosUnidos[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Teusaquillo") {
+        }else if (seleccionLocalidad === "teusaquillo") {
           
       
           for (var i = 0; i < barriosTeusaquillo.length; i++) {
@@ -2328,7 +2184,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosTeusaquillo[i].toLowerCase();
             barrios.add(option);
           }
-        } else if (seleccionLocalidad === "Los Mártires") {
+        } else if (seleccionLocalidad === "los martires") {
           
       
           for (var i = 0; i < barriosMartires.length; i++) {
@@ -2337,7 +2193,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosMartires[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Antonio Nariño") {
+        }else if (seleccionLocalidad === "antonio narino") {
           
       
           for (var i = 0; i < barriosAntonioNarino.length; i++) {
@@ -2346,7 +2202,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosAntonioNarino[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Puente Aranda") {
+        }else if (seleccionLocalidad === "puente aranda") {
           
       
           for (var i = 0; i < barriosPuenteAranda.length; i++) {
@@ -2355,7 +2211,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosPuenteAranda[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "La Candelaria") {
+        }else if (seleccionLocalidad === "la candelaria") {
           
       
           for (var i = 0; i < barriosCandelaria.length; i++) {
@@ -2364,7 +2220,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosCandelaria[i].toLowerCase();
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Rafael Uribe") {
+        }else if (seleccionLocalidad === "rafael uribe") {
           
       
           for (var i = 0; i < barriosRafaelUribe.length; i++) {
@@ -2373,7 +2229,7 @@ export function cargarBarrios(idLocalidad) {
             option.value = barriosRafaelUribe[i].toLowerCase() ;
             barrios.add(option);
           }
-        }else if (seleccionLocalidad === "Ciudad Bolívar") {
+        }else if (seleccionLocalidad === "ciudad bolivar") {
           
       
           // Cargar los barrios de Ciudad Bolívar
@@ -2385,7 +2241,7 @@ export function cargarBarrios(idLocalidad) {
             barrios.add(option);
           }
 
-        }else if (seleccionLocalidad === "Engativá") {
+        }else if (seleccionLocalidad === "engativa") {
          
       
           for (var i = 0; i < barriosEngativa.length; i++) {
@@ -2401,6 +2257,11 @@ export function cargarBarrios(idLocalidad) {
         
 }
 
+const SelectCargarBarrios = document.getElementById("localidadesRegistro");
+
+SelectCargarBarrios.addEventListener("change", (e)=>{
+  cargarBarrios("localidadesRegistro");
+})
 
 
 
@@ -2415,66 +2276,6 @@ export function cargarBarrios(idLocalidad) {
 
 
 
-
-
-
-//funcion del mapa
-
-/*
-
-var latitudInput;
-var longitudInput;
-var map;
-
-function obtenerUbicacion() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      function (position) {
-        var latitud = position.coords.latitude;
-        var longitud = position.coords.longitude;
-
-        mostrarMapa(latitud, longitud);
-      },
-      function (error) {
-        console.log(error);
-        mostrarUbicacionManual();
-      }
-    );
-  } else {
-    console.log("Geolocalización no soportada");
-    mostrarUbicacionManual();
-  }
-}
-
-function mostrarMapa(latitud, longitud) {
-  latitudInput.value = latitud;
-  longitudInput.value = longitud;
-
-  map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: latitud, lng: longitud },
-    zoom: 15,
-  });
-
-  var marker = new google.maps.Marker({
-    position: { lat: latitud, lng: longitud },
-    map: map,
-  });
-
-  // Mostrar el mapa y ocultar la ubicación manual
-  document.getElementById("map").style.display = "block";
-  document.getElementById("ubicacionManual").style.display = "none";
-}
-
-function mostrarUbicacionManual() {
-  // Ocultar el mapa y mostrar la ubicación manual
-  document.getElementById("map").style.display = "none";
-  document.getElementById("ubicacionManual").style.display = "block";
-}
-
-function initMap() {
-  latitudInput = document.getElementById("latitud");
-  longitudInput = document.getElementById("longitud");
-}*/
 
 
 

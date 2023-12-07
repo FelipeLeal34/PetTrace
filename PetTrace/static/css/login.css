@@ -293,7 +293,7 @@ input[type="submit"] {
 
 @media screen and (max-width:1023px) {
   #content{
-    width: 100%;
+    max-width: 100%;
   }
   form{
     display: block;
@@ -317,6 +317,9 @@ input[type="submit"] {
     background-color: transparent;
     border-radius: 20px;
     width: 100%;
+  }
+  body{
+    margin: 0;
   }
 }
 

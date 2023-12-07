@@ -1,8 +1,6 @@
 {% load static %}
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
-<!--<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">-->
 <script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 
 
@@ -13,52 +11,61 @@
                 <img src="{% static 'img/LogoPetTraceBorde.png' %}">
             </a>
         </div>
-        <label for="checkbox"><i class="fa-solid fa-bars"></i></label>
+        {% if not user.is_authenticated %}
+
+        <div id="botonesIngreso">
+            <i class="fa-solid fa-user-plus"><a href="{% url 'registrar' %}">Registrarse</a></i>
+            <i class="fa-solid fa-right-to-bracket"><a href="{% url 'login' %}">Iniciar sesión</a></i>
+        </div>
+
+        {% else %}
+
+        <label for="checkbox"><i class="fa-solid fa-bars" style="color: #fff; font-size: 25px;"></i></label>
     </div>
     <input type="checkbox" id="checkbox">
     <nav>
         <ul>
-            {% if user.is_authenticated %}
+            
             <li>
                 <div id="fotoperfil">
                     <a href="{% url 'perfil' %}">
-                        <img src="{% static 'img/fotoperfil.jpg' %}">
+                        <div class="contImg">
+                            <img src="{{ user.perfil.imagen.url }}" class="imgperfil">
+                        </div>
                     </a>
                 </div>
             </li>
             <li class="li">
-                <span class="icon-search"></span>
+                <i class="fa-solid fa-user fa-lg"></i>
+                <a href="{% url 'perfil' %}">PERFIL</a>
+            </li>
+            <li class="li">
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
                 <a href="{% url 'perdidas' %}">PERDIDAS</a>
             </li>
             <li class="li">
-                <span class="icon-paw"></span>
-                <a href="">ENCONTRADAS</a>
+                <i class="fa-solid fa-paw fa-lg"></i>
+                <a href="{% url 'encontradas' %}">ENCONTRADAS</a>
             </li>
             <li class="li">
-                <span class="icon-firefox"></span>
+                <i class="fa-brands fa-firefox-browser fa-lg"></i>
                 <a href="">ADOPCIONES</a>
             </li>
             <li class="li">
-                <span class="icon-bell-alt"></span>
+                <i class="fa-solid fa-bell fa-lg"></i>
                 <a href="">NOTIFICACIONES</a>
             </li>
+
             <li class="li">
-                <span class="icon-cog"></span>
+                <i class="fa-solid fa-gear"></i>
                 <a href="">AJUSTES</a>
             </li>
             <li class="li">
-                <span class="icon-search"></span>
+                <i class="fa-solid fa-right-from-bracket"></i>
                 <a href="{% url 'logout' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">CERRAR SESIÓN</a>
             </li>
-            {% else %}
-            <li class="log">
-                <span class="icon-cog"></span>
-                <a href="{% url 'registrar' %}">Registrarse</a>
-            </li> 
-            <li class="log">
-                <span class="icon-cog"></span>
-                <a href="{% url 'login' %}">Iniciar sesión</a>
-            </li>
+            
+            
             {% endif %}
         </ul>
     </nav>

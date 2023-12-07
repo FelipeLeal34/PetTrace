@@ -9,7 +9,6 @@ from usuarios.models import Usuario
 from .models import *
 from django.core import serializers
 from django.views.decorators.csrf import csrf_exempt
-import requests
 import json
 
 
@@ -88,7 +87,7 @@ def verPubliModalPerdida(request, id_publicacion):
 
 
 
-"""def registrar(request):
+def registrar(request):
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
