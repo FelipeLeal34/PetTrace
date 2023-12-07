@@ -11,19 +11,25 @@
 				<link rel="stylesheet" type="text/css" href="{% static 'css/publicaciones.css' %}">
 				<script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 			
-				<title>Mascotas Perdidas</title>
+				<title>Adopciones</title>
 			</head>
 			<body>
 
 				
 				{% include 'default/header.html' %}
+
+
+
+				{% include 'publicaciones/ventanaModalAdopciones.html' %}
+
+
 				<!-- --------------------------AGREGAR PUBLICACION------------------------------------------  -->
 
 
 
-				{% include 'publicaciones/ventanaModalPerdidas.html' %}
 
-				<section class="contenedor-modelo-perdidas">
+
+				<section class="contenedor-modelo-adopciones">
 					<form method="POST" action="{% url 'agregarPubli' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
 
 						{% csrf_token %}
@@ -34,7 +40,7 @@
 
 							<span class="fa-solid fa-xmark icon-cancel" style="color: #fff;" ></span>
 
-		<div class="inputs-img">
+			<div class="inputs-img">
 
 			
 
@@ -201,16 +207,25 @@
 													
 													<div class="dato">
 														<label for="edadmas" class="bold">Edad: </label>
-														<input type="number" name="edadmas" id="edadmas" class="input-mascota" placeholder="años" required>
+														<input type="number" step="any" name="edadmas" id="edadmas" class="input-mascota" min="0" max="20" placeholder="años" required>
 													</div>
+
 													<div class="dato">
-														<label for="marcasmas" class="bold">Marcas distintivas: </label>
-														<textarea name="marcasmas" class="input-mascota" id="marcasmas" cols="30" rows="2" required></textarea>
+														<label for="personalidadmas" class="bold">Personalidad: </label>
+														<textarea name="personalidadmas" class="input-mascota" id="personalidadmas" cols="30"  rows="2" placeholder="Personalidad de la mascota" required></textarea>
 													</div>
+
+
 													<div class="dato">
-														<label for="accesoriosmas" class="bold">Accesorios: </label>
-														<textarea name="accesoriosmas" class="input-mascota" id="accesoriosmas" cols="30" rows="2" required></textarea>
+														<label for="entrenamientomas" class="bold">Entrenamiento: </label>
+														<textarea name="entrenamientomas" class="input-mascota" id="entrenamientomas" cols="30"  rows="2" placeholder="¿La mascota cuenta con algún entrenamiento" required></textarea>
 													</div>
+
+													<div class="dato">
+														<label for="socializacionmas" class="bold">Socialización: </label>
+														<textarea name="socializacionmas" class="input-mascota" id="socializacionmas" cols="30"  rows="3" placeholder="Como se lleva la mascota con las personas, niños y otras mascotas?" required></textarea>
+													</div>
+												
 
 
 												</div>
@@ -242,11 +257,28 @@
 
 														</select>
 													</div>
+
+						
+
+													<div class="dato">
+														<label for="motivoAdopcion" class="bold">Motivo de adopción: </label>
+														<textarea name="motivoAdopcion" class="input-mascota" id="motivoAdopcion" placeholder="¿Por qué se da a la mascota en adopción?" cols="30" rows="3" required></textarea>
+
+													</div>
+
+													<div class="dato">
+														<label for="requisitosAdopcion" class="bold">Requisitos de adopción: </label>
+														<textarea name="requisitosAdopcion" class="input-mascota" id="requisitosAdopcion" placeholder="¿Qué requisitos debe tener la otra persona para adoptar a la mascota?" cols="30" rows="4" required></textarea>
+
+													</div>
+
+
+
 													<div class="dato-select">
 														<div class="label-selectMultiple">
-															<label for="localidadExtravio" class="mostrarSelect">Localidad de extravío</label></div>
-															<select name="localidadExtravio" id="localidades" class="select" required>
-																<option value="" default disabled>Localidad de extravío</option>
+															<label for="localidades" class="mostrarSelect">Localidad de Adopcion</label></div>
+															<select name="localidadAdopcion" id="localidades" class="select" required>
+																<option value="" default disabled>Localidad de Adopcion</option>
 																<option value="usaquen">Usaquén</option>
 																<option value="chapinero">Chapinero</option>
 																<option value="santa fe">Santa Fe</option>
@@ -274,27 +306,12 @@
 												
 													<div class="dato-select">
 														<div class="label-selectMultiple">
-															<label for="barrioExtravio" class="mostrarSelect">Barrio de extravío</label></div>
-															<select name="barrioExtravio" id="barrios" class="select" required>
+															<label for="barrioAdopcion" class="mostrarSelect">Barrio de Adopcion</label></div>
+															<select name="barrioAdopcion" id="barrios" class="select" required>
 																<option>Seleccione un barrio</option>
 															</select>
 													</div>
 
-												
-												<div class="dato">
-													<label for="fechaExtravio" class="bold">Fecha de extravío: </label>
-													<input type="date" name="fechaExtravio" id="fechaExtravio" class="input-mascota" required>
-												</div>
-
-												<div class="dato">
-													<label for="horaExtravio" class="bold">Hora de extravío: </label>
-													<input type="time" name="horaExtravio" id="horaExtravio" class="input-mascota" required>
-												</div>
-
-												<div class="dato">
-													<label for="recompensa" class="bold">recompensa: </label>
-													<input type="number" step="any" name="recompensa" placeholder="(opcional)" id="recompensa" class="input-mascota">
-												</div>
 
 												{% if form.errors %}
 															<ul class="errorlist">
@@ -332,34 +349,24 @@
 											</div>
 										</div>
 
-										
 
 									</div>
-
-								
-
-
 
 							</form>
 						</section>
 
 
+						{% include 'publicaciones/editarPubliAdopciones.html' %}
 
-						{% include 'publicaciones/editarPubliPerdidas.html' %}
 
 						{% include 'publicaciones/eliminarPubli.html' %}
-
-
-						
-
-
 
 
 
 
 				
 
-
+				
 
 				<main class="main ">
 
@@ -369,37 +376,35 @@
 
 					<div  class="titulo-perdidas">
 						<div class="titulo">
-						<h2>MASCOTAS PERDIDAS</h2>
+						<h2>MASCOTAS EN ADOPCIÓN</h2>
 						<hr>
 						</div>
 					</div>
-
-
 
 
 					
 					<div class="publicaciones">
 
 						{% for publicacion in publicaciones %}
-
-							{% include 'publicaciones/publicacionPerdidas.html' %}
+						
+							{% include 'publicaciones/publicacionAdopciones.html' %}
 
 						{% endfor %}
 
 					
 					</div>
 
+
+
 				</main>
 
 					
-					
 					{% include 'default/menu.html' %}
+						
+						<script type="module" src="{% static 'js/adopciones.js' %}"></script>
+						<script type="module" src="{% static 'js/publicaciones.js' %}"></script>
+						<script type="module" src="{% static 'js/filtrar.js' %}"></script>
 
-						
-					<script type="module" src="{% static 'js/perdidas.js' %}"></script>
-					<script type="module" src="{% static 'js/publicaciones.js' %}"></script>
-					<script type="module" src="{% static 'js/filtrar.js' %}"></script>
-						
 						
 					</body>
 					</html>
