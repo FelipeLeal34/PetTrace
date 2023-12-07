@@ -1,0 +1,124 @@
+{% load static %}
+
+
+<div class="publi" id="publi" data-id="{{ publicacion.id_publicacion }}" data-apartado="adopciones">
+
+    <div class="contenido-publi">
+
+        <input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
+
+        <div class="info-usuario">
+            <div class="img-usuario">
+            <img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
+            <a href="{% url 'perfil' publicacion.id_usuario.id %} "><h5>{{ publicacion.id_usuario.username }}</h5></a></div>
+            <div id="iconosPubli">
+
+                {% if user.is_authenticated %}
+                <span class="agregarFav" style="margin-right: 8px; ">
+                    {% if publicacion.id_publicacion in publicacionesFav %}
+                        <i class="fa-solid fa-heart" style="color: red;"></i> 
+                    {% else %}
+                        <i class="fa-regular fa-heart" style="color: black;"></i>
+                    {% endif %}	
+                </span>
+                {% else %}
+                <a href="{% url 'login' %}" style="margin-right: 8px; ">
+                    
+                        <i class="fa-regular fa-heart" style="color: black;"></i>
+                </a>
+                {% endif %}
+            
+            <span class="fa-solid fa-ellipsis-vertical trespuntos" >
+
+                <div class="menuOpcionesPubli">
+                    {% if user.is_authenticated and user.id == publicacion.id_usuario.pk  %}
+                    <div class="opcionesPubli btnEditarPubli">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        <p>Editar publicacion</p>
+                    </div>
+                    <div class="opcionesPubli btnEliminarPubli">
+                        <i class="fa-solid fa-trash"></i>
+                        <p>Eliminar publicacion</p>
+                    </div>
+                    {% endif %}
+        
+                    
+                    <div class="opcionesPubli">
+                        <i class="fa-solid fa-flag"></i>
+                        <p>Reportar publicacion</p>
+                    </div>
+                </div>
+
+            </span>
+            </div>
+            
+        </div>
+
+        
+       
+
+        <hr>
+
+        <div class="img-mascota-section">
+
+            <div class="img-mascota-contenedor">
+
+                <img src="{{ publicacion.id_mascota.img1.url }}">
+
+            </div>
+
+        </div>
+
+
+        <hr>
+
+        <div class="info-mascota">
+
+            <div class="info-mascota-contenido">
+
+                <p class="fechaPubli"> {{ publicacion.fechaPubli }}</p>
+
+                
+                    <div class="dato">
+
+                        <p class="bold">Nombre: </p>
+                        <p> {{ publicacion.id_mascota.nombremas }}</p>
+                    </div>
+                    <div class="dato">
+
+                        <p class="bold">Raza: </p>
+                        <p> {{ publicacion.id_mascota.razamas }}</p>
+                    </div>
+                    <div class="dato">
+
+                        <p class="bold">Color: </p>
+                        <p> {{ publicacion.id_mascota.colormas }}</p>
+                    </div>
+                
+                
+                    <div class="dato">
+
+                        <p class="bold">Personalidad: </p>
+                        <p>{{ publicacion.id_mascota.personalidadmas }}</p>
+                    </div>
+
+                    <div class="dato">
+
+                        <p class="bold">Barrio de adopción: </p>
+                        <p>{{ publicacion.barrioAdopcion }}</p>
+                    </div>
+
+                    <div class="dato">
+
+                        <p class="bold">Localidad de adopción: </p>
+                        <p>{{ publicacion.localidadAdopcion }}</p>
+                    </div>
+                
+                <a class="btn btnVerPubli verPubli">Ver mascota</a>
+            </div>
+
+        </div>
+                                    
+    </div>
+    
+</div>

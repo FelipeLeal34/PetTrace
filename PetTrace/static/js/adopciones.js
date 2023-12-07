@@ -1,12 +1,9 @@
+
+
 import { listaBarrios,cargarBarrios } from "./cargarBarrios.js";
 
 
-
-
 const barrios=listaBarrios();
-
-
-// --------------------FILTRAR--------------------------------
 
 
 
@@ -14,7 +11,7 @@ const barrios=listaBarrios();
 
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.getElementById("publi-modelo");
-const contenedorPubliModal = document.querySelectorAll(".contenedor-modelo-perdidas");
+const contenedorPubliModal = document.querySelectorAll(".contenedor-modelo-adopciones");
 
 
 //  ELEMENTOS PARA EDITAR PUBLICACION
@@ -48,11 +45,6 @@ const aAgregarPubli = document.querySelector("#aAgregar");
 var filtrosBox = document.querySelector(".filtros-box");
 
 
-// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
-
-
-
-
 
 const localidades = ["Antonio Nariño","Barrios Unidos","Bosa","Candelaria","Chapinero","Ciudad Bolivar","Engativa","Fontibon","Kennedy",
 "Los Martires","Puente Aranda","Rafel uribe","San Cristobal","Santa Fe","Suba","Teusaquillo","Tunjuelito","Usaquen","Usme"];
@@ -66,6 +58,10 @@ const valoresLocalidades = ["barriosAntonioNarino","barriosBarriosUnidos", "barr
 
 const sexos = ['Macho','Hembra'];
 const tamaños = ['Pequeño','Mediano','Grande'];
+
+
+
+// ---------- VACUNAS QUE SE MUESTRAN DE ACUERDO A LA ESPECIE DE LA usuario
 
 
 function seleccionarVacunas(especie,idVacunas){
@@ -194,10 +190,12 @@ function seleccionarVacunas(especie,idVacunas){
 	})
 
 
+
 	const vacunasmas = document.getElementById("labelvacunasmas");
 	vacunasmas.addEventListener("click", ()=>{
 		mostrarSelect("vacunasmas");
 	})
+
 
 
 
@@ -206,191 +204,9 @@ function seleccionarVacunas(especie,idVacunas){
 		cargarBarrios("localidades");
 	})
 
+
+
 	
-
-// ----------CONSULTA PARA PREVISUALIZACION DE INFORMACIÓN A EDITAR-----------------
-
-btnEditarPubli.forEach( btn => {
-	btn.addEventListener("click",e =>{
-
-
-		
-		var idpubli = e.target.closest(".publi").getAttribute("data-id");
-		
-
-		const url = `/informacionPubli/${idpubli}/`
-
-		
-
-		fetch(url,{
-			method: "GET",
-		})
-		.then(response => response.json())
-		.then(publicacion => {
-
-		document.getElementById('editarPubli').action = `/editarPubli/${idpubli}/`;  
-
-			document.getElementById("imgmas6").src = publicacion.data.mascota.img1;
-			document.getElementById("imgmas7").src = publicacion.data.mascota.img2;
-			document.getElementById("imgmas8").src = publicacion.data.mascota.img3;
-			document.getElementById("imgmas9").src = publicacion.data.mascota.img4;
-			document.getElementById("imgmas10").src = publicacion.data.mascota.img5;
-			
-
-			
-			document.getElementById("nombremase").value = publicacion.data.mascota.nombremas;
-
-			const especie = document.getElementById("especiemase");
-			for (let i = 0; i < especie.options.length; i++) {
-				const option = especie.options[i];
-				if (option.value === publicacion.data.mascota.especiemas) {
-					option.selected = true;
-				}
-			}
-			 
-			seleccionarEspecie('especiemase');
-			const raza = document.getElementById("razamase");
-			for (let i = 0; i < raza.options.length; i++) {
-				const option = raza.options[i];
-				if (option.value == publicacion.data.mascota.razamas) {
-					option.selected = true;
-				}
-			}
-
-			const tamaño = document.getElementById("tamañomase");
-			for (let i = 0; i < tamaño.options.length; i++) {
-				const option = tamaño.options[i];
-				if (option.value == publicacion.data.mascota.tamañomas) {
-					option.selected = true;
-				}
-			}
-
-			const sexo = document.getElementById("sexomase");
-			for (let i = 0; i < sexo.options.length; i++) {
-				const option = sexo.options[i];
-				if (option.value == publicacion.data.mascota.sexomas) {
-					option.selected = true;
-				}
-			}
-
-			const color = document.getElementById("colormase");
-			for (let i = 0; i < color.options.length; i++) {
-				const option = color.options[i];
-				if (option.value == publicacion.data.mascota.colormas) {
-					option.selected = true;
-				}
-			}
-
-			document.getElementById("edadmase").value = publicacion.data.mascota.edadmas;
-			document.getElementById("marcasmase").value = publicacion.data.mascota.marcasmas;
-			document.getElementById("accesoriosmase").value = publicacion.data.mascota.accesoriosmas;
-			document.getElementById("enfermedadesmase").value = publicacion.data.estado_salud.enfermedadesmas;
-
-
-			const esterilizacion = document.getElementById("esterilizacionmase") ;
-			for (let i = 0; i < esterilizacion.options.length; i++) {
-				const option = esterilizacion.options[i];
-				if (option.value == publicacion.data.estado_salud.esterilizacionmas) {
-					option.selected = true;
-				}
-			}
-
-			document.getElementById("medicamentosmase").value = publicacion.data.estado_salud.medicamentosmas;
-
-
-			const selectVacunas = document.getElementById("vacunasmase");
-			const vacunas = String(publicacion.data.estado_salud.vacunasmas);
-			const listaVacunas = vacunas.split(',');
-			
-			for(let i = 0; i < selectVacunas.options.length; i++) {
-				for(let j=0;j<listaVacunas.length;j++){
-					let option = selectVacunas.options[i];
-					if (option.value == listaVacunas[j]) {
-						option.selected = true;
-					}
-				}
-
-					
-			}
-			
-
-			
-			const localidadExtravio = document.getElementById("localidadese");
-			 
-			
-			for (let i = 0; i < localidadExtravio.options.length; i++) {
-				const option = localidadExtravio.options[i];
-				if (option.value == publicacion.data.publicacion.localidadExtravio) {
-					option.selected = true;
-				}
-			}
-
-			cargarBarrios('localidadese');
-
-			const barrioExtravio = document.getElementById("barriose");
-			for (let i = 0; i < barrioExtravio.options.length; i++) {
-				const option = barrioExtravio.options[i];
-				if (option.value == publicacion.data.publicacion.barrioExtravio) {
-					option.selected = true;
-				}
-			}
-
-			
-
-			const fechaExtravio = document.getElementById("fechaExtravioe");
-			//const fecha = new Date(publicacion.data.publicacion.fechaExtravio);
-			//fechaExtravio.value = fecha.toISOString().slice(0, 16);
-			fechaExtravio.value = publicacion.data.publicacion.fechaExtravio;
-
-
-			const horaExtravio = document.getElementById("horaExtravioe");
-			
-			horaExtravio.value = publicacion.data.publicacion.horaExtravio;
-			
-
-
-			document.getElementById("recompensae").value = publicacion.data.publicacion.recompensa;
-
-
-			document.getElementById("nombreDueñoe").innerHTML = publicacion.data.usuario.nombre;
-			document.getElementById("numeroDueñoe").innerHTML = publicacion.data.usuario.telefono;
-			document.getElementById("correoDueñoe").innerHTML = publicacion.data.usuario.email;
-
-
-
-			
-
-
-		});
-
-
-		
-
-
-	if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
-
-		editarPubli.style.display = "flex";
-		contenedorPubliModal[1].style.display = "flex";
-
-		btnCerrarModal.forEach(equis => {
-			equis.addEventListener("click",()=>{
-				editarPubli.style.display = "none";
-				contenedorPubliModal[1].style.display = "none";
-
-				
-		
-			});
-
-			});
-
-			}
-
-		});
-
-	});
-
-
-
 
 
 // -------------AGREGAR PUBLICACION-----------
@@ -409,8 +225,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
 		);
 	}
 });
-
-
 
 
 
@@ -441,8 +255,6 @@ function mostrarFormularioAgregar(e){
 	}
 	);
 }
-
-
 
 
 
@@ -537,6 +349,25 @@ function mostrarSelect() {
 		}, 300); // Retrasamos la desaparición para que la animación sea visible
 	}
 }
+
+
+
+
+
+
+/** --------------------FILTRAR--------------------------------**/
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -212,6 +212,7 @@ footer{
 	height: 5vh;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 0;
 
 }
 

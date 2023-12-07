@@ -37,12 +37,12 @@ class MascotaEncontradaForm(forms.ModelForm):
 
 
 
-class MascotaAdopcion(forms.ModelForm):
+class MascotaAdopcionForm(forms.ModelForm):
 
     class Meta:
 
         model = Mascota
-        fields = ['nombremas','especiemas','razamas','sexomas','colormas','tamañomas','personalidadmas','entrenamientomas','socializacionmas','img1','img2','img3','img4','img5']
+        fields = ['nombremas','especiemas','razamas','sexomas','colormas','edadmas','tamañomas','personalidadmas','entrenamientomas','socializacionmas','img1','img2','img3','img4','img5']
 
 
 
@@ -68,7 +68,7 @@ class PubliMascotaAdopcionForm(forms.ModelForm):
     class Meta:
 
         model = MascotasAdopcion
-        fields = ['motivoAdopcion','requisitosAdopcion']
+        fields = ['motivoAdopcion','requisitosAdopcion','localidadAdopcion','barrioAdopcion']
 
 
 

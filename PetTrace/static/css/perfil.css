@@ -207,7 +207,7 @@ h2 {
     width: 30%;
     min-height: 30%;
     float: right;
-    background-color: #D3D3D3;
+   background-color: #D3D3D3;
     border-radius: 10px;
     padding: 10px;
 }
@@ -223,9 +223,46 @@ li {
 #apartados {
     clear: both;
     padding: 30px 0 50px;
+    display: flex;
+    width: 100%;
     font-size: 1.5em;
-    text-align: left;
+    text-align: center;
+    justify-content: space-between;
 }
+
+
+#apartados-mascotas{
+    display: flex;
+    justify-content: space-evenly;
+    width: 40%;
+}
+
+
+#label-favoritas{
+    display: flex;
+    justify-content: center;
+    width: 60%;
+}
+
+.apartados-a-perfil{
+    color:#fff;
+    margin: 0;
+    cursor: pointer;
+}
+
+
+
+
+.apartados-a-perfil:hover{
+    text-decoration: underline;
+}
+
+.apartados-a-perfil:focus {
+    text-decoration: underline;
+
+  }
+
+
 
 a {
     margin-right: 30px;
@@ -233,25 +270,72 @@ a {
     color: white;
 }
 
-.publi-container {
+
+
+
+
+.publis-perfil{
+    position: static;
+    margin-top: 30%;
+}
+
+#publicaciones {
+    
+	
+    margin :0 auto;
+	width: 100%;
+	height: auto;
+  
+    overflow-y: hidden;
+    overflow-x: hidden;
+    border-radius: 10px;
+}
+
+
+#apartados-contenedor{
+    display:flex;
+
+  
+    width: 400%;
+    height: 100%;
+
+    transform: translateX(0%);
+    transition: all 0.3s ease-in-out;
+
+
+
+}
+
+
+.apartado-perfil{
     width: 100%;
-    margin: 0 auto;
+
+    height: 100%;
     display: flex;
+    justify-content: space-around;
     flex-wrap: wrap;
-    justify-content: flex-start;
+
+    overflow: hidden;
+    background: #a7bab9;
+
+
 }
 
 .publi {
     width: 300px;
     height: auto;
     background: #faf7f6;
-    box-shadow: 5px 5px 5px 5px #a7bab9;
+    box-shadow: 5px 5px 5px 5px #667175;
     margin-bottom: 20px;
     margin-right: 5px;
     margin-left: 5px;
     border-radius: 20px;
     z-index: 0;
 }
+
+
+
+
 
 @media screen and (min-width: 767px) and (max-width: 1023px){    
     
@@ -279,7 +363,23 @@ a {
     #contenedor{
         margin-top: 110px;
     }
-  
+
+    #apartados{
+        justify-content: space-around;
+    }
+
+    
+
+    #apartados-mascotas{
+        justify-content: space-between;
+        width: 55%;
+    
+    }
+
+    #label-favoritas{
+        width: auto;
+    }
+
 }
 
 @media screen and (max-width: 766px){
@@ -371,6 +471,23 @@ a {
         font-size: 1rem;
         max-width: 50%;
         margin-top: 40%;
+    }
+
+    #apartados{
+        justify-content: space-around;
+    }
+
+    
+
+    #apartados-mascotas{
+        justify-content: space-between;
+        width: 55%;
+        flex-wrap: wrap;
+    
+    }
+
+    #label-favoritas{
+        width: auto;
     }
   
 }

@@ -13,19 +13,18 @@ from django.views.decorators.csrf import csrf_exempt
 #import requests
 import json
 
+from django.template.loader import render_to_string
+
 
 # Create your views here.
 def index(request):
     return render(request, 'index/index.html')
-@login_required
-def perfil(request):
-     return render(request, 'index/perfil.html')
- 
- 
-def perdidas(request):
 
-     publicaciones = None
-     
+
+
+
+
+def filtros(request,apartado):
      if request.method == 'POST':
 
           filtros = json.loads(request.body)
@@ -42,7 +41,6 @@ def perdidas(request):
           args = {}
          
 
-
           for clave in filtros:
               if filtros[clave]:
                     if clave == "color":
@@ -56,84 +54,109 @@ def perdidas(request):
                     elif clave == "tamaño":
                          args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                     elif clave == "localidad":
-                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[1])
+                         args[clave+apartado] = str(list(filtros[clave].keys())[1])
                     elif clave == "barrio":
-                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
+                         args[clave+apartado] = str(list(filtros[clave].keys())[0])
                     else:
-                         args[clave+'Extravio'] = str(list(filtros[clave].keys())[0])
+                         args[clave+'Publicacion'] = str(list(filtros[clave].keys())[0])
+
+     return args
+
+ 
+ 
+def perdidas(request):
+
+     context = {}
+
+     publicaciones = None
+     
+     args = filtros(request,'Extravio')
+
+     if args:
+     
+          publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
+
+
+          
+               
+     else:
+          # publicacion_ptr__usuario
+               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
                
 
+     context['publicaciones'] = publicaciones
 
-
-          if args :
-          
-               publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
-                    
      
-          
+     if request.user.is_authenticated:
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+               
+               context['publicacionesFav'] = publicacionesFav
 
 
-          else:
-               # publicacion_ptr__usuario
-                publicaciones = MascotasPerdidas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
-
-
-     return render(request, 'index/perdidas.html', {'publicaciones':publicaciones})
+                
+     return render(request, 'index/perdidas.html', context)
 
 
 def encontradas(request):
 
+     context = {}
+
      publicaciones = None
+     
+     args = filtros(request,'Encuentro')
 
-     if request.method == 'POST':
+     if args:
+     
+          publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
 
-          filtros = json.loads(request.body)
-
-          request.session['filtros']= filtros
-          request.session.modified = True
-          request.session.save()
-
-
+               
      else:
-          filtros = request.session.get('filtros',{})
-
-
-          args = {}
-          
-
-
-          for clave in filtros:
-               if filtros[clave]:
-                    if clave == "color":
-                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "raza":
-                              args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "especie":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "sexo":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "tamaño":
-                         args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
-                    elif clave == "localidad":
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[1])
-                    elif clave == "barrio":
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
-                    else:
-                         args[clave+'Encuentro'] = str(list(filtros[clave].keys())[0])
+          # publicacion_ptr__usuario
+               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
                
 
+     context['publicaciones'] = publicaciones
 
-          if args :
-          
-               publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
-                    
+     
+     if request.user.is_authenticated:
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+               
+               context['publicacionesFav'] = publicacionesFav
 
-          else:
-
-                    publicaciones = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
+     return render(request, 'index/encontradas.html', context)
 
 
-     return render(request, 'index/encontradas.html', {'publicaciones':publicaciones})
+
+
+def adopciones(request):
+
+     context = {}
+
+     publicaciones = None
+     
+     args = filtros(request,'Adopcion')
+
+     if args:
+     
+          publicaciones = MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(**args)
+
+               
+     else:
+          # publicacion_ptr__usuario
+               publicaciones = MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud')
+               
+
+     context['publicaciones'] = publicaciones
+
+     
+     if request.user.is_authenticated:
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+               
+               context['publicacionesFav'] = publicacionesFav
+
+
+
+     return render(request, 'index/adopciones.html', context)
 
 
 
@@ -141,10 +164,14 @@ def encontradas(request):
 def informacionPubli(request, id_publicacion):
 
 
-     publicacion = None
-     if(request.path == '/perdidas/'):
-
+     mensaje = json.loads(request.body)
      
+     apartado = str(mensaje['apartado'])
+
+     publicacion = None
+
+     if(apartado == 'perdidas'):
+
 
           publicacion = MascotasPerdidas.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
@@ -163,7 +190,7 @@ def informacionPubli(request, id_publicacion):
                'usuario': {
                     'nombre': publicacion.id_usuario.username,
                     'telefono': publicacion.id_usuario.telefono,
-                    'email': publicacion.id_usuario.id_usuario.email
+                    'email': publicacion.id_usuario.email
                     
                },
                'mascota': {
@@ -189,10 +216,11 @@ def informacionPubli(request, id_publicacion):
                     'esterilizacionmas': publicacion.idestado_salud.esterilizacionmas,
                     'medicamentosmas': publicacion.idestado_salud.medicamentosmas,
                }
+
           }
 
 
-     else:
+     elif(apartado == 'encontradas'):
 
           publicacion = MascotasEncontradas.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
 
@@ -237,6 +265,57 @@ def informacionPubli(request, id_publicacion):
                }
           }
     
+     else:
+
+          publicacion = MascotasAdopcion.objects.select_related('id_mascota' , 'id_usuario','idestado_salud'  ).get(id_publicacion=id_publicacion)
+
+
+          data = {
+               'publicacion': {
+                    'localidadAdopcion': publicacion.localidadAdopcion,
+                    'barrioAdopcion': publicacion.barrioAdopcion,
+                    'motivoAdopcion': publicacion.motivoAdopcion,
+                    'requisitosAdopcion': publicacion.requisitosAdopcion
+                    
+               },
+               'usuario': {
+                    'nombre': publicacion.id_usuario.username,
+                    'telefono': publicacion.id_usuario.telefono,
+                    'email': publicacion.id_usuario.email
+                    
+               },
+               'mascota': {
+                    'nombremas': publicacion.id_mascota.nombremas,
+                    'especiemas': publicacion.id_mascota.especiemas,
+                    'edadmas': publicacion.id_mascota.edadmas,
+                    'razamas': publicacion.id_mascota.razamas,
+                    'tamañomas': publicacion.id_mascota.tamañomas,
+                    'sexomas': publicacion.id_mascota.sexomas,
+                    'colormas': publicacion.id_mascota.colormas,
+                    'personalidadmas': publicacion.id_mascota.personalidadmas,
+                    'entrenamientomas': publicacion.id_mascota.entrenamientomas,
+                    'socializacionmas': publicacion.id_mascota.socializacionmas,
+
+                    'img1': publicacion.id_mascota.img1.url,
+                    'img2': publicacion.id_mascota.img2.url,
+                    'img3': publicacion.id_mascota.img3.url,
+                    'img4': publicacion.id_mascota.img4.url,
+                    'img5': publicacion.id_mascota.img5.url
+                    
+               },
+               'estado_salud': {
+                    'enfermedadesmas': publicacion.idestado_salud.enfermedadesmas,
+                    'vacunasmas': publicacion.idestado_salud.mostrar_vacunas(),
+                    'esterilizacionmas': publicacion.idestado_salud.esterilizacionmas,
+                    'medicamentosmas': publicacion.idestado_salud.medicamentosmas,
+               }
+          }
+
+
+
+
+
+
 
      return JsonResponse({'status':'success','data':data})
 
@@ -280,7 +359,8 @@ User = get_user_model() # Obtener el modelo de usuario personalizado"""
 def login(request):
     if request.user.is_authenticated:
         # Si el usuario está logueado, redirigirlo a su perfil
-        return redirect('perfil')
+        
+        return redirect('perfil', request.user.id)
     else:
         # Si el usuario no está logueado, mostrarle el formulario de login
         context = {}
@@ -357,6 +437,77 @@ def resetComplete(request):
 
 
 
+@login_required (login_url='login')
+def perfil(request, id_usuario):
+
+     context = {}
+     favoritas = []
+     publisPerdidas = []
+     publisEncontradas = []
+     publisAdopciones = []
+
+
+
+     usuario = Usuario.objects.get(id=id_usuario)
+     context['usuario'] = usuario
+
+
+
+     publiPerdidasUsu = MascotasPerdidas.objects.select_related('id_mascota','id_usuario','idestado_salud').filter(id_usuario=id_usuario)
+     context['perdidas'] = publiPerdidasUsu
+
+     publiEncontradasUsu = MascotasEncontradas.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=id_usuario)
+     context['encontradas'] = publiEncontradasUsu
+
+     publiAdopcionesUsu= MascotasAdopcion.objects.select_related('id_mascota', 'id_usuario','idestado_salud').filter(id_usuario=id_usuario)
+     context['adopciones'] = publiAdopcionesUsu
+
+     publiFavsUsu= publicacionesFavoritas.objects.select_related('id_publicacion').filter(id_usuario=id_usuario)
+     
+
+     for publicacion in publiFavsUsu:
+          if publicacion.id_publicacion.apartado == 'perdidas':
+               
+               publiPerdida = MascotasPerdidas.objects.filter(pk = publicacion.id_publicacion.pk)
+               publisPerdidas.extend(publiPerdida)
+
+          elif publicacion.id_publicacion.apartado == 'encontradas':
+               
+               publiEncontrada = MascotasEncontradas.objects.filter(pk = publicacion.id_publicacion.pk)
+               publisEncontradas.extend(publiEncontrada)
+
+
+          else:
+               
+               publiAdopcion = MascotasAdopcion.objects.filter(pk = publicacion.id_publicacion.pk)
+               publisAdopciones.extend(publiAdopcion)
+
+
+     
+
+
+
+     
+     favoritas.extend(publisPerdidas)
+     favoritas.extend(publisEncontradas)
+     favoritas.extend(publisAdopciones) 
+
+     context['favoritas'] = favoritas
+
+
+
+     if request.user.is_authenticated:
+               publicacionesFav = publicacionesFavoritas.objects.filter(id_usuario = request.user.id).values_list('id_publicacion', flat=True)
+               
+               context['publicacionesFav'] = publicacionesFav
+     
+
+     return render(request, 'index/perfil.html',context)
+
+
+
+
+
 """def login(request):
     
     documento = request.POST["documento"]
@@ -401,197 +552,95 @@ def resetComplete(request):
                     self.confirm_login_allowed(self.user_cache)
                     #raise ValidationError('si sirve pero no reenvia.')"""
                     
-    
-    
-    
+@login_required (login_url='login')
+def agregarPubli(request):
 
-@login_required
-def agregarPubliPerdidas(request):
-     
+     url_anterior = request.META.get('HTTP_REFERER')
+     url = url_anterior.split(':8000')
+
      if request.method == 'POST':
 
           
-
-          # SE INSTANCIAN LOS DOS MODELSFORMS DE FORMS.PY, SE LE INDICA AL FORMULARIO DE MASCOTA QUE SE ENVIARÁN ARCHIVOS
-          formMascota = MascotaPerdidaForm(request.POST, request.FILES )
-          formSaludMascota = SaludMascotaForm(request.POST)
-          formPublicacion = PubliMascotaPerdidaForm(request.POST)
-          if formPublicacion.is_valid():
-            
-            if formSaludMascota.is_valid(): 
-               
-               if formMascota.is_valid():
-
-                    
-
-                    #SE OBTIEME EL ID DEL USUARIO LOGUEADO, ES DECIR, DEL QUE HIZO LA PUBLICACION
-                    id_usuario = request.user.id
-                    vacunasmas = request.POST.getlist('vacunasmas')
-
-                    #SE CREA UN OBJETO DE ESE USUARIO
-                    usuario = Usuario.objects.get(id=id_usuario)
-
-                    #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
-                    salud_mascota = formSaludMascota.save()
-
-                    
-                    
-                    
-
-                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'SALUD_MASCOTA'
-                    idestado_salud = salud_mascota.pk
-
-                    #SE CREA UN OBJETO DE ESE ESTADO DE SALUD
-                    estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
-                    estado_salud.guardar_vacunas(vacunasmas)
-
-                    # SE GUARDAN TODOS LOS claveS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
-
-                    mascotaIns = formMascota.save(commit=False)
-
-
-                    #SE LE ASIGNA EN EL CAMPO ID_USUARIO DE LA TABLA MASCOTAS, EL OBJETO 'USUARIO' YA CREADO
-                    mascotaIns.id_usuario = usuario
-
-                    #SE LE ASIGNA EN EL CAMPO IDESTADO_SALUD DE LA TABLA MASCOTAS, EL OBJETO 'ESTADO_SALUD' YA CREADO
-                    mascotaIns.idestado_salud = estado_salud
-
-                    #SE GUARDA EL FORMULARIO DE MASCOTAS YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
-                    mascotaIns.save()
-
-                    
-
-
-                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'MASCOTAS'
-                    id_mascota = mascotaIns.pk
-
-                    #SE CREA UN OBJETO DE ESE ULTIMPO REGISTRO DE LA TABLA 'MASCOTAS'
-                    mascota = Mascota.objects.get(id_mascota=id_mascota)
-
-
-
-                    # SE GUARDAN LOS DATOS, SE AGREGAN LOS OBJETOS Y LUGARES MANUALMENTE
-                    publicacion = formPublicacion.save(commit=False)
-                    publicacion.apartado = 'perdidas'
-                    publicacion.idestado_salud = estado_salud
-                    publicacion.id_usuario = usuario
-                    publicacion.id_mascota = mascota
-
-                    #POR ULTIMO SE GUARDA EL FORMULARIO
-                    publicacion.save()
-
-                    
-
-                    return redirect('perdidas')
-               
-               
-
-     return HttpResponse('NO SE GUARDÓ')
-
-
-
-
-
-@login_required
-def agregarPubliEncontradas(request):
      
-     if request.method == 'POST':
+          if(url[1] == '/perdidas/'):
+
+               formMascota = MascotaPerdidaForm(request.POST, request.FILES)
+               formSaludMascota = SaludMascotaForm(request.POST)
+               formPublicacion = PubliMascotaPerdidaForm(request.POST)
+
+
+          elif(url[1] == '/encontradas/'):
+      
+
+               formMascota = MascotaEncontradaForm(request.POST, request.FILES)
+               formSaludMascota = SaludMascotaForm(request.POST)
+               formPublicacion = PubliMascotaEncontradaForm(request.POST)
+
+          else:
+
+
+               formMascota = MascotaAdopcionForm(request.POST, request.FILES)
+               formSaludMascota = SaludMascotaForm(request.POST)
+               formPublicacion = PubliMascotaAdopcionForm(request.POST)
+
+
+          if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
 
           
 
-          # SE INSTANCIAN LOS DOS MODELSFORMS DE FORMS.PY, SE LE INDICA AL FORMULARIO DE MASCOTA QUE SE ENVIARÁN ARCHIVOS
-          formMascota = MascotaEncontradaForm(request.POST, request.FILES )
-          formSaludMascota = SaludMascotaForm(request.POST)
-          formPublicacion = PubliMascotaEncontradaForm(request.POST)
-          if formPublicacion.is_valid():
-            
-            print("Formulario de publicacion valido")
-            
-            if formSaludMascota.is_valid(): 
-               
-
-               print("Formulario de salud mascota valido")
-
-
-               if formMascota.is_valid():
-
-                    print("Formulario de mascota valido")
-
-
-                    #SE OBTIEME EL ID DEL USUARIO LOGUEADO, ES DECIR, DEL QUE HIZO LA PUBLICACION
                     id_usuario = request.user.id
-                    
-
-                    #SE CREA UN OBJETO DE ESE USUARIO
                     usuario = Usuario.objects.get(id=id_usuario)
 
-                    #SE GUARDA EL FORMULARIO DE SALUD MASCOTA YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
                     salud_mascota = formSaludMascota.save()
-
-                
-
-                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'SALUD_MASCOTA'
                     idestado_salud = salud_mascota.pk
-
-                    #SE CREA UN OBJETO DE ESE ESTADO DE SALUD
                     estado_salud = SaludMascota.objects.get(idestado_salud=idestado_salud)
-                    
 
-                    # SE GUARDAN TODOS LOS claveS DEL FORMULARIO MASCOTAS YA VALIDADO, PERO AÚN NO SE SUBE A LA BASE DE DATOS
+
+                    if(url[1] == '/perdidas/' or url[1] == '/adopciones/' ):
+                         vacunasmas = request.POST.getlist('vacunasmas')
+                         estado_salud.guardar_vacunas(vacunasmas)
+
 
                     mascotaIns = formMascota.save(commit=False)
-
-
-                    #SE LE ASIGNA EN EL CAMPO ID_USUARIO DE LA TABLA MASCOTAS, EL OBJETO 'USUARIO' YA CREADO
                     mascotaIns.id_usuario = usuario
-
-                    #SE LE ASIGNA EN EL CAMPO IDESTADO_SALUD DE LA TABLA MASCOTAS, EL OBJETO 'ESTADO_SALUD' YA CREADO
                     mascotaIns.idestado_salud = estado_salud
-
-                    #SE GUARDA EL FORMULARIO DE MASCOTAS YA VALIDADO, ES DECIR, SE GUARDAN LOS DATOS EN LA BASE DE DATOS
                     mascotaIns.save()
 
                     
-
-
-                    #SE OBTIENE EL ID DE ESE ULTIMO REGISTRO DE LA TABLA 'MASCOTAS'
                     id_mascota = mascotaIns.pk
-
-                    #SE CREA UN OBJETO DE ESE ULTIMPO REGISTRO DE LA TABLA 'MASCOTAS'
                     mascota = Mascota.objects.get(id_mascota=id_mascota)
 
 
-
-                    # SE GUARDAN LOS DATOS, SE AGREGAN LOS OBJETOS Y LUGARES MANUALMENTE
                     publicacion = formPublicacion.save(commit=False)
-                    publicacion.apartado = 'encontradas'
+                    publicacion.apartado = url[1].strip('/')
                     publicacion.idestado_salud = estado_salud
                     publicacion.id_usuario = usuario
                     publicacion.id_mascota = mascota
-
-                    #POR ULTIMO SE GUARDA EL FORMULARIO
                     publicacion.save()
-
                     
 
-                    return redirect('encontradas')
                
                
-
-     return HttpResponse('NO SE GUARDÓ')
-
+                    return redirect(url[1])
 
 
+               
+     return HttpResponse('error al guardar')
+    
 
-          
 
 
-@login_required
+
+
+@login_required (login_url='login')
 def editarPubli(request,id_publicacion):
 
      if request.method == 'POST':
 
-          if(request.path == '/perdidas/'):
+          url_anterior = request.META.get('HTTP_REFERER')
+          url = url_anterior.split(':8000')
+     
+          if(url[1] == '/perdidas/'):
 
                publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
                mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
@@ -602,7 +651,7 @@ def editarPubli(request,id_publicacion):
                formPublicacion = PubliMascotaPerdidaForm(request.POST, instance=publicacion)
 
 
-          else:
+          elif(url[1] == '/encontradas/'):
                publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
                mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
                saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
@@ -611,28 +660,39 @@ def editarPubli(request,id_publicacion):
                formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
                formPublicacion = PubliMascotaEncontradaForm(request.POST, instance=publicacion)
 
+          else:
+
+               publicacion = MascotasAdopcion.objects.get(id_publicacion=id_publicacion)
+               mascotaa = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+               saludMascota = SaludMascota.objects.get(idestado_salud=publicacion.idestado_salud.pk)
+
+               formMascota = MascotaAdopcionForm(request.POST, request.FILES, instance=mascotaa)
+               formSaludMascota = SaludMascotaForm(request.POST, instance=saludMascota)
+               formPublicacion = PubliMascotaAdopcionForm(request.POST, instance=publicacion)
 
 
           if formMascota.is_valid() and formSaludMascota.is_valid() and formPublicacion.is_valid():
 
                
 
-               if(request.path == '/perdidas/'):
+               if(url[1] == '/perdidas/' or url[1] == '/adopciones/' ):
 
                     vacunasmas = request.POST.getlist('vacunasmas')
                     estado_salud =  formSaludMascota.save(commit=False)    
                     estado_salud.guardar_vacunas(vacunasmas) 
                     formMascota.save()
                     formPublicacion.save()
-                    estado_salud.save()       
-                    return redirect('perdidas')
+                    estado_salud.save()      
 
+                    
 
                else:
                     formMascota.save()
                     formPublicacion.save()
                     formSaludMascota.save()  
-                    return redirect('encontradas')
+                    
+
+               return redirect(url[1])
 
 
                
@@ -642,41 +702,107 @@ def editarPubli(request,id_publicacion):
 
 
 
-
+@login_required (login_url='login')
 def eliminarPubli(request,id_publicacion):
+
+
+     url_anterior = request.META.get('HTTP_REFERER')
+     url = url_anterior.split(':8000')
+
+
      if(request.method == "DELETE"):
 
 
-
-          if(request.path == "/perdidas/"):
+          if(url[1] == "/perdidas/"):
                publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
-               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
-               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+               
 
-               salud_mascota.delete()
-               mascota.delete()
-               publicacion.delete()
-
-               return HttpResponseRedirect('/perdidas/')
+          elif(url[1] == "/encontradas/"):
+               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
 
           else:
-               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
-               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
-               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
-               salud_mascota.delete()
-               mascota.delete()
-               publicacion.delete()
+               publicacion = MascotasAdopcion.objects.get(id_publicacion=id_publicacion)
+               
+              
 
-               return HttpResponseRedirect('/encontradas/')
+
+          mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+          salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+
+          salud_mascota.delete()
+          mascota.delete()
+          publicacion.delete()
+
+          return HttpResponseRedirect(url[1])
+
           
 
+     return HttpResponse('PUBLICACION NO ELIMINADA')
+
+
+@login_required (login_url='login')
+def agregarFav(request,id_publicacion):
+
+     url_anterior = request.META.get('HTTP_REFERER')
+     url = url_anterior.split(':8000')
+
+     response_data = {}
+
+     if(url[1] == '/perdidas/'):
+
+          publicacion = MascotasPerdidas.objects.get(id_publicacion=id_publicacion)
+
+     elif(url[1] == '/encontradas/'):
+
+          publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
+
+     else:
+
+          publicacion = MascotasAdopcion.objects.get(id_publicacion=id_publicacion)
+
+
+
+     try:
+
+          usuario = Usuario.objects.get(id = request.user.id)
+
+
+          try:
+               publicacionfav = publicacionesFavoritas.objects.get(id_publicacion=publicacion,id_usuario=usuario)
+          except publicacionesFavoritas.DoesNotExist:
+               publicacionfav = None
+
+          if(publicacionfav):
+
+               publicacionfav.delete()
+
+               response_data['deleted'] = True
+               response_data['success'] = True
+
+          else:
+
+
+               publifav = publicacionesFavoritas(id_publicacion=publicacion,id_usuario=usuario)
+
+               publifav.save()
+
+               response_data['saved'] = True
+               response_data['success'] = True
+
+
+     except Exception as e:
+
+          response_data = {'success': False, 'message': str(e)}
+     
 
           
+     
+     
+     return JsonResponse(response_data)
 
 
-          
-          #return JsonResponse({'estado':'exitoso'})
-     return redirect('PUBLICACION NO ELIMINADA')
+
+
      
      
      

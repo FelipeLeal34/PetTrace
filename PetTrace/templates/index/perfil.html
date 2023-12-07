@@ -11,29 +11,45 @@
         
         <link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">
         <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
-        <script src="{% static 'js/perfil.js' %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/publicaciones.css' %}">
+
+
+
+        
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
         <title>Perfil usuario</title>
     </head>
 <body>
    {% include 'default/header.html' %}
+
+   {% include 'publicaciones/ventanaModalPerdidas.html' %}
+   {% include 'publicaciones/ventanaModalEncontradas.html' %}
+   {% include 'publicaciones/ventanaModalAdopciones.html' %}
+
+   {% include 'publicaciones/editarPubliPerdidas.html' %}
+   {% include 'publicaciones/editarPubliEncontradas.html' %}
+   {% include 'publicaciones/editarPubliAdopciones.html' %} 
+
+
+   
     <main class="main">
         <div id="contenedor">
-               
+            
             <div id="contenido">
                 <div id="contImg">
                     <img src="{% static 'img/fotoperfil.jpg' %}" id="imgperfil" data-modal="modal1">
                 </div>
+                <div id="informacion-perfil">
                 <div id="perfil">
-                    <h1>Nombre de usuario: {{ user.username }}</h1>
+                    <h1>Nombre de usuario: {{ usuario.username }}</h1>
 
                     <div id="descripcion">
-                        <h2>Descripción: <br><span id="texto-descripcion">{{ user.perfil.descripcion }}</span></h2>
+                        <h2>Descripción: <br><span id="texto-descripcion">{{ usuario.perfil.descripcion }}</span></h2>
                         <a id="enlace-editar" onclick="mostrarFormulario()"><i class="fa-solid fa-pencil"></i>Editar descripción</a>
                         <!-- Este es el elemento oculto que contiene el formulario -->
                         <div id="formulario-editar" style="display: none;">
-                            <textarea type="textarea" id="input-descripcion">{{ user.perfil.descripcion }}</textarea>
+                            <textarea type="textarea" id="input-descripcion">{{ usuario.perfil.descripcion }}</textarea>
                             <button id="boton-guardar" onclick="enviarFormulario()">Guardar</button>
                         </div>
                     </div>
@@ -43,103 +59,160 @@
                 <div id="infoUsu">
                     <h1>Información de usuario</h1>
                     <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Ubicación: {{ user.localidad }}</li>
-                        <li><i class="fas fa-phone"></i> Contacto: <br> Telefono: {{ user.telefono }}, <br>Correo: {{ user.email }}</li>
-                        <li><i class="fas fa-paw"></i> Miembro desde: <br> {{ user.perfil.fecha_creacion }}</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Ubicación: {{ usuario.localidad }}</li>
+                        <li><i class="fas fa-phone"></i> Contacto: <br> Telefono: {{ usuario.telefono }}, <br>Correo: {{ usuario.email }}</li>
+                        <li><i class="fas fa-paw"></i> Miembro desde: <br> {{ usuario.perfil.fecha_creacion }}</li>
                     </ul>
                 </div>
+            </div>
+
+
+
+          
+
+
+                <div class="publis-perfil">
+
+                    <div  class="titulo-perdidas">
+						<div class="titulo">
+						<h2 style="color: #fff;">PUBLICACIONES</h2>
+						<hr style="border: 1px #fff solid;">
+						</div>
+					</div>
+
                 <div id="apartados">
-                    <a href="">Publicaciones</a>
-                    <a href="">Adopciones</a>
+
+
+                    
+
+                    <div id="apartados-mascotas">
+                    <label class="apartados-a-perfil" data-apartado="1">Perdidas</label>
+                    <label class="apartados-a-perfil" data-apartado="2">Encontradas</label>
+                    <label class="apartados-a-perfil" data-apartado="3">Adopciones</label>
                 </div>
-                <div class="publi-container">
-                    <div class="publi" id="publi">
-                
-                        <div class="contenido-publi">
-                            <hr>
-                            <div class="img-mascota-section">
-                
-                                <div class="img-mascota-contenedor">
-                
-                                    <img src="{% static 'img/publi-1.jpg' %}">
-                
-                                </div>
-                            </div>
-                
-                            <hr>
-                            <div class="info-mascota">
-                
-                                <div class="info-mascota-contenido">
-                
-                                    <div class="col1">
-                
-                                        <div class="dato">
-                
-                                            <p class="bold">Nombre: </p>
-                                            <p> Mateo</p>
-                                        </div>
-                                        <div class="dato">
-                
-                                            <p class="bold">Raza: </p>
-                                            <p> Labrador</p>
-                                        </div>
-                                        <div class="dato">
-                
-                                            <p class="bold">Color: </p>
-                                            <p> Blanco y Dorado</p>
-                                        </div>
-                                    </div>
-                
-                                    <div class="col2">
-                                        <div class="dato">
-                
-                                            <p class="bold">Fecha extravío: </p>
-                                            <p>25-06-2023</p>
-                                        </div>
-                
-                                        <div class="dato">
-                
-                                            <p class="bold">Barrio de extravío: </p>
-                                            <p>Quiroga</p>
-                                        </div>
-                
-                                        <div class="dato">
-                
-                                            <p class="bold">Localidad extravío: </p>
-                                            <p>Rafael Uribe Uribe</p>
-                                        </div>
-                                    </div>
-                                </div>
-                
-                            </div>
-                
-                            <hr>
-                            <div class="datos-contacto">
-                                <div class="datos-contacto-contenedor">
-                
-                                    <div class="dato">
-                                        <p  class="bold">Nombre: </p>
-                                        <p>Andrés Felipe Leal</p>
-                                    </div>
-                                    <div class="dato">
-                                        <p  class="bold">Numero de telefono: </p>
-                                        <p>3137525713</p>
-                                    </div>
-                
-                                    <div class="dato">
-                                        <p  class="bold">Correo Electronico: </p>
-                                        <p>afleal34@gmail.com</p>
-                                    </div>
-                                </div>
-                                <button class="btn verPubli">Ver mascota</button>
-                            </div>   
-                        </div>      
+
+                <div id="label-favoritas">
+                    <label href="" class="apartados-a-perfil" data-apartado="4">Favoritas</label>
+                </div>
+
+                </div>
+
+
+                <div id="publicaciones">
+
+                    <div id="apartados-contenedor">
+
+
+					
+
+                    <div id="perdidas" class="apartado-perfil">
+
+					{% if perdidas|length == 0 %}
+
+
+						<h1 style="color: #fff; background-color: none;  text-align: center;">¡El usuario no ha realizado publicaciones de mascotas perdidas!</h1>
+
+
+					{% else %}
+
+
+						{% for publicacion in perdidas %}
+							
+							{% include 'publicaciones/publicacionPerdidas.html' %}
+							
+						{% endfor %}
+
+					{% endif %}
+
+
                     </div>
 
-                <!--Aqui terminan las publicaciones-->
+                    <div id="encontradas" class="apartado-perfil">
+
+					{% if encontradas|length == 0 %}
+
+
+						<h1 style="color: #fff; background-color: none;  text-align: center;">¡El usuario no ha realizado publicaciones de mascotas Encontradas!</h1>
+
+
+					{% else %}
+
+                     	{% for publicacion in encontradas %}
+						
+						 	{% include 'publicaciones/publicacionEncontradas.html' %}
+
+            			{% endfor %}
+
+					{% endif %}
+                    </div>
+
+                    <div id="adopciones" class="apartado-perfil">
+
+						{% if adopciones|length == 0 %}
+
+
+						<h1 style="color: #fff; background-color: none;  text-align: center;">¡El usuario no ha realizado publicaciones de mascotas en adopción!</h1>
+
+
+						{% else %}
+
+
+							{% for publicacion in adopciones %}
+
+								{% include 'publicaciones/publicacionAdopciones.html' %}
+
+							{% endfor %}
+
+						{% endif %}
+                    </div>
+
+                    <div id="favoritas" class="apartado-perfil">
+
+						{% if favoritas|length == 0 %}
+
+
+						<h1 style="color: #fff; background-color: none;  text-align: center;">¡El usuario no ha agregado ninguna publicacion a favoritas!</h1>
+
+
+						{% else %}
+
+                        	{% for publicacion in favoritas %}
+                        
+                       			{% if publicacion.apartado == 'perdidas' %}
+
+								   {% include 'publicaciones/publicacionPerdidas.html' %}
+								   
+                       			{% elif publicacion.apartado == 'encontradas' %}
+								   						
+								   {% include 'publicaciones/publicacionEncontradas.html' %}
+
+                       			{% else %}
+
+								   {% include 'publicaciones/publicacionAdopciones.html' %}
+
+
+                        		{% endif %}
+
+                        	{% endfor %}
+
+						{% endif %}
+
+						
+                    </div>
+                
                 </div>
+            
+            </div>
+
+
             </div>
         </div>
+
+
+
+
+		
+
         <!-- Div para mostrar img de perfil del usuario -->
         <div id="modal1" class="filtros-box">
                 <div id="opciones">
@@ -170,6 +243,10 @@
     {% include 'default/footer.html' %}
 
        
-
+    <script src="{% static 'js/perfil.js' %}"></script>
+    
+    <script type="module" src="{% static 'js/perdidas.js' %}"></script>
+    <script type="module" src="{% static 'js/publicaciones.js' %}"></script>
+    <!-- <script type="module" src="{% static 'js/perdidas.js' %}"></script> -->
         </body>
         </html>
