@@ -46,7 +46,7 @@ def perdidas(request):
 
           for clave in filtros:
               if filtros[clave]:
-              if filtros[clave]:
+               if filtros[clave]:
                     if clave == "color":
                           args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
                           args['id_mascota__'+clave+'mas'] = str(list(filtros[clave].keys())[0])
@@ -662,11 +662,11 @@ def editarPubli(request,id_publicacion):
                     formSaludMascota.save()  
                     return redirect('encontradas')
 
-               else:
-                    formMascota.save()
-                    formPublicacion.save()
-                    formSaludMascota.save()  
-                    return redirect('encontradas')
+          else:
+               formMascota.save()
+               formPublicacion.save()
+               formSaludMascota.save()  
+               return redirect('encontradas')
 
 
                
@@ -713,15 +713,15 @@ def eliminarPubli(request,id_publicacion):
                salud_mascota.delete()
                mascota.delete()
                publicacion.delete()
-          else:
-               publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
-               mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
-               salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
-               salud_mascota.delete()
-               mascota.delete()
-               publicacion.delete()
+     else:
+          publicacion = MascotasEncontradas.objects.get(id_publicacion=id_publicacion)
+          mascota = Mascota.objects.get(id_mascota=publicacion.id_mascota.pk)
+          salud_mascota = SaludMascota.objects.get(idestado_salud=mascota.idestado_salud.pk)
+          salud_mascota.delete()
+          mascota.delete()
+          publicacion.delete()
 
-               return HttpResponseRedirect('/encontradas/')
+          return HttpResponseRedirect('/encontradas/')
           
 
 
@@ -729,7 +729,7 @@ def eliminarPubli(request,id_publicacion):
 
 
           
-               return HttpResponseRedirect('/encontradas/')
+     return HttpResponseRedirect('/encontradas/')
           
 
 

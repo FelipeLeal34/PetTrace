@@ -1,0 +1,233 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  <style>
+    #perfil {
+      padding: 20px;
+      border: 1px solid #ccc;
+      margin-bottom: 20px;
+    }
+  
+    h1, h2 {
+      margin-bottom: 10px;
+    }
+  
+    .descripcion {
+      margin-bottom: 20px;
+    }
+  
+    textarea {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+  
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  
+    li {
+      margin-bottom: 10px;
+    }
+  
+    .formulario-editar {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <div id="perfil">
+    <h1 id="nombre-usuario">Nombre de usuario: {{ user.username }} <a id="enlace-editar-nombre_usuario" onclick="mostrarFormulario('nombre_usuario')"><i class="fa-solid fa-pencil"></i></a></h1>
+
+    <div id="descripcion" class="descripcion">
+        <h2 class="descripcion">
+            Descripción:
+            <a id="enlace-editar-descripcion" onclick="mostrarFormulario('descripcion')">
+                <i class="fa-solid fa-pencil"></i>
+            </a>
+        </h2>
+
+        <h2 class="descripcion">
+            <span id="texto-descripcion">{{ user.perfil.descripcion }}</span>
+        </h2>
+
+        <!-- Este es el elemento oculto que contiene el formulario -->
+        <div id="formulario-editar-descripcion" class="formulario-editar">
+            <textarea type="textarea" id="input-descripcion"></textarea>
+            <button id="boton-guardar-descripcion" onclick="enviarFormulario('descripcion')">
+                <i id="IconContainer" class="fa-solid fa-circle-check"></i>
+                <p class="text">Guardar</p>
+            </button>
+        </div>
+    </div>
+
+    <div id="infoUsu">
+        <h1>Información de usuario</h1>
+        <ul>
+            <li id="telefono">
+                <i class="fas fa-phone"></i> Contacto: <br />
+                Telefono: {{ user.telefono }} <a id="enlace-editar-telefono" onclick="mostrarFormulario('telefono')"><i class="fa-solid fa-pencil"></i></a>
+            </li>
+            <li id="correo">
+                <i class="fas fa-envelope"></i> Correo: {{ user.email }} <a id="enlace-editar-correo" onclick="mostrarFormulario('correo')"><i class="fa-solid fa-pencil"></i></a>
+            </li>
+            <li id="localidad">
+                <i class="fas fa-map-marker-alt"></i> Ubicación: {{ user.localidad }} <a id="enlace-editar-localidad" onclick="mostrarFormulario('localidad')"><i class="fa-solid fa-pencil"></i></a>
+            </li>
+            <li id="barrio">
+                <i class="fas fa-map-marker-alt"></i> Barrio: {{ user.barrio }} <a id="enlace-editar-barrio" onclick="mostrarFormulario('barrio')"><i class="fa-solid fa-pencil"></i></a>
+            </li>
+            <li id="longitud">
+                <i class="fas fa-map-marker-alt"></i> Longitud: {{ user.longitud }} <a id="enlace-editar-longitud" onclick="mostrarFormulario('longitud')"><i class="fa-solid fa-pencil"></i></a>
+            </li>
+            <li id="latitud">
+                <i class="fas fa-map-marker-alt"></i> Latitud: {{ user.latitud }} <a id="enlace-editar-latitud" onclick="mostrarFormulario('latitud')"><i class="fa-solid fa-pencil"></i></a>
+            </li>
+            <li>
+                <i class="fas fa-paw"></i> Miembro desde: <br />
+                {{ user.perfil.fecha_creacion }}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Formulario para editar el nombre de usuario -->
+<div id="formulario-editar-nombre_usuario" class="formulario-editar" style="display: none;">
+    <input type="text" id="input-nombre_usuario">
+    <button id="boton-guardar-nombre_usuario" onclick="enviarFormulario('nombre_usuario')">
+        <i id="IconContainer" class="fa-solid fa-circle-check"></i>
+        <p class="text">Guardar</p>
+    </button>
+</div>
+
+<!-- Formulario para editar la localidad -->
+<div id="formulario-editar-localidad" class="formulario-editar" style="display: none;">
+    <input type="text" id="input-localidad">
+    <button id="boton-guardar-localidad" onclick="enviarFormulario('localidad')">
+        <i id="IconContainer" class="fa-solid fa-circle-check"></i>
+        <p class="text">Guardar</p>
+    </button>
+</div>
+
+<!-- Formulario para editar el barrio -->
+<div id="formulario-editar-barrio" class="formulario-editar" style="display: none;">
+    <input type="text" id="input-barrio">
+    <button id="boton-guardar-barrio" onclick="enviarFormulario('barrio')">
+        <i id="IconContainer" class="fa-solid fa-circle-check"></i>
+        <p class="text">Guardar</p>
+    </button>
+</div>
+
+<!-- Formulario para editar la longitud -->
+<div id="formulario-editar-longitud" class="formulario-editar" style="display: none;">
+    <input type="text" id="input-longitud">
+    <button id="boton-guardar-longitud" onclick="enviarFormulario('longitud')">
+        <i id="IconContainer" class="fa-solid fa-circle-check"></i>
+        <p class="text">Guardar</p>
+    </button>
+</div>
+
+<!-- Formulario para editar la latitud -->
+<div id="formulario-editar-latitud" class="formulario-editar" style="display: none;">
+    <input type="text" id="input-latitud">
+    <button id="boton-guardar-latitud" onclick="enviarFormulario('latitud')">
+        <i id="IconContainer" class="fa-solid fa-circle-check"></i>
+        <p class="text">Guardar</p>
+    </button>
+</div>
+
+<script>
+function mostrarFormulario(campo) {
+    alert("Editando campo: " + campo);
+
+    // Ocultar todos los formularios de edición
+    var formularios = document.querySelectorAll('.formulario-editar');
+    formularios.forEach(function(formulario) {
+        formulario.style.display = 'none';
+    });
+
+    // Mostrar el formulario específico
+    var formularioEditar = document.getElementById("formulario-editar-" + campo);
+    if (formularioEditar) {
+        formularioEditar.style.display = "block";
+    }
+}
+
+function enviarFormulario(campo) {
+    var nuevoValor = document.getElementById("input-" + campo).value;
+
+    var formData = new FormData();
+    formData.append("nuevo_valor", nuevoValor);
+    formData.append("campo_editar", campo);
+
+    var xhr = new XMLHttpRequest();
+    var url = "/editar-usuario/";
+    xhr.open("POST", url, true);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            var respuesta = JSON.parse(xhr.responseText);
+            if (respuesta.success) {
+                // Actualizar el texto o valor según el campo editado
+                if (campo === "descripcion") {
+                    document.getElementById("texto-descripcion").innerHTML = respuesta.nuevo_valor;
+                } else if (campo === "telefono") {
+                    document.getElementById("telefono").innerHTML = "Telefono: " + respuesta.nuevo_valor;
+                } else if (campo === "correo") {
+                    document.getElementById("correo").innerHTML = "Correo: " + respuesta.nuevo_valor;
+                } else if (campo === "nombre_usuario") {
+                    document.getElementById("nombre-usuario").innerHTML = "Nombre de usuario: " + respuesta.nuevo_valor;
+                } else if (campo === "localidad") {
+                    document.getElementById("localidad").innerHTML = "Ubicación: " + respuesta.nuevo_valor;
+                } else if (campo === "barrio") {
+                    document.getElementById("barrio").innerHTML = "Barrio: " + respuesta.nuevo_valor;
+                } else if (campo === "longitud") {
+                    document.getElementById("longitud").innerHTML = "Longitud: " + respuesta.nuevo_valor;
+                } else if (campo === "latitud") {
+                    document.getElementById("latitud").innerHTML = "Latitud: " + respuesta.nuevo_valor;
+                }
+
+                // Ocultar el formulario después de la edición
+                var formularioEditar = document.getElementById("formulario-editar-" + campo);
+                if (formularioEditar) {
+                    formularioEditar.style.display = "none";
+                }
+
+                // Mostrar el enlace de editar nuevamente
+                var enlaceEditar = document.getElementById("enlace-editar-" + campo);
+                if (enlaceEditar) {
+                    enlaceEditar.style.display = "inline-flex";
+                }
+            } else {
+                console.log(respuesta.error);
+            }
+        }
+    };
+    xhr.send(formData);
+}
+</script>
+
+</body>
+</html>
+
