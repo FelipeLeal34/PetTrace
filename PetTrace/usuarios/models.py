@@ -13,12 +13,13 @@ from django.contrib.auth.models import AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import os
+from django.templatetags.static import static
 
 
 class Usuario(AbstractUser):
     id = models.AutoField(primary_key=True)
     documento = models.PositiveIntegerField(unique=True)
-    telefono = models.IntegerField()
+    telefono = models.BigIntegerField()
     localidad = models.CharField(max_length=60, null=True, blank=True)
     barrio = models.CharField(max_length=60, null=True, blank=True)
     longitud = models.FloatField(null=True)
@@ -35,13 +36,14 @@ class Usuario(AbstractUser):
 class Perfil(models.Model):
     usuario = models.OneToOneField(Usuario, on_delete=models.CASCADE, related_name='perfil')
 
-    def get_upload_path(self, instance, filename): return os.path.join('imgperfil', str(instance.usuario.id), filename)
-    imagen = models.ImageField(upload_to=get_upload_path)
+    def get_upload_path(self, filename):
+        return os.path.join('imgperfil', str(self.usuario.id), filename)
 
+    imagen = models.ImageField(upload_to=get_upload_path, default=static('img/fotoperfil.jpg'))
     descripcion = models.CharField(max_length=200, default='Nuevo usuario de PetTrace')
     fecha_creacion = models.DateField(default=datetime.date.today)
 
-    
+
     @receiver(post_save, sender=Usuario)
     def create_user_profile(sender, instance, created, **kwargs):
         if created:
@@ -50,6 +52,7 @@ class Perfil(models.Model):
     @receiver(post_save, sender=Usuario)
     def save_user_profile(sender, instance, **kwargs):
         instance.perfil.save()
+    
 
 
 # class Comentario(models.Model): 
@@ -87,6 +90,7 @@ class SaludMascota(models.Model):
 
 class Mascota(models.Model):
     id_mascota = models.AutoField(primary_key=True)
+    nombremas = models.CharField(max_length=45, null='True')
     nombremas = models.CharField(max_length=45, null='True')
     especiemas = models.CharField(max_length=45, null=False, default='')
     razamas = models.CharField(max_length=45, null=False, default='')
@@ -175,6 +179,8 @@ class MascotasEncontradas(Publicacion):
 
     localidadEncuentro = models.CharField(max_length=60, null=False, blank=False)
     barrioEncuentro = models.CharField(max_length=60, null=False, blank=False)
+    fechaEncuentro = models.DateField(default=date.today, null=False, blank=False)
+    horaEncuentro = models.TimeField(null=True, blank=True)
     fechaEncuentro = models.DateField(default=date.today, null=False, blank=False)
     horaEncuentro = models.TimeField(null=True, blank=True)
     recompensa = models.FloatField(null=True, blank=True)

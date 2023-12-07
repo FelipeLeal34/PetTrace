@@ -1,12 +1,15 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!--Intalar crooper-->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--Intalar crooper-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
         
         <link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">
@@ -41,30 +44,51 @@
                     <img src="{% static 'img/fotoperfil.jpg' %}" id="imgperfil" data-modal="modal1">
                 </div>
                 <div id="informacion-perfil">
-                <div id="perfil">
+                  <div id="perfil">
                     <h1>Nombre de usuario: {{ usuario.username }}</h1>
-
-                    <div id="descripcion">
-                        <h2>Descripción: <br><span id="texto-descripcion">{{ usuario.perfil.descripcion }}</span></h2>
-                        <a id="enlace-editar" onclick="mostrarFormulario()"><i class="fa-solid fa-pencil"></i>Editar descripción</a>
-                        <!-- Este es el elemento oculto que contiene el formulario -->
-                        <div id="formulario-editar" style="display: none;">
-                            <textarea type="textarea" id="input-descripcion">{{ usuario.perfil.descripcion }}</textarea>
-                            <button id="boton-guardar" onclick="enviarFormulario()">Guardar</button>
-                        </div>
+        
+                    <div id="descripcion" class="descripcion">
+                      <h2 class="descripcion">
+                        Descripción:
+                        <a id="enlace-editar" onclick="mostrarFormulario()"
+                          ><i class="fa-solid fa-pencil"></i
+                        ></a>
+                      </h2>
+        
+                      <h2 class="descripcion">
+                        <span id="texto-descripcion"
+                          >{{ usuario.perfil.descripcion }}</span
+                        >
+                      </h2>
+        
+                      <!-- Este es el elemento oculto que contiene el formulario -->
+                      <div id="formulario-editar" style="display: none">
+                        <textarea type="textarea" id="input-descripcion">
+        {{ usuario.perfil.descripcion }}</textarea
+                        >
+                        <button id="boton-guardar" onclick="enviarFormulario()">
+                          <i id="IconContainer" class="fa-solid fa-circle-check"></i>
+                          <p class="text">Guardar</p>
+                        </button>
+                      </div>
                     </div>
-                    
-                </div>
-                
-                <div id="infoUsu">
+                  </div>
+        
+                  <div id="infoUsu">
                     <h1>Información de usuario</h1>
                     <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Ubicación: {{ usuario.localidad }}</li>
-                        <li><i class="fas fa-phone"></i> Contacto: <br> Telefono: {{ usuario.telefono }}, <br>Correo: {{ usuario.email }}</li>
-                        <li><i class="fas fa-paw"></i> Miembro desde: <br> {{ usuario.perfil.fecha_creacion }}</li>
+                      <li>
+                        <i class="fas fa-map-marker-alt"></i> Ubicación: {{usuario.localidad }}</li>
+                      <li>
+                        <i class="fas fa-phone"></i> Contacto: <br />
+                        Telefono: {{ usuario.telefono }}, <br />Correo: {{ usuario.email }}
+                      </li>
+                      <li>
+                        <i class="fas fa-paw"></i> Miembro desde: <br />
+                        {{ usuario.perfil.fecha_creacion }}
+                      </li>
                     </ul>
-                </div>
-            </div>
+                  </div>
 
 
 
@@ -213,31 +237,50 @@
 
 		
 
-        <!-- Div para mostrar img de perfil del usuario -->
-        <div id="modal1" class="filtros-box">
-                <div id="opciones">
-                    <span class="close" id="close1">&times;</span>
-                    <p>¿Qué quieres hacer con la imagen?</p>
-                <div class="categoria-filtro">
-                    <span>Ver imagen</span>
-                </div>
-                <div class="categoria-filtro">
-                    <span>Cambiar imagen</span>
-                    <input type="file" id="file-input" style="display: none;">
-                </div>
+        <!-- Div para mostrar opciones para la img de perfil del usuario -->
+    <div id="modal1" class="filtros-box">
+      <div id="opciones">
+        <span class="close" id="close1">&times;</span>
+        <p>¿Qué quieres hacer con la imagen?</p>
+        <div class="categoria-filtro">
+          <span>Ver imagen</span>
+        </div>
+        <div class="categoria-filtro" id="cambiarImg">
+          <span>Cambiar imagen</span> <br>
+        </div>
+      </div>
+    </div>
+    
+    <div id="modal-content" class="modal">
+      <img src="{{ usuario.perfil.imagen.url }}" id="imgperfil-modal">
+      <span class="close" id="close2">&times;</span>
+    </div>
+    <!-- Este es el DIV para cambiar la imagen de perfil -->
+    <div id="cont_imgForm" style="display: none;">
+      <div id="img_perfilForm">
+        <span class="close" id="close3">&times;</span>
+        <h1>Cambiar imagen de perfil</h1>
+        <hr>
+        <div class="formularioPerfil">
+          <form id="perfilForm" method="POST" enctype="multipart/form-data" action="{% url 'perfil' %}">
+            <img src="{% static 'img/subirImg.png' %}" id="imgsubir" />
+            {% csrf_token %}
+            <div style="display: none;">
+              {{ form.as_p }}
             </div>
+            <label id="file-input" class="subir-btn">  
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125" stroke="#fffffff" stroke-width="2"></path>
+                <path d="M17 15V18M17 21V18M17 18H14M17 18H20" stroke="#fffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              Subir imagen
+            </label>
+            <input type="submit" id="btnSubir" value="Subir imagen" style="display: none;">
+          </form>
         </div>
-          <!-- Este es el modal para mostrar la imagen en mayor tamaño -->
-        <div id="modal-content" class="modal">
-            <img src="{% static 'img/fotoperfil.jpg' %}" id="imgperfil-modal">
-            <span class="close" id="close2">&times;</span>    
-        </div>
-        <!-- Este es el modal para el recortador de imágenes -->
-        <div id="modal-cropper" class="modal">
-            <!-- Este es el canvas para el recortador de imágenes -->
-            <canvas id="canvas-cropper" class="cropper-canvas"></canvas>
-            <span class="close" id="close3">&times;</span>
-        </div>
+      </div>
+
+    </div>
           
     </main>    
     {% include 'default/footer.html' %}
