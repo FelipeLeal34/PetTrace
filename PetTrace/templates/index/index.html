@@ -1,13 +1,10 @@
-
-
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Inicio</title>
-	{% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 </head>
 <body>
@@ -21,19 +18,18 @@
 		<section id="banner">
 
 			<h2>¡Bienvenido a PetTrace!</h2>
+				
+			<div id="page-container">
+				<div id="slider-container">
+				  <div id="slider">
+					<div class="slide"><img src="{% static 'img/banner1.jpg' %}" alt="Imagen 1"></div>
+					<div class="slide"><img src="{% static 'img/banner2.jpg' %}" alt="Imagen 2"></div>
+					<div class="slide"><img src="{% static 'img/banner3.jpeg' %}" alt="Imagen 3"></div>
+					<div class="slide"><img src="{% static 'img/banner4.jpg' %}" alt="Imagen 4"></div>
+				  </div>
+				</div>
+			  </div>
 
-
-			<div class="slider-frame">
-				<ul>
-					<li><img src="{% static 'img/banner1.jpg' %}" class="slider-img"></li>
-					<li><img src="{% static 'img/banner2.jpg' %}" class="slider-img"></li>
-					<li><img src="{% static 'img/banner3.jpeg' %}" class="slider-img"></li>
-					<li><img src="{% static 'img/banner4.jpg' %}" class="slider-img"></li>
-				</ul>
-			</div>
-
-
-		</section>
 
 		<section id="banner-texts">
 
@@ -54,7 +50,7 @@
 
 		
 
-			<a href="pages/perdidas.html" class="btn">Publica tu mascota perdida</a>
+			<a href="{% url 'perdidas' %}" class="btn">Publica tu mascota perdida</a>
 
 			</div>
 
@@ -164,9 +160,29 @@
 
 
 
+<!------------------------------------Script para el slider--------------------------------------------------------->
 
-
-
+	<script>
+		let currentSlide = 0;
+		const totalSlides = document.querySelectorAll('.slide').length;
+		const slider = document.getElementById('slider');
+	  
+		function updateSlider() {
+		  slider.style.transform = `translateX(${-currentSlide * 100}vw)`;
+		}
+	  
+		function nextSlide() {
+		  currentSlide = (currentSlide + 1) % totalSlides;
+		  updateSlider();
+		}
+	  
+		function prevSlide() {
+		  currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+		  updateSlider();
+		}
+	  
+		setInterval(nextSlide, 3000); // Cambia la imagen cada 3 segundos
+	  </script>
 
 
 </body>
