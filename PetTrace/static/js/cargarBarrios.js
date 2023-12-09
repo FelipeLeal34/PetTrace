@@ -2257,11 +2257,11 @@ export function cargarBarrios(idLocalidad) {
         
 }
 
-// const SelectCargarBarrios = document.getElementById("localidadesRegistro");
+const SelectCargarBarrios = document.getElementById("localidadesRegistro");
 
-// SelectCargarBarrios.addEventListener("change", (e)=>{
-//   cargarBarrios("localidadesRegistro");
-// })
+SelectCargarBarrios.addEventListener("change", (e)=>{
+  cargarBarrios("localidadesRegistro");
+})
 
 
 

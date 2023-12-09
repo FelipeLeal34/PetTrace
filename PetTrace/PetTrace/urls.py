@@ -27,12 +27,10 @@ from django.conf import settings
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('perfil/<int:id_usuario>/', perfil, name='perfil'),
+    path('perfil/', perfil, name='perfil'),
     path("editar-descripcion/", views.editar_descripcion, name='editar_descripcion'),
     path('editar-usuario/', editar_usuario, name='editar_usuario'),
     path('perdidas/', perdidas, name='perdidas'),
-    path('encontradas/', encontradas, name='encontradas' ),
-    path('adopciones/', adopciones, name='adopciones' ),
     path('registrar/', views.registrar, name='registrar'),
     path('login/', LoginView.as_view(template_name='login/inicioSesion.html'), name='login'),
     path('logout', auth_views.LogoutView.as_view(template_name='index/perdidas.html'), name='logout'),
@@ -42,11 +40,12 @@ urlpatterns = [
     path('resetConfirm/', views.resetConfirm, name='resetConfirm'),
     path('resetComplete/', views.resetComplete, name='resetComplete'),
     path('prueba/', prueba, name='prueba'),
-    path('agregarPubli', agregarPubli, name='agregarPubli' ),
+    path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
     path('informacionPubli/<int:id_publicacion>/', informacionPubli, name='informacionPubli' ),
     path('editarPubli/<int:id_publicacion>/', editarPubli, name='editarPubli' ),
-    path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli'),
-    path('agregarFav/<int:id_publicacion>/', agregarFav ),
+    path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli' ),
+    path('encontradas/', encontradas, name='encontradas' ),
+    path('agregarPubliEncontradas/', agregarPubliEncontradas, name='agregarPubliEncontradas' ),
 
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )

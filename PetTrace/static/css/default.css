@@ -46,13 +46,22 @@ header img{
     width: 100;
 }
 
+#botonesIngreso{
+	display: flex;
+	margin: 20px;
+}
+#botonesIngreso a{
+	text-decoration: none;
+	color: white;
+	margin: 10px;
+	margin-right: 20px;
+}
+
 /*Menu desplegado*/
 nav {	
-    z-index: 100;
+    z-index: 101;
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     transform: translateX(100%);
     transition: transform 0.5s;
     position: absolute;
@@ -60,16 +69,14 @@ nav {
     
 }
 nav ul {
-	z-index: 100;
+	z-index: 101;
 	background: #657174;
 	color: #fff;
 	display: flex;
 	flex-direction: column;
 	text-align: left;
 	width: 30%;
-    height: auto;
-    margin-top: 0;
-	max-height: calc(100vh - 119px); 
+	height: calc(100vh - 10vh); 
 	border-radius: 10px;
 	transition: transform 0.5s;
 }
@@ -80,7 +87,7 @@ nav a{
 }
 
 #checkbox:checked ~ nav{
-	display: flex ;
+	display: block ;
 	transform: translateX(70%);
 }
 
@@ -143,68 +150,9 @@ nav .li:hover{
 	border-left: 3px #fff solid ;
 }
 
-  
-
-
-@media screen and (max-width: 766px){
-
-    header{
-        width: 100%;
-        height: 110px;
-    }
-    #logo{
-        min-width: 250px;
-        height: auto;
-        margin-left: 5px;
-    }
-    .icon-menu{
-        padding: 5px;
-    }
-
-
-
-    nav {
-        transform: translateX(100%);
-     
-       
-        
-    }
-
-    nav ul {
-        width: 100%;
-        max-height: calc(100vh - 95px); 
-        border-radius: 0px;
-        transition: transform 0.5s;
-    }
-    
-    nav a{
-        text-decoration: none;
-        color: white;
-    }
-    
-    #checkbox:checked ~ nav{
-        display: flex ;
-        transform: translateX(-0%);
-        height: 100vh;
-    }
-    
-    nav li {
-    text-align: center;
-    padding: 15px;
-    font-size: 1em;
-    }
-    
-    #fotoperfil{
-        width: 30%;
-        height: auto;
-    }
-	.header{
-		flex-wrap: wrap;
-		justify-content: space-around;
-	}
-	
-    
-  
+h2, h3{
+	text-align: center;
+	color: #74868a;
 }
 
 
@@ -299,7 +247,6 @@ footer{
 	height: 5vh;
 	display: flex;
 	justify-content: center;
-	margin-bottom: 0;
 
 }
 
