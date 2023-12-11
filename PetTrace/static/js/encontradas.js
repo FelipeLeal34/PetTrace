@@ -1007,9 +1007,7 @@ btnAplicar.addEventListener("click",()=>{
 		
 		
 })
-
-
-
+}
 
 
 
