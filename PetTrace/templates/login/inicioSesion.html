@@ -26,7 +26,7 @@
                         <label for="{{ form.username.id_for_label }}">Numero de documento</label>
                         {{ form.username }}
                         {{ form.username.errors }} 
-                      </div>
+                    </div>
                     <div class="inputGrupo">
                       <label for="{{ form.password.id_for_label }}">Contraseña</label>
                       {{ form.password }}
@@ -39,12 +39,31 @@
                     </div>
                 </form>
                     <div>
-                        <a href="{% url 'reset' %}">¿Has olvidado tu contraseña?</a>
-                    </div>
                         <a href="{% url 'registrar' %}">No tengo una cuenta</a>
+                    </div>
+                        
                 </div>
             </div>
         </div>
     </div>
+
+    <!--Comprobar de que se ingrese texto en el input de username-->
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+        const formulario = document.getElementById('forminicio'); // Reemplaza con el ID de tu formulario
+        const inputDocumento = document.getElementById('id_username'); // Reemplaza con el ID de tu input
+
+        formulario.addEventListener('submit', function (e) {
+            const valorDocumento = inputDocumento.value;
+            if (isNaN(valorDocumento) || valorDocumento.trim() === '') {
+                e.preventDefault(); // Evita que el formulario se envíe
+                alert('Por favor, ingresa solo números en el campo de documento.');
+                inputDocumento.focus(); // Coloca el foco en el campo de documento
+            }
+        });
+    });
+
+    </script>
+
 </body>
 </html>

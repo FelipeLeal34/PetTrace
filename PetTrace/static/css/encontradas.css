@@ -9,9 +9,6 @@
 	font-family: Garamond;
 }
 
-body{
-	background: #FAF9FA;
-}
 
 
 .titulo-perdidas{
@@ -33,12 +30,7 @@ body{
 .titulo hr{
 	width: 50%;
 	margin: auto;
-	border: 1px #587073 solid;
-}
-
-
-.titulo h2{
-	color: #587073 ;
+	border: 2px #d3d3d3 solid;
 }
 
 
@@ -59,7 +51,7 @@ body{
 main{
 	width: 100%;
 	height: auto;
-
+	background: #FAF9FA;
 	
 }
 

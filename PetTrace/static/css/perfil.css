@@ -35,6 +35,7 @@ header {
 /*-------Div cambiar imagen de perfil-------*/
 #cont_imgForm{
   position: absolute;
+  z-index: 101;
   background: #1b1f21f2;
   width: 100%;
   height: 100%;
@@ -44,18 +45,19 @@ header {
 }
 #img_perfilForm {
   background-color: #f0f0f0; 
+  width: 30%;
+  max-width: 80%;
   border-radius: 8px;
   padding: 50px; 
 }
 
 .formularioPerfil {
-  background-color: #fff; 
   padding: 15px;
   border-radius: 8px;
   text-align: center;
 }
 #imgsubir{
-  width: 300px;
+  width: 100%;
   height: auto;
 }
 #file-input{
@@ -124,45 +126,65 @@ header {
   display: inline-flex;
   width: 24px;
   height: 24px;
+  cursor: pointer;
 }
 
 #enlace-editar::before {
   display: inline-flex;
   width: 24px;
   height: 24px;
+  cursor: pointer;
 }
 
-/*-------input editar descripcion-------*/
-#descripcion {
+.fa-pencil{
+  cursor: pointer;
+}
+
+/*-------input editar infousu-------*/
+
+.formulario-editar{
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  background: #e9e9e9;
+  width: 50vh;
+  top: 40vh;
+  left: 50vh;
+  padding: 50px;
+  border-radius: 30px;
+}
+
+.formulario-editar h1{
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.infoUsu {
   word-wrap: break-word;
   position: relative;
   width: 99%;
 }
-#input-descripcion {
+.inputInfoUsu {
   width: 100%;
   height: 100%;
   resize: none;
-  color: #d3d3d3;
-  position: absolute;
+  color: black;
   font-size: 1.5rem;
-  top: 30px;
   font-weight: bold;
-  left: 0;
-  border-radius: 5px;
+  border-radius: 15px;
   padding: 5px;
-  border: 1px solid #292929;
-  background-color: #657174;
+  border: 1px solid #657174;
+  background-color: #ffffff;
+  margin: 15px 0 15px 0;
 }
 
-#boton-guardar {
-    position: absolute;
-    bottom: -75px;
-    left: 0;
+.btnInfoUsu {
     width: 100px;
     height: 40px;
     border-radius: 40px;
     border: 1px solid rgba(255, 255, 255, 0.349);
-    background-color: rgb(211 211 211);
+    background-color: rgb(101 113 116);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -190,26 +212,27 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: black;
+  color: white;
   z-index: 1;
   transition-duration: 0.3s;
   font-size: 1.04em;
+  font-weight: bold;
 }
 
-#boton-guardar:hover .IconContainer {
+.btnInfoUsu:hover .IconContainer {
   width: 90px;
   border-radius: 40px;
   transition-duration: 0.3s;
 }
 
-#boton-guardar:hover .text {
+.btnInfoUsu:hover .text {
   transform: translate(10px);
   width: 0;
   font-size: 0;
   transition-duration: 0.3s;
 }
 
-#boton-guardar:active {
+.btnInfoUsu:active {
   transform: scale(0.95);
   transition-duration: 0.3s;
 }
@@ -219,16 +242,25 @@ header {
   color: #d3d3d3;
 }
 
+.close-forms {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: right;
+  margin-right: 30px;
+  margin-top: 15px;
+}
+
 /*-------imagen de perfil-------*/
 
 #imgperfil {
   border: 3px solid black;
   border-radius: 50%;
-  width: 300px; /* Ancho fijo para la imagen */
-  height: 300px; /* Alto fijo para la imagen */
-  object-fit: cover; /* Ajusta el contenido gráfico del elemento para cubrir el área del contenedor */
-  display: block; /* Asegúrate de que la imagen sea un bloque para aplicar el ancho y alto */
-  margin: auto; /* Centra la imagen horizontalmente dentro del contenedor */
+  width: 300px; 
+  height: 300px; 
+  object-fit: cover; 
+  display: block; 
+  margin: auto; 
 }
 
 #contImg {
@@ -242,8 +274,6 @@ header {
   margin-top: calc(1 + 70px);
   left: 10%;
   transition: scale 2s;
-  /* Añade un padding-bottom para mantener la relación de aspecto del círculo */
-  padding-bottom: 25%;
   box-sizing: border-box; /* Incluye el padding y border en el ancho y alto del elemento */
 }
 
@@ -256,6 +286,7 @@ header {
 /*Mostrar img de perfil*/
 
 #modal1 {
+  position: absolute;
   z-index: 1000;
   top: 25%;
   margin-left: 30%;
@@ -296,14 +327,20 @@ header {
 #modal-content {
   display: none;
   position: absolute;
+  top: 0;
+  left: 0;
   justify-content: center;
   width: 100%;
   height: 100%;
-  background-color: rgba(128, 128, 128, 0.63);
+  overflow: hidden;
+  background-color: rgb(0 0 0 / 86%);
 }
 
 #imgperfil-modal {
-  padding: 100px;
+  padding: 10%;
+  width: 90%;
+  height: auto;
+  object-fit: scale-down;
 }
 
 #perfil {
@@ -329,9 +366,12 @@ h2 {
   width: 30%;
   min-height: 30%;
   float: right;
-  background-color: #d3d3d3;
+  background-color: #bfccd1;
   border-radius: 10px;
   padding: 10px;
+}
+.fas.fa-map-marker-alt, p {
+  display: inline;
 }
 
 ul,
@@ -343,48 +383,11 @@ li {
 }
 
 #apartados {
-    clear: both;
-    padding: 30px 0 50px;
-    display: flex;
-    width: 100%;
-    font-size: 1.5em;
-    text-align: center;
-    justify-content: space-between;
+  clear: both;
+  padding: 30px 0 50px;
+  font-size: 1.5em;
+  text-align: left;
 }
-
-
-#apartados-mascotas{
-    display: flex;
-    justify-content: space-evenly;
-    width: 40%;
-}
-
-
-#label-favoritas{
-    display: flex;
-    justify-content: center;
-    width: 60%;
-}
-
-.apartados-a-perfil{
-    color:#fff;
-    margin: 0;
-    cursor: pointer;
-}
-
-
-
-
-.apartados-a-perfil:hover{
-    text-decoration: underline;
-}
-
-.apartados-a-perfil:focus {
-    text-decoration: underline;
-
-  }
-
-
 
 a {
   margin-right: 30px;
@@ -444,20 +447,16 @@ a {
 }
 
 .publi {
-    width: 300px;
-    height: auto;
-    background: #faf7f6;
-    box-shadow: 5px 5px 5px 5px #667175;
-    margin-bottom: 20px;
-    margin-right: 5px;
-    margin-left: 5px;
-    border-radius: 20px;
-    z-index: 0;
+  width: 300px;
+  height: auto;
+  background: #faf7f6;
+  box-shadow: 5px 5px 5px 5px #a7bab9;
+  margin-bottom: 20px;
+  margin-right: 5px;
+  margin-left: 5px;
+  border-radius: 20px;
+  z-index: 0;
 }
-
-
-
-
 
 @media screen and (min-width: 767px) and (max-width: 1023px) {
   nav ul {
@@ -480,102 +479,62 @@ a {
     font-size: 0.8em;
   }
 
-    #contenedor{
-        margin-top: 110px;
-    }
-
-    #apartados{
-        justify-content: space-around;
-    }
-
-    
-
-    #apartados-mascotas{
-        justify-content: space-between;
-        width: 55%;
-    
-    }
-
-    #label-favoritas{
-        width: auto;
-    }
-
+  #contenedor {
+    margin-top: 110px;
+  }
 }
 
+
 @media screen and (max-width: 766px) {
-  header {
-    width: 100%;
-    height: 50px;
-  }
-  #logo {
-    width: 200px;
-    height: auto;
-    margin-left: 5px;
-  }
-  .icon-menu {
-    padding: 5px;
-  }
-
-  nav {
-    transform: translateX(100%);
-    top: 30px;
-  }
-  nav ul {
-    width: 100%;
-    max-height: calc(100vh - 95px);
-    border-radius: 0px;
-    transition: transform 0.5s;
-  }
-
-  nav a {
-    text-decoration: none;
-    color: white;
-  }
-
-  #checkbox:checked ~ nav {
-    display: block;
-    transform: translateX(-3%);
-  }
-
-  nav li {
-    text-align: center;
-    padding: 15px;
-    font-size: 1em;
-  }
-
-  #fotoperfil {
-    width: 30%;
-    height: auto;
-  }
 
   #contenedor {
-    margin-top: 130px;
+    margin-top: 80px;
   }
 
   #contImg {
     left: 50%;
     transform: translateX(-50%);
-    width: 45%;
-    max-width: 200px;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+  }
+  #imgperfil {
+    width: 200px;
+    height: 200px;
+    margin-top: 50px;
   }
 
   #perfil {
     width: 100%;
     font-size: 0.8em;
+    margin-top: 120px;
+  }
+  .salto-linea {
+    display: block;
   }
   #perfil h1 {
     text-align: center;
+    margin-bottom: 20px;
   }
 
   #infoUsu {
-    font-size: 0.8em;
+    font-size: 1em;
+    display: flex;
     width: 100%;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+  }
+  #infoUsu li{
+    margin: 15px 0 15px 0;
   }
 
   #infoUsu ul,
   li {
     font-size: 1.1em;
+    text-align: center;
   }
+
+  
 
   #apartados {
     padding: 30px 0 30px;
@@ -583,6 +542,7 @@ a {
     text-align: left;
   }
   #modal1 {
+    position: fixed;
     font-size: 1.2rem;
     max-width: 100%;
     width: 100%;
@@ -591,21 +551,20 @@ a {
     top: 35%;
     margin: 0;
   }
-  
-  #apartados{
-    justify-content: space-around;
-}
 
+  #cont_imgForm,
+  #img_perfilForm {
+    position: fixed;
+  }
+  #img_perfilForm {
+    width: 80%;
+    height: auto;
+  }
 
-
-#apartados-mascotas{
-    justify-content: space-between;
-    width: 55%;
-    flex-wrap: wrap;
-
-}
-
-#label-favoritas{
-    width: auto;
-}
+  .formulario-editar {
+    position: fixed;
+    left: 0;
+    top: 25%;
+    width: 100%;
+  }
 }

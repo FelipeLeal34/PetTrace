@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 import pymysql
-from django.urls import reverse_lazy
-from django.http import request
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -85,8 +83,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'pettrace',
         'USER': 'root',
-        'PASSWORD': 'PIPECOMECOCO',
- 
+        'PASSWORD': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
     }
 }
@@ -119,7 +117,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'America/Bogota'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -142,8 +140,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
 #URL a la que se redirige luego del login y el logout
-LOGIN_REDIRECT_URL = 'perdidas'
+# settings.py
+LOGIN_REDIRECT_URL = 'redirect_to_user_profile'
 LOGOUT_REDIRECT_URL = 'perdidas'
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyDy5RZFqhkfKiKIBvRwiuQTtfn20VayQHA'
+
+# Configauracion de correo de confirmacion
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'your_sendgrid_username'
+EMAIL_HOST_PASSWORD = 'your_sendgrid_password'
+
 

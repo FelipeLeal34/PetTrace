@@ -7,8 +7,8 @@
 				<meta charset="utf-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				
-
-				<link rel="stylesheet" type="text/css" href="{% static 'css/publicaciones.css' %}">
+				<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+				<link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
 				<script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 			
 				<title>Mascotas Perdidas</title>
@@ -21,7 +21,7 @@
 
 
 
-				{% include 'publicaciones/ventanaModalPerdidas.html' %}
+
 
 				<section id="contenedor-modelo-agregarPerdidas" class="">
 					<form method="POST" action="{% url 'agregarPubli' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
@@ -322,7 +322,7 @@
 												</div>
 												<div class="dato">
 													<p  class="bold">Numero de telefono: </p>
-													<p> {{ request.user.telefono }} </p>
+													<p> {{ request.user.usuario.telefono }} </p>
 												</div>
 
 												<div class="dato">
@@ -380,6 +380,7 @@
 
 
 
+					<!-- -------------------primera publicacion------------------ -->
 
 					
 					<div class="publicaciones">
@@ -407,11 +408,22 @@
 
 				</div>
 
+
+
 				</main>
 
 					
+
+
 					
 					{% include 'default/menu.html' %}
+
+
+
+	
+
+	
+
 
 						
 					<script type="module" src="{% static 'js/publicaciones.js' %}"></script>

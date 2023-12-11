@@ -1,19 +1,17 @@
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from usuarios.forms import *
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.decorators import login_required
 from usuarios.models import *
-# from usuarios.models import Usuario
-from django.http import HttpResponse, HttpResponseRedirect
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
-#import requests
 import json
-
 from django.template.loader import render_to_string
+from django.views.generic import UpdateView
+from django.urls import reverse_lazy
 
 
 # Create your views here.
@@ -396,29 +394,10 @@ def login(request):
         # Pasar el formulario y el contexto al renderizar la plantilla
         return render(request, 'login/inicioSesion.html', {'form': form, **context})
 
-
-@csrf_exempt # Esto es para evitar el error de CSRF al usar AJAX
-def editar_descripcion(request):
-    if request.method == "POST":
-        # Obtenemos el usuario y el perfil
-        usuario = request.user
-        perfil = usuario.perfil
-        # Obtenemos la nueva descripción del formulario
-        nueva_descripcion = request.POST.get("descripcion")
-        # Actualizamos el perfil con la nueva descripción
-        perfil.descripcion = nueva_descripcion
-        perfil.save()
-        # Devolvemos una respuesta JSON con el resultado
-        return JsonResponse({"success": True, "descripcion": nueva_descripcion})
-    else:
-        # Si el método no es POST, devolvemos un error
-        return JsonResponse({"success": False, "error": "Método no permitido"})
-    
-def usuario_view(request):
-    form = UserRegisterForm()
-    context = {'form': form}
-    return render(request, 'usuario.html', context)
-
+@login_required
+def redirect_to_user_profile(request):
+    # Redirigir a la URL de perfil del usuario usando el ID
+    return redirect('perfil', user_id=request.user.id)
 
 @csrf_exempt
 @login_required
@@ -446,43 +425,28 @@ def editar_usuario(request):
     else:
         return JsonResponse({"success": False, "error": "Método no permitido"})
 
-
-
-def reset(request):
-    return render(request, 'login/resetPassword/reset.html')
-def resetHecho(request):
-    return render(request, 'login/resetPassword/resetHecho.html')
-def resetEmail(request):
-    return render(request, 'login/resetPassword/resetEmail.html')
-def resetConfirm(request):
-    return render(request, 'login/resetPassword/resetConfirm.html')
-def resetComplete(request):
-    return render(request, 'login/resetPassword/resetComplete.html')
-
-
-
-
-
 @login_required (login_url='login')
 def perfil(request, id_usuario):
-     
+     # Obtener el perfil del usuario con el ID proporcionado
+    perfil_usuario = get_object_or_404(Perfil, usuario__id=id_usuario)
+    # Verificar si el usuario logueado está viendo su propio perfil
+    es_propio_perfil = request.user.id == int(id_usuario)
     usuario = Usuario.objects.get(pk =id_usuario)
     usuarioPerfil = Perfil.objects.get(pk =id_usuario)
 
-    if request.method == 'POST':
-
-
-        form = PerfilForm(request.POST, request.FILES, instance=usuarioPerfil)
+    if request.method == 'POST' and es_propio_perfil:
+        # Solo permitir la edición si el usuario está en su propio perfil
+        form = PerfilForm(request.POST, request.FILES, instance=perfil_usuario)
         if form.is_valid():
             perfil = form.save(commit=False)
-            perfil.usuario = usuario
+            perfil.usuario = request.user
             perfil.save()
-        # Redirigir a alguna URL de éxito, por ejemplo, la página de perfil del usuario
-        return redirect('perfil', id_usuario)
+            return redirect('perfil', user_id=request.user.id)
     else:
 
         context = {}
-        form = PerfilForm(instance=usuarioPerfil)
+        # Crear el formulario con el perfil del usuario que se está visualizando
+        form = PerfilForm(instance=perfil_usuario) if es_propio_perfil else None
 
         context['form'] = form
 
@@ -546,7 +510,11 @@ def perfil(request, id_usuario):
             context['publicacionesFav'] = publicacionesFav
 
 
-    return render(request, 'index/perfil.html',context)
+    return render(request, 'index/perfil.html',context,{
+        'perfil': perfil_usuario,
+        'form': form,  # Pasar el formulario con el perfil correcto
+        'es_propio_perfil': es_propio_perfil})  # Indicar si el usuario está viendo su propio perfil)
+
 
 
 

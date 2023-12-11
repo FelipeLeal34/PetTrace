@@ -112,34 +112,13 @@
 
     
     
+    <span class="fa-solid fa-circle-plus" id="agregar"></span>
+    {% if request.user.is_authenticated %}
+        <a href="{% url 'perfil' user_id=request.user.id %}"><span class="fa-solid fa-user" id="favoritos"></span></a>
+    {% else %}
+        <a href="{% url 'login'%}"><span class="fa-solid fa-user" id="favoritos"></span></a>
+    {% endif %}
     
-        {% if user.is_authenticated %}
-        <a href="#" id="aAgregar">
-            <span class="fa-solid fa-circle-plus" id="agregar"></span>
-        </a>
-        {% else %}
-
-        <a href="{% url 'login' %}">
-            <span class="fa-solid fa-circle-plus"></span>
-        </a>
-        {% endif %}
-
-
-    
-  
-
-    
-
-    {% if user.is_authenticated %}
-    <a href="{% url 'perfil' request.user.id %}">
-        <span class="fa-solid fa-user" id="perfil"></span>
-    </a>
-        {% else %}
-
-        <a href="{% url 'login' %}">
-            <span class="fa-solid fa-user"></span>
-        </a>
-        {% endif %}
 
     
 

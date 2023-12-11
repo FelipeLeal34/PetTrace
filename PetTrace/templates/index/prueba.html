@@ -58,7 +58,7 @@
 <body>
 
   
-  <div id="perfil">
+<div id="perfil">
     <h1 id="nombre-usuario">Nombre de usuario: {{ user.username }} <a id="enlace-editar-nombre_usuario" onclick="mostrarFormulario('nombre_usuario')"><i class="fa-solid fa-pencil"></i></a></h1>
 
     <div id="descripcion" class="descripcion">
@@ -93,22 +93,6 @@
             <li id="correo">
                 <i class="fas fa-envelope"></i> Correo: {{ user.email }} <a id="enlace-editar-correo" onclick="mostrarFormulario('correo')"><i class="fa-solid fa-pencil"></i></a>
             </li>
-            <li id="localidad">
-                <i class="fas fa-map-marker-alt"></i> Ubicación: {{ user.localidad }} <a id="enlace-editar-localidad" onclick="mostrarFormulario('localidad')"><i class="fa-solid fa-pencil"></i></a>
-            </li>
-            <li id="barrio">
-                <i class="fas fa-map-marker-alt"></i> Barrio: {{ user.barrio }} <a id="enlace-editar-barrio" onclick="mostrarFormulario('barrio')"><i class="fa-solid fa-pencil"></i></a>
-            </li>
-            <li id="longitud">
-                <i class="fas fa-map-marker-alt"></i> Longitud: {{ user.longitud }} <a id="enlace-editar-longitud" onclick="mostrarFormulario('longitud')"><i class="fa-solid fa-pencil"></i></a>
-            </li>
-            <li id="latitud">
-                <i class="fas fa-map-marker-alt"></i> Latitud: {{ user.latitud }} <a id="enlace-editar-latitud" onclick="mostrarFormulario('latitud')"><i class="fa-solid fa-pencil"></i></a>
-            </li>
-            <li>
-                <i class="fas fa-paw"></i> Miembro desde: <br />
-                {{ user.perfil.fecha_creacion }}
-            </li>
         </ul>
     </div>
 </div>
@@ -121,38 +105,19 @@
         <p class="text">Guardar</p>
     </button>
 </div>
-
-<!-- Formulario para editar la localidad -->
-<div id="formulario-editar-localidad" class="formulario-editar" style="display: none;">
-    <input type="text" id="input-localidad">
-    <button id="boton-guardar-localidad" onclick="enviarFormulario('localidad')">
+<!-- Formulario para editar el telefono -->
+<div id="formulario-editar-telefono" class="formulario-editar" style="display: none;">
+    <input type="text" id="input-telefono">
+    <button id="boton-guardar-telefono" onclick="enviarFormulario('telefono')">
         <i id="IconContainer" class="fa-solid fa-circle-check"></i>
         <p class="text">Guardar</p>
     </button>
 </div>
 
-<!-- Formulario para editar el barrio -->
-<div id="formulario-editar-barrio" class="formulario-editar" style="display: none;">
-    <input type="text" id="input-barrio">
-    <button id="boton-guardar-barrio" onclick="enviarFormulario('barrio')">
-        <i id="IconContainer" class="fa-solid fa-circle-check"></i>
-        <p class="text">Guardar</p>
-    </button>
-</div>
-
-<!-- Formulario para editar la longitud -->
-<div id="formulario-editar-longitud" class="formulario-editar" style="display: none;">
-    <input type="text" id="input-longitud">
-    <button id="boton-guardar-longitud" onclick="enviarFormulario('longitud')">
-        <i id="IconContainer" class="fa-solid fa-circle-check"></i>
-        <p class="text">Guardar</p>
-    </button>
-</div>
-
-<!-- Formulario para editar la latitud -->
-<div id="formulario-editar-latitud" class="formulario-editar" style="display: none;">
-    <input type="text" id="input-latitud">
-    <button id="boton-guardar-latitud" onclick="enviarFormulario('latitud')">
+<!-- Formulario para editar el correo -->
+<div id="formulario-editar-correo" class="formulario-editar" style="display: none;">
+    <input type="text" id="input-correo">
+    <button id="boton-guardar-correo" onclick="enviarFormulario('correo')">
         <i id="IconContainer" class="fa-solid fa-circle-check"></i>
         <p class="text">Guardar</p>
     </button>
@@ -200,12 +165,6 @@ function enviarFormulario(campo) {
                     document.getElementById("nombre-usuario").innerHTML = "Nombre de usuario: " + respuesta.nuevo_valor;
                 } else if (campo === "localidad") {
                     document.getElementById("localidad").innerHTML = "Ubicación: " + respuesta.nuevo_valor;
-                } else if (campo === "barrio") {
-                    document.getElementById("barrio").innerHTML = "Barrio: " + respuesta.nuevo_valor;
-                } else if (campo === "longitud") {
-                    document.getElementById("longitud").innerHTML = "Longitud: " + respuesta.nuevo_valor;
-                } else if (campo === "latitud") {
-                    document.getElementById("latitud").innerHTML = "Latitud: " + respuesta.nuevo_valor;
                 }
 
                 // Ocultar el formulario después de la edición

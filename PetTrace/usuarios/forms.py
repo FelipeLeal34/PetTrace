@@ -3,11 +3,6 @@ from usuarios.models import *
 from django.core.exceptions import ValidationError
 
 
-from django import forms
-from usuarios.models import *
-from django.core.exceptions import ValidationError
-
-
 
 
 class MascotaPerdidaForm(forms.ModelForm):
@@ -39,12 +34,12 @@ class MascotaEncontradaForm(forms.ModelForm):
 
 
 
-class MascotaAdopcionForm(forms.ModelForm):
+class MascotaAdopcion(forms.ModelForm):
 
     class Meta:
 
         model = Mascota
-        fields = ['nombremas','especiemas','razamas','sexomas','colormas','edadmas','tamañomas','personalidadmas','entrenamientomas','socializacionmas','img1','img2','img3','img4','img5']
+        fields = ['nombremas','especiemas','razamas','sexomas','colormas','tamañomas','personalidadmas','entrenamientomas','socializacionmas','img1','img2','img3','img4','img5']
 
 
 
@@ -125,15 +120,7 @@ class UserRegisterForm(forms.ModelForm):
 class UserLoginForm(forms.ModelForm):
     class Meta:
         model = Usuario
-        fields = ['username', 'password'] # Cambiar el nombre del campo email por username
-
-    def __init__(self, *args, **kwargs):
-        super(UserLoginForm, self).__init__(*args, **kwargs)
-        # Cambiar el nombre del campo email por username
-        self.fields['username'] = self.fields.pop('email')
-        # Modificar los widgets de los campos para agregar atributos o estilos
-        self.fields['username'].widget.attrs.update({'autofocus': True, })
-        self.fields['password'].widget.attrs.update({'placeholder': 'Ingresa tu contraseña'})
+        fields = ['documento', 'password']
 
 
 
@@ -146,6 +133,7 @@ class UserRegisterForm(forms.ModelForm):
         model = Usuario
         fields = ['first_name', 'last_name', 'username', 'documento', 'email', 'telefono', 'password', 'localidad', 'barrio', 'longitud', 'latitud']
         widgets = {
+            'documento': forms.NumberInput(attrs={'type': 'number', 'min': '0'}),
             'password': forms.PasswordInput(attrs={'id': 'password'})
         }
 
@@ -183,13 +171,19 @@ class UserLoginForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ['documento', 'password']
-        widgets = { 'documento': forms.NumberInput() }
+        widgets = {
+            'documento': forms.NumberInput(attrs={'type': 'number', 'min': '0'}),
+        }
+    
     
 
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
         fields = ['imagen']
+        widgets = {
+            'imagen': forms.FileInput(attrs={'id': 'id_imagen'}),
+        }
 
     def clean_imagen(self):
         imagen = self.cleaned_data.get('imagen')

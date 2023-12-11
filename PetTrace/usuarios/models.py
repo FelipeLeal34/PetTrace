@@ -7,6 +7,8 @@
 # Feel free to rename the models, but don't rename db_table values or field names.
 import datetime
 from datetime import date
+import datetime
+from datetime import date
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
@@ -115,13 +117,12 @@ class Publicacion(models.Model):
     id_publicacion = models.AutoField(primary_key=True)
     estadoPubli = models.BooleanField(default=True)
     fechaPubli = models.DateTimeField(auto_now=True)
-    fechaPublicacion = models.DateField(auto_now=True)
-
     apartado = models.CharField(max_length=50, null=False, blank=False, default='')
     idestado_salud = models.OneToOneField(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
     id_usuario = models.ForeignKey(Usuario, db_column='id', blank=False, null=False,on_delete=models.CASCADE)
     id_mascota = models.OneToOneField(Mascota, db_column='id_mascota', blank=False, null=False,on_delete=models.CASCADE)
 
+    
 
     class Meta:
        
@@ -200,9 +201,6 @@ class MascotasAdopcion(Publicacion):
 
     motivoAdopcion = models.CharField(max_length=200, null=False, blank=False)
     requisitosAdopcion = models.CharField(max_length=500, null=False, blank=False)
-    localidadAdopcion = models.CharField(max_length=60, null=False, blank=False, default='')
-    barrioAdopcion = models.CharField(max_length=60, null=False, blank=False, default='')
-
 
     class Meta:
        
