@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/perfil.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/default.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
-    <script src="{% static 'js/perfil.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/publicaciones.css' %}">
     <script type="module" src="{% static 'js/cargarBarrios.js' %}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -30,11 +30,15 @@
 
 
    
-    <main class="main">
+    <main class="main" id="perfil-main">
         <div id="contenedor">
             <div id="contenido">
                 <div id="contImg">
-                    <img src="{{ perfil.usuario.perfil.imagen.url }}" id="imgperfil" data-modal="modal1">
+                    {% if perfil.usuario.perfil.imagen %}
+                        <img src="{{ perfil.usuario.perfil.imagen.url }}" id="imgperfil" data-modal="modal1">
+                    {% else %}
+                        <img src="{% static 'img/fotoperfil.jpg' %}" alt="Foto de perfil predeterminada" id="imgperfil" data-modal="modal1">
+                    {% endif %}
                 </div>
                 <div id="perfil" class="infoUsu">
                     <div id="username">
@@ -99,9 +103,140 @@
 
                   
 
-                <div id="apartados">
-                    <a href="">Publicaciones</a>
-                    <a href="">Adopciones</a>
+                      <div class="publis-perfil">
+
+                        <div  class="titulo-perdidas">
+                            <div class="titulo">
+                            <h2 style="color: #fff;">PUBLICACIONES</h2>
+                            <hr style="border: 1px #fff solid;">
+                            </div>
+                        </div>
+    
+                    <div id="apartados">
+    
+    
+                        
+    
+                        <div id="apartados-mascotas">
+                        <label class="apartados-a-perfil" data-apartado="1">Perdidas</label>
+                        <label class="apartados-a-perfil" data-apartado="2">Encontradas</label>
+                        <label class="apartados-a-perfil" data-apartado="3">Adopciones</label>
+                    </div>
+    
+                    <div id="label-favoritas">
+                        <label href="" class="apartados-a-perfil" data-apartado="4">Favoritas</label>
+                    </div>
+    
+                    </div>
+    
+    
+                    <div id="publicaciones">
+    
+                        <div id="apartados-contenedor">
+    
+    
+                        
+    
+                        <div id="perdidas" class="apartado-perfil">
+    
+                        {% if perdidas|length == 0 %}
+    
+    
+                            <h1 style="color: #fff; background-color: none;  text-align: center;">¡El usuario no ha realizado publicaciones de mascotas perdidas!</h1>
+    
+    
+                        {% else %}
+    
+    
+                            {% for publicacion in perdidas %}
+                                
+                                {% include 'publicaciones/publicacionPerdidas.html' %}
+                                
+                            {% endfor %}
+    
+                        {% endif %}
+    
+    
+                        </div>
+    
+                        <div id="encontradas" class="apartado-perfil">
+    
+                        {% if encontradas|length == 0 %}
+    
+    
+                            <h1 style="color: #fff; background-color: none;  text-align: center;">¡El usuario no ha realizado publicaciones de mascotas Encontradas!</h1>
+    
+    
+                        {% else %}
+    
+                             {% for publicacion in encontradas %}
+                            
+                                 {% include 'publicaciones/publicacionEncontradas.html' %}
+    
+                            {% endfor %}
+    
+                        {% endif %}
+                        </div>
+    
+                        <div id="adopciones" class="apartado-perfil">
+    
+                            {% if adopciones|length == 0 %}
+    
+    
+                            <h1 style="color: #fff; background-color: none;  text-align: center;">¡El usuario no ha realizado publicaciones de mascotas en adopción!</h1>
+    
+    
+                            {% else %}
+    
+    
+                                {% for publicacion in adopciones %}
+    
+                                    {% include 'publicaciones/publicacionAdopciones.html' %}
+    
+                                {% endfor %}
+    
+                            {% endif %}
+                        </div>
+    
+                        <div id="favoritas" class="apartado-perfil">
+    
+                            {% if favoritas|length == 0 %}
+    
+    
+                            <h1 style="color: #fff; background-color: none;  text-align: center;">¡El usuario no ha agregado ninguna publicacion a favoritas!</h1>
+    
+    
+                            {% else %}
+    
+                                {% for publicacion in favoritas %}
+                            
+                                       {% if publicacion.apartado == 'perdidas' %}
+    
+                                       {% include 'publicaciones/publicacionPerdidas.html' %}
+                                       
+                                       {% elif publicacion.apartado == 'encontradas' %}
+                                                               
+                                       {% include 'publicaciones/publicacionEncontradas.html' %}
+    
+                                       {% else %}
+    
+                                       {% include 'publicaciones/publicacionAdopciones.html' %}
+    
+    
+                                    {% endif %}
+    
+                                {% endfor %}
+    
+                            {% endif %}
+    
+                            
+                        </div>
+                    
+                    </div>
+                
+                </div>
+    
+    
                 </div>
             </div>
         </div>
@@ -124,44 +259,40 @@
     </div>
     <!-- Este es el DIV para ver la imagen de perfil -->
     <div id="modal-content" class="modal">
-        <img src="{{ perfil.usuario.perfil.imagen.url }}" id="imgperfil-modal">
+        {% if perfil.usuario.perfil.imagen %}
+            <img src="{{ perfil.usuario.perfil.imagen.url }}" id="imgperfil-modal">
+        {% else %}
+            <img src="{% static 'img/fotoperfil.jpg' %}" alt="Foto de perfil predeterminada" id="imgperfil-modal">
+        {% endif %}
         <span class="close" id="close2">&times;</span>
     </div>
 
     <!-- Este es el DIV para cambiar la imagen de perfil -->
     <div id="cont_imgForm" style="display: none;">
-        <div id="img_perfilForm">
-            <span class="close" id="close3">&times;</span>
-            {% if es_propio_perfil %}
-
-            <h1>Cambiar imagen de perfil</h1>
-            <hr>
-            <div class="formularioPerfil">
-                <form id="perfilForm" method="POST" enctype="multipart/form-data" action="{% url 'perfil' user_id=request.user.id %}">
-                    <img src="{% static 'img/subirImg.png' %}" id="imgsubir" />
-                    {% csrf_token %}
-                    <div style="display: none;">
-                        <input type="hidden" name="userId" value="{{ request.user.id }}">
-                        <input type="file" name="imagen" id="id_imagen" />
-                    </div>
-                    <label id="file-input" class="subir-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125"
-                                stroke="#fffffff" stroke-width="2"></path>
-                            <path
-                                d="M17 15V18M17 21V18M17 18H14M17 18H20"
-                                stroke="#fffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            </path>
-                        </svg>
-                        Subir imagen
-                    </label>
-                    <input type="submit" id="btnSubir" value="Cambiar imagen" style="display: none;">
-                </form>
+      <div id="img_perfilForm">
+        <span class="close" id="close3">&times;</span>
+        <h1>Cambiar imagen de perfil</h1>
+        <hr>
+        <div class="formularioPerfil">
+          <form id="perfilForm" method="POST" enctype="multipart/form-data" action="{% url 'perfil' id_usuario=request.user.id %}">
+            <img src="{% static 'img/subirImg.png' %}" id="imgsubir" />
+            {% csrf_token %}
+            <div style="display: none;">
+                <input type="hidden" name="userId" value="{{ request.user.id }}">
+                <input type="file" name="imagen" id="id_imagen" />
             </div>
+            <label id="file-input" class="subir-btn">  
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 3H12H8C6.34315 3 5 4.34315 5 6V18C5 19.6569 6.34315 21 8 21H11M13.5 3L19 8.625M13.5 3V7.625C13.5 8.17728 13.9477 8.625 14.5 8.625H19M19 8.625V11.8125" stroke="#fffffff" stroke-width="2"></path>
+                <path d="M17 15V18M17 21V18M17 18H14M17 18H20" stroke="#fffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+              Subir imagen
+            </label>
+            <input type="submit" id="btnSubir" value="Subir imagen" style="display: none;">
+          </form>
         </div>
-        {% endif %}
+      </div>
+
     </div>
 
     <!-- Formularios para editar info usu -->
@@ -253,13 +384,10 @@
 
 
 
-    {% include 'default/footer.html' %}
-
-       
-    <script src="{% static 'js/perfil.js' %}"></script>
-    
-
+    {% include 'default/footer.html' %}    
     <script type="module" src="{% static 'js/publicaciones.js' %}"></script>
+    <script src="{% static 'js/perfil.js' %}"></script>
+
     <!-- <script type="module" src="{% static 'js/perdidas.js' %}"></script> -->
         </body>
         </html>

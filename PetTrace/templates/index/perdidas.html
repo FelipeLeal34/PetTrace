@@ -7,8 +7,8 @@
 				<meta charset="utf-8">
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				
-				<link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-				<link rel="stylesheet" type="text/css" href="{% static 'css/perdidas.css' %}">
+
+				<link rel="stylesheet" type="text/css" href="{% static 'css/publicaciones.css' %}">
 				<script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 			
 				<title>Mascotas Perdidas</title>
@@ -21,7 +21,7 @@
 
 
 
-
+				{% include 'publicaciones/ventanaModalPerdidas.html' %}
 
 				<section id="contenedor-modelo-agregarPerdidas" class="">
 					<form method="POST" action="{% url 'agregarPubli' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
@@ -54,7 +54,7 @@
 												<p class="p-upload">click para subir imagen</p>
 											</div> 
 
-											<input type="file" name="img1" id="input-img-1" class="input-file-a" required>
+											<input type="file" name="img1" accept="image/*"  id="input-img-1" class="input-file-a" required>
 											
 										</div>
 									</label>
@@ -71,7 +71,7 @@
 												<p class="p-upload">click para subir imagen</p>
 											</div> 
 
-											<input type="file" name="img2" id="input-img-2" class="input-file-a" required>
+											<input type="file" name="img2" accept="image/*"  id="input-img-2" class="input-file-a" required>
 										</div>
 									</label>
 										
@@ -85,7 +85,7 @@
 													<p class="p-upload">click para subir imagen</p>
 												</div> 
 
-												<input type="file" name="img3" id="input-img-3" class="input-file-a" required>
+												<input type="file" name="img3" accept="image/*"  id="input-img-3" class="input-file-a" required>
 											</div>
 										</label>
 												
@@ -99,7 +99,7 @@
 														<span class="fa-solid fa-upload"></span>
 														<p class="p-upload">click para subir imagen</p>
 													</div> 
-													<input type="file" name="img4" id="input-img-4" class="input-file-a" required>
+													<input type="file" name="img4" accept="image/*"  id="input-img-4" class="input-file-a" required>
 												</div>
 											</label>
 										</div>
@@ -112,7 +112,7 @@
 															<span class="fa-solid fa-upload"></span>
 															<p class="p-upload">click para subir imagen</p>
 														</div> 
-														<input type="file" name="img5" id="input-img-5" class="input-file-a" required>
+														<input type="file" name="img5" accept="image/*" id="input-img-5" class="input-file-a" required>
 
 													</div>
 												</label>
@@ -322,7 +322,7 @@
 												</div>
 												<div class="dato">
 													<p  class="bold">Numero de telefono: </p>
-													<p> {{ request.user.usuario.telefono }} </p>
+													<p> {{ request.user.telefono }} </p>
 												</div>
 
 												<div class="dato">
@@ -380,7 +380,6 @@
 
 
 
-					<!-- -------------------primera publicacion------------------ -->
 
 					
 					<div class="publicaciones">
@@ -408,22 +407,11 @@
 
 				</div>
 
-
-
 				</main>
 
 					
-
-
 					
 					{% include 'default/menu.html' %}
-
-
-
-	
-
-	
-
 
 						
 					<script type="module" src="{% static 'js/publicaciones.js' %}"></script>

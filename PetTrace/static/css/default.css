@@ -47,22 +47,13 @@ header img{
     width: 100;
 }
 
-#botonesIngreso{
-	display: flex;
-	margin: 20px;
-}
-#botonesIngreso a{
-	text-decoration: none;
-	color: white;
-	margin: 10px;
-	margin-right: 20px;
-}
-
 /*Menu desplegado*/
 nav {	
     z-index: 10000;
     width: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
     transform: translateX(100%);
 	height: auto;
     transition: transform 0.5s ease-in-out;
@@ -71,7 +62,7 @@ nav {
     
 }
 nav ul {
-	z-index: 10000;
+	z-index: 101;
 	background: #657174;
 	color: #fff;
 	display: flex;
@@ -92,7 +83,7 @@ nav a{
 }
 
 #checkbox:checked ~ nav{
-	display: block ;
+	display: flex ;
 	transform: translateX(70%);
 }
 
@@ -173,6 +164,7 @@ footer{
 	height: 5vh;
 	display: flex;
 	justify-content: center;
+	margin-bottom: 0;
 
 }
 
@@ -307,8 +299,6 @@ footer span{
 .btnFiltros:hover{
 	background-color: rgba(255,255,255, 0.5);
 }
-
-
 
 
 .filtros-box{

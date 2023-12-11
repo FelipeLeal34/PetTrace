@@ -84,7 +84,6 @@ DATABASES = {
         'NAME': 'pettrace',
         'USER': 'root',
         'PASSWORD': '',
-        'PASSWORD': '',
         'HOST': 'localhost',
     }
 }
@@ -145,13 +144,4 @@ LOGIN_REDIRECT_URL = 'redirect_to_user_profile'
 LOGOUT_REDIRECT_URL = 'perdidas'
 
 GOOGLE_MAPS_API_KEY = 'AIzaSyDy5RZFqhkfKiKIBvRwiuQTtfn20VayQHA'
-
-# Configauracion de correo de confirmacion
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_sendgrid_username'
-EMAIL_HOST_PASSWORD = 'your_sendgrid_password'
-
 

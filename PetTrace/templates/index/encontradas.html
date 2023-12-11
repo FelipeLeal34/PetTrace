@@ -7,8 +7,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/encontradas.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/publicaciones.css' %}">
     <script src="https://kit.fontawesome.com/57b9ea98d3.js" crossorigin="anonymous"></script>
 
     <title>Mascotas Encontradas</title>
@@ -20,7 +19,8 @@
 
 
 
-    
+    {% include 'publicaciones/ventanaModalEncontradas.html' %}
+
 
     <section id="contenedor-modelo-agregarEncontradas" class="">
         <form method="POST" action="{% url 'agregarPubli' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
@@ -52,7 +52,7 @@
                                     <p class="p-upload">click para subir imagen</p>
                                 </div> 
 
-                                <input type="file" name="img1" id="input-img-1" class="input-file" required>
+                                <input type="file" accept="image/*" name="img1" id="input-img-1" class="input-file" required>
                                 
                             </div>
                         </label>
@@ -69,7 +69,7 @@
                                     <p class="p-upload">click para subir imagen</p>
                                 </div> 
 
-                                <input type="file" name="img2" id="input-img-2" class="input-file" required>
+                                <input type="file" accept="image/*" name="img2" id="input-img-2" class="input-file" required>
                             </div>
                         </label>
                             
@@ -83,7 +83,7 @@
                                         <p class="p-upload">click para subir imagen</p>
                                     </div> 
 
-                                    <input type="file" name="img3" id="input-img-3" class="input-file" required>
+                                    <input type="file" accept="image/*" name="img3" id="input-img-3" class="input-file" required>
                                 </div>
                             </label>
                                     
@@ -97,7 +97,7 @@
                                             <span class="fa-solid fa-upload"></span>
                                             <p class="p-upload">click para subir imagen</p>
                                         </div> 
-                                        <input type="file" name="img4" id="input-img-4" class="input-file" required>
+                                        <input type="file" accept="image/*" name="img4" id="input-img-4" class="input-file" required>
                                     </div>
                                 </label>
                             </div>
@@ -110,7 +110,7 @@
                                                 <span class="fa-solid fa-upload"></span>
                                                 <p class="p-upload">click para subir imagen</p>
                                             </div> 
-                                            <input type="file" name="img5" id="input-img-5" class="input-file" required>
+                                            <input type="file" accept="image/*" name="img5" id="input-img-5" class="input-file" required>
 
                                         </div>
                                     </label>
@@ -385,13 +385,12 @@
 
         
 
-            
 
             
+        <script type="module" src="{% static 'js/encontradas.js' %}"></script>
+        <script type="module" src="{% static 'js/publicaciones.js' %}"></script>
+        <script type="module" src="{% static 'js/filtrar.js' %}"></script>
 
-
-            
-            <script type="module" src="{% static 'js/encontradas.js' %}"></script>
             
             
         </body>

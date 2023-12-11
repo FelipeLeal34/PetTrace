@@ -10,6 +10,14 @@
 }
 
 
+body{
+	background: #FAF9FA;
+}
+
+
+
+
+
 
 .titulo-perdidas{
 	display: flex;
@@ -30,7 +38,11 @@
 .titulo hr{
 	width: 50%;
 	margin: auto;
-	border: 2px #d3d3d3 solid;
+	border: 1px #587073 solid;
+}
+
+.titulo h2{
+	color: #587073 ;
 }
 
 
@@ -51,7 +63,7 @@
 main{
 	width: 100%;
 	height: auto;
-	background: #FAF9FA;
+	
 	
 }
 
@@ -233,21 +245,11 @@ main{
 }
 
 
-#agregarFav{
+.agregarFav{
 	cursor: pointer;
-	transition: all 2s;
-	transition: all 2s;
-	/* border: 0.5px solid #000; */
-}
 
-#agregadoFav{
-	cursor: pointer;
-	transition: all 2s;
-}
-#agregarFav:hover{
-	color: #000;
-}
 
+}
 
 
 .info-mascota{

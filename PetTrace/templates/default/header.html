@@ -20,13 +20,12 @@
             <li>
                 <div id="fotoperfilusu">
                 <div id="fotoperfil">
-                    <a href="{% url 'perfil' user_id=request.user.id %}">
+                    <a href="{% url 'perfil' request.user.id %}"> 
                         <div class="contImg">
-                             {% if user.perfil.imagen %} 
-                            <img src="{{ user.perfil.imagen.url }}" alt="" class="imgperfil">
-                            {% else %} 
-                            <img src="{% static 'img/fotoperfil.jpg' %}" alt="" class="imgperfil">
-
+                            {% if user.perfil.imagen %}
+                                <img src="{{ user.perfil.imagen.url }}" class="imgperfil">
+                            {% else %}
+                                <img src="{% static 'img/fotoperfil.jpg' %}" alt="Foto de perfil predeterminada" class="imgperfil">
                             {% endif %}
                         </div>
                     </a>
@@ -36,7 +35,7 @@
             </li>
             <li class="li">
                 <i class="fa-solid fa-user fa-lg"></i>
-                <a href="{% url 'perfil' user_id=request.user.id %}">PERFIL</a>
+                <a href="{% url 'perfil' id_usuario=request.user.id %}">PERFIL</a>
             </li>
             <li class="li">
                 <i class="fa-solid fa-magnifying-glass fa-lg"></i>
@@ -48,23 +47,34 @@
             </li>
             <li class="li">
                 <i class="fa-brands fa-firefox-browser fa-lg"></i>
-                <a href="">ADOPCIONES</a>
+                <a href="{% url 'adopciones' %}">ADOPCIONES</a>
             </li>
-            <li class="li">
-                <i class="fa-solid fa-bell fa-lg"></i>
-                <a href="">NOTIFICACIONES</a>
-            </li>
-
-            <li class="li">
-                <i class="fa-solid fa-gear"></i>
-                <a href="">AJUSTES</a>
-            </li>
+            
             <li class="li">
                 <i class="fa-solid fa-right-from-bracket"></i>
                 <a href="{% url 'logout' %}" onclick="return confirm('¿Estás seguro de que deseas cerrar sesión?')">CERRAR SESIÓN</a>
             </li>
-            
-            
+            {% else %}
+            <li class="li">
+                <i class="fa-solid fa-user-plus fa-lg"></i>
+                <a href="{% url 'registrar' %}">REGISTRARSE</a>
+            </li> 
+            <li class="li">
+                <i class="fa-solid fa-arrow-right-to-bracket fa-lg"></i>
+                <a href="{% url 'login' %}">INICIAR SESIÓN</a>
+            </li>
+            <li class="li">
+                <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+                <a href="{% url 'perdidas' %}">PERDIDAS</a>
+            </li>
+            <li class="li">
+                <i class="fa-solid fa-paw fa-lg"></i>
+                <a href="{% url 'encontradas' %}">ENCONTRADAS</a>
+            </li>
+            <li class="li">
+                <i class="fa-brands fa-firefox-browser fa-lg"></i>
+                <a href="{% url 'adopciones' %}">ADOPCIONES</a>
+            </li>
             {% endif %}
         </ul>
     </nav>

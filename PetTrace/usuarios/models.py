@@ -41,7 +41,7 @@ class Perfil(models.Model):
     def get_upload_path(self, filename):
         return os.path.join('imgperfil', str(self.usuario.id), filename)
 
-    imagen = models.ImageField(upload_to=get_upload_path, default='img/fotoperfil.jpg')
+    imagen = models.ImageField(upload_to=get_upload_path)
     descripcion = models.CharField(max_length=200, default='Nuevo usuario de PetTrace')
     fecha_creacion = models.DateField(default=datetime.date.today)
 
@@ -117,6 +117,7 @@ class Publicacion(models.Model):
     id_publicacion = models.AutoField(primary_key=True)
     estadoPubli = models.BooleanField(default=True)
     fechaPubli = models.DateTimeField(auto_now=True)
+    fechaPublicacion = models.DateField(auto_now=True)
     apartado = models.CharField(max_length=50, null=False, blank=False, default='')
     idestado_salud = models.OneToOneField(SaludMascota, on_delete=models.CASCADE, db_column='idestado_salud', blank=False, null=True)
     id_usuario = models.ForeignKey(Usuario, db_column='id', blank=False, null=False,on_delete=models.CASCADE)
@@ -188,8 +189,6 @@ class MascotasEncontradas(Publicacion):
     barrioEncuentro = models.CharField(max_length=60, null=False, blank=False)
     fechaEncuentro = models.DateField(default=date.today, null=False, blank=False)
     horaEncuentro = models.TimeField(null=True, blank=True)
-    fechaEncuentro = models.DateField(default=date.today, null=False, blank=False)
-    horaEncuentro = models.TimeField(null=True, blank=True)
     recompensa = models.FloatField(null=True, blank=True)
 
     class Meta:
@@ -201,6 +200,9 @@ class MascotasAdopcion(Publicacion):
 
     motivoAdopcion = models.CharField(max_length=200, null=False, blank=False)
     requisitosAdopcion = models.CharField(max_length=500, null=False, blank=False)
+    localidadAdopcion = models.CharField(max_length=60, null=False, blank=False, default='')
+    barrioAdopcion = models.CharField(max_length=60, null=False, blank=False, default='')
+
 
     class Meta:
        

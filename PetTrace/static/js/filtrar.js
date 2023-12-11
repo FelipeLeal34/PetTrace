@@ -73,8 +73,12 @@ function verificarFiltros(){
 			 
 			if(filtrosBox.style.display == "flex"){
 				btnFiltros.style.display = "flex";
+				
+
+
 			}else{
 				btnFiltros.style.display = "none";
+				
 			}
 			
 
@@ -90,6 +94,7 @@ document.addEventListener("DOMContentLoaded",(event) =>{
 if(filtrosAplicados){
 if(Object.keys(filtrosAplicados).length !== 0){
 		Object.assign(filtrosSeleccionados,filtrosAplicados);
+		btnFiltrar.classList.add("menu-span-focus");
 		
 		verificarFiltros();
 	}
@@ -618,7 +623,6 @@ selectFiltros.forEach(selectFiltro =>{
 btnFiltrar.addEventListener("click", (e) => {
 	e.stopPropagation();
 
-	
 
 
     if (!btnFiltrar.classList.contains("menu-span-focus")) {
@@ -630,10 +634,8 @@ btnFiltrar.addEventListener("click", (e) => {
 		
     }else{
 		
-		btnFiltrar.classList.remove("menu-span-focus");
-		filtrosBox.style.display = "none";
+		filtrosBox.style.display = "flex";
 		
-		subfiltrosBox.style.display = "none";
 		verificarFiltros();
 		
 	}

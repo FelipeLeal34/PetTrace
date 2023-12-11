@@ -34,12 +34,12 @@ class MascotaEncontradaForm(forms.ModelForm):
 
 
 
-class MascotaAdopcion(forms.ModelForm):
+class MascotaAdopcionForm(forms.ModelForm):
 
     class Meta:
 
         model = Mascota
-        fields = ['nombremas','especiemas','razamas','sexomas','colormas','tamañomas','personalidadmas','entrenamientomas','socializacionmas','img1','img2','img3','img4','img5']
+        fields = ['nombremas','especiemas','razamas','sexomas','edadmas','colormas','tamañomas','personalidadmas','entrenamientomas','socializacionmas','img1','img2','img3','img4','img5']
 
 
 
@@ -57,7 +57,7 @@ class PubliMascotaEncontradaForm(forms.ModelForm):
     class Meta:
 
         model = MascotasEncontradas
-        fields = ['localidadEncuentro','barrioEncuentro','fechaEncuentro','horaEncuentro','recompensa']
+        fields = ['localidadEncuentro','barrioEncuentro','fechaEncuentro','horaEncuentro',]
 
 
 class PubliMascotaAdopcionForm(forms.ModelForm):
@@ -188,6 +188,6 @@ class PerfilForm(forms.ModelForm):
     def clean_imagen(self):
         imagen = self.cleaned_data.get('imagen')
         if imagen:
-            if not imagen.name.endswith(('.jpg', '.jpeg', '.png', '.gif')):
-                raise ValidationError('Formato de archivo no admitido. Solo se admiten archivos JPG, JPEG, PNG, y GIF.')
+            if not imagen.name.endswith(('.jpg', '.jpeg', '.png', '.gif', '.webp')):
+                raise ValidationError('Formato de archivo no admitido. Solo se admiten archivos JPG, JPEG, PNG, WEBP y GIF.')
         return imagen

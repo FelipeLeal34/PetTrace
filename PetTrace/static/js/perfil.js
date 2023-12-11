@@ -128,7 +128,7 @@ function guardarUbicacion() {
     formData.append('csrfmiddlewaretoken', csrftoken);
 
     // Obtener el ID del usuario
-    var userId = document.querySelector('[name="userId"]').value; // Asegúrate de que este elemento exista y contenga el ID del usuario
+    var userId = document.querySelector('[name="userId"]').value; // Reemplaza con el método correcto para obtener el ID del usuario    
 
     // Crear la petición AJAX
     var xhr = new XMLHttpRequest();
@@ -235,6 +235,16 @@ let labelSubir = document.getElementById("file-input");
 let inputSubir = document.getElementById("id_imagen");
 let enviar = document.getElementById("btnSubir");
 
+//funcion para que solo acepte imagenes
+inputSubir.addEventListener("change", function(event) {
+    let archivo = event.target.files[0];
+    let tiposPermitidos = ['image/png', 'image/jpeg', 'image/gif', 'image/webp'];
+    
+    if (archivo && !tiposPermitidos.includes(archivo.type)) {
+      alert("Por favor, seleccione un archivo de imagen válido (PNG, JPEG, GIF, WebP).");
+      inputSubir.value = '';
+    }
+  });
 
 // Función para mostrar la vista previa de la imagen
 function mostrarVistaPrevia() {

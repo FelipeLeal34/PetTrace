@@ -397,14 +397,18 @@ def login(request):
 @login_required
 def redirect_to_user_profile(request):
     # Redirigir a la URL de perfil del usuario usando el ID
-    return redirect('perfil', user_id=request.user.id)
+    return redirect('perfil', id_usuario=request.user.id)
 
-@csrf_exempt
 @login_required
-def editar_usuario(request):
+def editar_usuario(request, id_usuario):
+    usuario = request.user
+    perfil = get_object_or_404(Perfil, usuario__id=id_usuario)
+    # Verificar si el perfil pertenece al usuario logueado
+    if usuario.id != int(id_usuario):
+        # Si no es el dueño, redirigir al perfil del usuario logueado
+        return redirect('perfil', id_usuario=usuario.id)
+
     if request.method == "POST":
-        usuario = request.user
-        perfil = usuario.perfil
         campo_editar = request.POST.get("campo_editar")
         nuevo_valor = request.POST.get("nuevo_valor")
 
@@ -417,6 +421,10 @@ def editar_usuario(request):
             usuario.email = nuevo_valor
         elif campo_editar == "nombre_usuario":
             usuario.username = nuevo_valor
+        elif campo_editar == "localidad_barrio":
+            localidad, barrio = nuevo_valor.split(", ")
+            usuario.localidad = localidad
+            usuario.barrio = barrio
 
         perfil.save()
         usuario.save()
@@ -427,12 +435,13 @@ def editar_usuario(request):
 
 @login_required (login_url='login')
 def perfil(request, id_usuario):
+    context = {}
      # Obtener el perfil del usuario con el ID proporcionado
-    perfil_usuario = get_object_or_404(Perfil, usuario__id=id_usuario)
+    perfil_usuario = get_object_or_404(Perfil, pk=id_usuario)
     # Verificar si el usuario logueado está viendo su propio perfil
     es_propio_perfil = request.user.id == int(id_usuario)
     usuario = Usuario.objects.get(pk =id_usuario)
-    usuarioPerfil = Perfil.objects.get(pk =id_usuario)
+
 
     if request.method == 'POST' and es_propio_perfil:
         # Solo permitir la edición si el usuario está en su propio perfil
@@ -441,16 +450,21 @@ def perfil(request, id_usuario):
             perfil = form.save(commit=False)
             perfil.usuario = request.user
             perfil.save()
-            return redirect('perfil', user_id=request.user.id)
+            return redirect('perfil', id_usuario=request.user.id)
+        else:
+             context['form'] = form
     else:
-
-        context = {}
+        
         # Crear el formulario con el perfil del usuario que se está visualizando
         form = PerfilForm(instance=perfil_usuario) if es_propio_perfil else None
 
         context['form'] = form
-
-
+        context['perfil'] = perfil_usuario
+        context['es_propio_perfil'] = es_propio_perfil
+        context['usuario'] = usuario
+          
+          
+          
         favoritas = []
         publisPerdidas = []
         publisEncontradas = []
@@ -509,11 +523,10 @@ def perfil(request, id_usuario):
 
             context['publicacionesFav'] = publicacionesFav
 
+     
 
-    return render(request, 'index/perfil.html',context,{
-        'perfil': perfil_usuario,
-        'form': form,  # Pasar el formulario con el perfil correcto
-        'es_propio_perfil': es_propio_perfil})  # Indicar si el usuario está viendo su propio perfil)
+
+    return render(request, 'index/perfil.html',context)  # Indicar si el usuario está viendo su propio perfil)
 
 
 

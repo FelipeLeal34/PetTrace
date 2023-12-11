@@ -2060,7 +2060,7 @@ var barriosRafaelUribe = [
   "San Agustín II Sector",
   "Serranía - Sector Cultivos"
 ];
-
+// document.addEventListener("DOMContentLoaded", (event) => {
 export function cargarBarrios(idLocalidad) {
 
   var localidades = document.getElementById(idLocalidad);
@@ -2085,8 +2085,6 @@ export function cargarBarrios(idLocalidad) {
 
     // Limpiar el select de barrios antes de cargar nuevos elementos
     barrios.innerHTML = "";
-
-
     
 
     if (seleccionLocalidad === "usaquen") {
@@ -2269,21 +2267,29 @@ export function cargarBarrios(idLocalidad) {
 
 const SelectCargarBarrios = document.getElementById("localidadesRegistro");
 
-SelectCargarBarrios.addEventListener("change", (e)=>{
-  cargarBarrios("localidadesRegistro");
-})
+
+if(SelectCargarBarrios){
+
+  SelectCargarBarrios.addEventListener("change", (e)=>{
+    cargarBarrios("localidadesRegistro");
+  })
+  
+
+}
+
+
+// });
 
 
 
-   export function listaBarrios(){
+export function listaBarrios(){
     
   return {barriosAntonioNarino,barriosBarriosUnidos, barriosBosa, barriosCandelaria, 
     barriosChapinero, barriosCiudadBolivar, barriosEngativa, barriosFontibon, barriosKennedy, 
     barriosMartires, barriosMartires, barriosPuenteAranda, barriosRafaelUribe, barriosSanCristobal, 
     barriosSantaFe, barriosSuba, barriosTeusaquillo, barriosTunjuelito, barriosUsaquen, barriosUsme}
   }
-
-
+   
 
 
 
