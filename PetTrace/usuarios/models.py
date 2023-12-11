@@ -39,7 +39,7 @@ class Perfil(models.Model):
     def get_upload_path(self, filename):
         return os.path.join('imgperfil', str(self.usuario.id), filename)
 
-    imagen = models.ImageField(upload_to=get_upload_path, default=static('img/fotoperfil.jpg'))
+    imagen = models.ImageField(upload_to=get_upload_path, default='img/fotoperfil.jpg')
     descripcion = models.CharField(max_length=200, default='Nuevo usuario de PetTrace')
     fecha_creacion = models.DateField(default=datetime.date.today)
 
@@ -55,14 +55,7 @@ class Perfil(models.Model):
     
 
 
-# class Comentario(models.Model): 
-#     id_comentario = models.AutoField(primary_key=True) 
-#     comentario = models.CharField(max_length=100) 
-#     fechacom = models.DateTimeField() 
-#     id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE, related_name='comentarios')
-#     class Meta:
-        
-#         db_table = 'comentarios'
+
 
         
 class SaludMascota(models.Model):
@@ -91,15 +84,14 @@ class SaludMascota(models.Model):
 class Mascota(models.Model):
     id_mascota = models.AutoField(primary_key=True)
     nombremas = models.CharField(max_length=45, null='True')
-    nombremas = models.CharField(max_length=45, null='True')
     especiemas = models.CharField(max_length=45, null=False, default='')
     razamas = models.CharField(max_length=45, null=False, default='')
     sexomas = models.CharField(max_length=45, null=False, default='')
     colormas = models.CharField(max_length=45, null=False, default='')
-    accesoriosmas = models.CharField(max_length=45, blank=True, null=True)
+    accesoriosmas = models.CharField(max_length=100, blank=True, null=True)
     tamañomas = models.CharField(max_length=45, null=False, default='')
     edadmas = models.FloatField(blank=True, null=True)
-    marcasmas = models.CharField(max_length=45, null=True)
+    marcasmas = models.CharField(max_length=150, null=True)
     idestado_salud = models.ForeignKey(SaludMascota, db_column='idestado_salud', blank=False, null=False, on_delete=models.CASCADE)
     id_usuario = models.ForeignKey(Usuario, db_column='id', blank=False, null=False, verbose_name='id_dueño',on_delete=models.CASCADE)
     
@@ -134,6 +126,20 @@ class Publicacion(models.Model):
     class Meta:
        
         db_table = 'publicaciones'
+
+
+
+
+class Comentario(models.Model): 
+    id_comentario = models.AutoField(primary_key=True) 
+    comentario = models.CharField(max_length=400) 
+    fechacom = models.DateTimeField(auto_now=True) 
+    id_usuario = models.ForeignKey(Usuario, db_column='id_usuario', blank=False, null=False,on_delete=models.CASCADE, related_name='comentarios')
+    id_publicacion = models.ForeignKey(Publicacion, db_column='id_publicacion', blank=False, null=False,on_delete=models.CASCADE)
+
+    class Meta:
+    
+        db_table = 'comentarios'
 
 
 

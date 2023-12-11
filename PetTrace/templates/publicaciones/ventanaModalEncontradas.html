@@ -38,69 +38,69 @@
             </div>
 
 
-                <!--  En el id de cada <p>, la 'm' la final de cada id es de modelo -->
+                <!--  En el id de cada <label>, la 'm' la final de cada id es de modelo -->
             <div class="datos-mascota">
                 <div class="col1">
                 
                     <div class="dato">
-                        <p  class="bold">Especie: </p>
-                        <p id="especiemasmE" class="valorm"></p>
+                        <label  class="bold">Especie: </label>
+                        <label id="especiemasmE" class="valorm"></label>
                         
                     </div>
                     <div class="dato">
-                        <p  class="bold">Raza: </p>
-                        <p id="razamasmE" class="valorm"></p>
+                        <label  class="bold">Raza: </label>
+                        <label id="razamasmE" class="valorm"></label>
                     </div>
                     <div class="dato">
-                        <p  class="bold">Tamaño: </p>
-                        <p id="tamañomasmE" class="valorm"></p>
+                        <label  class="bold">Tamaño: </label>
+                        <label id="tamañomasmE" class="valorm"></label>
                     </div>
 
                     <div class="dato">
-                        <p  class="bold">Sexo: </p>
-                        <p id="sexomasmE" class="valorm"></p>
+                        <label  class="bold">Sexo: </label>
+                        <label id="sexomasmE" class="valorm"></label>
                     </div>
                     <div class="dato">
-                        <p  class="bold">Color: </p>
-                        <p id="colormasmE" class="valorm"></p>
+                        <label  class="bold">Color: </label>
+                        <label id="colormasmE" class="valorm"></label>
                     </div>
                     <div class="dato">
-                        <p  class="bold">Marcas distintivas: </p>
-                        <p id="marcasmasmE" class="valorm"></p>
+                        <label  class="bold">Marcas distintivas: </label>
+                        <label id="marcasmasmE" class="valorm"></label>
                     </div>
                     <div class="dato">
-                        <p  class="bold">Accesorios: </p>
-                        <p id="accesoriosmasmE" class="valorm"></p>
+                        <label  class="bold">Accesorios: </label>
+                        <label id="accesoriosmasmE" class="valorm"></label>
                     </div>
 
 
                 </div>
                 <div class="col2">
                     <div class="dato">
-                        <p class="bold">Enfermedades: </p>
-                        <p id="enfermedadesmasmE" class="valorm"></p>
+                        <label class="bold">Enfermedades: </label>
+                        <label id="enfermedadesmasmE" class="valorm"></label>
                     </div>
                     <div class="dato">
-                        <p class="bold">Esterilización: </p>
-                        <p id="esterilizacionmasmE" class="valorm"></p>
+                        <label class="bold">Esterilización: </label>
+                        <label id="esterilizacionmasmE" class="valorm"></label>
                     </div>
                    
                  
                     <div class="dato">
-                        <p  class="bold">Localidad de encuentro: </p>
-                        <p id="localidadEncuentrom" class="valorm"></p>
+                        <label  class="bold">Localidad de encuentro: </label>
+                        <label id="localidadEncuentrom" class="valorm"></label>
                     </div>
                     <div class="dato">
-                        <p  class="bold">Barrio de encuentro: </p>
-                        <p id="barrioEncuentrom" class="valorm"> </p>
+                        <label  class="bold">Barrio de encuentro: </label>
+                        <label id="barrioEncuentrom" class="valorm"> </label>
                     </div>
                     <div class="dato">
-                        <p  class="bold">Fecha de encuentro: </p>
-                        <p id="fechaEncuentrom" class="valorm"></p>
+                        <label  class="bold">Fecha de encuentro: </label>
+                        <label id="fechaEncuentrom" class="valorm"></label>
                     </div>
                     <div class="dato">
-                        <p  class="bold">Hora de encuentro: </p>
-                        <p id="horaEncuentrom" class="valorm"></p>
+                        <label  class="bold">Hora de encuentro: </label>
+                        <label id="horaEncuentrom" class="valorm"></label>
                     </div>
                   
                 </div>
@@ -112,24 +112,51 @@
                 <div class="datos-contacto-contenedor">
 
                     <div class="dato">
-                        <p  class="bold">Nombre: </p>
-                        <p id="nombreDueñoE"></p>
+                        <label  class="bold">Nombre: </label>
+                        <label id="nombreDueñoE"></label>
                     </div>
                     <div class="dato">
-                        <p  class="bold">Numero de telefono: </p>
-                        <p id="telefonoDueñoE"></p>
+                        <label  class="bold">Numero de telefono: </label>
+                        <label id="telefonoDueñoE"></label>
                     </div>
 
                     <div class="dato">
-                        <p  class="bold">Correo Electronico: </p>
-                        <p id="correoDueñoE"></p>
+                        <label  class="bold">Correo Electronico: </label>
+                        <label id="correoDueñoE"></label>
                     </div>
                 </div>
                 
             </div>
 
-            <div class="comentarios">
+            <hr>
 
+            <div class="comentarios" >
+
+                <div id="comentariosEncontradas" class="comentarios-contenedor">
+
+                    
+                </div>
+
+                
+                <form class="comentarios-form" method="POST" id="comentariosEncontradasForm">
+
+                    {% csrf_token %}
+
+
+                    <div class="img-usuario-contenedor">
+                        {% if user.perfil.imagen %} 
+                            <img src="{{ user.perfil.imagen.url }}" alt="" class="img-usuario">
+                            {% else %} 
+                            <img src="{% static 'img/fotoperfil.jpg' %}" alt="" class="img-usuario">
+                        {% endif %}
+                    </div>
+                    <input type="text" name="comentario" id="comentarioEncontradas"  placeholder="escribe tu comentario" class="comentario-input" required>
+                    <label for="enviar-comentario-encontradas"><input type="submit" id="enviar-comentario-encontradas"  class="enviar-comentario"><i class="fa-solid fa-paper-plane" style="color: #587073; cursor: pointer;"></i></label>
+                    
+    
+                </form>
+                
+    
             </div>
 
             

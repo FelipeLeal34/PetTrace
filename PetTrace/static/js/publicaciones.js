@@ -1,13 +1,11 @@
 import { cargarBarrios } from "./cargarBarrios.js";
 
 
+
 const publis = document.querySelectorAll(".verPubli");
 
 
-//VENTANAS MODELO DE CADA APARTADO
-const publiModalPerdidas = document.getElementById("publi-modelo-perdidas");
-const publiModalEncontradas = document.getElementById("publi-modelo-encontradas");
-const publiModalAdopciones = document.getElementById("publi-modelo-adopciones");
+
 
 // FORMULARIO DE EDITAR DE CADA APARTADO
 
@@ -27,12 +25,24 @@ const contenedorModalAdopciones = document.querySelectorAll(".contenedor-modelo-
 
 
 
+const contenedorModalEliminar = document.querySelector(".contenedor-modelo-eliminar");
+
+const btnEliminarPubli = document.querySelectorAll(".btnEliminarPubli");
+const eliminarPubli = document.querySelector("#eliminarPubli");
+const btnAceptar = document.querySelectorAll(".btnAceptar");
+const btnCancelar = document.querySelectorAll(".btnCancelar");
+
+
+
+
+
+
+
 //ORDEN VENTANAS MODELO
 
 /* 0 -> publicacion modelo 
-1 -> agregar publicacion
-2 -> editar publicacion
-3 -> eliminar publicacion */
+1 -> editar publicacion*/
+
 
 
 
@@ -149,6 +159,23 @@ function seleccionarVacunas(especie,idVacunas){
 	
 		
 	}
+
+
+	function mostrarSelect(idSelectVacunas) {
+		const selectVacunas = document.getElementById(idSelectVacunas);
+		if (selectVacunas.style.display === "none") {
+			selectVacunas.style.display = "block";
+			setTimeout(() => {
+				selectVacunas.style.opacity = "1";
+			}, 10); // Retrasamos la aparición para que la animación sea visible
+		} else {
+			selectVacunas.style.opacity = "0";
+			setTimeout(() => {
+				selectVacunas.style.display = "none";
+			}, 300); // Retrasamos la desaparición para que la animación sea visible
+		}
+	}
+	
 	
 	
 	
@@ -160,13 +187,21 @@ function seleccionarVacunas(especie,idVacunas){
 		
 			
 		
-		if(idEspecie == 'especiemas'){
-			seleccionarVacunas(especie,'vacunasmas');
-			seleccionarRaza(especie,'razamas');
-		} else{
-			seleccionarVacunas(especie,'vacunasmase');
-			seleccionarRaza(especie,'razamase');
-		}
+			if(idEspecie == "especiemaseP"){
+
+				seleccionarVacunas(especie,'vacunasmaseP');
+				seleccionarRaza(especie,'razamaseP');
+
+			} else if(idEspecie == "especiemaseE"){
+
+				seleccionarRaza(especie,'razamaseE');
+
+			} else{
+				seleccionarVacunas(especie,'vacunasmaseA');
+				seleccionarRaza(especie,'razamaseA');
+			}
+			
+		
 	
 		
 	
@@ -201,19 +236,20 @@ const csrftoken = getCookie('csrftoken');
 
 
 
+function carrusel(apartado){
 
 
-const carrusel = document.querySelector(".carrusel");
-let carruselSection = document.querySelectorAll(".carrusel-section");
+const carrusel = apartado.querySelector(".carrusel");
+let carruselSection = apartado.querySelectorAll(".carrusel-section");
 let carruselSectionLast = carruselSection[carruselSection.length - 1];
 
-const btnLeft = document.querySelector("#btn-left");
-const btnRight = document.querySelector("#btn-right");
+const btnLeft = apartado.querySelector("#btn-left");
+const btnRight = apartado.querySelector("#btn-right");
 
 carrusel.insertAdjacentElement('afterbegin',carruselSectionLast);
 
 function next() {
-	let carruselSectionFirst = document.querySelectorAll(".carrusel-section")[0];
+	let carruselSectionFirst = apartado.querySelectorAll(".carrusel-section")[0];
 	carrusel.style.marginLeft = "-200%";
 	carrusel.style.transition = "all 0.5s";
 	setTimeout(function(){
@@ -224,7 +260,7 @@ function next() {
 }
 
 function before() {
-	let carruselSection = document.querySelectorAll(".carrusel-section");
+	let carruselSection = apartado.querySelectorAll(".carrusel-section");
 let carruselSectionLast = carruselSection[carruselSection.length - 1];
 	carrusel.style.marginLeft = "0";
 	carrusel.style.transition = "all 0.5s";
@@ -245,6 +281,181 @@ btnLeft.addEventListener('click', function(){
 	before();
 })
 
+}
+
+
+
+
+var opcionesFecha = {
+	year: 'numeric',
+	month: 'short',
+	day: 'numeric',
+	hour: '2-digit',
+	minute: '2-digit',
+	hour12: true
+  };
+
+
+  function cargarComentarios(contenedorComentarios,comentario){
+
+
+
+		var fecha = new Date(comentario['fechacom']);
+		var fechacom = fecha.toLocaleDateString('es-CO',opcionesFecha);
+
+		var div = document.createElement('div');
+		div.classList.add("comentario");
+		div.innerHTML = `
+		<div class="comentario-info">
+			<div class="img-usuario-contenedor">
+				<img src="${comentario['fotoperfil']}" class="img-usuario">
+			</div>
+			<a href="/perfil/${comentario['id_usuario']}/"><h4>${comentario['nombreusu']}</h4></a>
+		</div>
+		
+		
+		<div class="comentario-texto">
+			<p>${comentario['comentario']}</p>
+		</div>
+
+		<div class="fechacom"><p class="fechacomen">${fechacom}</p></div>
+
+
+	`;
+
+	contenedorComentarios.append(div);
+	
+}
+
+
+function agregarComentario(form,comentarioInput,url){
+
+	form.addEventListener("submit", (e)=> {
+		e.preventDefault();
+
+		let comentario = document.getElementById(String(comentarioInput)).value;
+
+
+		if(comentario){
+			var data = new FormData ();
+		data.append('comentario',comentario);
+		
+		let xhr = new XMLHttpRequest();
+		
+		xhr.open ("POST", url);
+		
+		xhr.send (data);
+
+		comentario = ""
+		
+		xhr.onreadystatechange = function(){
+
+			if (this.readyState == 4) {
+				// Verificar si el código de estado es 200, que significa que la respuesta fue exitosa
+				if (this.status == 200) {
+				// Obtener la respuesta del servidor en formato JSON
+				let respuesta = JSON.parse(this.responseText);
+
+					if(respuesta.exito != true){
+						alert('no se pudo publicar tu comentario')
+					}
+
+				}
+
+			}
+
+		};
+		}
+		})
+
+}
+
+
+var intervalo;
+async function actualizarComentarios(idpubli,contenedorComentarios,publiModal){
+
+
+	if(publiModal.style.display == "flex"){
+
+		var primerultimoid = 0;
+		var segundoultimoid;
+		var claves;
+	
+		// Usamos await para esperar a que se resuelva la promesa
+		let response = await fetch(`/cargarComentarios/${idpubli}/?ultimoid=${primerultimoid}&mensaje=primerapeticion`,{
+			method: "GET"});
+		let comentarios = await response.json();			
+	
+			 if(Object.keys(comentarios).length != 0){
+	
+				claves = Object.keys(comentarios);
+				primerultimoid = claves[claves.length - 1];
+				
+			for(let comentario in comentarios){
+				
+			cargarComentarios(contenedorComentarios,comentarios[comentario]);
+			}
+	
+		} 
+	
+		// Ahora podemos asignar el valor de segundoultimoid sin usar then()
+		segundoultimoid = primerultimoid;
+
+		
+	
+		intervalo =  setInterval(async function(){
+	
+			// Usamos await de nuevo para esperar a que se resuelva la promesa
+			let response = await fetch(`/cargarComentarios/${idpubli}/?ultimoid=${segundoultimoid}&mensaje=segundapeticion`,{
+				method: "GET"});
+			let comentarios = await response.json();
+	
+
+			 if(Object.keys(comentarios).length != 0){
+	
+				
+				claves = Object.keys(comentarios);
+				segundoultimoid = claves[claves.length - 1];
+
+								
+				for(let comentario in comentarios){
+	
+				 cargarComentarios(contenedorComentarios,comentarios[comentario]);
+				}
+	
+			} 
+	
+			
+		}, 2000); 
+
+
+	}  else{
+
+		clearInterval(intervalo);
+	}
+}
+
+
+let publiModalPerdidas = document.getElementById("publi-modelo-perdidas");
+let contenedorComentariosPerdidas = document.getElementById("comentariosPerdidas");
+let comentariosPerdidasForm = document.getElementById("comentariosPerdidasForm");
+let comentarioInputPerdidas = document.getElementById("comentarioPerdidas");
+
+
+let publiModalEncontradas = document.getElementById("publi-modelo-encontradas");
+let contenedorComentariosEncontradas = document.getElementById("comentariosEncontradas");
+let comentariosEncontradasForm = document.getElementById("comentariosEncontradasForm");
+let comentarioInputEncontradas = document.getElementById("comentarioEncontradas");
+
+let publiModalAdopciones = document.getElementById("publi-modelo-adopciones");
+let contenedorComentariosAdopciones = document.getElementById("comentariosAdopciones");
+let comentariosAdopcionesForm = document.getElementById("comentariosAdopcionesForm");
+let comentarioInputAdopciones = document.getElementById("comentarioAdopciones");
+
+
+
+
+
 
 
 
@@ -252,13 +463,46 @@ publis.forEach( publi => {
 	publi.addEventListener("click",e =>{
 
 
-		var idpubli = e.target.closest(".publi").getAttribute("data-id");
-		var apartado = e.target.closest(".publi").getAttribute("data-apartado");
+		let idpubli = e.target.closest(".publi").getAttribute("data-id");
+		let apartado = e.target.closest(".publi").getAttribute("data-apartado");
 
-
-		
-		var mensaje = {'apartado':apartado};
+		let mensaje = {'apartado':apartado};
 		const url = `/informacionPubli/${idpubli}/`;
+		let urlcomen = `/agregarComentario/${idpubli}/`;
+
+
+		if(apartado == "perdidas"){
+
+			contenedorComentariosPerdidas.id += "-" + idpubli;
+			comentariosPerdidasForm.id += "-" + idpubli;
+			comentarioInputPerdidas.id += "-" + idpubli;
+
+			var form = document.getElementById("comentariosPerdidasForm-"+idpubli);
+			var contenedorComentarios = document.getElementById("comentariosPerdidas-"+idpubli);
+			var comentarioInput = document.getElementById("comentarioPerdidas-"+idpubli);
+
+		} else if(apartado == "encontradas"){
+
+			contenedorComentariosEncontradas.id += "-" + idpubli;
+			comentariosEncontradasForm.id += "-" + idpubli;
+			comentarioInputEncontradas.id += "-" + idpubli;
+
+			var form = document.getElementById("comentariosEncontradasForm-"+idpubli);
+			var contenedorComentarios = document.getElementById("comentariosEncontradas-"+idpubli);
+			var comentarioInput = document.getElementById("comentarioEncontradas-"+idpubli);
+		} else{
+
+			contenedorComentariosAdopciones.id += "-" + idpubli;
+			comentariosAdopcionesForm.id += "-" + idpubli;
+			comentarioInputAdopciones.id += "-" + idpubli;
+
+			var form = document.getElementById("comentariosAdopcionesForm-"+idpubli);
+			var contenedorComentarios = document.getElementById("comentariosAdopciones-"+idpubli);
+			var comentarioInput = document.getElementById("comentarioAdopciones-"+idpubli);
+
+		}
+
+
 
 
 		fetch(url,{
@@ -275,10 +519,13 @@ publis.forEach( publi => {
 
 			if(apartado == 'perdidas'){
 
-				document.getElementById("img2mP").src = publicacion.data.mascota.img2;
+
+			document.getElementById("img2mP").src = publicacion.data.mascota.img2;
 			document.getElementById("img3mP").src = publicacion.data.mascota.img3;
 			document.getElementById("img4mP").src = publicacion.data.mascota.img4;
 			document.getElementById("img5mP").src = publicacion.data.mascota.img5;
+
+			carrusel(publiModalPerdidas);
 
 			
 			document.getElementById("nombremasmP").textContent = publicacion.data.mascota.nombremas;
@@ -305,17 +552,24 @@ publis.forEach( publi => {
 			document.getElementById("nombreDueñoP").textContent = publicacion.data.usuario.nombre;
 			document.getElementById("telefonoDueñoP").textContent = publicacion.data.usuario.telefono;
 			document.getElementById("correoDueñoP").textContent = publicacion.data.usuario.email;
-			
 
+
+			
+			contenedorComentarios.innerHTML = "";
+			comentarioInput.value = "";
+
+			
+			agregarComentario(form,comentarioInput.id,urlcomen);
+			
 
 			} else if(apartado == 'encontradas'){
 
-				document.getElementById("img2mE").src = publicacion.data.mascota.img2;
+			document.getElementById("img2mE").src = publicacion.data.mascota.img2;
 			document.getElementById("img3mE").src = publicacion.data.mascota.img3;
 			document.getElementById("img4mE").src = publicacion.data.mascota.img4;
 			document.getElementById("img5mE").src = publicacion.data.mascota.img5;
 
-			
+			carrusel(publiModalEncontradas);
 
 			document.getElementById("especiemasmE").textContent = publicacion.data.mascota.especiemas;
 			document.getElementById("razamasmE").textContent = publicacion.data.mascota.razamas;
@@ -340,7 +594,11 @@ publis.forEach( publi => {
 			document.getElementById("correoDueñoE").textContent = publicacion.data.usuario.email;
 
 
+			contenedorComentarios.innerHTML = "";
+			comentarioInput.value = "";
 
+			
+			agregarComentario(form,comentarioInput.id,urlcomen);
 
 
 
@@ -350,6 +608,8 @@ publis.forEach( publi => {
 			document.getElementById("img3mA").src = publicacion.data.mascota.img3;
 			document.getElementById("img4mA").src = publicacion.data.mascota.img4;
 			document.getElementById("img5mA").src = publicacion.data.mascota.img5;
+
+			carrusel(publiModalAdopciones);
 
 			
 			document.getElementById("nombremasmA").textContent = publicacion.data.mascota.nombremas;
@@ -375,74 +635,106 @@ publis.forEach( publi => {
 			document.getElementById("nombreDueñoA").textContent = publicacion.data.usuario.nombre;
 			document.getElementById("telefonoDueñoA").textContent = publicacion.data.usuario.telefono;
 			document.getElementById("correoDueñoA").textContent = publicacion.data.usuario.email;
+
+
+
+			contenedorComentarios.innerHTML = "";
+			comentarioInput.value = "";
+
+			
+			agregarComentario(form,comentarioInput.id,urlcomen);
+
 			}
 
 
 
 		})
 
+
+
 		if(apartado == 'perdidas'){
 
 
 			publiModalPerdidas.style.display = "flex";
 			contenedorModalPerdidas[0].classList.add('contenedor-modelo');
+			actualizarComentarios(idpubli,contenedorComentarios,publiModalPerdidas);
 			
+			
+			
+			btnCerrarModal.forEach(equis => {
+				equis.addEventListener("click",()=>{
+					publiModalPerdidas.style.display = "none";
+					contenedorModalPerdidas[0].classList.remove('contenedor-modelo');
+					contenedorComentariosPerdidas.id = 'comentariosPerdidas';
+					comentariosPerdidasForm.id = 'comentariosPerdidasForm';
+					comentarioInputPerdidas.id = 'comentarioPerdidas';
+					actualizarComentarios(idpubli,contenedorComentarios,publiModalPerdidas);
 
-
-		btnCerrarModal.forEach(equis => {
-			equis.addEventListener("click",()=>{
-				publiModalPerdidas.style.display = "none";
-				contenedorModalPerdidas[0].classList.remove('contenedor-modelo');
-				
+					
 			});
 
 			});
 
-	
-
-
+			
 } else if(apartado == 'encontradas'){
 
 	
 			publiModalEncontradas.style.display = "flex";
 			contenedorModalEncontradas[0].classList.add('contenedor-modelo');
+			actualizarComentarios(idpubli,contenedorComentarios,publiModalEncontradas);
 			
-		
+			
+			
+			btnCerrarModal.forEach(equis => {
+				equis.addEventListener("click",()=>{
+					publiModalEncontradas.style.display = "none";
+					contenedorModalEncontradas[0].classList.remove('contenedor-modelo');
+					contenedorComentariosEncontradas.id = 'comentariosEncontradas';
+					comentariosEncontradasForm.id = 'comentariosEncontradasForm';
+					comentarioInputEncontradas.id = 'comentarioEncontradas';
+					actualizarComentarios(idpubli,contenedorComentarios,publiModalEncontradas);
 
-		btnCerrarModal.forEach(equis => {
-			equis.addEventListener("click",()=>{
-				publiModalEncontradas.style.display = "none";
-				contenedorModalEncontradas[0].classList.remove('contenedor-modelo');
-				
-			});
+			
+	});
 
-			});
+	});
 
 		
 
 } else{
 
 		
-		publiModalAdopciones.style.display = "flex";
-		contenedorModalAdopciones[0].classList.add('contenedor-modelo');
-
-
-		btnCerrarModal.forEach(equis => {
-			equis.addEventListener("click",()=>{
-				publiModalAdopciones.style.display = "none";
-				contenedorModalAdopciones[0].classList.remove('contenedor-modelo');
-			});
-
-			});
-
-		
-}
-		
+	publiModalAdopciones.style.display = "flex";
+	contenedorModalAdopciones[0].classList.add('contenedor-modelo');
+	actualizarComentarios(idpubli,contenedorComentarios,publiModalAdopciones);
 	
+	
+	
+	btnCerrarModal.forEach(equis => {
+		equis.addEventListener("click",()=>{
+			publiModalAdopciones.style.display = "none";
+			contenedorModalAdopciones[0].classList.remove('contenedor-modelo');
+			contenedorComentariosAdopciones.id = 'comentariosAdopciones';
+			comentariosAdopcionesForm.id = 'comentariosAdopcionesForm';
+			comentarioInputAdopciones.id = 'comentarioAdopciones';
+			actualizarComentarios(idpubli,contenedorComentarios,publiModalAdopciones);
+
+			
+	});
+
+	});
+
+		
+}	
+
+
 
 });
 
 });
+
+
+
 
 
 
@@ -476,24 +768,118 @@ btnOpciones.forEach((btnOpcion,i) => {
 	const selectEspeciemase = document.querySelectorAll(".especiemase");
 	selectEspeciemase.forEach(select => {
 		select.addEventListener("change", ()=>{
-			seleccionarEspecie("especiemase");
+			let id = String(select.id)
+			seleccionarEspecie(id);
 		})
 	})
 
 	const vacunasmase = document.querySelectorAll(".labelvacunasmase");
-	selectEspeciemase.forEach(select => {
+	vacunasmase.forEach(select => {
 		select.addEventListener("click", ()=>{
-			mostrarSelect("vacunasmase");
+			let idSelectVacuna = select.getAttribute("for") 
+			mostrarSelect(idSelectVacuna);
 	})
 
 	})
 	const SelectCargarBarriose = document.querySelectorAll(".localidadese");
-	selectEspeciemase.forEach(select => {
-		SelectCargarBarriose.addEventListener("change", ()=>{
-			cargarBarrios("localidadese");
+	SelectCargarBarriose.forEach(select => {
+		select.addEventListener("change", ()=>{
+
+			let id = select.id
+			cargarBarrios(id);
 		})
 	})
 	
+
+
+
+	/** PREVISUALIZAR IMAGEN **/
+
+
+
+const inputs = document.querySelectorAll(".input-file");
+const inputsText = document.querySelectorAll(".input-text");
+
+
+
+
+const iconUpload = document.querySelectorAll(".icon-upload");
+
+
+//PARA CADA INPUT TIPO FILE
+
+
+
+inputs.forEach(input => {
+	input.addEventListener("change", e =>{
+
+		let form = e.target.closest('form');
+		
+		let apartado = form.querySelector(".nombreApartado").value;
+		console.log(e.target);
+		console.log(apartado);
+		
+		let idCompleto = input.id;
+		let ultimosDosDigitos = idCompleto.slice(-2);
+		let id;
+
+		if(ultimosDosDigitos>0){
+			id = ultimosDosDigitos;
+
+		} else{
+			id = idCompleto.slice(-1);
+			
+		}
+
+	
+		if(e.target.files[0]) {
+			const reader = new FileReader();
+			reader.onload = function (e) {
+			let file = e.target.result;	
+
+			if(inputsText[id - 1].querySelector('img')){
+
+				let inputImg;
+
+				if(apartado=="perdidas"){
+					inputImg = document.getElementById('Pimgmas'+id);
+
+				} else if(apartado=="encontradas"){
+					inputImg = document.getElementById('Eimgmas'+id);
+
+				} else{
+					inputImg = document.getElementById('Aimgmas'+id);
+
+				}
+	
+				inputImg.src = file;
+
+			} else{
+				
+				
+				let img = document.createElement("img");
+				img.src = file;		
+				img.id = "imgmas"+id;
+				
+				inputsText[id - 1].removeChild(iconUpload[id - 1]);
+				
+				inputsText[id - 1].appendChild(img);
+
+			
+
+			}
+
+			}
+
+			reader.readAsDataURL(e.target.files[0]);
+
+
+		}
+})
+
+
+	})
+
 
 
 
@@ -507,6 +893,8 @@ btnOpciones.forEach((btnOpcion,i) => {
 	
 			var mensaje = {'apartado':apartado};
 			const url = `/informacionPubli/${idpubli}/`;
+
+			console.log(apartado);
 	
 	
 			fetch(url,{
@@ -523,19 +911,19 @@ btnOpciones.forEach((btnOpcion,i) => {
 	
 				if(apartado == 'perdidas'){
 					
-					document.getElementById('editarPubli').action = `/editarPubli/${idpubli}/`;  
+			document.getElementById('editarPubliPerdidas').action = `/editarPubli/${idpubli}/`;  
 
-			document.getElementById("imgmas6").src = publicacion.data.mascota.img1;
-			document.getElementById("imgmas7").src = publicacion.data.mascota.img2;
-			document.getElementById("imgmas8").src = publicacion.data.mascota.img3;
-			document.getElementById("imgmas9").src = publicacion.data.mascota.img4;
-			document.getElementById("imgmas10").src = publicacion.data.mascota.img5;
+			document.getElementById("Pimgmas6").src = publicacion.data.mascota.img1;
+			document.getElementById("Pimgmas7").src = publicacion.data.mascota.img2;
+			document.getElementById("Pimgmas8").src = publicacion.data.mascota.img3;
+			document.getElementById("Pimgmas9").src = publicacion.data.mascota.img4;
+			document.getElementById("Pimgmas10").src = publicacion.data.mascota.img5;
 			
 
 			
-			document.getElementById("nombremase").value = publicacion.data.mascota.nombremas;
+			document.getElementById("nombremaseP").value = publicacion.data.mascota.nombremas;
 
-			const especie = document.getElementById("especiemase");
+			const especie = document.getElementById("especiemaseP");
 			for (let i = 0; i < especie.options.length; i++) {
 				const option = especie.options[i];
 				if (option.value === publicacion.data.mascota.especiemas) {
@@ -543,8 +931,8 @@ btnOpciones.forEach((btnOpcion,i) => {
 				}
 			}
 			 
-			seleccionarEspecie('especiemase');
-			const raza = document.getElementById("razamase");
+			seleccionarEspecie('especiemaseP');
+			const raza = document.getElementById("razamaseP");
 			for (let i = 0; i < raza.options.length; i++) {
 				const option = raza.options[i];
 				if (option.value == publicacion.data.mascota.razamas) {
@@ -552,7 +940,7 @@ btnOpciones.forEach((btnOpcion,i) => {
 				}
 			}
 
-			const tamaño = document.getElementById("tamañomase");
+			const tamaño = document.getElementById("tamañomaseP");
 			for (let i = 0; i < tamaño.options.length; i++) {
 				const option = tamaño.options[i];
 				if (option.value == publicacion.data.mascota.tamañomas) {
@@ -560,7 +948,7 @@ btnOpciones.forEach((btnOpcion,i) => {
 				}
 			}
 
-			const sexo = document.getElementById("sexomase");
+			const sexo = document.getElementById("sexomaseP");
 			for (let i = 0; i < sexo.options.length; i++) {
 				const option = sexo.options[i];
 				if (option.value == publicacion.data.mascota.sexomas) {
@@ -568,7 +956,7 @@ btnOpciones.forEach((btnOpcion,i) => {
 				}
 			}
 
-			const color = document.getElementById("colormase");
+			const color = document.getElementById("colormaseP");
 			for (let i = 0; i < color.options.length; i++) {
 				const option = color.options[i];
 				if (option.value == publicacion.data.mascota.colormas) {
@@ -576,13 +964,13 @@ btnOpciones.forEach((btnOpcion,i) => {
 				}
 			}
 
-			document.getElementById("edadmase").value = publicacion.data.mascota.edadmas;
-			document.getElementById("marcasmase").value = publicacion.data.mascota.marcasmas;
-			document.getElementById("accesoriosmase").value = publicacion.data.mascota.accesoriosmas;
-			document.getElementById("enfermedadesmase").value = publicacion.data.estado_salud.enfermedadesmas;
+			document.getElementById("edadmaseP").value = publicacion.data.mascota.edadmas;
+			document.getElementById("marcasmaseP").value = publicacion.data.mascota.marcasmas;
+			document.getElementById("accesoriosmaseP").value = publicacion.data.mascota.accesoriosmas;
+			document.getElementById("enfermedadesmaseP").value = publicacion.data.estado_salud.enfermedadesmas;
 
 
-			const esterilizacion = document.getElementById("esterilizacionmase") ;
+			const esterilizacion = document.getElementById("esterilizacionmaseP") ;
 			for (let i = 0; i < esterilizacion.options.length; i++) {
 				const option = esterilizacion.options[i];
 				if (option.value == publicacion.data.estado_salud.esterilizacionmas) {
@@ -590,10 +978,10 @@ btnOpciones.forEach((btnOpcion,i) => {
 				}
 			}
 
-			document.getElementById("medicamentosmase").value = publicacion.data.estado_salud.medicamentosmas;
+			document.getElementById("medicamentosmaseP").value = publicacion.data.estado_salud.medicamentosmas;
 
 
-			const selectVacunas = document.getElementById("vacunasmase");
+			const selectVacunas = document.getElementById("vacunasmaseP");
 			const vacunas = String(publicacion.data.estado_salud.vacunasmas);
 			const listaVacunas = vacunas.split(',');
 			
@@ -610,7 +998,7 @@ btnOpciones.forEach((btnOpcion,i) => {
 			
 
 			
-			const localidadExtravio = document.getElementById("localidadese");
+			const localidadExtravio = document.getElementById("localidadeseP");
 			 
 			
 			for (let i = 0; i < localidadExtravio.options.length; i++) {
@@ -620,9 +1008,9 @@ btnOpciones.forEach((btnOpcion,i) => {
 				}
 			}
 
-			cargarBarrios('localidadese');
+			cargarBarrios('localidadeseP');
 
-			const barrioExtravio = document.getElementById("barriose");
+			const barrioExtravio = document.getElementById("barrioseP");
 			for (let i = 0; i < barrioExtravio.options.length; i++) {
 				const option = barrioExtravio.options[i];
 				if (option.value == publicacion.data.publicacion.barrioExtravio) {
@@ -644,30 +1032,137 @@ btnOpciones.forEach((btnOpcion,i) => {
 			
 
 
-			document.getElementById("recompensae").value = publicacion.data.publicacion.recompensa;
+			document.getElementById("recompensaeP").value = publicacion.data.publicacion.recompensa;
 
 
-			document.getElementById("nombreDueñoe").innerHTML = publicacion.data.usuario.nombre;
-			document.getElementById("numeroDueñoe").innerHTML = publicacion.data.usuario.telefono;
-			document.getElementById("correoDueñoe").innerHTML = publicacion.data.usuario.email;
+			document.getElementById("nombreDueñoeP").innerHTML = publicacion.data.usuario.nombre;
+			document.getElementById("numeroDueñoeP").innerHTML = publicacion.data.usuario.telefono;
+			document.getElementById("correoDueñoeP").innerHTML = publicacion.data.usuario.email;
 				
 	
 	
-				} else if(apartado == 'encontradas'){
+	} else if(apartado == 'encontradas'){
 	
 
-					
+			document.getElementById('editarPubliEncontradas').action = `/editarPubli/${idpubli}/`;  
+
+			document.getElementById("Eimgmas6").src = publicacion.data.mascota.img1;
+			document.getElementById("Eimgmas7").src = publicacion.data.mascota.img2;
+			document.getElementById("Eimgmas8").src = publicacion.data.mascota.img3;
+			document.getElementById("Eimgmas9").src = publicacion.data.mascota.img4;
+			document.getElementById("Eimgmas10").src = publicacion.data.mascota.img5;
+			
+
+			
+			
+
+			const especie = document.getElementById("especiemaseE");
+			for (let i = 0; i < especie.options.length; i++) {
+				const option = especie.options[i];
+				if (option.value === publicacion.data.mascota.especiemas) {
+					option.selected = true;
+				}
+			}
+			 
+			seleccionarEspecie('especiemaseE');
+			const raza = document.getElementById("razamaseE");
+			for (let i = 0; i < raza.options.length; i++) {
+				const option = raza.options[i];
+				if (option.value == publicacion.data.mascota.razamas) {
+					option.selected = true;
+				}
+			}
+
+			const tamaño = document.getElementById("tamañomaseE");
+			for (let i = 0; i < tamaño.options.length; i++) {
+				const option = tamaño.options[i];
+				if (option.value == publicacion.data.mascota.tamañomas) {
+					option.selected = true;
+				}
+			}
+
+			const sexo = document.getElementById("sexomaseE");
+			for (let i = 0; i < sexo.options.length; i++) {
+				const option = sexo.options[i];
+				if (option.value == publicacion.data.mascota.sexomas) {
+					option.selected = true;
+				}
+			}
+
+			const color = document.getElementById("colormaseE");
+			for (let i = 0; i < color.options.length; i++) {
+				const option = color.options[i];
+				if (option.value == publicacion.data.mascota.colormas) {
+					option.selected = true;
+				}
+			}
+
+			document.getElementById("marcasmaseE").value = publicacion.data.mascota.marcasmas;
+			document.getElementById("accesoriosmaseE").value = publicacion.data.mascota.accesoriosmas;
+			document.getElementById("enfermedadesmaseE").value = publicacion.data.estado_salud.enfermedadesmas;
+
+
+			const esterilizacion = document.getElementById("esterilizacionmaseE") ;
+			for (let i = 0; i < esterilizacion.options.length; i++) {
+				const option = esterilizacion.options[i];
+				if (option.value == publicacion.data.estado_salud.esterilizacionmas) {
+					option.selected = true;
+				}
+			}
+
+			
+			
+
+			
+			const localidadEncuentro = document.getElementById("localidadeseE");
+			 
+			
+			for (let i = 0; i < localidadEncuentro.options.length; i++) {
+				const option = localidadEncuentro.options[i];
+				if (option.value == publicacion.data.publicacion.localidadEncuentro) {
+					option.selected = true;
+				}
+			}
+
+			cargarBarrios('localidadeseE');
+
+			const barrioEncuentro = document.getElementById("barrioseE");
+			for (let i = 0; i < barrioEncuentro.options.length; i++) {
+				const option = barrioEncuentro.options[i];
+				if (option.value == publicacion.data.publicacion.barrioEncuentro) {
+					option.selected = true;
+				}
+			}
+
+			
+
+			const fechaEncuentro = document.getElementById("fechaEncuentroe");
+			//const fecha = new Date(publicacion.data.publicacion.fechaEncuentro);
+			//fechaEncuentro.value = fecha.toISOString().slice(0, 16);
+			fechaEncuentro.value = publicacion.data.publicacion.fechaEncuentro;
+
+
+			const horaEncuentro = document.getElementById("horaEncuentroe");
+			
+			horaEncuentro.value = publicacion.data.publicacion.horaEncuentro;
+			
+
+
+			document.getElementById("nombreDueñoeE").innerHTML = publicacion.data.usuario.nombre;
+			document.getElementById("numeroDueñoeE").innerHTML = publicacion.data.usuario.telefono;
+			document.getElementById("correoDueñoeE").innerHTML = publicacion.data.usuario.email;
+
 	
 	
-				} else{
+} else{
 				
 					document.getElementById('editarPubliAdopciones').action = `/editarPubli/${idpubli}/`;  
 
-					document.getElementById("imgmas6A").src = publicacion.data.mascota.img1;
-					document.getElementById("imgmas7A").src = publicacion.data.mascota.img2;
-					document.getElementById("imgmas8A").src = publicacion.data.mascota.img3;
-					document.getElementById("imgmas9A").src = publicacion.data.mascota.img4;
-					document.getElementById("imgmas10A").src = publicacion.data.mascota.img5;
+					document.getElementById("Aimgmas6").src = publicacion.data.mascota.img1;
+					document.getElementById("Aimgmas7").src = publicacion.data.mascota.img2;
+					document.getElementById("Aimgmas8").src = publicacion.data.mascota.img3;
+					document.getElementById("Aimgmas9").src = publicacion.data.mascota.img4;
+					document.getElementById("Aimgmas10").src = publicacion.data.mascota.img5;
 					
 		
 					
@@ -681,7 +1176,7 @@ btnOpciones.forEach((btnOpcion,i) => {
 						}
 					}
 					 
-					seleccionarEspecie('especiemase');
+					seleccionarEspecie('especiemaseA');
 					const raza = document.getElementById("razamaseA");
 					for (let i = 0; i < raza.options.length; i++) {
 						const option = raza.options[i];
@@ -769,7 +1264,7 @@ btnOpciones.forEach((btnOpcion,i) => {
 						}
 					}
 		
-					cargarBarrios('localidadese');
+					cargarBarrios('localidadeseA');
 		
 					const barrioAdopcion = document.getElementById("barrioseA");
 					for (let i = 0; i < barrioAdopcion.options.length; i++) {
@@ -804,14 +1299,14 @@ btnOpciones.forEach((btnOpcion,i) => {
 	
 	
 				editarPubliPerdidas.style.display = "flex";
-				contenedorModalPerdidas[2].classList.add('contenedor-modelo');
+				contenedorModalPerdidas[1].classList.add('contenedor-modelo');
 				
 
 
 			btnCerrarModal.forEach(equis => {
 				equis.addEventListener("click",()=>{
 					editarPubliPerdidas.style.display = "none";
-					contenedorModalPerdidas[2].classList.remove('contenedor-modelo');
+					contenedorModalPerdidas[1].classList.remove('contenedor-modelo');
 					
 				});
 	
@@ -824,14 +1319,14 @@ btnOpciones.forEach((btnOpcion,i) => {
 
 		
 				editarPubliEncontradas.style.display = "flex";
-				contenedorModalEncontradas[2].classList.add('contenedor-modelo');
+				contenedorModalEncontradas[1].classList.add('contenedor-modelo');
 				
 			
 
 			btnCerrarModal.forEach(equis => {
 				equis.addEventListener("click",()=>{
 					editarPubliEncontradas.style.display = "none";
-					contenedorModalEncontradas[2].classList.remove('contenedor-modelo');
+					contenedorModalEncontradas[1].classList.remove('contenedor-modelo');
 					
 				});
 	
@@ -843,13 +1338,13 @@ btnOpciones.forEach((btnOpcion,i) => {
 
 			
 			editarPubliAdopciones.style.display = "flex";
-			contenedorModalAdopciones[2].classList.add('contenedor-modelo');
+			contenedorModalAdopciones[1].classList.add('contenedor-modelo');
 
 
 			btnCerrarModal.forEach(equis => {
 				equis.addEventListener("click",()=>{
 					editarPubliAdopciones.style.display = "none";
-					contenedorModalAdopciones[2].classList.remove('contenedor-modelo');
+					contenedorModalAdopciones[1].classList.remove('contenedor-modelo');
 				});
 	
 				});
@@ -867,80 +1362,24 @@ btnOpciones.forEach((btnOpcion,i) => {
 	
 
 
-
-	
-
-
-
-
-
-
-const agregarFav = document.querySelectorAll(".agregarFav");
-
-
-agregarFav.forEach(agregarFav => {
-
-agregarFav.addEventListener("click", function(e){
-	
-	var idpubli = e.target.closest(".publi").getAttribute("data-id");
-		
-
-		const url = `/agregarFav/${idpubli}/`
-
-		
-
-		fetch(url,{
-			method: "GET",
-			headers: {
-	
-				"X-CSRFToken": csrftoken
-			  }
-		})
-		.then(response => response.json())
-		.then(respuesta => {
-
-			if(respuesta.success){
-				if(respuesta.saved){
-					agregarFav.innerHTML = '<i class="fa-solid fa-heart" style="color: red; "></i>';
-				} else{
-					agregarFav.innerHTML = '<i class="fa-regular fa-heart" style="color: black; "></i>';
-				}
-				
-			} else{
-				console.log(respuesta.message);
-			}
-
-
-
-}) 
-
-})
-})
-
-
-
-
-
-
-
 // CONSULTA PARA ELIMINAR PUBLICACION
 
 
 
-const btnEliminarPubli = document.querySelectorAll(".btnEliminarPubli");
-const eliminarPubli = document.querySelector("#eliminarPubli");
-const btnAceptar = document.querySelectorAll(".btnAceptar");
-const btnCancelar = document.querySelectorAll(".btnCancelar");
+
 
 btnEliminarPubli.forEach( btn => {
 btn.addEventListener("click",e =>{
 
     var idpubli = e.target.closest(".publi").getAttribute("data-id");
+	var apartado = e.target.closest(".publi").getAttribute("data-apartado");
+
+	console.log(idpubli);
 
     if(e.target.tagName === 'I' || e.target.tagName === 'P' || e.target.tagName === 'DIV' ){
 
         eliminarPubli.style.display = "flex";
-        contenedorPubliModal[2].style.display = "flex";
+        contenedorModalEliminar.classList.add('contenedor-modelo');
 
         
 
@@ -949,7 +1388,7 @@ btn.addEventListener("click",e =>{
     
 
             eliminarPubli.style.display = "none";
-            contenedorPubliModal[2].style.display = "none";
+            contenedorModalEliminar.classList.remove('contenedor-modelo');
 
             
         
@@ -970,16 +1409,17 @@ btn.addEventListener("click",e =>{
             
     
             const url = `/eliminarPubli/${idpubli}/`
-    
-            
-    
-            fetch(url,{
-                method: "DELETE",
-                headers: {
-                    // Añadir el token CSRF al encabezado
-                    "X-CSRFToken": csrftoken
-                  }
-            })
+
+	
+	
+			var mensaje = {'apartado':apartado};
+
+			fetch(url,{
+				method: "DELETE",
+		  headers: {'Content-Type': 'application/json',
+		  "X-CSRFToken": csrftoken},
+		  body: JSON.stringify(mensaje)
+			})
 
             .then(data => {
         
@@ -990,24 +1430,58 @@ btn.addEventListener("click",e =>{
                 
             })
 
-            eliminarPubli.style.display = "none";
-            contenedorPubliModal[2].style.display = "none";
-
-            
-            
-
 
         });
 
     });
 
 
-    
-
-
-
-
-
 
 });
 });
+
+
+const agregarFav = document.querySelectorAll(".agregarFav");
+
+
+agregarFav.forEach(agregarFav => {
+
+agregarFav.addEventListener("click", function(e){
+	
+	var idpubli = e.target.closest(".publi").getAttribute("data-id");
+	var apartado = e.target.closest(".publi").getAttribute("data-apartado");
+		
+
+		const url = `/agregarFav/${idpubli}/`
+
+		
+
+		var mensaje = {'apartado':apartado};
+
+			fetch(url,{
+				method: "POST",
+		  headers: {'Content-Type': 'application/json',
+		  "X-CSRFToken": csrftoken},
+		  body: JSON.stringify(mensaje)
+			})
+
+		.then(response => response.json())
+		.then(respuesta => {
+
+			if(respuesta.success){
+				if(respuesta.saved){
+					agregarFav.innerHTML = '<i class="fa-solid fa-heart" style="color: red; "></i>';
+				} else{
+					agregarFav.innerHTML = '<i class="fa-regular fa-heart" style="color: black; "></i>';
+				}
+				
+			} else{
+				console.log(respuesta.message);
+			}
+
+
+
+}) 
+
+})
+})

@@ -22,13 +22,20 @@ const valoresLocalidades = ["barriosAntonioNarino","barriosBarriosUnidos", "barr
 const sexos = ['Macho','Hembra'];
 const tamaños = ['Pequeño','Mediano','Grande'];
 
+var razasPerros = ['Pastor aleman','Doberman','Boyero de berna','Rottweiler','Akita','Labrador retriever',
+'Golder retriever','Border collie','Siberian husky','Bulldog ingles','Beagle','Criollo'];
+
+
+var razasGatos = ['Maine coon','Bengali','Persa','Himalayo','Britanico de pelo corto',
+'egipcio','siames','Fold escoces','Ragdoll','Angora','Criollo'];
+
 
 const iconCheckeado = document.createElement("i");
 iconCheckeado.style.marginLeft = "10px";
 iconCheckeado.classList.add("fa-solid");
 iconCheckeado.classList.add("fa-check");
 
-
+const filtrosBox = document.getElementById("filtros-box");
 
 //ICONO FILTRAR, DE LA BARRA DEL MENU
 const btnFiltrar = document.querySelector("#filtrar");
@@ -652,6 +659,26 @@ btnFiltrar.addEventListener("click", (e) => {
 
     
 });
+
+
+function getCookie(name) {
+	let cookieValue = null;
+	if (document.cookie && document.cookie !== '') {
+	  const cookies = document.cookie.split(';');
+	  for (let i = 0; i < cookies.length; i++) {
+		const cookie = cookies[i].trim();
+		// ¿El nombre de la cookie es el que buscamos?
+		if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		  break;
+		}
+	  }
+	}
+	return cookieValue;
+  }
+  
+  
+  const csrftoken = getCookie('csrftoken');
 
 const btnAyL = document.querySelectorAll(".btnFiltros");
 const btnAplicar = document.getElementById("btnAplicar");

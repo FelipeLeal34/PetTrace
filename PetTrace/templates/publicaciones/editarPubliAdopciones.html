@@ -4,10 +4,13 @@
 <section class="contenedor-modelo-adopciones">
     <form method="post" action="" id="editarPubliAdopciones" class="publi-modelo-estilo" enctype="multipart/form-data">
 
+
+        <input type="hidden" name="apartado" class="nombreApartado" value="adopciones">
+        
         {% csrf_token %}
-
+        
         <div class="publi-modelo-contenido">
-
+            
             <h3>EDITAR PUBLICACION</h3>
 
             <span class="fa-solid fa-xmark icon-cancel" style="color: #fff;" ></span>
@@ -20,40 +23,40 @@
 <!-------------------- al final de cada id hay una 'e', de 'editar'.--------------------------- -->
 
                 <div class="input-img">
-                    <label for="einput-img-6" >
+                    <label for="Aeinput-img-6" >
                         <div class="input-text">
-                            <img id="imgmas6A" src="" alt="imagen mascota 1">
-                            <input type="file" name="img1" id="einput-img-6" class="input-file" >
+                            <img id="Aimgmas6" src="" alt="imagen mascota 1">
+                            <input type="file" name="img1" id="Aeinput-img-6" class="input-file" >
 
                         </div>
                     </label>
                 </div>
 
                 <div class="input-img">
-                    <label for="einput-img-7" >
+                    <label for="Aeinput-img-7" >
                         <div class="input-text">
-                            <img id="imgmas7A" src="" alt="imagen mascota 2">
-                            <input type="file" name="img2" id="einput-img-7" class="input-file" >
+                            <img id="Aimgmas7" src="" alt="imagen mascota 2">
+                            <input type="file" name="img2" id="Aeinput-img-7" class="input-file" >
 
                         </div>
                     </label>
                 </div>
 
                     <div class="input-img">
-                    <label for="einput-img-8" >
+                    <label for="Aeinput-img-8" >
                         <div class="input-text">
-                            <img id="imgmas8A" src="" alt="imagen mascota 3">
-                            <input type="file" name="img3" id="einput-img-8" class="input-file" >
+                            <img id="Aimgmas8" src="" alt="imagen mascota 3">
+                            <input type="file" name="img3" id="Aeinput-img-8" class="input-file" >
 
                         </div>
                     </label>
                 </div>
 
                 <div class="input-img">
-                    <label for="einput-img-9" >
+                    <label for="Aeinput-img-9" >
                         <div class="input-text">
-                            <img id="imgmas9A" src="" alt="imagen mascota 4">
-                            <input type="file" name="img4" id="einput-img-9" class="input-file" >
+                            <img id="Aimgmas9" src="" alt="imagen mascota 4">
+                            <input type="file" name="img4" id="Aeinput-img-9" class="input-file" >
 
                         </div>
                     </label>
@@ -61,10 +64,10 @@
 
 
                 <div class="input-img">
-                    <label for="einput-img-10" >
+                    <label for="Aeinput-img-10" >
                         <div class="input-text">
-                            <img id="imgmas10A" src="" alt="imagen mascota 5">
-                            <input type="file" name="img5" id="einput-img-10" class="input-file" >
+                            <img id="Aimgmas10" src="" alt="imagen mascota 5">
+                            <input type="file" name="img5" id="Aeinput-img-10" class="input-file" >
 
                         </div>
                     </label>
@@ -87,7 +90,7 @@
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
                                         <label for="especiemaseA" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-                                        <select name="especiemas" id="especiemaseA"  class="especiemase" required>
+                                        <select name="especiemas" id="especiemaseA"  class="especiemase select" required>
                                             <option value="" disabled>Seleccione una</option>
                                             <option value="perro" selected>Perro</option>
                                             <option value="gato">Gato</option>
@@ -155,11 +158,11 @@
                                     </div>
                                     <div class="dato">
                                         <label for="personalidadmaseA" class="bold">Personalidad: </label>
-                                        <textarea name="personalidadmas" id="personalidadmaseA" cols="30" class="input-mascota" rows="2" required></textarea>
+                                        <textarea name="personalidadmas" id="personalidadmaseA" cols="30" placeholder="Describe la personalidad de tu mascota en palabras" class="input-mascota" maxlength="50"  rows="2" required></textarea>
                                     </div>
                                     <div class="dato">
                                         <label for="entrenamientomaseA" class="bold">Entrenamiento: </label>
-                                        <textarea name="entrenamientomas" id="entrenamientomaseA" cols="30" class="input-mascota" rows="2" required></textarea>
+                                        <textarea name="entrenamientomas" id="entrenamientomaseA" cols="30" placeholder="¿La mascota cuenta con algún entrenamiento" class="input-mascota" rows="2" required></textarea>
                                     </div>
 
                                     <div class="dato">

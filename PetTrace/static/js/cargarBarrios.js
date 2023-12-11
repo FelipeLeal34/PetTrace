@@ -2062,14 +2062,24 @@ var barriosRafaelUribe = [
 ];
 
 export function cargarBarrios(idLocalidad) {
+
   var localidades = document.getElementById(idLocalidad);
+
   if(localidades.id == "localidades"){
     var barrios = document.getElementById("barrios");
-  } else if(localidades.id == "localidadese"){
-      var barrios = document.getElementById("barriose");
-  } else{
+
+  } else if(localidades.id == "localidadeseP"){
+      var barrios = document.getElementById("barrioseP");
+
+  } else if(localidades.id == "localidadeseE"){
+    var barrios = document.getElementById("barrioseE");
+
+} else if(localidades.id == "localidadeseA"){
+  var barrios = document.getElementById("barrioseA");
+
+}  else{
     var barrios = document.getElementById("barriosRegistro");
-  }
+}
 
     var seleccionLocalidad = localidades.value;
 

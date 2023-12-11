@@ -4,10 +4,12 @@
 <section class="contenedor-modelo-encontradas">
     <form method="post" action="" id="editarPubliEncontradas" class="publi-modelo-estilo" enctype="multipart/form-data">
     
+        
         {% csrf_token %}
-    
+        
         <div class="publi-modelo-contenido">
-    
+            
+            <input type="hidden" name="apartado" class="nombreApartado" value="encontradas">
             <h3>EDITAR PUBLICACION</h3>
     
             <span class="fa-solid fa-xmark icon-cancel" style="color: #fff;" ></span>
@@ -20,40 +22,40 @@
     <!-------------------- al final de cada id hay una 'e', de 'editar'.--------------------------- -->
     
                 <div class="input-img">
-                    <label for="einput-img-6" >
+                    <label for="Eeinput-img-6" >
                         <div class="input-text">
-                            <img id="imgmas6" src="" alt="imagen mascota 1">
-                            <input type="file" name="img1" id="einput-img-6" class="input-file" >
+                            <img id="Eimgmas6" src="" alt="imagen mascota 1">
+                            <input type="file" name="img1" id="Eeinput-img-6" class="input-file" >
     
                         </div>
                     </label>
                 </div>
     
                 <div class="input-img">
-                    <label for="einput-img-7" >
+                    <label for="Eeinput-img-7" >
                         <div class="input-text">
-                            <img id="imgmas7" src="" alt="imagen mascota 2">
-                            <input type="file" name="img2" id="einput-img-7" class="input-file" >
+                            <img id="Eimgmas7" src="" alt="imagen mascota 2">
+                            <input type="file" name="img2" id="Eeinput-img-7" class="input-file" >
     
                         </div>
                     </label>
                 </div>
     
                     <div class="input-img">
-                    <label for="einput-img-8" >
+                    <label for="Eeinput-img-8" >
                         <div class="input-text">
-                            <img id="imgmas8" src="" alt="imagen mascota 3">
-                            <input type="file" name="img3" id="einput-img-8" class="input-file" >
+                            <img id="Eimgmas8" src="" alt="imagen mascota 3">
+                            <input type="file" name="img3" id="Eeinput-img-8" class="input-file" >
     
                         </div>
                     </label>
                 </div>
     
                 <div class="input-img">
-                    <label for="einput-img-9" >
+                    <label for="Eeinput-img-9" >
                         <div class="input-text">
-                            <img id="imgmas9" src="" alt="imagen mascota 4">
-                            <input type="file" name="img4" id="einput-img-9" class="input-file" >
+                            <img id="Eimgmas9" src="" alt="imagen mascota 4">
+                            <input type="file" name="img4" id="Eeinput-img-9" class="input-file" >
     
                         </div>
                     </label>
@@ -61,18 +63,14 @@
     
     
                 <div class="input-img">
-                    <label for="einput-img-10" >
+                    <label for="Eeinput-img-10" >
                         <div class="input-text">
-                            <img id="imgmas10" src="" alt="imagen mascota 5">
-                            <input type="file" name="img5" id="einput-img-10" class="input-file" >
+                            <img id="Eimgmas10" src="" alt="imagen mascota 5">
+                            <input type="file" name="img5" id="Eeinput-img-10" class="input-file" >
     
                         </div>
                     </label>
                 </div>
-    
-    
-    
-    
     
             </div>
     
@@ -83,8 +81,8 @@
                                     
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
-                                        <label for="especiemase" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-                                        <select name="especiemas" id="especiemase"  class="select" required>
+                                        <label for="especiemaseE" class="mostrarSelect" >Especie<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+                                        <select name="especiemas" id="especiemaseE"  class="select especiemase" required>
                                             <option value="" disabled>Seleccione una</option>
                                             <option value="perro" selected>Perro</option>
                                             <option value="gato">Gato</option>
@@ -94,8 +92,8 @@
                                     </div>
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
-                                        <label for="razamase" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-                                        <select name="razamas" id="razamase" class="select" required>
+                                        <label for="razamaseE" class="mostrarSelect" >Raza<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+                                        <select name="razamas" id="razamaseE" class="select" required>
                                             
     
                                         </select>
@@ -104,8 +102,8 @@
     
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
-                                        <label for="tamañomase" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-                                        <select name="tamañomas" id="tamañomase" class="select" required>
+                                        <label for="tamañomaseE" class="mostrarSelect" >Tamaño<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+                                        <select name="tamañomas" id="tamañomaseE" class="select" required>
                                             <option value="" default>Seleccione una</option>
                                             <option value="pequeño">pequeño</option>
                                             <option value="mediano">mediano</option>
@@ -117,8 +115,8 @@
                                     
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
-                                        <label for="sexomase" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-                                        <select name="sexomas" id="sexomase" class="select" required>
+                                        <label for="sexomaseE" class="mostrarSelect" >Sexo<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+                                        <select name="sexomas" id="sexomaseE" class="select" required>
                                             <option value="">Seleccione una</option>
                                             <option value="macho">macho</option>
                                             <option value="hembra">hembra</option>
@@ -130,8 +128,8 @@
                                             
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
-                                        <label for="colormase" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-                                        <select name="colormas" id="colormase" class="select" required>
+                                        <label for="colormaseE" class="mostrarSelect" >Color<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+                                        <select name="colormas" id="colormaseE" class="select" required>
                                             <option value="" disabled default>seleccione uno</option>
                                             <option value="rojizo">Rojizo</option>
                                             <option value="naranja">Naranja</option>
@@ -147,12 +145,12 @@
                                     </div>
                                  
                                     <div class="dato">
-                                        <label for="marcasmase" class="bold">Marcas distintivas: </label>
-                                        <textarea name="marcasmas" id="marcasmase" cols="30" class="input-mascota" rows="2" required></textarea>
+                                        <label for="marcasmaseE" class="bold">Marcas distintivas: </label>
+                                        <textarea name="marcasmas" id="marcasmaseE" cols="30" class="input-mascota" rows="2" required></textarea>
                                     </div>
                                     <div class="dato">
-                                        <label for="accesoriosmase" class="bold">Accesorios: </label>
-                                        <textarea name="accesoriosmas" id="accesoriosmase" cols="30" class="input-mascota" rows="2" required></textarea>
+                                        <label for="accesoriosmaseE" class="bold">Accesorios: </label>
+                                        <textarea name="accesoriosmas" id="accesoriosmaseE" cols="30" class="input-mascota" rows="2" required></textarea>
                                     </div>
     
     
@@ -161,13 +159,13 @@
                                 </div>
                                 <div class="col2">
                                     <div class="dato">
-                                        <label for="enfermedadesmase" class="bold">Enfermedades: </label>
-                                        <textarea name="enfermedadesmas" id="enfermedadesmase" cols="30"  class="input-mascota" rows="2" ></textarea>
+                                        <label for="enfermedadesmaseE" class="bold">Enfermedades: </label>
+                                        <textarea name="enfermedadesmas" id="enfermedadesmaseE" cols="30"  class="input-mascota" rows="2" ></textarea>
                                     </div>
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
-                                        <label for="esterilizacionmase" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
-                                        <select name="esterilizacionmas" id="esterilizacionmase"  class="select"  required >
+                                        <label for="esterilizacionmaseE" class="mostrarSelect">Esterilizacion<i class="fa-solid fa-caret-down mostrarSelect-flecha" style="color: #000; "></i></label></div>
+                                        <select name="esterilizacionmas" id="esterilizacionmaseE"  class="select"  required >
                                             <option value="sí">Sí</option>
                                             <option value="no">No</option>
     
@@ -178,8 +176,8 @@
                                  
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
-                                            <label for="localidadese" class="mostrarSelect">Localidad de extravío</label></div>
-                                            <select name="localidadEncuentro" id="localidadese" class="select" required>
+                                            <label for="localidadeseE" class="mostrarSelect">Localidad de extravío</label></div>
+                                            <select name="localidadEncuentro" id="localidadeseE" class="select localidadese" required>
                                                     <option value="" default disabled>Localidad de extravío</option>
                                                     <option value="usaquen">Usaquén</option>
                                                     <option value="chapinero">Chapinero</option>
@@ -208,21 +206,21 @@
                                 
                                     <div class="dato-select">
                                         <div class="label-selectMultiple">
-                                            <label for="barriose" class="mostrarSelect">Barrio de extravío</label></div>
-                                            <select name="barrioEncuentro" id="barriose" class="select" required>
+                                            <label for="barrioseE" class="mostrarSelect">Barrio de encuentro</label></div>
+                                            <select name="barrioEncuentro" id="barrioseE" class="select" required>
                                                 <option>Seleccione un barrio</option>
                                             </select>
                                     </div>
     
                                 
                                 <div class="dato">
-                                    <label for="fechaEncuentroe" class="bold">Fecha de extravío: </label>
+                                    <label for="fechaEncuentroe" class="bold">Fecha de encuentro: </label>
                                     <input type="date" name="fechaEncuentro"  id="fechaEncuentroe" class="input-mascota" required>
                                 </div>
     
                                 <div class="dato">
-                                    <label for="horaEncuentroe" class="bold">Hora de extravío: </label>
-                                    <input type="time" name="horaEncuentroe"  id="horaEncuentroe" class="input-mascota" required>
+                                    <label for="horaEncuentroe" class="bold">Hora de encuentro: </label>
+                                    <input type="time" name="horaEncuentro"  id="horaEncuentroe" class="input-mascota" required>
                                 </div>
     
         
@@ -246,16 +244,16 @@
     
                                 <div class="dato">
                                     <p  class="bold">Nombre: </p>
-                                    <p id="nombreDueñoe"></p>
+                                    <p id="nombreDueñoeE"></p>
                                 </div>
                                 <div class="dato">
                                     <p  class="bold">Numero de telefono: </p>
-                                    <p id="numeroDueñoe"></p>
+                                    <p id="numeroDueñoeE"></p>
                                 </div>
     
                                 <div class="dato">
                                     <p  class="bold">Correo Electronico: </p>
-                                    <p id="correoDueñoe"></p>
+                                    <p id="correoDueñoeE"></p>
                                 </div>
     
                                 <input type="submit" class="btn" value="Actualizar">

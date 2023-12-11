@@ -7,8 +7,15 @@
         <input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
 
         <div class="info-usuario">
-            <div class="img-usuario">
-            <img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
+            <div class="img-nom-usuario">
+                <div class="img-usuario-contenedor">
+                    {% if publicacion.id_usuario.perfil.imagen %} 
+                    <img src="{{ publicacion.id_usuario.perfil.imagen.url }}" class="img-usuario">
+                {% else %} 
+                <img src="{% static 'img/fotoperfil.jpg' %}" class="img-usuario">
+          
+                {% endif %}
+            </div>
             <a href="{% url 'perfil' publicacion.id_usuario.id %} "><h5>{{ publicacion.id_usuario.username }}</h5></a></div>
             <div id="iconosPubli">
 
@@ -79,37 +86,37 @@
                 
                     <div class="dato">
 
-                        <p class="bold">Nombre: </p>
-                        <p> {{ publicacion.id_mascota.nombremas }}</p>
+                        <label class="bold">Nombre: </label>
+                        <label> {{ publicacion.id_mascota.nombremas }}</label>
                     </div>
                     <div class="dato">
 
-                        <p class="bold">Raza: </p>
-                        <p> {{ publicacion.id_mascota.razamas }}</p>
+                        <label class="bold">Raza: </label>
+                        <label> {{ publicacion.id_mascota.razamas }}</label>
                     </div>
                     <div class="dato">
 
-                        <p class="bold">Color: </p>
-                        <p> {{ publicacion.id_mascota.colormas }}</p>
+                        <label class="bold">Color: </label>
+                        <label> {{ publicacion.id_mascota.colormas }}</label>
                     </div>
                 
                 
                     <div class="dato">
 
-                        <p class="bold">Fecha extravío: </p>
-                        <p>{{ publicacion.fechaExtravio }}</p>
+                        <label class="bold">Fecha extravío: </label>
+                        <label>{{ publicacion.fechaExtravio }}</label>
                     </div>
 
                     <div class="dato">
 
-                        <p class="bold">Barrio de extravío: </p>
-                        <p>{{ publicacion.barrioExtravio }}</p>
+                        <label class="bold">Barrio de extravío: </label>
+                        <label>{{ publicacion.barrioExtravio }}</label>
                     </div>
 
                     <div class="dato">
 
-                        <p class="bold">Localidad extravío: </p>
-                        <p>{{ publicacion.localidadExtravio }}</p>
+                        <label class="bold">Localidad extravío: </label>
+                        <label>{{ publicacion.localidadExtravio }}</label>
                     </div>
                 
                 <a class="btn btnVerPubli verPubli">Ver mascota</a>

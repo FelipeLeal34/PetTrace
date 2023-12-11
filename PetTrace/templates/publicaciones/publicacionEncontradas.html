@@ -7,8 +7,15 @@
         <input type="hidden" value="{{ publicacion.id_publicacion }}" class="idPubli">
 
         <div class="info-usuario">
-            <div class="img-usuario">
-            <img src="{% static 'img/fotoperfil.jpg' %}" id="img-usuario">
+            <div class="img-nom-usuario">
+                <div class="img-usuario-contenedor">
+                    {% if publicacion.id_usuario.perfil.imagen %} 
+                    <img src="{{ publicacion.id_usuario.perfil.imagen.url }}" class="img-usuario">
+                {% else %} 
+                <img src="{% static 'img/fotoperfil.jpg' %}" class="img-usuario">
+          
+                {% endif %}
+            </div>
             <a href="{% url 'perfil' publicacion.id_usuario.id %} "><h5>{{ publicacion.id_usuario.username }}</h5></a></div>
             <div id="iconosPubli">
                 {% if user.is_authenticated %}
@@ -79,38 +86,38 @@
 
                     <div class="dato">
 
-                        <p class="bold">Especie: </p>
-                        <p> {{ publicacion.id_mascota.especiemas }}</p>
+                        <label class="bold">Especie: </label>
+                        <label> {{ publicacion.id_mascota.especiemas }}</label>
                     </div>
                     <div class="dato">
 
-                        <p class="bold">Raza: </p>
-                        <p> {{ publicacion.id_mascota.razamas }}</p>
+                        <label class="bold">Raza: </label>
+                        <label> {{ publicacion.id_mascota.razamas }}</label>
                     </div>
                     <div class="dato">
 
-                        <p class="bold">Color: </p>
-                        <p> {{ publicacion.id_mascota.colormas }}</p>
+                        <label class="bold">Color: </label>
+                        <label> {{ publicacion.id_mascota.colormas }}</label>
                     </div>
                 </div>
 
                 <div class="col2">
                     <div class="dato">
 
-                        <p class="bold">Fecha de encuentro: </p>
-                        <p>{{ publicacion.fechaEncuentro }}</p>
+                        <label class="bold">Fecha de encuentro: </label>
+                        <label>{{ publicacion.fechaEncuentro }}</label>
                     </div>
 
                     <div class="dato">
 
-                        <p class="bold">Barrio de encuentro: </p>
-                        <p>{{ publicacion.barrioEncuentro }}</p>
+                        <label class="bold">Barrio de encuentro: </label>
+                        <label>{{ publicacion.barrioEncuentro }}</label>
                     </div>
 
                     <div class="dato">
 
-                        <p class="bold">Localidad encuentro: </p>
-                        <p>{{ publicacion.localidadEncuentro }}</p>
+                        <label class="bold">Localidad encuentro: </label>
+                        <label>{{ publicacion.localidadEncuentro }}</label>
                     </div>
                 </div>
                 <a class="btn btnVerPubli verPubli">Ver mascota</a>

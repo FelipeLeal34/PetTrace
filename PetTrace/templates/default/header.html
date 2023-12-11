@@ -11,29 +11,28 @@
                 <img src="{% static 'img/LogoPetTraceBorde.png' %}">
             </a>
         </div>
-        {% if not user.is_authenticated %}
-
-        <div id="botonesIngreso">
-            <i class="fa-solid fa-user-plus"><a href="{% url 'registrar' %}">Registrarse</a></i>
-            <i class="fa-solid fa-right-to-bracket"><a href="{% url 'login' %}">Iniciar sesión</a></i>
-        </div>
-
-        {% else %}
-
         <label for="checkbox"><i class="fa-solid fa-bars" style="color: #fff; font-size: 25px;"></i></label>
     </div>
     <input type="checkbox" id="checkbox">
     <nav>
         <ul>
-            
+            {% if user.is_authenticated %}
             <li>
+                <div id="fotoperfilusu">
                 <div id="fotoperfil">
-                    <a href="{% url 'perfil' request.user.id %}">
+                    <a href="{% url 'perfil' request.user.id %}"> 
                         <div class="contImg">
-                            <img src="{{ user.perfil.imagen.url }}" class="imgperfil">
+                             {% if user.perfil.imagen %} 
+                            <img src="{{ user.perfil.imagen.url }}" alt="" class="imgperfil">
+                            {% else %} 
+                            <img src="{% static 'img/fotoperfil.jpg' %}" alt="" class="imgperfil">
+
+                            {% endif %}
                         </div>
                     </a>
                 </div>
+                <h3 style="margin-top: 3px;"><i>{{ user.username }}</i></h3>
+            </div>
             </li>
             <li class="li">
                 <i class="fa-solid fa-user fa-lg"></i>

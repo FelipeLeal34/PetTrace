@@ -113,8 +113,6 @@ inputSubir.addEventListener("change", mostrarVistaPrevia);
 
 
 
-
-
   // Obtener los botones de cerrar por sus id
   let cerrar1 = document.getElementById("close1");
   let cerrar2 = document.getElementById("close2");
@@ -142,12 +140,7 @@ inputSubir.addEventListener("change", mostrarVistaPrevia);
       }
   });
 
-});
-
-
-});
-
-
+})
 
 
 const labelApartados = document.querySelectorAll(".apartados-a-perfil");
@@ -189,99 +182,3 @@ function actualizarCarrusel(apartadoActual) {
 }
 
 
-
-
-/* publis.forEach( publi => {
-	publi.addEventListener("click",e =>{
-
-
-		
-		var idpubli = e.target.closest(".publi").getAttribute("data-id");
-		
-
-		const url = `/informacionPubli/${idpubli}/`
-
-		
-
-		fetch(url,{
-			method: "GET",
-		})
-		.then(response => response.json())
-		.then(publicacion => {
-
-
-			// ---------CONSULTA PARA LA VENTANA MODELO------------------
-
-
-			document.getElementById("img2m").src = publicacion.data.mascota.img2;
-			document.getElementById("img3m").src = publicacion.data.mascota.img3;
-			document.getElementById("img4m").src = publicacion.data.mascota.img4;
-			document.getElementById("img5m").src = publicacion.data.mascota.img5;
-
-			
-			document.getElementById("nombremasm").textContent = publicacion.data.mascota.nombremas;
-			document.getElementById("especiemasm").textContent = publicacion.data.mascota.especiemas;
-			document.getElementById("razamasm").textContent = publicacion.data.mascota.razamas;
-			document.getElementById("tamañomasm").textContent = publicacion.data.mascota.tamañomas;
-			document.getElementById("sexomasm").textContent = publicacion.data.mascota.sexomas;
-			document.getElementById("colormasm").textContent = publicacion.data.mascota.colormas;
-			document.getElementById("edadmasm").textContent = publicacion.data.mascota.edadmas;
-			document.getElementById("marcasmasm").textContent = publicacion.data.mascota.marcasmas;
-			document.getElementById("accesoriosmasm").textContent = publicacion.data.mascota.accesoriosmas;
-			document.getElementById("enfermedadesmasm").textContent = publicacion.data.estado_salud.enfermedadesmas;
-			document.getElementById("esterilizacionmasm").textContent = publicacion.data.estado_salud.esterilizacionmas;
-			document.getElementById("medicamentosmasm").textContent = publicacion.data.estado_salud.medicamentosmas;
-			document.getElementById("vacunasmasm").textContent = publicacion.data.estado_salud.vacunasmas;
-			document.getElementById("localidadExtraviom").textContent = publicacion.data.publicacion.localidadExtravio;
-			document.getElementById("barrioExtraviom").textContent = publicacion.data.publicacion.barrioExtravio;
-
-			 let fechaExtraviom = new Date(publicacion.data.publicacion.fechaExtravio)
-
-			const configuracionHora = {
-				year: 'numeric',
-				month: 'long',
-				day: 'numeric',
-				hour: 'numeric',
-				minute: 'numeric',
-				second: 'numeric',
-				hour12: true,
-				timeZone: 'America/Bogota',
-			  };
-
-			document.getElementById("fechaExtraviom").textContent = fechaExtraviom.toLocaleString('es-CO',configuracionHora); 
-			document.getElementById("fechaExtraviom").textContent = publicacion.data.publicacion.fechaExtravio; 
-			document.getElementById("horaExtraviom").textContent = publicacion.data.publicacion.horaExtravio; 
-
-			document.getElementById("recompensam").textContent = publicacion.data.publicacion.recompensa;
-			
-			document.getElementById("nombreDueño").textContent = publicacion.data.usuario.nombre;
-			document.getElementById("telefonoDueño").textContent = publicacion.data.usuario.telefono;
-			document.getElementById("correoDueño").textContent = publicacion.data.usuario.email;
-			
-			
-
-		})
-		
-
-	//let idpubli = e.target.parentNode.children[0].value;
-	
-		publiModal.style.display = "flex";
-		contenedorPubliModal[3].style.display = "flex";
-
-	
-
-		btnCerrar.addEventListener("click",()=>{
-		publiModal.style.display = "none";
-	
-		contenedorPubliModal[3].style.display = "none";
-	
-		
-		});
-
-
-	
-		
-	
-});
-
-}); */

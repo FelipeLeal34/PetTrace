@@ -29,8 +29,10 @@
 
 
 
-				<section class="contenedor-modelo-adopciones">
+				<section id="contenedor-modelo-agregarAdopciones" class="">
 					<form method="POST" action="{% url 'agregarPubli' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
+
+						<input type="hidden" name="apartado" class="nombreApartado" value="adopciones">
 
 						{% csrf_token %}
 
@@ -212,18 +214,18 @@
 
 													<div class="dato">
 														<label for="personalidadmas" class="bold">Personalidad: </label>
-														<textarea name="personalidadmas" class="input-mascota" id="personalidadmas" cols="30"  rows="2" placeholder="Personalidad de la mascota" required></textarea>
+														<textarea name="personalidadmas" class="input-mascota" id="personalidadmas"  cols="30"  rows="2" maxlength="50" placeholder="Personalidad de la mascota" required></textarea>
 													</div>
 
 
 													<div class="dato">
 														<label for="entrenamientomas" class="bold">Entrenamiento: </label>
-														<textarea name="entrenamientomas" class="input-mascota" id="entrenamientomas" cols="30"  rows="2" placeholder="¿La mascota cuenta con algún entrenamiento" required></textarea>
+														<textarea name="entrenamientomas" class="input-mascota" id="entrenamientomas" cols="30" maxlength="150"  rows="2" placeholder="¿La mascota cuenta con algún entrenamiento" required></textarea>
 													</div>
 
 													<div class="dato">
 														<label for="socializacionmas" class="bold">Socialización: </label>
-														<textarea name="socializacionmas" class="input-mascota" id="socializacionmas" cols="30"  rows="3" placeholder="Como se lleva la mascota con las personas, niños y otras mascotas?" required></textarea>
+														<textarea name="socializacionmas" class="input-mascota" id="socializacionmas" cols="30" maxlength="150"  rows="3" placeholder="Como se lleva la mascota con las personas, niños y otras mascotas?" required></textarea>
 													</div>
 												
 
@@ -368,8 +370,9 @@
 
 				
 
-				<main class="main ">
+				<main>
 
+					<div class="main">
 
 
 					
@@ -385,16 +388,26 @@
 					
 					<div class="publicaciones">
 
-						{% for publicacion in publicaciones %}
-						
-							{% include 'publicaciones/publicacionAdopciones.html' %}
+						{% if publicaciones|length == 0 %}
 
-						{% endfor %}
+					
+							<h1 class="titulosApartados">¡No hay publicaciones que coincidan con tu busqueda!</h1>
+
+
+						{% else %}
+
+							{% for publicacion in publicaciones %}
+
+								{% include 'publicaciones/publicacionAdopciones.html' %}
+
+							{% endfor %}
+
+						{% endif %}
 
 					
 					</div>
 
-
+				</div>
 
 				</main>
 

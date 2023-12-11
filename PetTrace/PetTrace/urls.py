@@ -44,6 +44,8 @@ urlpatterns = [
     path('prueba/', prueba, name='prueba'),
     path('agregarPubli', agregarPubli, name='agregarPubli' ),
     path('informacionPubli/<int:id_publicacion>/', informacionPubli, name='informacionPubli' ),
+    path('agregarComentario/<int:id_publicacion>/', agregarComentario, name='agregarComentario' ),
+    path('cargarComentarios/<int:id_publicacion>/', cargarComentarios, name='cargarCOmentarios' ),
     path('editarPubli/<int:id_publicacion>/', editarPubli, name='editarPubli' ),
     path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli'),
     path('agregarFav/<int:id_publicacion>/', agregarFav ),

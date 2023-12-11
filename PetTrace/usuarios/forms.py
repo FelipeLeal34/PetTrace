@@ -74,6 +74,15 @@ class PubliMascotaAdopcionForm(forms.ModelForm):
 
 
 
+class comentarioForm(forms.ModelForm):
+
+    class Meta:
+        model = Comentario
+        fields = ['comentario']
+
+
+
+
 
 class UserRegisterForm(forms.ModelForm):
     class Meta:

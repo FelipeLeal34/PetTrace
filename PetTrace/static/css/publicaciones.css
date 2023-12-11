@@ -41,6 +41,8 @@
 
 
 
+
+
 .btn{
 	margin-left: auto;
 	margin-right: auto;
@@ -81,7 +83,12 @@
 
 
 
-
+.titulosApartados{
+	color: #74868a; 
+	background-color: none; 
+	text-align: center;
+	width: 100%;
+}
 
 /** ----- PUBLICACIONES ------ **/
 
@@ -90,7 +97,7 @@
 /* ----------CONTENEDOR DE LAS PUBLICAICONES */
 main{
 	width: 100%;
-	height: auto;
+	height: 100%;
 	background: #FAF9FA;
 	
 }
@@ -102,12 +109,11 @@ main{
 	position: static;
 	/* flex-direction: column; */
 	text-align: center;
-
 	padding-top: 70px;
 	padding-bottom: 100px;
 	width: 100%;
-	
 	height: 100%;
+	
 }
 
 
@@ -123,11 +129,12 @@ main{
 	display: flex;
 	margin: auto;
 	width: 100%;
-	
+	align-items: center;
 	cursor: pointer;
 	
 	border-radius: 8px;
 	padding: 5px;
+
 	z-index: 1000;
 
 }
@@ -136,7 +143,7 @@ main{
 	display: none;
 	position: absolute;
 	width: auto;
-	max-width: 500px;
+	max-width: 200px;
 	height: auto;
 	
 	background: #74868a;
@@ -145,12 +152,13 @@ main{
 	
 	border-radius: 10px;
 	margin-top: 10px;
-	margin-left: -30px;
+	margin-left: -80px;
 	
-	font-size: 20px;
+	font-size: 15px;
 	
 	flex-direction: column;
 	padding: 5px;
+	padding-right: 8px;
 	overflow: auto;
 	max-height: 300px;
 
@@ -213,12 +221,13 @@ main{
 .publicaciones{
 	
 	display: flex;
-	padding: 0 250px;
+	padding: 0 250px 100px 250px;
 	flex-wrap: wrap;	
 	text-align: center;
 	justify-content: space-between;
 	
 	width: 100%;
+
 	height: 100%;
 
 	
@@ -250,6 +259,8 @@ main{
 }
 
 
+
+
 .img-mascota-contenedor{
 	text-align: center;
 }
@@ -262,7 +273,7 @@ main{
 	justify-content: space-between;
 }
 
-.img-usuario{
+.img-nom-usuario{
 
 	display: flex;
 	align-items: center;
@@ -281,15 +292,24 @@ main{
 
 .info-mascota{
 	display: flex;
+	width: 100%;
 	
 	
 }
 
-#img-usuario{
-	border-radius: 50%;
+
+.img-usuario-contenedor{
+
 	width: 20px;
 	height: 20px;
 	margin: 5px ;
+}
+
+.img-usuario-contenedor img{
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
 }
 
 .img-mascota-section{
@@ -322,8 +342,10 @@ main{
 	padding: 10px 15px 15px 20px;
 	width: 100%;
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	justify-content: space-between;
+	overflow-wrap: break-word;
+	white-space: normal;
 	
 }
 
@@ -351,7 +373,7 @@ main{
 	display: none;
 }
 
-#contenedor-modelo-eliminar{
+.contenedor-modelo-eliminar{
 	display: none;
 }
 
@@ -468,9 +490,7 @@ textarea{
 	object-fit: cover;
 }
 
-.carrusel-section-contenido{
-	
-}
+
 
 
 .carrusel-btn{
@@ -499,14 +519,11 @@ textarea{
 
 
 .datos-mascota{
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
+
 	text-align: left;
 	overflow-wrap: break-word;
-	padding: 20px;
+	padding: 20px 100px 20px 50px;
 	white-space: normal !important;
-
 
 }
 
@@ -522,13 +539,12 @@ textarea{
 
 .dato{
 
-	display: flex;
-	align-items: center;
-	flex-wrap: wrap;
+
 	margin-bottom: 7px;
 	width: 100%;
 	overflow-wrap: break-word;
 	white-space: normal !important;
+	text-align: left;
 
 
 }
@@ -536,12 +552,6 @@ textarea{
 
 
 
-
-.valorm{
-	overflow-wrap: break-word;
-	white-space: normal !important;
-
-}
 
 #publi-modelo .datos-mascota{
 	justify-content: space-between;
@@ -568,7 +578,6 @@ textarea{
 
 .bold{
 	font-weight: bold;
-	padding-right: 5px;
 }
 
 .datos-contacto-contenedor{
@@ -814,6 +823,105 @@ textarea{
 }
 
 
+.comentarios{
+	width: 100%;
+	height: auto;
+	position: relative;
+
+
+}
+
+.comentarios-contenedor{
+	width: 100%;
+	height: 100%;
+	max-height: 500px;
+	overflow-y: scroll;
+	padding-bottom: 80px;
+}
+
+.comentario{
+	width: auto;
+	max-width: 50%;
+	height: auto;
+	color: #fff;
+
+	background-color: #74868a;
+	margin: 10px;
+	border-radius: 20px;
+	
+}
+
+.comentario a{
+	text-decoration: none;
+	color: #fff;
+}
+
+.comentario a:hover{
+	text-decoration: underline;
+}
+
+.comentario-info{
+	display: flex;
+	align-items: center;
+	padding-left: 5px;
+
+}
+
+.comentario-texto{
+	overflow-wrap: break-word;
+	padding: 0px 10px 10px 10px;
+
+	width: 100%;
+	text-align: left;
+
+}
+
+.fechacom{
+	display: flex;
+	justify-content: flex-end;
+	padding: 0 6px 5px 0;
+}
+
+.fechacomen{
+	font-size: 12px;
+	color: #fff;
+}
+
+.comentarios-form{
+	height: 20px;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	padding: 30px;
+	bottom: 0;
+	position: absolute;
+	align-items: center;
+	border-top: 1px solid #000;
+	background-color: #fbf7f6
+
+
+
+}
+
+.comentario-input{
+	border-radius: 20px;
+	padding: 15px;
+	height: auto;
+	min-height: 30px;
+	max-height: 40px;
+
+	width: 50%;
+
+	margin: 0 8px 0 5px ;
+	border: 1px solid #587073;
+
+}
+
+.enviar-comentario{
+	display: none;
+}
+
+
 
 
 
@@ -825,6 +933,9 @@ textarea{
 	.publi-modelo-estilo{
 		width: 80%;
 	}
+
+
+	
 
 	#filtros{
 	
@@ -863,7 +974,7 @@ textarea{
 		position: absolute;
 	
 		margin-top: -300px;
-		margin-left: -15%;
+		margin-left: 5%;
 		
 		width: 100%;
 		max-width: 500px;
@@ -877,7 +988,7 @@ textarea{
   
   @media (max-width: 768px) {
 	.publicaciones{
-		padding: 0 80px;
+		padding: 0 35px;
 	}
 
 	.publi-modelo-estilo{
@@ -892,22 +1003,29 @@ textarea{
 		
 		justify-content: space-between;
 		width: 100%;
-		
-		
-		
-	}
+			
+		}
 
-	#filtros{
-	
-		position: absolute;
-	
-		margin-top: -300px;
-		margin-left: -15%;
-		
-		width: 100%;
-		max-width: 500px;
-		height: auto;
-		max-height: 500px;
-	
-	}
+		.datos-mascota{
+			padding-left: 20px ;
+			padding-right: 20px;
+			}
+
+		.col1,.col2{
+			width: 100%;
+		}
+
+		.comentario{
+			max-width: 70%;
+		}
+
+		.comentario-input{
+			width: 80%;
+		}
+ 
+		.publi-modelo-estilo{
+			max-height: 70%;
+		}
+
+
   }

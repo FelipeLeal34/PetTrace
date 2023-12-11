@@ -22,8 +22,10 @@
     {% include 'publicaciones/ventanaModalEncontradas.html' %}
 
 
-    <section class="contenedor-modelo-encontradas">
+    <section id="contenedor-modelo-agregarEncontradas" class="">
         <form method="POST" action="{% url 'agregarPubli' %}" id="agregarPubli" class=" publi-modelo-estilo" enctype="multipart/form-data">
+
+            <input type="hidden" name="apartado" class="nombreApartado" value="encontradas">
 
             {% csrf_token %}
 
@@ -332,7 +334,9 @@
 
     
 
-    <main class="main ">
+    <main>
+
+        <div class="main">
 
 
 
@@ -352,15 +356,24 @@
         
         <div class="publicaciones">
 
-            {% for publicacion in publicaciones %}
+            {% if publicaciones|length == 0 %}
+					
+							<h1 class="titulosApartados">¡No hay publicaciones que coincidan con tu busqueda!</h1>
 
-                {% include 'publicaciones/publicacionEncontradas.html' %}
 
-            {% endfor %}
+						{% else %}
+
+							{% for publicacion in publicaciones %}
+
+								{% include 'publicaciones/publicacionEncontradas.html' %}
+
+							{% endfor %}
+
+						{% endif %}
 
         </div>
 
-
+    </div>
 
     </main>
 

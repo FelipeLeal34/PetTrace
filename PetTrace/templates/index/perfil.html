@@ -27,12 +27,17 @@
    {% include 'default/header.html' %}
 
    {% include 'publicaciones/ventanaModalPerdidas.html' %}
-   {% include 'publicaciones/ventanaModalEncontradas.html' %}
-   {% include 'publicaciones/ventanaModalAdopciones.html' %}
-
    {% include 'publicaciones/editarPubliPerdidas.html' %}
+
+   {% include 'publicaciones/ventanaModalEncontradas.html' %}
    {% include 'publicaciones/editarPubliEncontradas.html' %}
+
+   {% include 'publicaciones/ventanaModalAdopciones.html' %}
    {% include 'publicaciones/editarPubliAdopciones.html' %} 
+
+
+
+   {% include 'publicaciones/eliminarPubli.html' %} 
 
 
    
@@ -41,7 +46,12 @@
             
             <div id="contenido">
                 <div id="contImg">
-                    <img src="{% static 'img/fotoperfil.jpg' %}" id="imgperfil" data-modal="modal1">
+                  {% if usuario.perfil.imagen %} 
+                  <img src="{{ usuario.perfil.imagen.url }}" id="imgperfil" data-modal="modal1">
+                  {% else %} 
+                  <img src="{% static 'img/fotoperfil.jpg' %}" id="imgperfil" data-modal="modal1">
+
+                  {% endif %}
                 </div>
                 <div id="informacion-perfil">
                   <div id="perfil">
@@ -252,7 +262,12 @@
     </div>
     
     <div id="modal-content" class="modal">
-      <img src="{{ usuario.perfil.imagen.url }}" id="imgperfil-modal">
+      {% if usuario.perfil.imagen %} 
+                  <img src="{{ usuario.perfil.imagen.url }}" id="imgperfil" data-modal="modal1">
+                  {% else %} 
+                  <img src="{% static 'img/fotoperfil.jpg' %}" id="imgperfil" data-modal="modal1">
+
+                  {% endif %}
       <span class="close" id="close2">&times;</span>
     </div>
     <!-- Este es el DIV para cambiar la imagen de perfil -->
@@ -262,7 +277,7 @@
         <h1>Cambiar imagen de perfil</h1>
         <hr>
         <div class="formularioPerfil">
-          <form id="perfilForm" method="POST" enctype="multipart/form-data" action="{% url 'perfil' %}">
+          <form id="perfilForm" method="POST" enctype="multipart/form-data" action="{% url 'perfil' request.user.id %}">
             <img src="{% static 'img/subirImg.png' %}" id="imgsubir" />
             {% csrf_token %}
             <div style="display: none;">
@@ -288,7 +303,7 @@
        
     <script src="{% static 'js/perfil.js' %}"></script>
     
-    <script type="module" src="{% static 'js/perdidas.js' %}"></script>
+
     <script type="module" src="{% static 'js/publicaciones.js' %}"></script>
     <!-- <script type="module" src="{% static 'js/perdidas.js' %}"></script> -->
         </body>

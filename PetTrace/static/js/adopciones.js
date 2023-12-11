@@ -11,7 +11,8 @@ const barrios=listaBarrios();
 
 const publis = document.querySelectorAll(".verPubli");
 const publiModal = document.getElementById("publi-modelo");
-const contenedorPubliModal = document.querySelectorAll(".contenedor-modelo-adopciones");
+const contenedorModal = document.getElementById("contenedor-modelo-agregarAdopciones");
+
 
 
 //  ELEMENTOS PARA EDITAR PUBLICACION
@@ -232,14 +233,15 @@ function mostrarFormularioAgregar(e){
 
 	e.preventDefault();
 
+contenedorModal.classList.add('contenedor-modelo');
 	agregarPubli.style.display = "flex";
-		contenedorPubliModal[1].classList.add('contenedor-modelo');
+		
 		btnAgregarPubli.classList.add("menu-span-focus");
 
 	btnCerrarModal.forEach( equis => {
 		equis.addEventListener("click", ()=>{
 			agregarPubli.style.display = "none";
-			contenedorPubliModal[1].classList.remove('contenedor-modelo');
+			contenedorModal.classList.remove('contenedor-modelo');
 			btnAgregarPubli.classList.remove("menu-span-focus");
 			
 	
@@ -255,6 +257,7 @@ function mostrarFormularioAgregar(e){
 	}
 	);
 }
+
 
 
 
@@ -279,20 +282,9 @@ inputs.forEach(input => {
 	input.addEventListener("change", e =>{
 		
 		let idCompleto = input.id;
-		let ultimosDosDigitos = idCompleto.slice(-2);
-		var id;
 
-		if(ultimosDosDigitos>0){
-
-			id = ultimosDosDigitos;
-
-		} else{
+		var id = idCompleto.slice(-1);
 			
-			id = idCompleto.slice(-1);
-			
-		}
-
-	
 		if(e.target.files[0]) {
 			const reader = new FileReader();
 			reader.onload = function (e) {
@@ -328,6 +320,8 @@ inputs.forEach(input => {
 
 
 	})
+
+
 
 
 
