@@ -27,18 +27,13 @@ from django.conf import settings
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', index, name='index'),
-    path('perfil/', perfil, name='perfil'),
-    path("editar-descripcion/", views.editar_descripcion, name='editar_descripcion'),
-    path('editar-usuario/', editar_usuario, name='editar_usuario'),
+    path('perfil/<int:user_id>/', views.perfil, name='perfil'),
+    path('editar-usuario/<int:user_id>/', views.editar_usuario, name='editar_usuario'),
+    path('redirect-to-profile/', redirect_to_user_profile, name='redirect_to_user_profile'),
     path('perdidas/', perdidas, name='perdidas'),
     path('registrar/', views.registrar, name='registrar'),
     path('login/', LoginView.as_view(template_name='login/inicioSesion.html'), name='login'),
     path('logout', auth_views.LogoutView.as_view(template_name='index/perdidas.html'), name='logout'),
-    path('reset/', views.reset, name='reset'),
-    path('resetHecho/', views.resetHecho, name='resetHecho'),
-    path('resetEmail/', views.resetEmail, name='resetEmail'),
-    path('resetConfirm/', views.resetConfirm, name='resetConfirm'),
-    path('resetComplete/', views.resetComplete, name='resetComplete'),
     path('prueba/', prueba, name='prueba'),
     path('agregarPubli', agregarPubliPerdidas, name='agregarPubliPerdidas' ),
     path('informacionPubli/<int:id_publicacion>/', informacionPubli, name='informacionPubli' ),
@@ -46,6 +41,5 @@ urlpatterns = [
     path('eliminarPubli/<int:id_publicacion>/', eliminarPubli, name='eliminarPubli' ),
     path('encontradas/', encontradas, name='encontradas' ),
     path('agregarPubliEncontradas/', agregarPubliEncontradas, name='agregarPubliEncontradas' ),
-
 
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT )

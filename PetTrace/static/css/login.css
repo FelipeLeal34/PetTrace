@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 body {
     font-family: 'Roboto', sans-serif;
+    background-image: url(../img/fondo.png);
 }
 
 /*Diseño de logo*/
@@ -20,11 +21,13 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 auto; 
-  width: 80%; 
+  width: 40%; 
   padding: 50px;
   margin-top: 10px;
   border-radius: 20px;
-  box-shadow: 10px 10px 30px 10px grey;
+  box-shadow: 10px 10px 30px 10px #83c4be;
+  background-color: #dbfff7;
+
 }
 
 #img {
@@ -99,16 +102,16 @@ input[type="password"]{
 }
 
 .inputGrupo input {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 100%;
-    padding: 0.8em;
-    outline: none;
-    border: 2px solid rgb(200, 200, 200);
-    background-color: transparent;
-    border-radius: 20px;
-    width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100%;
+  padding: 0.8em;
+  outline: none;
+  border: 2px solid rgb(18 179 202);
+  background-color: white;
+  border-radius: 20px;
+  width: 80%;
   }
 
 .inputGrupo :is(input:focus, input:valid) {
@@ -292,8 +295,12 @@ input[type="submit"] {
 }
 
 @media screen and (max-width:1023px) {
+  #imglogo{
+    width: 90%;
+  }
   #content{
-    max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
   }
   form{
     display: block;
@@ -313,8 +320,6 @@ input[type="submit"] {
     font-size: 100%;
     padding: 0.8em;
     outline: none;
-    border: 2px solid rgb(200, 200, 200);
-    background-color: transparent;
     border-radius: 20px;
     width: 100%;
   }

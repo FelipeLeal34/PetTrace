@@ -10,7 +10,7 @@ header{
 
 header nav ul{
 	height: calc(100vh - 5vh);
-	margin-top: 20px;
+	margin-top: 0;
 }
 
 body{
@@ -294,6 +294,9 @@ main{
 	}
 	header{
 		margin-top: -75px;
+	}
+	header nav ul{
+		margin-top: 0;
 	}
 	main{
 		margin-top: 75px;	

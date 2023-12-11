@@ -112,13 +112,19 @@ class UserLoginForm(forms.ModelForm):
     class Meta:
         model = Usuario
         fields = ['documento', 'password']
-        widgets = { 'documento': forms.NumberInput() }
+        widgets = {
+            'documento': forms.NumberInput(attrs={'type': 'number', 'min': '0'}),
+        }
+    
     
 
 class PerfilForm(forms.ModelForm):
     class Meta:
         model = Perfil
         fields = ['imagen']
+        widgets = {
+            'imagen': forms.FileInput(attrs={'id': 'id_imagen'}),
+        }
 
     def clean_imagen(self):
         imagen = self.cleaned_data.get('imagen')

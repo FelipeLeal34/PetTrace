@@ -126,7 +126,7 @@
                         {% if messages %}
                             {% for message in messages %}
                             <div class="notificacion {{ message.tags }}">
-                                {{ message }}
+                                
                             </div>
                             {% endfor %}
                         {% endif %}
@@ -135,7 +135,6 @@
                         <input type="submit" value="Registrarse">
                     </div>
                     <div>
-                        <a href="">¿Has olvidado tu contraseña?</a>
                     </div>
                     <div>
                     <a href="{% url 'login' %}">Ya tengo cuenta</a>

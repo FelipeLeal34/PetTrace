@@ -314,54 +314,49 @@ def login(request):
         # Pasar el formulario y el contexto al renderizar la plantilla
         return render(request, 'login/inicioSesion.html', {'form': form, **context})
 
+@login_required
+def redirect_to_user_profile(request):
+    # Redirigir a la URL de perfil del usuario usando el ID
+    return redirect('perfil', user_id=request.user.id)
 
 @login_required
-def perfil(request):
-     if request.method == 'POST':
-        form = PerfilForm(request.POST, request.FILES, instance=request.user.perfil)
+def perfil(request, user_id):
+    # Obtener el perfil del usuario con el ID proporcionado
+    perfil_usuario = get_object_or_404(Perfil, usuario__id=user_id)
+    # Verificar si el usuario logueado está viendo su propio perfil
+    es_propio_perfil = request.user.id == int(user_id)
+
+    if request.method == 'POST' and es_propio_perfil:
+        # Solo permitir la edición si el usuario está en su propio perfil
+        form = PerfilForm(request.POST, request.FILES, instance=perfil_usuario)
         if form.is_valid():
             perfil = form.save(commit=False)
             perfil.usuario = request.user
             perfil.save()
-            # Redirigir a alguna URL de éxito, por ejemplo, la página de perfil del usuario
-            return redirect('perfil')
-     else:
-          form = PerfilForm(instance=request.user.perfil)
-     
-     return render(request, 'index/perfil.html', {'form': form})
- 
-
-
-@csrf_exempt # Esto es para evitar el error de CSRF al usar AJAX
-def editar_descripcion(request):
-    if request.method == "POST":
-        # Obtenemos el usuario y el perfil
-        usuario = request.user
-        perfil = usuario.perfil
-        # Obtenemos la nueva descripción del formulario
-        nueva_descripcion = request.POST.get("descripcion")
-        # Actualizamos el perfil con la nueva descripción
-        perfil.descripcion = nueva_descripcion
-        perfil.save()
-        # Devolvemos una respuesta JSON con el resultado
-        return JsonResponse({"success": True, "descripcion": nueva_descripcion})
+            return redirect('perfil', user_id=request.user.id)
     else:
-        # Si el método no es POST, devolvemos un error
-        return JsonResponse({"success": False, "error": "Método no permitido"})
-    
-def usuario_view(request):
-    form = UserRegisterForm()
-    context = {'form': form}
-    return render(request, 'usuario.html', context)
+        # Crear el formulario con el perfil del usuario que se está visualizando
+        form = PerfilForm(instance=perfil_usuario) if es_propio_perfil else None
+
+    return render(request, 'index/perfil.html', {
+        'perfil': perfil_usuario,
+        'form': form,  # Pasar el formulario con el perfil correcto
+        'es_propio_perfil': es_propio_perfil  # Indicar si el usuario está viendo su propio perfil
+    })
 
 
 
-@csrf_exempt
+
 @login_required
-def editar_usuario(request):
+def editar_usuario(request, user_id):
+    usuario = request.user
+    perfil = get_object_or_404(Perfil, usuario__id=user_id)
+    # Verificar si el perfil pertenece al usuario logueado
+    if usuario.id != int(user_id):
+        # Si no es el dueño, redirigir al perfil del usuario logueado
+        return redirect('perfil', user_id=usuario.id)
+
     if request.method == "POST":
-        usuario = request.user
-        perfil = usuario.perfil
         campo_editar = request.POST.get("campo_editar")
         nuevo_valor = request.POST.get("nuevo_valor")
 
@@ -374,6 +369,10 @@ def editar_usuario(request):
             usuario.email = nuevo_valor
         elif campo_editar == "nombre_usuario":
             usuario.username = nuevo_valor
+        elif campo_editar == "localidad_barrio":
+            localidad, barrio = nuevo_valor.split(", ")
+            usuario.localidad = localidad
+            usuario.barrio = barrio
 
         perfil.save()
         usuario.save()
@@ -382,19 +381,6 @@ def editar_usuario(request):
     else:
         return JsonResponse({"success": False, "error": "Método no permitido"})
 
-
-
-
-def reset(request):
-    return render(request, 'login/resetPassword/reset.html')
-def resetHecho(request):
-    return render(request, 'login/resetPassword/resetHecho.html')
-def resetEmail(request):
-    return render(request, 'login/resetPassword/resetEmail.html')
-def resetConfirm(request):
-    return render(request, 'login/resetPassword/resetConfirm.html')
-def resetComplete(request):
-    return render(request, 'login/resetPassword/resetComplete.html')
 
 @login_required
 def agregarPubliPerdidas(request):
