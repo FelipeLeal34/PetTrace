@@ -89,7 +89,7 @@ nav a{
 
 nav li {
 	list-style: none;
-    padding: 20px;
+    padding: 15px;
     width: 100%;
     margin: 0;
     font-size: 1em;
@@ -119,8 +119,8 @@ nav li {
     /* overflow: hidden; */
     text-align: center;
     /* margin: auto; */
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
 
 }
 
@@ -164,7 +164,9 @@ footer{
 	height: 5vh;
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	margin-bottom: 0;
+	padding: 10px;
 
 }
 

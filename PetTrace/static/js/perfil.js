@@ -193,7 +193,10 @@ document.addEventListener("DOMContentLoaded", function() {
   var formularios = document.querySelectorAll('.formulario-editar');
 
   // Agregar un evento de clic a la imagen
-  imagen.addEventListener("click", function() {
+  imagen.addEventListener("click", function(e) {
+
+
+
 
       let opciones = recuadro.querySelector("#opciones")
 
@@ -207,7 +210,8 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
       let verimg = document.getElementsByClassName("categoria-filtro")[0];
-      verimg.addEventListener("click", function() {
+      verimg.addEventListener("click", function(e) {
+
           recuadro.style.display = "none";
           imgcontent.style.display = "flex";
           document.body.style.overflow = 'hidden';
@@ -223,7 +227,8 @@ let divFormulario = document.getElementById("cont_imgForm");
 
 if(subir){
     // Añadir un listener al evento de clic en el div
-    subir.addEventListener("click", function() {
+    subir.addEventListener("click", function(e) {
+
         // Disparar el evento de clic en el input
         recuadro.style.display = "none";
         divFormulario.style.display = "flex";
@@ -260,7 +265,8 @@ function mostrarVistaPrevia() {
   }
 
 if(labelSubir){
-    labelSubir.addEventListener("click", function(){
+    labelSubir.addEventListener("click", function(e){
+
         inputSubir.click();
         enviar.style.display = "inline-block";
         
@@ -327,6 +333,7 @@ if(inputSubir){
 
     //funcion para cerrar recuadro cuando se de click fuera de este
   document.addEventListener("click", function(event) {
+
       // Comprobar si el clic ocurrió fuera del menú
       if (event.target !== recuadro && !recuadro.contains(event.target) && event.target !== imagen) {
           // Cerrar el menú si se hizo clic fuera de él
@@ -346,7 +353,7 @@ let anchoApartado = publicaciones.offsetWidth;
 
 
 window.addEventListener("resize", function() {
-  location.reload()
+//   location.reload()
   anchoApartado = publicaciones.offsetWidth;
 
 });
